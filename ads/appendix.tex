@@ -1,0 +1,43 @@
+% !TeX root = ../main.tex
+
+% \appendixtoc
+\appendix
+\addcontentsline{toc}{chapter}{Appendix}
+\ohead[]{\textsc{Appendix}}
+
+% \renewcommand\thechapter{\roman{chapter}}
+% \setcounter{chapter}{0}
+
+% \pagebreak
+% \includepdf[pages=-,scale=.9,pagecommand={}]{Aufgabenstellung.pdf} 
+% PDF um 10% verkleinert einbinden --> Kopf- und Fußzeile  werden so korrekt dargestellt. Die Option `pages' ermöglicht es, eine bestimmte Sequenz von Seiten (z.B. 2-10 oder `-' für alle Seiten) auszuwählen.
+% \pagebreak
+%\includepdf[pages=-,scale=.8,pagecommand=\section*{A. eventGenerator.py}]{../appendix/eventGenerator.py.pdf}
+%\includepdf[pages=-,scale=.8,pagecommand=\section*{B. sendEvents.py}]{../appendix/sendEvents.py.pdf}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{landscape}
+    \chapter*{Details on working packages and timeline}
+    \label{sec:timeline-detail}
+    \thispagestyle{headings}
+    % \newpage
+    % \begin{table}[H]
+    %     \setlength{\tabcolsep}{7pt}
+    %     \centering
+    %     % \caption{Rough time estimation of task placement for the proposed master thesis}
+    %     % \label{tab:timeline}
+    %     % \vspace{12pt}
+    %     \scriptsize
+    %     \begin{tabularx}{25cm}[H]{|X|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    %         \hline & \multicolumn{5}{l|}{May} & \multicolumn{4}{l|}{Jun} & \multicolumn{5}{l|}{Jul} & \multicolumn{4}{l|}{Aug} & \multicolumn{4}{l|}{Sep} & \multicolumn{5}{l|}{Oct} \\ \cline{2-28}
+    %         working package & 18 & 19 & 20 & 21 & 22 & 23 & 24 & 25 & 26 & 27 & 28 & 29 & 30 & 31 & 32 & 33 & 34 & 35 & 36 & 37 & 38 & 39 & 40 & 41 & 42 & 43 & 44 \\ \hline \hline
+    %         \rowcolor{lightgray!50}1) basics & \cellcolor{dark-green!80} & & & & & & & & & & & & & & & & & & & & & & & & & &\\ \hline
+    %         & & \multicolumn{3}{l|}{\cellcolor{light-green!80}} & & & & & & & & & & & & & & & & & & & & & & &\\ \hline \hline
+    %         \rowcolor{lightgray!50} 2) literature & & & & \cellcolor{dark-green!80} & \cellcolor{dark-green!80} & & & & & & & & & & & & & & & & & & & & & &\\ \hline
+    %         2.1) state of the art & & & & & & \cellcolor{light-green!80} & & & & & & & & & & & & & & & & & & & & &\\ \hline
+    %     \end{tabularx} 
+    % \end{table}
+    \LTXtable{25cm}{images/\jobname-timetable.tex}
+\end{landscape}

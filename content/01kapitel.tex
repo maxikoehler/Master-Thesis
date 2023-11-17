@@ -1,0 +1,160 @@
+%!TEX root = ../main.tex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \setchapterpreamble[o]{\dictum[Creighton Abrams]{When eating an elephant take one bite at a time.}}
+\chapter{Motivation}
+\label{sec:einleitung}
+% Introduction to the topic, motivation and current problems. \cite{Zhan.2018,He.2022,Aaro.2011,Berg.2020}
+\acs{PEM} water electrolysis \acs{PEMWE} is regarded as one of the most promising technologies in the fields of energy generation, distribution, use, and coupling of different sectors. Due to the possible \glqq green\grqq~generation of hydrogen, CO2 emissions can be avoided. For chemical processing, hydrogen is needed in large amounts. New drivetrain concepts rely on hydrogen as fuel or synthetic fuels, made out of hydrogen and a carbon source. Not only for energy conversion and use but also for integrating renewable energy sources into our electric energy system, hydrogen is assigned a mandatory role. Storing and releasing it can buffer natural energy oversupply into wind and solar energy deficiency.
+
+Although \acs{PEMWE} is widely researched and shows a well-understood state-of-the-art, some knowledge gaps can be identified. Industrialization and mass production-related knowledge is still lacking, often combined with gaps in scientific research. Regarding that, related topics like assembly-friendly design, quality assurance, normative or industrial standardization, and legislative treatment are mandatory to understand. \todo{Which of them are relevant for us as R\&D, laying down examples}
+
+A further topic, not mainly driven in the context of industrialization, are performance issues. These can be linked to kinetic or activation energy losses, ohmic resistances in and between the cell components, and poor mass transport through the cell or respectively towards the \acs{CCM}. The \ac{PTL} is an important component and responsible for the transport of process media towards and away from the \acs{CCM}. The focus of the company Schaeffler as a stack supplier and industrializer about this component, is the understanding and optimal choice of base materials and possible surface modifications.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{State of the art}
+\label{sec:state-of-art}
+\todo{Do the literature research.}
+\textbf{Questions towards current knowledge (state-of-the-art in the thesis) as basic understanding:\todo{Are there more topics, which smaller the knowledge gap?}}
+\begin{itemize}
+    \item Are there ideas, on how an ideal and optimized \acs{PTL}1 layer has to look like? (Regards to structural appearance, ...)
+    \item Are there ideal material characteristics for PTL1 layers defined in literature? (Regarding specified characteristic values; what must the PTL1 be able to do?)
+    \item Is there an understanding of 
+    \item How can the dominating mass transport effects be manipulated? Pore size distribution, surface modifications, pore shapes, operating characteristics, ...? (Standards and understanding in literature)
+\end{itemize}
+
+\textbf{Which approaches have already been done in scientific research? What is already common knowledge?\todo{Do I need to know more?}}
+\begin{itemize}
+    \item Optimizations of PTLs for mass transport
+    \item Approaches of optimization strategies
+    \item Predicting goal values for material characteristics?
+\end{itemize}
+
+\textbf{Research topics/start-off points for further development:\todo{Do I need to know more?}}
+\begin{itemize}
+    \item Are there optimum material characteristics for fine-graded porous transport layers?
+    \item How does mass transport work in the finer porous transport materials?
+    \item Which effects dominate the water and gas transportation in porous materials (pore size of PTL1)?
+    \item How can the dominating mass transport effects be manipulated? Pore size distribution, surface modifications, pore shapes, operating characteristics, ...?
+\end{itemize}
+
+Approaches after \autocite{ullapanchenkoMassentransportphaenomeneSchichtsystemenElektrolyseurs2019,majasanCorrelativeStudyMicrostructure2019,seipCorrelatingNanostructureFeatures2023,bhaskaranLBMStudiesPore2022}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Research outline}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Assignment}
+Here is a task description of the assignment with restrictions/limitations, musts, wishes, and proposed methodology.\todo{Describe the assignment.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Objectives}
+\label{sec:questions}
+More specifically there are a few research questions derived, which further illustrate the goals and current research gaps. Rather than just naming them, background information is given to understand the interest behind and around the thesis, and to better interpret the results later on. A statement about continuing research is possible with that.\todo{Find reasonable objectives, add background knowledge and information.}
+% \textbf{Research questions can be defined as following:}
+% \begin{enumerate}
+%     \renewcommand{\labelenumi}{\theenumi}
+%     \renewcommand{\theenumi}{\bfseries \arabic{enumi})}
+%     \item Which production methods can be used to produce a composite structure between active components in a cell, including bipolar plates, porous transport layers, and if possible, catalyst coatings or catalyst-coated membranes? Is there a need for treatment before or after for the single components?
+%     \item How can a composite structure between active components, such as bipolar plates and porous transport layers, improve the performance of a PEM electrolyzer stack and/or cell, with special regard to interface resistances and stability over the lifetime?
+%     \item Is there a need or a possibility for further coatings, like the application of platinum to lower contact resistances improving the functional properties? These would be something like decreasing contact resistances, increasing catalytic activity, functionalizing hydrophilic and hydrophobic areas, stabilizing the materials against degradation or similar aspects?
+%     \item Which benefits does this advanced structure have on the mountability and tolerance management of a cell assembly? Are there any other special features to be considered regarding grouting, seal design, etc.?
+%     \item How do the economic factors of the presented method compare to the conventionally applied one?
+% \end{enumerate}
+
+\vspace{12pt}
+\begin{tcolorbox}[colback=dark-green!5!white,colframe=dark-green!75!black, toptitle=2mm, bottomtitle=2mm, top=5mm, bottom=5mm, title={\textbf{Research objective 1}}]
+    Which production methods can be used to produce a composite structure between active components in a cell, including bipolar plates, porous transport layers, and if possible, catalyst coatings or catalyst-coated membranes? Is there a need for treatment before or after for the single components?
+\end{tcolorbox}
+
+Here are some details about objective 1, why, and what linkage to the others.
+
+\vspace{12pt}
+\begin{tcolorbox}[colback=dark-green!5!white,colframe=dark-green!75!black, toptitle=2mm, bottomtitle=2mm, top=5mm, bottom=5mm, title={\textbf{Research objective 2}}]
+    How can a composite structure between active components, such as bipolar plates and porous transport layers, improve the performance of a PEM electrolyzer stack and/or cell, with special regard to interface resistances and stability over the lifetime?
+\end{tcolorbox}
+
+Here are some details about objective 2, why, and what linkage to the others.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Proceeding and working packages}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[SIR/.style={rectangle, draw=dark-green!60, fill=dark-green!5, very thick, minimum size=5mm}]
+        % nodes
+        \node[SIR]  (a)                 {part a};
+        \node[SIR]  (b) [below=of a]    {part b};
+        \node[SIR]  (c) [below=of b]    {part c};    
+        % lines
+        \draw[->, very thick] (a.south) to node[right]{line a} (b.north);
+        \draw[->, very thick] (b.south) to node[right]{line b} (c.north);
+        \draw[->, very thick] (c.east) .. controls +(right:20mm) and (right:20mm).. (a.east);
+    \end{tikzpicture}
+    \caption{Schematic, respectively logical linking between planned tasks and working packages}
+    \label{fig:tikz-test}
+\end{figure}
+\todo{Illustrate (simple) and describe (complete) methods, proceeding and resulting working packages.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Preliminary structure}
+With the presented motivation, state-of-the-art, approaches, methods and further information, the preliminary structure for the actual master thesis can be set. Concerning the limited possible content of the thesis, the following structure is proposed. The parts with cursive typeset are seen as obligatory and included when the process of the thesis is advancing.\todo{Define resulting and projected structure.}
+\vspace{6pt}
+% \newpage
+% \begin{center}
+%     \begin{tabularx}{\textwidth}[H]{|X|}
+%         \hline
+%         \vspace{-6pt}
+        \begin{enumerate}\bfseries \singlespacing \small
+            \renewcommand{\labelenumi}{\theenumi}
+            \renewcommand{\theenumi}{\arabic{enumi}}
+            \renewcommand{\labelenumii}{\theenumii}
+            \renewcommand{\theenumii}{\theenumi.\arabic{enumii}}
+            \setlength{\leftmarginii}{5.4ex}
+            \item Introduction and Motivation
+            \item State of the Art
+            \begin{enumerate} \mdseries
+                \item Mass Transport Assessment and Models
+                \item Contact Welding
+                \item Materials and surface treatments of Porous Transport Layers
+            \end{enumerate}
+            \item Design and Optimization of the setup
+            \item Experimental Methods
+            \begin{enumerate} \mdseries
+                % \item Structural Simulation of Transport Characteristics 
+                \item Production of the Specimens
+                \item Functional Testing
+                \item Ageing Tests
+            \end{enumerate}
+            \item Results and Discussion
+            \begin{enumerate} \mdseries
+                % \item Structural Simulation of Transport Characteristics 
+                \item Production of the Specimens
+                \item Functional Testing
+                \item Ageing Tests
+            \end{enumerate}
+            \item Summary and further work
+        \end{enumerate} % \\ \hline
+%     \end{tabularx}
+% \end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Suggested timeline}
+A full list of the estimated work packages and their time placement during the thesis is given in the appendix. Smaller time blocks for getting involved with the general topic, software or basic literature are considered, due to the already ongoing employment relationship with Schaeffler. In combination with the bigger preparation of the thesis assignment, rough methods are already chosen and a basic state-of-the-art outline is present (see \autoref{sec:state-of-art}). Focus in the assumed planning is time for methods, interpretation, and writing.\todo{Estimate a rough timeline.}
+
+% \begin{table}[H]
+%     \centering
+%     \caption{Rough time estimation of task placement for the proposed master thesis}
+%     \label{tab:timeline}
+%     \vspace{12pt}
+%     \small
+%     \begin{tabularx}{25cm}[H]{|X|p{20mm}|p{20mm}|p{20mm}|p{20mm}|p{20mm}|p{20mm}|}
+%         \hline \rowcolor{lightgray!80} & May & Jun & Jul & Aug & Sep & Oct \\ \hline \hline
+%         Literature research         & \cellcolor{dark-green!80} & & & & & \\ \hline
+%         Theoretical modelling       & & \cellcolor{dark-green!80} & \cellcolor{dark-green!80} & & & \\ \hline
+%         Experimental                & & & & \cellcolor{dark-green!80} & \cellcolor{dark-green!80} & \\ \hline
+%         Writing                     & & & & & & \cellcolor{dark-green!80} \\ \hline
+%     \end{tabularx}
+% \end{table}
