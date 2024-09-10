@@ -1,0 +1,297 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                   Einstellungen
+%
+% Hier können alle relevanten Einstellungen für diese Arbeit gesetzt werden.
+% Dazu gehören Angaben u.a. über den Autor sowie Formatierungen.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Sprache %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Aktuell sind Deutsch und Englisch unterstützt.
+%% Es werden nicht nur alle vom Dokument erzeugten Texte in
+%% der entsprechenden Sprache angezeigt, sondern auch weitere
+%% Aspekte angepasst, wie z.B. die Anführungszeichen und
+%% Datumsformate.
+\setzesprache{en} % de oder en
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Angaben  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Die meisten der folgenden Daten werden auf dem
+%% Deckblatt angezeigt, einige auch im weiteren Verlauf
+%% des Dokuments.
+\setzematrikelnr{23176975}
+\setzekurs{}
+\setzetitel{Modelling of tranformers\\with on-load tap-changers (OLTC) in Python}
+\setzedatumAbgabe{March 31, 2025}
+\setzefirma{}
+\setzefirmenort{}
+\setzeabgabeort{Erlangen}
+\setzestudiengang{Energy Technology}
+\setzebetreuer{Ilya Burlakin, M. Sc.}
+\setzebetreuerzwei{Georg Kordowich, M. Sc.}
+\setzegutachter{Univ.-Prof. Dr.-Ing. Matthias Luther}
+\setzezeitraum{01st October 2023\ untill\ 31st March 2025}
+\setzearbeit{Master Thesis}
+\setzeautor{Maximilian Köhler, B. Eng.}
+\setzeversion{0.1}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Literaturverzeichnis %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bei Fehlern während der Verarbeitung bitte in ads/header.tex bei der
+%% Einbindung des Pakets biblatex (ungefähr ab Zeile 110,
+%% einmal für jede Sprache), biber in bibtex ändern.
+\newcommand{\ladeliteratur}{%
+\addbibresource{literatur.bib}
+%\addbibresource{weitereDatei.bib}
+}
+%% Zitierstil
+%% siehe: http://ctan.mirrorcatalogs.com/macros/latex/contrib/biblatex/doc/biblatex.pdf (3.3.1 Citation Styles)
+%% mögliche Werte z.B numeric-comp, alphabetic, authoryear, numeric
+\setzezitierstil{ieee}
+%\setzezitierstil{alphabetic}
+%\setzezitierstil{authoryear}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Verschiedene Schriftarten
+% laut nag Warnung: palatino obsolete, use mathpazo, helvet (option scaled=.95), courier instead
+\setzeschriftart{charter} % palatino oder goudysans, lmodern, libertine, mathptmx
+% palatino oder lmodern ganz nett
+
+%% Paket um Textteile drehen zu können
+%\usepackage{rotating}
+%% Paket um Seite im Querformat anzuzeigen
+%\usepackage{lscape}
+
+%% Seitenränder
+% \setzeseitenrand{2.5cm}
+
+%% Abstand vor Kapitelüberschriften zum oberen Seitenrand
+\setzekapitelabstand{0pt}
+
+%% Spaltenabstand
+\setzespaltenabstand{10pt}
+%%Zeilenabstand innerhalb einer Tabelle
+\setzezeilenabstand{1.5}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Verschiedenes  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Farben (Angabe in HTML-Notation mit großen Buchstaben)
+\newcommand{\ladefarben}{%
+	\definecolor{LinkColor}{HTML}{00007A}
+	% \definecolor{ListingBackground}{HTML}{FCF7DE}
+}
+
+%%Mathematikpakete benutzen (Pakete aktivieren)
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%% Programmiersprachen Highlighting (Listings)
+\newcommand{\listingsettings}{%
+	\lstset{%
+		language=Java,			% Standardsprache des Quellcodes
+		numbers=left,			% Zeilennummern links
+		stepnumber=1,			% Jede Zeile nummerieren.
+		numbersep=5pt,			% 5pt Abstand zum Quellcode
+		numberstyle=\tiny,		% Zeichengrösse 'tiny' für die Nummern.
+		breaklines=true,		% Zeilen umbrechen wenn notwendig.
+		breakautoindent=true,	% Nach dem Zeilenumbruch Zeile einrücken.
+		postbreak=\space,		% Bei Leerzeichen umbrechen.
+		tabsize=2,				% Tabulatorgrösse 2
+		basicstyle=\ttfamily\footnotesize, % Nichtproportionale Schrift, klein für den Quellcode
+		showspaces=false,		% Leerzeichen nicht anzeigen.
+		showstringspaces=false,	% Leerzeichen auch in Strings ('') nicht anzeigen.
+		extendedchars=true,		% Alle Zeichen vom Latin1 Zeichensatz anzeigen.
+		captionpos=b,			% sets the caption-position to bottom
+		% backgroundcolor=\color{ListingBackground}, % Hintergrundfarbe des Quellcodes setzen.
+    backgroundcolor=\color{white!50},
+		xleftmargin=0pt,		% Rand links
+		xrightmargin=0pt,		% Rand rechts
+		frame=single,			% Rahmen an
+		frameround=ffff,
+		rulecolor=\color{black},	% Rahmenfarbe
+		% fillcolor=\color{ListingBackground},
+    fillcolor=\color{white!50},
+		keywordstyle=\color[rgb]{0.133,0.133,0.6},
+		commentstyle=\color[rgb]{0.133,0.545,0.133},
+		%stringstyle=\color[rgb]{0.627,0.126,0.941}
+		stringstyle=\color{red}
+	}
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Eigenes %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hier können Ergänzungen zur Präambel vorgenommen werden (eigene Pakete, Einstellungen)
+
+%colorpackage
+% \usepackage{color}
+\usepackage[table,dvipsnames]{xcolor}
+
+
+%listing package for defining a new language
+\usepackage{listings}
+
+% starting footnotes at 1
+% \usepackage{perpage}
+% \MakePerPage[1]{footnote}
+
+%Functions
+\def\bsq#1{%both single quotes
+\lq{#1}\rq}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% selfmade language pakets
+% JavaScript language
+\definecolor{lightgray}{RGB}{227, 227, 227}
+\definecolor{darkgray}{RGB}{100, 100, 100}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{schaeffler}{RGB}{0, 137, 61}
+\definecolor{dark-green}{RGB}{0, 110, 93}
+\definecolor{middle-green}{RGB}{115, 161, 149}
+\definecolor{light-green}{RGB}{199, 222, 160}
+
+\definecolor{pie1}{RGB}{115, 161, 149}
+\definecolor{pie2}{RGB}{192, 198, 191}
+\definecolor{pie3}{RGB}{135, 135, 135}
+\definecolor{pie4}{RGB}{29, 155, 178}
+\definecolor{pie5}{RGB}{182, 186, 194}
+\definecolor{pie6}{RGB}{161, 200, 97}
+\definecolor{pie7}{RGB}{67, 99, 91}
+\definecolor{pie8}{RGB}{112, 123, 110}
+\definecolor{pie9}{RGB}{113, 113, 113}
+
+\lstdefinelanguage{JS}{
+  keywords={break, case, catch, continue, debugger, default, delete, do, else, false, finally, for, function, if, in, instanceof, new, null, return, switch, this, throw, true, try, typeof, var, void, while, with},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  commentstyle=\color[rgb]{0.133,0.545,0.133},
+  %commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  sensitive=true
+}
+
+% Einstellung für die Einbindung von Code - hier: Python-Code - nicht ändern!
+\lstdefinestyle{style-python}
+{
+  language=python,	% Programmiersorache einstellen, Latex erkennt dann automatisch code, kommentare, funktionen,...
+  basicstyle=\scriptsize\ttfamily,	% Schriftformatierung, ttfamily: text im Schreibmaschinen-Style
+  backgroundcolor=\color{white},		% Hintergrundfarbe
+  breaklines=true,	% automatischer Zeilenumbruch bei langen Zeilen, funktioniert nur bei bestimmen Zeichen, z.B. Umbruch nach Leerzeichen
+  keywordstyle=\bfseries\ttfamily\color{blue},	% Schlüsselwörter einstellen
+  stringstyle=\ttfamily\color{Peach},			% Textsrtrings
+  showstringspaces=false,	% Leerzeichen in Strings richtig darstellen
+  commentstyle=\color{ForestGreen}\ttfamily,	% Kommentare
+  flexiblecolumns=false,	% Spaltenbreite dynamisch/fest
+  numbers=left,		% Position der Zeilennummern
+  numberstyle=\tiny,	% Größe der Zeilennummern
+  numberblanklines=false,		% leere Zeilen werde mit ‚false‘ nicht durchnummeriert
+  stepnumber=1,		% Beginn der Nummerierung
+  numbersep=10pt,		% Abstand zwischen Zeilennummern und Quellcode
+  xleftmargin=20pt,	% Abstand zum linken Rand
+  xrightmargin=10pt,	% Abstand zum rechten Rand
+  extendedchars=true,	% Sonderzeichen korrekt darstellen
+  frame=trbl,			% Rahmen um gesamten Code: Top, right, bottom, left (Großbuchstaben ergeben Doppellinien)
+  frameround=ffff,	% Ecken des Rahmens anpassen, t: runde Ecken, f: default (eckig), es müssen 4 Buchstaben da stehen!
+  literate=		% ersetzen von Zeichen 1 durch Zeichen 2, hier: korrekte Einbindung der Sonderzeichen
+   {Ö}{{\"O}}1 
+   {Ä}{{\"A}}1 
+   {Ü}{{\"U}}1 
+   {ß}{{\ss}}1 
+   {ü}{{\"u}}1 
+   {ä}{{\"a}}1 
+   {ö}{{\"o}}1,
+  % mit ‚emph‘ und ‚emphstyle‘ können eigene Styles für Wörter angelegt werden
+  emph = [1]{clc, color},
+  emphstyle = [1]{\color{blue}},
+  emph = [2]{function, endfunction},
+  emphstyle = [2]{\color{BrickRed}},
+  emph = [3]{gcf},
+  emphstyle = [3]{\color{black}},
+}
+
+% Einstellung für die Einbindung von Code - hier: C-Code - nicht ändern!
+\lstdefinestyle{style-c}
+{
+  language=c,	% Programmiersorache einstellen, Latex erkennt dann automatisch code, kommentare, funktionen,...
+  basicstyle=\scriptsize\ttfamily,	% Schriftformatierung, ttfamily: text im Schreibmaschinen-Style
+  backgroundcolor=\color{white},		% Hintergrundfarbe
+  breaklines=true,	% automatischer Zeilenumbruch bei langen Zeilen, funktioniert nur bei bestimmen Zeichen, z.B. Umbruch nach Leerzeichen
+  keywordstyle=\bfseries\ttfamily\color{blue},	% Schlüsselwörter einstellen
+  stringstyle=\ttfamily\color{Peach},			% Textsrtrings
+  showstringspaces=false,	% Leerzeichen in Strings richtig darstellen
+  commentstyle=\color{ForestGreen}\ttfamily,	% Kommentare
+  flexiblecolumns=false,	% Spaltenbreite dynamisch/fest
+  numbers=left,		% Position der Zeilennummern
+  numberstyle=\tiny,	% Größe der Zeilennummern
+  numberblanklines=false,		% leere Zeilen werde mit ‚false‘ nicht durchnummeriert
+  stepnumber=1,		% Beginn der Nummerierung
+  numbersep=10pt,		% Abstand zwischen Zeilennummern und Quellcode
+  xleftmargin=20pt,	% Abstand zum linken Rand
+  xrightmargin=10pt,	% Abstand zum rechten Rand
+  extendedchars=true,	% Sonderzeichen korrekt darstellen
+  frame=trbl,			% Rahmen um gesamten Code: Top, right, bottom, left (Großbuchstaben ergeben Doppellinien)
+  frameround=ffff,	% Ecken des Rahmens anpassen, t: runde Ecken, f: default (eckig), es müssen 4 Buchstaben da stehen!
+  literate=		% ersetzen von Zeichen 1 durch Zeichen 2, hier: korrekte Einbindung der Sonderzeichen
+   {Ö}{{\"O}}1 
+   {Ä}{{\"A}}1 
+   {Ü}{{\"U}}1 
+   {ß}{{\ss}}1 
+   {ü}{{\"u}}1 
+   {ä}{{\"a}}1 
+   {ö}{{\"o}}1,
+  % mit ‚emph‘ und ‚emphstyle‘ können eigene Styles für Wörter angelegt werden
+  %emph = [1]{clc, color},
+  %emphstyle = [1]{\color{blue}},
+}
+
+% Einstellung für die Einbindung von Code - hier: C++-Code - nicht ändern!
+\lstdefinestyle{style-cpp}
+{
+  language=C++,	% Programmiersorache einstellen, Latex erkennt dann automatisch code, kommentare, funktionen,...
+  basicstyle=\scriptsize\ttfamily,	% Schriftformatierung, ttfamily: text im Schreibmaschinen-Style
+  backgroundcolor=\color{white},		% Hintergrundfarbe
+  breaklines=true,	% automatischer Zeilenumbruch bei langen Zeilen, funktioniert nur bei bestimmen Zeichen, z.B. Umbruch nach Leerzeichen
+  keywordstyle=\bfseries\ttfamily\color{blue},	% Schlüsselwörter einstellen
+  stringstyle=\ttfamily\color{Peach},			% Textsrtrings
+  showstringspaces=false,	% Leerzeichen in Strings richtig darstellen
+  commentstyle=\color{ForestGreen}\ttfamily,	% Kommentare
+  flexiblecolumns=false,	% Spaltenbreite dynamisch/fest
+  numbers=left,		% Position der Zeilennummern
+  numberstyle=\tiny,	% Größe der Zeilennummern
+  numberblanklines=false,		% leere Zeilen werde mit ‚false‘ nicht durchnummeriert
+  stepnumber=1,		% Beginn der Nummerierung
+  numbersep=10pt,		% Abstand zwischen Zeilennummern und Quellcode
+  xleftmargin=20pt,	% Abstand zum linken Rand
+  xrightmargin=10pt,	% Abstand zum rechten Rand
+  extendedchars=true,	% Sonderzeichen korrekt darstellen
+  frame=trbl,			% Rahmen um gesamten Code: Top, right, bottom, left (Großbuchstaben ergeben Doppellinien)
+  frameround=ffff,	% Ecken des Rahmens anpassen, t: runde Ecken, f: default (eckig), es müssen 4 Buchstaben da stehen!
+  literate=		% ersetzen von Zeichen 1 durch Zeichen 2, hier: korrekte Einbindung der Sonderzeichen
+   {Ö}{{\"O}}1 
+   {Ä}{{\"A}}1 
+   {Ü}{{\"U}}1 
+   {ß}{{\ss}}1 
+   {ü}{{\"u}}1 
+   {ä}{{\"a}}1 
+   {ö}{{\"o}}1,
+  % mit ‚emph‘ und ‚emphstyle‘ können eigene Styles für Wörter angelegt werden
+  %emph = [1]{clc, color},
+  %emphstyle = [1]{\color{blue}},
+}

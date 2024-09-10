@@ -1,0 +1,140 @@
+%%**************************************************************
+%% Vorlage fuer Bachelorarbeiten (o.ä.) der DHBW
+%%
+%% Autor: Tobias Dreher, Yves Fischer, Michael Gruben, Markus Barthel
+%% Datum: 06.07.2011 - 22.08.2014
+%%
+%% Autor: Ferdinand König und Maximilian Köhler
+%% Datum: 2020 - 2022
+%%**************************************************************
+
+\input{ads/header}
+
+% \makeglossaries
+
+\input{ads/tikz_styles}
+
+\begin{document}
+	\pagenumbering{Roman}
+
+	% Deckblatt
+	\begin{spacing}{1}
+		\input{ads/deckblatt}
+	\end{spacing}
+	\input{ads/titleback}
+	% \newpage
+
+	% \cleardoublepage
+
+	% stellt Abstand vor Kapitelüberschriften ein
+	% \RedeclareSectionCommand[beforeskip=\kapitelabstand         ]{chapter}
+
+	% % noch ausstehende ToDo's - Liste
+	% \listoftodos
+	% \thispagestyle{empty}
+	% \newpage
+
+    \pagestyle{scrheadings}
+
+    \setcounter{page}{2}
+
+	% \newpage 
+	% \thispagestyle{empty}
+	% \quad 
+	% \newpage
+
+	% Abstract
+	\clearpage
+	\input{ads/abstract.tex}
+
+	% % Aufgabenstellung
+	% \clearpage
+	% \input{ads/aufgabe}
+
+	% Inhaltsverzeichnis
+	\begin{spacing}{1.2}
+		\begingroup
+			% auskommentieren für Seitenzahlen unter Inhaltsverzeichnis
+			\renewcommand*{\chapterpagestyle}{empty}
+			\pagestyle{empty}
+
+			%\setcounter{tocdepth}{1}
+			%für die Anzeige von Unterkapiteln im Inhaltsverzeichnis
+			\setcounter{tocdepth}{2}
+
+			\tableofcontents
+			% \maintoc
+			\cleardoublepage
+		\endgroup
+	\end{spacing}
+	% \newpage
+    % \adjustmtc
+
+	\cleardoublepage
+	% \clearpage
+	\pagenumbering{arabic}
+    
+    \pagestyle{scrheadings}		% Kopf- und Fußzeile wie zuvor eingestellt
+	
+	%\setcounter{footnote}{1}	% Dont start at 2
+
+	% Inhalt
+	\foreach \i in {01,02,03,04,05,06,07,08,09,...,99} {%
+		\edef\FileName{content/\i kapitel}%
+			\IfFileExists{\FileName}{%
+				\input{\FileName}
+			}
+			{%
+				%file does not exist
+			}
+	}
+
+	\cleardoublepage
+
+	% Bei Bedarf auskommentieren, wenn Übergang zu römischer Seitennummerierung nicht korrekt dargestellt (links-rechts Unterscheidung; links: gerade Seiten, rechts: ungerade Seiten); Anpassen der Startseite nach Preface Seiten VOR dem Hauptteil (händisch)
+	% \newpage 
+	% \thispagestyle{empty}
+	% \quad 
+	% \newpage
+
+	\pagenumbering{Roman}
+    \setcounter{page}{9}
+
+	% Abkürzungsverzeichnis
+	% \clearpage
+	\input{ads/acronyms}
+
+	% Abbildungsverzeichnis
+	\cleardoublepage
+	\listoffigures
+	
+	% Tabellenverzeichnis
+	\cleardoublepage
+	\listoftables
+
+	% Quellcodeverzeichnis
+	% \cleardoublepage
+	% \lstlistoflistings % \mycomment[MK]{Warum hat das einen anderen Zeilenabstand als alle anderen Verzeichnisse?}
+
+	% Glossar
+	% \clearpage
+	% \input{ads/glossary}
+	% \printglossary[style=altlist,title=\langglossar]
+
+    % Literaturverzeichnis
+	% \clearpage
+	\printbibliography
+	% Unterverzeichnisse siehe: https://texwelt.de/fragen/7532/wie-unterteile-ich-meine-biblatex-bibliografie
+
+	% Erklärung
+	\cleardoublepage
+ 	\input{ads/erklaerung}
+
+	% sonstiger Anhang
+	\cleardoublepage
+	\pagenumbering{alph}
+	% \setcounter{page}{1}
+	\addcontentsline{toc}{chapter}{Appendix}
+	\appendix
+	\input{ads/appendix}
+\end{document}

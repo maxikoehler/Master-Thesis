@@ -1,0 +1,57 @@
+%!TEX root = ../main.tex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Anmerkungen zur Verwendung:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% nur verwendete Akronyme werden letztlich im Abkürzungsverzeichnis des Dokuments angezeigt
+% Verwendung: 
+%		\ac{Abk.}   --> fügt die Abkürzung ein, beim ersten Aufruf wird zusätzlich automatisch die ausgeschriebene Version davor eingefügt bzw. in einer Fußnote (hierfür muss in header.tex \usepackage[printonlyused,footnote]{acronym} stehen) dargestellt
+%		\acs{Abk.}   -->  fügt die Abkürzung ein
+%		\acf{Abk.}   --> fügt die Abkürzung UND die Erklärung ein
+%		\acl{Abk.}   --> fügt nur die Erklärung ein
+%		\acp{Abk.}  --> gibt Plural aus (angefügtes 's'); das zusätzliche 'p' funktioniert auch bei obigen Befehlen
+%	siehe auch: http://golatex.de/wiki/%5Cacronym
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Acronyms}
+\chapter*{Acronyms}
+
+% \addchap{\langabkverz}
+\begin{acronym}[mmmmmm] %hier längstes Acro
+% \begin{doublespacing}
+% \setlength{\itemsep}{-\parsep}
+
+\acro{CCT}{critical clearing time}
+\acro{EAC}{equal area criterion}
+\acro{IBB}{infinite bus bar}
+% \acrodefplural{CCM}[CCMs]{Catalyst Coated Membranes}
+\acro{ODE}{ordinary differential equation}
+\acro{SG}{synchronous generator}
+\acro{SMIB}{single machine infinite bus}
+\acro{TDS}{time domain solution}
+\acro{TSA}{transient stability assessment}
+
+\end{acronym}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\addcontentsline{toc}{chapter}{Symbols}	
+\chapter*{Symbols}
+
+% \addchap{Symbols}
+\begin{tabbing}
+    XXXXXXXXX \= XXXXXXXX \= XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \kill
+    $\delta$            \> $^\circ$ / deg                   \> power angle (or power angle difference) \\
+    $\Delta\omega$      \> $\mathrm{\frac{1}{s}}$           \> change of rotor angular speed \\
+    $A$                 \> -                                \> acceleration or deceleration area \\
+    $E$                 \> V                                \> voltage of \acs{SG} or \acs{IBB} \\
+    $H_\mathrm{gen}$    \> s                                \> inertia constant of a \acf{SG} \\
+    $I$                 \> A                                \> current \\
+    $P$                 \> W                                \> Power; electrical or mechanical \\
+    $V$                 \> V                                \> voltage \\
+    $X$                 \> $\mathrm{\Omega}$                \> reactance \\
+    $Y$                 \> $\mathrm{\frac{1}{\Omega}}$ / S  \> admittance \\
+\end{tabbing}
+
+In the simulations and calculations the per unit system is preferred, thus using all values as per reference unit ($\mathrm{p.u.}$). Where necessary indices are used to differentiate between similar symbols with different values.
