@@ -1,10 +1,6 @@
 \babel@toc {english}{}\relax 
-\babel@toc {german}{}\relax 
-\babel@toc {english}{}\relax 
-\contentsline {chapter}{\numberline {A}Graphics and tables}{c}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Initial values}{c}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Fault 1}{e}{section.A.2}%
-\contentsline {section}{\numberline {A.3}Fault 2}{h}{section.A.3}%
-\contentsline {section}{\numberline {A.4}Fault 3}{k}{section.A.4}%
-\contentsline {section}{\numberline {A.5}Comparison algebraic vs. non-algebraic}{m}{section.A.5}%
+\contentsline {chapter}{\numberline {A}Python modelling}{c}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Mathematical equations}{c}{section.A.1}%
+\contentsline {chapter}{\numberline {B}OLTC control}{e}{appendix.B}%
+\contentsline {chapter}{\numberline {C}Verification}{g}{appendix.C}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

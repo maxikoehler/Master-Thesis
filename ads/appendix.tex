@@ -15,115 +15,19 @@
 %\includepdf[pages=-,scale=.8,pagecommand=\section*{A. eventGenerator.py}]{../appendix/eventGenerator.py.pdf}
 %\includepdf[pages=-,scale=.8,pagecommand=\section*{B. sendEvents.py}]{../appendix/sendEvents.py.pdf}
 
+
+\RedeclareSectionCommand[beforeskip=\kapitelabstand         ]{chapter}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\centering
+\chapter{Python modelling}
 
-\chapter{Graphics and tables}
+\section{Mathematical equations}
+\label{app:python-mathematical}
 
-\section{Initial values}
-\label{app:initials}
 
-\begin{centering}
-    \small
-    % \caption[short]{title}
-    % \vspace{12pt}
-    \begin{tabularx}{\textwidth}{l|X|l|l}
-        % \hline % \rowcolor{lightgray} 
-        & fault 1 & fault 2 & fault 3 \\ \hline \hline
-        $P_\mathrm{e,~max}$     & \multicolumn{3}{c}{1.2 p.u.} \\ \hline
-        $P_\mathrm{mech}$       & 0.9 p.u. & 1.0 p.u. & 0.7 p.u. \\ \hline
-        $E_\mathrm{ibb}$        & \multicolumn{3}{c}{1 p.u.} \\ \hline
-        $E_\mathrm{gen}$        & \multicolumn{3}{c}{1.14 p.u.} \\ \hline
-        $\delta_\mathrm{ibb}$   & 48.6 deg & 56.4 deg & 35.7 deg \\ \hline
-        $\delta_\mathrm{gen}$   & \multicolumn{3}{c}{0 deg} \\ \hline
+\chapter{OLTC control}
 
-        $Y_\mathrm{bus,~init}$ & \multicolumn{3}{c}{$\begin{bmatrix} -\frac{1j}{X_\mathrm{gen}}-\frac{3j}{X_\mathrm{line}} & \frac{3j}{X_\mathrm{line}} \\ \frac{3j}{X_\mathrm{line}} & -\frac{3j}{X_\mathrm{line}}-\frac{1j}{X_\mathrm{ibb}}\end{bmatrix}$} \\ \hline
-
-        $Y_\mathrm{bus,~fault}$ & $\begin{bmatrix} -\frac{1j}{X_\mathrm{gen}}-\frac{3j}{X_\mathrm{line}} + 10^6 & \frac{3j}{X_\mathrm{line}} \\ \frac{3j}{X_\mathrm{line}} & -\frac{3j}{X_\mathrm{line}}-\frac{1j}{X_\mathrm{ibb}}\end{bmatrix}$ 
-        & \multicolumn{2}{c}{$\begin{bmatrix} -\frac{1j}{X_\mathrm{gen}}-\frac{2j}{X_\mathrm{line}} & \frac{2j}{X_\mathrm{line}} \\ \frac{2j}{X_\mathrm{line}} & -\frac{2j}{X_\mathrm{line}}-\frac{1j}{X_\mathrm{ibb}}\end{bmatrix}$} \\ \hline \hline
-
-        $t_\mathrm{start}$      & \multicolumn{3}{c}{-1 s} \\ \hline
-        $t_\mathrm{end}$        & \multicolumn{2}{c|}{2 s} & 5 s \\ \hline
-        $t_\mathrm{step}$       & \multicolumn{3}{c}{0.001 s} \\ \hline
-        $t_\mathrm{fault,~start}$   & \multicolumn{3}{c}{0 s} \\
-    \end{tabularx}
-\end{centering}
-
-\flushleft
-For the modules {\itshape parameter\_comparison.py} and {\itshape comparison\_alg-vs-nonalg.py} the initial values from fault one are used, besides the described variations. \\[24pt]
-
-\begin{minipage}[l]{.49\textwidth}
-    \begin{tabular}{l|r}
-        $X_\mathrm{line}$       & 1.95 p.u. \\ \hline
-        $X_\mathrm{gen}$        & 0.2 p.u. \\ \hline
-        $X_\mathrm{ibb}$        & 0.1 p.u. \\ 
-    \end{tabular}
-\end{minipage}
-\begin{minipage}[r]{.49\textwidth}
-    \begin{tabular}{l|r}
-        $H_\mathrm{gen}$        & 3.3 s \\ \hline
-        $f_\mathrm{n}$          & 50 $\mathrm{\frac{1}{s}}$ \\ \hline
-        $\omega$                & 0 \\ 
-    \end{tabular}
-\end{minipage}
-
-\section{Fault 1}
-\label{app:fault1}
-
-\input{python/plots/fault1_stable.pgf}
-
-\input{python/plots/fault1_unstable.pgf}
-
-\input{python/plots/delta-P_fault1.pgf}
-
-\section{Fault 2}
-\label{app:fault2}
-
-\input{python/plots/fault2_stable.pgf}
-
-\input{python/plots/fault2_unstable.pgf}
-
-\input{python/plots/delta-P_fault2.pgf}
-
-\section{Fault 3}
-\label{app:fault3}
-
-\input{python/plots/fault3.pgf}
-
-\input{python/plots/delta-P_fault3.pgf}
-
-\section{Comparison algebraic vs. non-algebraic}
-\label{app:alg-non-alg-comparison}
-
-\input{python/plots/comparison_alg-vs-nonalg.pgf}
-
-\input{python/plots/comparison_alg-vs-nonalg_power.pgf}
-
-% \chapter{Derivations}
-% \label{app:derivation-analytical}
-
-% Analytical solution of the \acs{CCT} from \autoref{sec:analytical-method}.
-
-% \begin{align}
-%     \int_{\delta_\mathrm{0}}^{\delta_\mathrm{1}}\Delta P~d\delta = 0 \label{eq:gen-eac},
-% \end{align}
-% while the more expressive can be achieved through splitting up the integral borders and equalizing both areas:
-% \begin{align}
-%     % A_\mathrm{acc}=A_\mathrm{dec} \nonumber \\
-%     \int_{\delta_\mathrm{0}}^{\delta_\mathrm{c}}(P_\mathrm{m}-P_\mathrm{e})~d\delta = \int_{\delta_\mathrm{c}}^{\delta_\mathrm{max}}(P_\mathrm{e}-P_\mathrm{m})~d\delta \label{eq:big-eac}
-% \end{align}
-% With consideration of $\delta_\mathrm{max}=\pi-\delta_\mathrm{0}$, $P_\mathrm{e,normal}=P_\mathrm{max} \cdot sin(\delta_\mathrm{0})$, $P_\mathrm{e,fault}=0$, and some rearrangements, this leads to the final expression of the critical clearing angle:
-% \begin{align}
-%     \delta_\mathrm{cc}=arccos\big[~sin(\delta_\mathrm{0}) \cdot (\pi-2 \cdot \delta_\mathrm{0})-cos(\delta_\mathrm{0})~\big] \label{eq:delta-cc}
-% \end{align}
-
-% The second step is the calculation of the \acs{CCT} dependent on the critical clearing angle. Splitting the differentiated variables $d^2\delta$ and $dt$ in the combined swing equation and integrating twice, leads to the equation
-% \begin{align}
-%     \delta=\frac{\omega \cdot \Delta P}{4 H_\mathrm{gen}} \cdot t^2 + \delta_\mathrm{0}. \nonumber
-% \end{align}
-% Rearranging this gives an expression for calculating the critical clearing time $t_\mathrm{cc}$ (see \autoref{eq:tcc}; similar to \textcite{oedingElektrischeKraftwerkeUnd2016}) for a full line fault (meaning $P_\mathrm{e,fault}=0$) at the bus bar. The derivation of this formula is added in \autoref{app:derivation-analytical}.\mycomment[MK]{Vollständigen Rechenweg in den Anhang mit aufnehmen?}
-% \begin{align}
-%     t_\mathrm{cc}=\sqrt{\frac{4 H_\mathrm{gen} \cdot (\delta_\mathrm{cc}-\delta_\mathrm{0})}{\omega \cdot \Delta P}} \label{eq:tcc}
-% \end{align}
+\chapter{Verification}

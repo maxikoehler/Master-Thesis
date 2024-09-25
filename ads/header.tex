@@ -29,6 +29,7 @@
 	pointlessnumbers,
 	fleqn,
 	chapterprefix=true,
+  appendixprefix=false,
 	% bibliography=openstyle
 ]{scrreprt}	% Koma-Script report-Klasse (scrreprt), fuer laengere Bachelorarbeiten alternativ auch: scrbook
 
@@ -367,3 +368,53 @@
 %   \listofalofs
 %   \listofalots
 }{}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Quotes before chapter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{quotemark}{gray}{0.7}
+\makeatletter
+\newlength\origparskip
+
+\newcommand{\fquote}{%
+  \@ifnextchar[{\fquote@i}{\fquote@i[]}%]
+}
+
+\def\fquote@i[#1]{%
+  \@ifnextchar[{\fquote@ii{#1}}{\fquote@ii{#1}[]}%]
+}%
+
+\def\fquote@ii#1[#2]{%
+  \def\pqm@tempa{#1}%
+  \def\pqm@tempb{#2}%
+  \noindent
+  \list
+    {}
+    {\setlength{\leftmargin}{0.3\textwidth}%
+     \setlength{\rightmargin}{0.1\textwidth}%
+     \setlength{\origparskip}{\parskip}}%
+    \item[]%
+      \begin{picture}(0,0)%
+        \put(-15,-8){\makebox(0,0){\scalebox{4}{%
+          \textcolor{quotemark}{\textquotedblright}}}}%
+      \end{picture}%
+      \begingroup
+      \itshape
+      \ignorespaces}%
+
+\def\endfquote{%
+  \endgroup
+  \par
+  \raggedleft
+  \ifx\pqm@tempa\empty
+  \else
+    {\bfseries --- \pqm@tempa\par}%
+    \setlength{\parskip}{\origparskip}%
+    \ifx\pqm@tempb\empty
+    \else
+      (\pqm@tempb)%
+    \fi
+  \fi
+  \par
+  \endlist}
+\makeatother
