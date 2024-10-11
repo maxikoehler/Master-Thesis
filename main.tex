@@ -27,7 +27,7 @@
 	% \cleardoublepage
 
 	% stellt Abstand vor Kapitelüberschriften ein
-	% \RedeclareSectionCommand[beforeskip=\kapitelabstand         ]{chapter}
+	\RedeclareSectionCommand[beforeskip=\kapitelabstand         ]{chapter}
 
 	% % noch ausstehende ToDo's - Liste
 	% \listoftodos
@@ -107,6 +107,7 @@
 
 	\pagenumbering{Roman}
     \setcounter{page}{9}
+	\RedeclareSectionCommand[beforeskip=\kapitelabstand         ]{chapter}
 
 	% Abkürzungsverzeichnis
 	% \clearpage
