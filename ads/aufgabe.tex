@@ -3,28 +3,22 @@
 \chapter*{Assignment of the paper}
 %\vspace*{4cm}
 \thispagestyle{plain.scrheadings}
-{\large \textbf{Topic:} \parbox[t]{0.8\textwidth}{\titel}}
-\newline
+% {\large \textbf{Topic:} \parbox[t]{0.8\textwidth}{\nolbreaks{\titel}}}
+% \newline
 
-The \ac{CCT} is an essential parameter in power system stability
-analysis. For example, in the case of \ac{SG}, the \acs{CCT} determines the
-maximum fault-clearing time a generator can withstand without losing synchronism.
-This seminar will introduce the concept of \acs{CCT} computing. We will discuss the factors
-influencing \acs{CCT}, such as generator characteristics, system parameters, and fault type,
-and explore the methods used to calculate \acs{CCT} in practical power system analysis.
+Voltage stability assessments, focusing on on-load tap changing transformers is in the interest of investigation. As further future goal, system stability analysis considering also small signal voltage stability is in the interest. This is caused due to the development of additional Fast Switching Modules (FSMs), being able to change transformer ratios around 10 times faster and with greater magnitudes than just directly neighboring tap positions. This greater impact jump in component behavior is challenging for control and stability of the system itself. For analyzing this behavior and system stability, an RMS Simulation tool in Python shall be used. In the later development the usage of this in-house tool allows for an improved optimization algorithm. Because this tool (or Power System Simulation framework) is currently not able to represent on-load tap-changer equipped transformers or FSMs, it shall be extended with a suitable mathematical representation. System stability assessment, especially considering static and dynamic voltage stability, is missing as well and is therefore also part of the extension. This tool and specifically the extended functionality shall the be tested against common tools like PowerFactory, and maybe found analytical calculations of voltage system stability.
 
-% \begin{itemize}
-%     \item Swing equation of synchronous generators
-%     \item Lösen der Swing equation mithilfe von Python -> Lösung einer DGL zweiter Ordnung
-%     \item Equal-area criterion -> Herleitung der Gleichungen
-%     \item Simulation eines Fehlers -> Anwendung des equal-area criterions mithilfe von python.
-%     \item Vergleich zwischen analytischer und simulativer Ergebnisse
-% \end{itemize}
+% Leading to following research questions of the thesis:
 
-The seminar research paper should contain:
-\begin{itemize}
-    \item A literature research of governing equations describing the short-term dynamic behavior of \acs{SG}, relevant fault types and their influence;
-    \item an investigation of the influences from machine characteristics and system parameters on the \acs{CCT};
-    \item a computed simulation model for numerical determination of the \acs{CCT} with the \ac{EAC};
-    \item simulations of system faults and comparisons to analytical solutions.
-\end{itemize} 
+\begin{tcolorbox}[float, colback=ees_blue!5!white,colframe=ees_blue!75!black, toptitle=1mm, bottomtitle=1mm, left=2mm, right=2.5mm, top=2mm, bottom=2mm, title={\textbf{Research objective 1}}]
+    Which methods can be used to determine voltage stability, focusing on an OLTC? Especially the description of dynamical systems is in the interest.
+\end{tcolorbox}
+\begin{tcolorbox}[float, colback=ees_blue!5!white,colframe=ees_blue!75!black, toptitle=1mm, bottomtitle=1mm, left=2mm, right=2.5mm, top=2mm, bottom=2mm, title={\textbf{Research objective 2}}]
+    How can a OLTC transformer be modeled and integrated in a Python based Power System Simulation framework?
+\end{tcolorbox}
+\begin{tcolorbox}[float, colback=ees_blue!5!white,colframe=ees_blue!75!black, toptitle=1mm, bottomtitle=1mm, left=2mm, right=2.5mm, top=2mm, bottom=2mm, title={\textbf{Research objective 3}}]
+    Which influence does a continuous and/or a discrete control of the OLTC have on the voltage stability, considering different scenarios and grid topologies?
+\end{tcolorbox}
+\begin{tcolorbox}[colback=ees_blue!5!white,colframe=ees_blue!75!black, toptitle=1mm, bottomtitle=1mm, left=2mm, right=2.5mm, top=2mm, bottom=2mm, title={\textbf{Research objective 4}}]
+    Can the model from 2. be extended by an overlaying Fast Switching Module (FSM)? Does this module change the found aspects of 3.? %, considering small signal voltage stability as well?
+\end{tcolorbox}

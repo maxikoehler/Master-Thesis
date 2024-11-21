@@ -1,4 +1,4 @@
-*.DS_Store
+*/*.DS_Store
 
 ## Core latex/pdflatex auxiliary files:
 */*.alof
@@ -307,4 +307,7 @@ TSWLatexianTemp*
 #*Notes.bib
 
 # exlude all supplementary files and result files
-PDF
+*PDF/
+
+# exclude old python directory
+python/

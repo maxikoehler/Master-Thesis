@@ -4,22 +4,38 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Indices for Voltage Stability}
+\chapter{Application of Voltage Stability}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Influences of other device characteristics}
 
 \commenting{
+        Just look on other mutual influences in the power system (simulation), such as:
         \begin{itemize}
-                \item Which indices can be implemented?
-                \item Implementation and calculation
+                \item Load characteristics and types of modeling
+                \item Maximum thermal currents of cables and operating components
+                \item Asynchronous machines (or called \glqq induction motors\grqq?)
         \end{itemize}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Implementation of Stability Monitoring}
+\section{Observing the current state of the system}
+
+\subsection{Static and Dynamic Indices}
 
 \commenting{
         \begin{itemize}
-                \item Index combination and \glqq traffic light\grqq monitoring
+                \item Which indices can be implemented?
+                \item Which make sense?
+                \item Implementation and calculation of them?
+        \end{itemize}
+}
+
+\subsection{Stability Monitoring}
+
+\commenting{
+        \begin{itemize}
+                \item Index combination and \glqq traffic light\grqq\~monitoring
                 \item Restauration options and opportunities
                 \item Local mapping
                 \item Weak point identification
@@ -27,5 +43,11 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Approaches for wide-area-control mechanisms enhancing voltage stability}
+\section{Wide-area control mechanisms}
+
+\commenting{
+        \begin{itemize}
+                \item What influences could an interconnected information system have on curretn \glqq dumb transformer control\grqq?
+                \item Reference voltages usually come from load flow analysis out of the back office (day-ahead); How can this be changed? How can transformers get more \glqq smart\grqq?
+        \end{itemize}
+}

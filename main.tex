@@ -15,19 +15,23 @@
 \input{ads/tikz_styles}
 
 \begin{document}
+	% \tikzexternalize[prefix=images/]
 	\pagenumbering{Roman}
+
+	% \input{ads/FAU_Booklet_Cover}
 
 	% Deckblatt
 	\begin{spacing}{1}
 		\input{ads/deckblatt}
 	\end{spacing}
-	\input{ads/titleback}
+	% \input{ads/titleback}
 	% \newpage
 
 	% \cleardoublepage
 
 	% stellt Abstand vor Kapitelüberschriften ein
-	\RedeclareSectionCommand[beforeskip=\kapitelabstand         ]{chapter}
+	% \RedeclareSectionCommand[beforeskip=\kapitelabstand         ]{chapter}
+	\RedeclareSectionCommand[beforeskip=3cm]{chapter}
 
 	% % noch ausstehende ToDo's - Liste
 	% \listoftodos
@@ -55,7 +59,7 @@
 	% \clearpage
 	% \input{ads/abstract.tex}
 
-	% % Aufgabenstellung
+	% Aufgabenstellung
 	% \clearpage
 	% \input{ads/aufgabe}
 
@@ -132,7 +136,7 @@
 
     % Literaturverzeichnis
 	% \clearpage
-	\printbibliography
+	% \printbibliography
 	% Unterverzeichnisse siehe: https://texwelt.de/fragen/7532/wie-unterteile-ich-meine-biblatex-bibliografie
 
 	% Erklärung
@@ -140,10 +144,10 @@
  	% \input{ads/erklaerung}
 
 	% sonstiger Anhang
-	\cleardoublepage
-	\pagenumbering{alph}
+	% \cleardoublepage
+	% \pagenumbering{alph}
 	% \setcounter{page}{1}
-	\addcontentsline{toc}{chapter}{Appendix}
-	\appendix
-	\input{ads/appendix}
+	% \addcontentsline{toc}{chapter}{Appendix}
+	% \appendix
+	% \input{ads/appendix}
 \end{document}
