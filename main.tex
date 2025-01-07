@@ -24,7 +24,7 @@
 	\begin{spacing}{1}
 		\input{ads/deckblatt}
 	\end{spacing}
-	% \input{ads/titleback}
+	\input{ads/titleback}
 	% \newpage
 
 	% \cleardoublepage
@@ -34,9 +34,10 @@
 	\RedeclareSectionCommand[beforeskip=3cm]{chapter}
 
 	% % noch ausstehende ToDo's - Liste
+	% % \cleardoublepage
 	% \listoftodos
 	% \thispagestyle{empty}
-	% \newpage
+	% % \cleardoublepage
 
     \pagestyle{scrheadings}
 
@@ -47,19 +48,19 @@
 	% \quad 
 	% \newpage
 
-	% Dediction page
+	% % Dediction page
 	% \cleardoublepage
 	% \input{ads/dedication.tex}
 
-	% Acknowledgements
+	% % Acknowledgements
 	% \cleardoublepage
 	% \input{ads/acknowledgements.tex}
 
-	% Abstract
+	% % Abstract
 	% \clearpage
 	% \input{ads/abstract.tex}
 
-	% Aufgabenstellung
+	% % Aufgabenstellung
 	% \clearpage
 	% \input{ads/aufgabe}
 
@@ -117,11 +118,11 @@
 	% \clearpage
 	\input{ads/acronyms}
 
-	% Abbildungsverzeichnis
+	% % Abbildungsverzeichnis
 	% \cleardoublepage
 	% \listoffigures
 	
-	% Tabellenverzeichnis
+	% % Tabellenverzeichnis
 	% \cleardoublepage
 	% \listoftables
 
@@ -135,15 +136,15 @@
 	% \printglossary[style=altlist,title=\langglossar]
 
     % Literaturverzeichnis
-	% \clearpage
-	% \printbibliography
+	\clearpage
+	\printbibliography
 	% Unterverzeichnisse siehe: https://texwelt.de/fragen/7532/wie-unterteile-ich-meine-biblatex-bibliografie
 
-	% Erklärung
+	% % Erklärung
 	% \cleardoublepage
  	% \input{ads/erklaerung}
 
-	% sonstiger Anhang
+	% % sonstiger Anhang
 	% \cleardoublepage
 	% \pagenumbering{alph}
 	% \setcounter{page}{1}

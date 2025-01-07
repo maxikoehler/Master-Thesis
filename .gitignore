@@ -4,6 +4,7 @@
 */*.alof
 */*.alotx
 */*.atoc
+*.atoc
 *.aux
 *.lof
 *.log

@@ -39,6 +39,7 @@
 \usepackage{xstring}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{ragged2e}
 
 \newcommand{\einstellung}[1]{%
   \expandafter\newcommand\csname #1\endcsname{}
@@ -61,7 +62,7 @@
 \usepackage{lipsum}
 \usepackage{bm}
 % \usepackage[left=3cm,right=2cm,top=2.5cm,bottom=2.5cm,foot=.5cm]{geometry}	% Seitenränder und Abstände
-\usepackage[left=2.5cm,right=4.5cm,top=2.5cm,bottom=2.5cm,foot=.5cm]{geometry}	% Seitenränder und Abstände
+\usepackage[left=2.5cm,right=4.5cm,top=2.5cm,bottom=2.5cm,foot=.5cm,marginparwidth=3.2cm,marginparsep=.6cm]{geometry}	% Seitenränder und Abstände
 \usepackage[activate]{microtype} %Zeilenumbruch und mehr
 \usepackage[onehalfspacing]{setspace}
 \usepackage{makeidx}
@@ -94,6 +95,7 @@
 % \usepackage{filecontents}
 \setlength{\skip\footins}{10pt plus 6pt minus 0pt} % Abstand zwischen Fußnoten und Fließtext erhöhen. Latex-Standard: 10pt plus 4pt minus 2pt
 \usepackage{mathtools}
+\usepackage{nicematrix}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 % \usetikzlibrary{external}
@@ -105,6 +107,20 @@
 \usepackage{tcolorbox}
 % \usepackage{minitoc}
 \usepackage{afterpage}
+\usepackage{marginnote}
+\usepackage{snotez}
+\setsidenotes{
+  note-mark-format={\hspace*{-2pt}},
+  text-mark-format={\hspace*{-4pt}},
+  text-format+={\RaggedRight\color{ees_blue}\itshape},
+  sidefloat-format={\RaggedRight\color{ees_blue}\itshape\footnotesize},
+  perpage=true
+}
+
+\renewcommand*{\marginfont}{\color{ees_blue}\itshape\footnotesize}
+% \renewcommand*{\sidecaption}{\color{ees_blue}\itshape\footnotesize\RaggedRight}
+\renewcommand*{\raggedrightmarginnote}{}
+
 % \usepackage[Glenn]{fncychap}
 % Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
 \usepackage{circuitikzgit}
@@ -113,11 +129,34 @@
 \usepackage{prelim2e}
 \renewcommand{\PrelimText}{\textcolor{red}{\textbf{\footnotesize[\today\ at \thistime\ -- preliminary version \version]}}}
 
+\newcommand\tocpageseparator{\mbox{\hspace*{12pt}}\,}
+\newcommand\tocpagenumberbox[1]{\mbox{#1}}
+
+\RedeclareSectionCommands[
+  tocraggedpagenumber,
+  toclinefill=\tocpageseparator,
+  tocpagenumberbox=\tocpagenumberbox
+]{part,chapter,section,subsection}
+% \RedeclareSectionCommands[
+%   toconstartentry=\rule,
+% ]{chapter}
+
+% Change blank space between Headings and Text
+\RedeclareSectionCommands[
+  afterskip=12pt
+]{chapter}
+\RedeclareSectionCommands[
+  afterskip=6pt
+]{section}
+\RedeclareSectionCommands[
+  beforeskip=6pt,
+  afterskip=3pt,
+]{subsection, subsubsection}
 
 % Notizen. Einsatz mit \todo{Notiz} oder \todo[inline]{Notiz}. Documentation: https://tug.ctan.org/macros/latex/contrib/todonotes/todonotes.pdf
-\usepackage[obeyFinal,backgroundcolor=yellow,linecolor=black, figwidth=.9\linewidth,figcolor=white,textwidth=2.5cm]{todonotes}
-\setlength{\marginparwidth}{2.5cm}
-\reversemarginpar
+\usepackage[obeyFinal,backgroundcolor=yellow,linecolor=black, figwidth=.9\linewidth,figcolor=white,textwidth=3cm]{todonotes}
+% \setlength{\marginparwidth}{2.5cm}
+% \reversemarginpar
 \newcounter{mycomment}
 \newcommand{\mycomment}[2][]{%
 % initials of the author (optional) + note in the margin
@@ -381,6 +420,8 @@
 \definecolor{quotemark}{gray}{0.7}
 \makeatletter
 \newlength\origparskip
+
+% \newcommand{\fquote}{}
 
 \newcommand{\fquote}{%
   \@ifnextchar[{\fquote@i}{\fquote@i[]}%]

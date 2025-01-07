@@ -1,56 +1,69 @@
 %!TEX root = ../main.tex
 
-% \part{Modeling in Python}
+\begingroup
+\newgeometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\part{Methodical}
+
+\endgroup
+% A room without books is like a body without a soul.
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Transformer Equipment Modeling}
 
-Some literature and fundamentals about transformers, control, stability assessment, fast-switching modules, and analysis in Python.
+\begin{textblock*}{.7\textwidth}(70mm,25mm)
+        \begin{fquote}[Mae West]
+                You only live once, but if you do it right, once is enough.
+        \end{fquote}
+\end{textblock*}
 
-\begin{figure}[H]
-        \centering
-        \vspace{1cm}
-        \begin{circuitikz}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
-                \draw (0,0) node[oscillator, anchor=east, name=gen]{} --(.5,0)
-                to[L, name=X_g] ++(2,0) coordinate(f1)
-                % \bushere{1}{$\underline{E}_\mathrm{T}'$}{}
-                % to[oosourcetrans,prim=delta,sec=wye] ++(2,0)
-                \bushere{2}{$\underline{V}_\mathrm{bb}$}{\acs{SG} bus bar} coordinate(b1) ++(0,-1) -- ++(.25,0) -- coordinate(f2) ++(1.75,0)
-                to[L, name=X_l3] ++(1,0) -- ++(1.5,0) ++(0,1)
-                \bushere{2}{$E_\mathrm{ibb}~\angle~0^{\circ}$}{\acs{IBB}} ++(0,1) coordinate(b2) ++(0,-1) coordinate(b3) -- ++(.75,0) coordinate(f3) -- ++(.75,0) to[L, name=X_ibb] ++(1,0) -- ++(1,0)
-                node[gridnode, anchor=left, name=ib]{};
+Some literature and fundamentals about transformers, control, stability assessment, fast-switching modules, and analysis in Python. \todo{Hier steht ein Beispielkommentar.}
 
-                % draw other resistances
-                \draw (b1) ++(0,1) -- ++(.5,0) to[L, name=X_l1] (b2);
-                \draw (b1) -- ++(.5,0) to[L, name=X_l2] (b3);
-                % \draw[line width=2pt] (2.25,1) -- (2.25,-1);
-                % \draw[line width=2pt] (4.75,1) -- (4.75,-1);
-                % \draw[line width=2pt] (8.25,1) -- (8.25,-1);
+% \begin{figure}[H]
+%         \centering
+%         \vspace{1cm}
+%         \begin{circuitikz}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
+%                 \draw (0,0) node[oscillator, anchor=east, name=gen]{} --(.5,0)
+%                 to[L, name=X_g] ++(2,0) coordinate(f1)
+%                 % \bushere{1}{$\underline{E}_\mathrm{T}'$}{}
+%                 % to[oosourcetrans,prim=delta,sec=wye] ++(2,0)
+%                 \bushere{2}{$\underline{V}_\mathrm{bb}$}{\acs{SG} bus bar} coordinate(b1) ++(0,-1) -- ++(.25,0) -- coordinate(f2) ++(1.75,0)
+%                 to[L, name=X_l3] ++(1,0) -- ++(1.5,0) ++(0,1)
+%                 \bushere{2}{$E_\mathrm{ibb}~\angle~0^{\circ}$}{\acs{IBB}} ++(0,1) coordinate(b2) ++(0,-1) coordinate(b3) -- ++(.75,0) coordinate(f3) -- ++(.75,0) to[L, name=X_ibb] ++(1,0) -- ++(1,0)
+%                 node[gridnode, anchor=left, name=ib]{};
 
-                % labels for the resistors
-                \node[above=6pt] at (X_g) {$X_\mathrm{g}'$};
-                \node[above=6pt] at (X_ibb) {$X_\mathrm{ibb}$};
-                \node[above=6pt] at (X_l1) {$3~X_\mathrm{l}$};
-                % \node[below=6pt] at (X_l2) {$X_\mathrm{l}$};
-                % \node[below=6pt] at (X_l3) {$X_\mathrm{l}$};
+%                 % draw other resistances
+%                 \draw (b1) ++(0,1) -- ++(.5,0) to[L, name=X_l1] (b2);
+%                 \draw (b1) -- ++(.5,0) to[L, name=X_l2] (b3);
+%                 % \draw[line width=2pt] (2.25,1) -- (2.25,-1);
+%                 % \draw[line width=2pt] (4.75,1) -- (4.75,-1);
+%                 % \draw[line width=2pt] (8.25,1) -- (8.25,-1);
 
-                % pole voltages and angles
-                \path[->] (-1.2,.5) edge [bend right] node[left=6pt]{$E_\mathrm{p}~\angle~\delta$} (-1.2,-.5);
-                % \path[->] (ib) ++(.8,.5) edge [bend left] node[right=6pt]{$E_\mathrm{ibb}~\angle~0^{\circ}$} ++(0,-1);
+%                 % labels for the resistors
+%                 \node[above=6pt] at (X_g) {$X_\mathrm{g}'$};
+%                 \node[above=6pt] at (X_ibb) {$X_\mathrm{ibb}$};
+%                 \node[above=6pt] at (X_l1) {$3~X_\mathrm{l}$};
+%                 % \node[below=6pt] at (X_l2) {$X_\mathrm{l}$};
+%                 % \node[below=6pt] at (X_l3) {$X_\mathrm{l}$};
 
-                % faults
-                % \draw[-Stealth, very thick, red] (f1) ++(0,-.5) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f1_text);
-                % \node[below, red] at (f1_text) {\scriptsize fault 1};
-                \draw[-Stealth, very thick, red] (f2) ++(0,.3) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f2_text);
-                \node[below, red, align=center] at (f2_text) {\scriptsize fault 2/3};
-                \draw[-Stealth, very thick, red] (f3) ++(0,.3) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f3_text);
-                \node[below, red] at (f3_text) {\scriptsize fault 1};
-        \end{circuitikz}
-        \vspace{.5cm}
-        \caption[Representative circuit of a \acf{SMIB} model]{Representative circuit of a \acf{SMIB} model with pole wheel voltage $E_\mathrm{p}~\angle~\delta$ and \acf{IBB} voltage $E_\mathrm{ibb}~\angle~0^{\circ}$; positions of considered faults 1 to 3 are marked with red lightning arrows}
-        \label{fig:smib-model}
-\end{figure}
+%                 % pole voltages and angles
+%                 \path[->] (-1.2,.5) edge [bend right] node[left=6pt]{$E_\mathrm{p}~\angle~\delta$} (-1.2,-.5);
+%                 % \path[->] (ib) ++(.8,.5) edge [bend left] node[right=6pt]{$E_\mathrm{ibb}~\angle~0^{\circ}$} ++(0,-1);
+
+%                 % faults
+%                 % \draw[-Stealth, very thick, red] (f1) ++(0,-.5) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f1_text);
+%                 % \node[below, red] at (f1_text) {\scriptsize fault 1};
+%                 \draw[-Stealth, very thick, red] (f2) ++(0,.3) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f2_text);
+%                 \node[below, red, align=center] at (f2_text) {\scriptsize fault 2/3};
+%                 \draw[-Stealth, very thick, red] (f3) ++(0,.3) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f3_text);
+%                 \node[below, red] at (f3_text) {\scriptsize fault 1};
+%         \end{circuitikz}
+%         \vspace{.5cm}
+%         \caption[Representative circuit of a \acf{SMIB} model]{Representative circuit of a \acf{SMIB} model with pole wheel voltage $E_\mathrm{p}~\angle~\delta$ and \acf{IBB} voltage $E_\mathrm{ibb}~\angle~0^{\circ}$; positions of considered faults 1 to 3 are marked with red lightning arrows}
+%         \label{fig:smib-model}
+% \end{figure}
 
 \begin{figure}[h]
         \centering
@@ -100,14 +113,50 @@ Some literature and fundamentals about transformers, control, stability assessme
 
 \commenting{This is the description of the \glqq new\grqq implementation.}
 
-\subsection{Model demands and changes in the framework}
-\subsection{Additional modifications through a Fast Switching module}
+\subsection{Model Demands and Changes in the Framework}
+
+\subsection{Additional Modifications through a Fast Switching module}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Tap Changer Control Modeling}
 
 \commenting{This is the description of the ideas, development, and implementation of a OLTC control scheme.}
 
-\subsection{Control logic and device behavior}
-\subsection{Discrete control loop}
-\subsection{Continous control loop}
+\subsection{Discrete Control Loop}
+This control method represents the currently most used and thus representative control scheme for \acsp{OLTC}. With the mechanic nature of the switching mechanism, the control look can only access discrete ratios within time frames of around a few seconds. Such a discrete control loop is described by \textcite{milanoHybridControlModel2011}. A scheme of this control loop is shown in \autoref{fig:discrete-control-loop}.
+
+\begin{figure}[htb!]
+        \centering
+        \missingfigure{Discrete control loop}
+        \caption{Discrete control loop of an \acs{OLTC}; scheme based on \textcite{milanoHybridControlModel2011}}
+        \label{fig:discrete-control-loop}
+\end{figure}
+
+This control loop type is beneficial due to its accurate representability of current \acs{OLTC} abilities. It gains access to assess stability within simulation environments, as analytical methods are not suited.
+
+A negative aspect of a discrete control loop is the missing opportunity of generating a transfer function. This blocks the stability assessment with standard control engineering methods. Further, popular analysis methods like eigenvalue analysis is not possible, due to the lack of possibility to form derivatives.
+
+\commenting{
+        \begin{itemize}
+                \item Describe implementation
+                \item Describe benefits / drawbacks
+                \item Control scheme
+                \item Switching logic and behavior (voltage tracking)
+        \end{itemize}
+}
+
+\subsection{Continous Control Loop}
+
+\subsection{Control Schemes for the Fast Switching module}
+
+\subsubsection{Discrete Control Loop as most Representative}
+A continous control loop for a \acs{FSM} is presented within \textcite{burlakinEnhancedVoltageControl2024,burlakinEnhancingVariableShunt2024}. Similar to the solely \acs{OLTC} loop, it represents the real behavior best, but is obstructive for stability assessments. The scheme of the logic is shown in \autoref{fig:fsm-continuous-control-loop}.
+
+\begin{figure}[htb!]
+        \centering
+        \missingfigure{Continuous control loop of a FSM}
+        \caption{Continuous control loop of a \acs{FSM}; scheme based on \textcite{burlakinEnhancedVoltageControl2024}}
+        \label{fig:fsm-continuous-control-loop}
+\end{figure}
+
+\subsubsection{Continuous Control Loop for best Stability Assessment}

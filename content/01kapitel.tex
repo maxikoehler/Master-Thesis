@@ -1,18 +1,36 @@
 %!TEX root = ../main.tex
 
-\begin{textblock*}{.7\textwidth}(70mm,25mm)
-    \begin{fquote}[Albert Einstein]
-        All models are wrong, but some are useful.
-    \end{fquote}
-\end{textblock*}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction}
 \label{chap:intro}
 
+\begin{textblock*}{.7\textwidth}(70mm,25mm)
+    \begin{fquote}[Albert Einstein]
+        % All models are wrong, but some are useful.
+        Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.
+    \end{fquote}
+\end{textblock*}
+
 Some blibla as introduction. \autocite{machowskiPowerSystemDynamics2020}
-\lipsum[1-3]
+
+\begin{sidefigure}
+    \begin{center}
+        \includegraphics[width=.9\linewidth]{images/fausiegel.pdf}
+    \end{center}
+    \vspace*{-6pt}
+    This is a figure in the margin to demonstrate something small or bring a hint as sidenote.
+\end{sidefigure}
+
+\lipsum[1]
+\marginnote{This is a side note for testing out some options.}
+
+\lipsum[2]
+\sidenote{This is a second side note for testing out some options.}
+Some more Text.
+
+\lipsum[3]
+\mycomment[MK]{Write a nice introduction.}
 
 \clearpage
 
@@ -21,6 +39,15 @@ Some blibla as introduction. \autocite{machowskiPowerSystemDynamics2020}
 Here are gaps and possible extension of knowledge.
 
 Here are the research objectives and questions.
+
+\commenting{
+    \begin{itemize}
+        \item Influence of OLTC control on possible operational uses: Short-term voltage stability, long-term voltage stability; 
+        \item Can a increased dynamic regulation help machine recovery?
+        \item Does the increased tap ratio gradient harm transient stability of machines?
+        Does it help or harm CCT of machines or machine groups?
+    \end{itemize}
+}
 
 \subsubsection{Construction of the thesis}
 
@@ -39,16 +66,13 @@ This leads to the following structure for the paper:
 \chapter{Fundamentals}
 \label{ch:fundamentals}
 
+\begin{textblock*}{.7\textwidth}(70mm,25mm)
+    \begin{fquote}[Frank Zappa]
+        So many books, so little time.
+    \end{fquote}
+\end{textblock*}
+
 Following chapter shall introduce the basics for implementing an \acs{OLTC} equipped transformer into a existing \acs{PSS} framework. This is considering the already existing surrounding, more detailed the electric behavior of the transformer itself and some control engineering theory for the corrosponding \acs{OLTC}. Thus its main goal is increasing voltage stability \autocite{machowskiPowerSystemDynamics2020}, main indices and assessment methods are considered as well.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Voltage stability basics}
-
-\subsection{Stability indices}
-
-\subsection{Assessment methods}
-
-\subsection{Analytical stability calculation of static power systems}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Power System Modeling}
@@ -81,6 +105,7 @@ Following chapter shall introduce the basics for implementing an \acs{OLTC} equi
 \end{align}
 
 The admittance matrix of a two port network can be expressed after \textcite{machowskiPowerSystemDynamics2020} as \autoref{eq:admittance}. For the $\Pi$-model of an \acs{OLTC} transformer it is leading to \autoref{eq:admittance-oltc}.
+\sidenote(1.7cm){$\Pi$-admittance matrix}
 \begin{align}
     \underline{\mab{Y}}_\mathrm{\Pi,T}&= 
     \begin{bmatrix}
@@ -88,24 +113,68 @@ The admittance matrix of a two port network can be expressed after \textcite{mac
         \underline{\vartheta}^*\underline{Y}_\mathrm{T} & -\underline{\vartheta}^*\underline{\vartheta}\underline{Y}_\mathrm{T}
     \end{bmatrix} \label{eq:admittance-oltc}
 \end{align}
+Another way of writing down the admittance matrix is shown in \autoref{eq:admittance-oltc-2}. It is considering, that the matrix can be split up in a symmetric, constant part, and a variable current injection part. The latter is not symmetrical and depends on the tap position of the transformer. Therefore in some simulation algorithms the static part is used in the admittance matrix, and the variable part is considered in the current injection vector. \autocite{machowskiPowerSystemDynamics2020}
+\begin{align}
+    \begin{bmatrix}
+        \underline{I}_1 \\
+        -\underline{I}_2
+    \end{bmatrix} &=
+    \begin{bmatrix}
+        \underline{Y}_\mathrm{T} & -\underline{Y}_\mathrm{T} \\
+        -\underline{Y}_\mathrm{T} & \underline{Y}_\mathrm{T}
+    \end{bmatrix}
+    \begin{bmatrix}
+        \underline{U}_1 \\
+        \underline{U}_2
+    \end{bmatrix} -
+    \begin{bmatrix}
+        \Delta \underline{I}_1 \\
+        \Delta \underline{I}_2
+    \end{bmatrix}\text{, where } \notag \\[12pt]
+    \begin{bmatrix}
+        \Delta \underline{I}_1 \\
+        \Delta \underline{I}_2
+    \end{bmatrix} &=
+    \begin{bmatrix}
+        \underline{0} & (\underline{\vartheta}-1)\underline{Y}_\mathrm{T} \\
+        -(\underline{\vartheta}^*+1)\underline{Y}_\mathrm{T} & (\underline{\vartheta}^*\underline{\vartheta}+1)\underline{Y}_\mathrm{T}
+    \end{bmatrix}
+    \begin{bmatrix}
+        \underline{U}_1 \\
+        \underline{U}_2
+    \end{bmatrix} \text{ leading to } \notag \\[12pt]
+    \underline{\mab{Y}}_\mathrm{\Pi,T}&= 
+    \begin{bmatrix}
+        \underline{Y}_\mathrm{T} & -\underline{Y}_\mathrm{T} \\
+        -\underline{Y}_\mathrm{T} & \underline{Y}_\mathrm{T}
+    \end{bmatrix} -
+    \begin{bmatrix}
+        \underline{0} & (\underline{\vartheta}-1)\underline{Y}_\mathrm{T} \\
+        -(\underline{\vartheta}^*+1)\underline{Y}_\mathrm{T} & (\underline{\vartheta}^*\underline{\vartheta}+1)\underline{Y}_\mathrm{T}
+    \end{bmatrix} \label{eq:admittance-oltc-2}
+\end{align}
 
 \subsubsection*{Per unit system specialities}
 
 Reactances and resistances are referred to the base voltage and apparent power of the operational unit, such as the transformer. The power system simulation uses its own base voltage and base apparent power, enabling the use of one single calculation domain. This is done to simplify the calculation and to make the results easily comparable to each other. Hence, the reffered values have to be transformed from the equipment based values to the simulation based values. The relations and conversions are defined as follows.
+\begin{align}
+    &\underline{Y}_\mathrm{T}=\frac{1}{r_\mathrm{T} + x_\mathrm{T} \cdot i} \cdot \frac{b_\mathrm{T} \cdot i}{2} \notag \\[12pt]
+    &\underline{Y}_\mathrm{T,~sim}=\underline{Y}_\mathrm{T} \cdot \frac{S_\mathrm{n}}{S_\mathrm{n,~sim}} \label{eq:y-t-based} \\[12pt]
+    &\underline{U}_\mathrm{whatever,~sim}=\underline{U}_\mathrm{whatever} \cdot \frac{S_\mathrm{n}}{S_\mathrm{n,~sim}} \label{eq:voltages-based}
+\end{align}
+Displayed like in \autoref{eq:y-t-based}, the characteristic of the operational unit is referred to the simulation base value. Here, the admittance of the transformer is multiplied with its own rated apparent power, then devided by the apparent power of the simulation system. Similar, the voltages are calculated via \autoref{eq:voltages-based}. This specialities are considered in the tap changer modeling, thus further information is given in \autocite{machowskiPowerSystemDynamics2020}, Appendix A.
 
 \commenting{
     Additionally to consider:
     \begin{itemize}
-        \item D-q transformations,
+        \item D-q transformations (???),
         \item Frequency domains: reactances and inductances are dependent and can change with the base frequency,
         \item Torque and power relations.
     \end{itemize}
-}
-
-This specialities are considered in the tap changer modeling, thus further information is given in \autocite{machowskiPowerSystemDynamics2020}, Appendix A.
+    }
 
 \subsection{Open-Source Power System Simulation tools}
-
+    
 \commenting{
     Some information about other open source python power system simulation tools, such as:
     \begin{itemize}
@@ -114,10 +183,98 @@ This specialities are considered in the tap changer modeling, thus further infor
         \item ... .
     \end{itemize}
     Build up like a scan (see Georg's thesis).
-
+    
     BUT: As well including the there used implementation of transformers mathematical background and complexity.
 }
+        
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Voltage stability basics}
 
+\subsection{Voltage stability definitions, classifications, and conditions}
+
+\commenting{
+    Interesting to note/implement here: Basic classification, definitions, and the nature or conditions of voltage stability. Such as
+    \begin{itemize}
+        \item Short term vs. long term
+        \item Static vs. dynamic
+        \item Influence OLTC: Restoring voltage level, but not adding reactive capacities; hence adding risk of voltage collapses
+        \item Load vs. transmission aspects
+        \item Example mechanism: \textbf{Collapse effect of the nordic test system} \autocite{vancutsemTestSystemsVoltage2020,cutsemVoltageStabilityElectric1998}
+    \end{itemize}
+}
+        
+\begin{table}
+    \centering
+    \caption{Voltage instability types and different time frames with examples; after \commenting{\textbf{[QUELLE]}}}
+    \small
+    \renewcommand\tabularxcolumn[1]{m{#1}}
+    \vspace*{12pt}
+    \begin{tabularx}{\textwidth}{llXX}
+        \hline
+        \textbf{No} & \textbf{Type} & \textbf{Cause of incident} & \textbf{Time frames} \\
+        \hline
+        1 & Long-term & Slowly use up of reactive reserves and no outage & Several minutes to several hours \\
+        2 & Classical & Key outage leads to reactive power shortage & One to five minutes \\
+        3 & Short-term & Induction motor stalling leads to reactive power shortage & Five to fifteen seconds \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\subsection{Stability indices}
+
+One easy idea for obtaining a stable operation is looking at the Jacobian Matrix. If this matrix is getting singular, the System will not remain in a stable operation. Singularity of matrices is checked by follwing two hypothesis tests:
+\begin{align}
+    &\det(\mab{J})=0 \label{eq:jacobian-det} \\[12pt]
+    &J \times J^{-1} \uparrow \label{eq:jacobian-rank}
+\end{align}
+The Jacobian Matrix is defined as:
+\sidenote(5.2cm){Jacobian Matrix}
+\begin{align}
+    \mab{J}=
+    \begin{bmatrix}
+        \Delta \mab{P} \\
+        \Delta \mab{Q}
+    \end{bmatrix}&=
+    \begin{bNiceArray}{c|c}
+        \mab{H} & \mab{M'} \\ \hline
+        \mab{N} & \mab{K'}
+    \end{bNiceArray} \cdot
+    \begin{bmatrix}
+        \Delta \delta \\
+        \Delta V/V
+    \end{bmatrix} \notag \\[12pt]
+    \begin{bmatrix}
+        \Delta P_1 \\
+        \vdots \\
+        \Delta P_n \\ \hline
+        \Delta Q_1 \\
+        \vdots \\
+        \Delta Q_n
+    \end{bmatrix}&=
+    \begin{bNiceArray}{ccc|ccc}
+        \frac{\partial P_1}{\partial \delta_1} & \hdots & \frac{\partial P_1}{\partial \delta_n} & V_1\frac{\partial P_1}{\partial V_1} & \hdots & V_n\frac{\partial P_1}{\partial V_n} \\
+        \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+        \frac{\partial P_n}{\partial \delta_1} & \hdots & \frac{\partial P_n}{\partial \delta_n} & V_1\frac{\partial P_n}{\partial V_1} & \hdots & V_n\frac{\partial P_n}{\partial V_n} \\ \hline
+        \frac{\partial Q_1}{\partial \delta_1} & \hdots & \frac{\partial Q_1}{\partial \delta_n} & V_1\frac{\partial Q_1}{\partial V_1} & \hdots & V_n\frac{\partial Q_1}{\partial V_n} \\
+        \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+        \frac{\partial Q_n}{\partial \delta_1} & \hdots & \frac{\partial Q_n}{\partial \delta_n} & V_1\frac{\partial Q_n}{\partial V_1} & \hdots & V_n\frac{\partial Q_n}{\partial V_n} \\
+    \end{bNiceArray} \cdot
+    \begin{bmatrix}
+        \Delta \delta_1 \\
+        \vdots \\
+        \Delta \delta_n \\ \hline
+        \Delta V_1/V_1 \\
+        \vdots \\
+        \Delta V_n/V_n
+    \end{bmatrix}
+\end{align}
+
+Although this method seems easy to implement, there are some numerical problems realted to that. Checking if a Matrix is singular with numerical mathods, can only be realised as a probablilty expression. A result could be, that the determinant of the matrix is below a certain threshold. The algorithm would propose, that the matrix is probabilistic singular. \commenting{[QUELLE]} This problem leads to the necessity of applying other methods or indices for stability assessment.
+
+\subsection{Assessment methods}
+        
+\subsection{Analytical stability calculation of static power systems}
+        
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Control engineering theory}
 

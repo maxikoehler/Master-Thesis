@@ -1,16 +1,17 @@
 %!TEX root = ../main.tex
 
-\thispagestyle{plain}
 \begingroup
-\begin{fquote}[Albert Einstein]
-    For knowledge is limited to all we know and understand, while imagination embraces the entire world, and all there will be ever to know and understand.
-\end{fquote}
-\let\cleardoublepage\relax
-\vspace{-1cm}
+\RedeclareSectionCommand[beforeskip=4.5cm]{chapter}
 
 \chapter*{Acknowledgements}
 \addcontentsline{toc}{chapter}{Acknowledgements}
-\endgroup
+
+\thispagestyle{plain}
+\begin{textblock*}{.7\textwidth}(70mm,25mm)
+    \begin{fquote}[Albert Einstein]
+        For knowledge is limited to all we know and understand, while imagination embraces the entire world, and all there will be ever to know and understand.
+    \end{fquote}
+\end{textblock*}
 
 Who to thank, which contributions, whatever\dots
 Some text to fill a whole line with is some blibla with some explanation making no sense at all but just writing some characters.
@@ -18,3 +19,5 @@ Some text to fill a whole line with is some blibla with some explanation making 
 \begin{flushright}
     Maximilian Köhler
 \end{flushright}
+
+\endgroup

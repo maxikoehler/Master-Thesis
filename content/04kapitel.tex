@@ -1,13 +1,75 @@
 %!TEX root = ../main.tex
 
-% \part{Simualtion and Verification}
+\begingroup
+\newgeometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\part{Practical Application: Simulation}
+
+\endgroup
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Verification setup and results}
 
+\begin{textblock*}{.7\textwidth}(70mm,25mm)
+    \begin{fquote}[Mark Twain]
+        If you tell the truth, you don't have to remember anything.
+    \end{fquote}
+\end{textblock*}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Representative Electrical Networks}
+
+The following section shall introduce the used power systems in the simulation with the Python framework, considering verification, and also extension meaning the performed case studies in \autoref{chap:case-study}. The models are chosen to represent different network sizes and complexities, thus allowing the objective of graded interaction levels of the developed (transformer) model. The models are based on the work of \textcite{machowskiPowerSystemDynamics2020}, \textcite{kundurPowerSystemStability2022}, \textcite{IEEEGuideLoad}, and \textcite{vancutsemTestSystemsVoltage2020}.
+
+\subsubsection{Single Machine Infinite Bus (SMIB) Model}
+
+One very popular and thus powerful electrical network for the verification of power system stability is the \acs{SMIB} model. It is a compact and simplified model of a power system, allowing easy analytical calculation, verification and development. Mutual influences are comparably simple to understand and calculate, as the infinite bus bus is acting as a fixed grid connection point with a large adjoining grid. The generator is connected to the bus bar via a transmission line and a transformer. The model was largely discussed by \textcite{kundurPowerSystemStability2022}, and is shown in Figure \ref{fig:smib-model}. The generator and the \acs{IBB} are represented by synchronous machines, developed and discussed by \textcite{kordowichPhysicsInformedMachine2023}. The specific model details are included in \autoref{app:smib-model}, additionally the simulation setup for verification is described in \autoref{tab:smib-model}.
+
+\begin{figure}[htb]
+    \centering
+    \begin{circuitikz}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
+        \draw (0,0) node[oscillator, anchor=east, name=gen]{} --(.5,0)
+        to ++(.5,0) \bushere{1}{}{Bus 2}
+        to[oosourcetrans] ++(2,0) 
+        \bushere{1}{}{Bus 1} -- ++(3,0) coordinate(line) -- ++(3,0)
+        \bushere{1}{}{Bus 0}
+        -- ++(1,0) node[gridnode, anchor=left, name=ib]{};
+
+        % faults
+        % \draw[-Stealth, very thick, red] (f1) ++(0,-.5) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f1_text);
+        % \node[below, red] at (f1_text) {\scriptsize fault 1};
+    \end{circuitikz}
+    \caption[]{\acf{SMIB} model for verification and validation of the Python framework; own figure after \autocite{machowskiPowerSystemDynamics2020,kundurPowerSystemStability2022}}
+    \label{fig:smib-model}
+\end{figure}
+
+\begin{table}[htb]
+    \caption[Simulation Setup for validation of the $\Pi$-modeled transformer]{Simulation Setup for validation of the $\Pi$-modeled transformer; considering a transforming ratio $\underline{\vartheta} \neq 1$ and $\underline{\vartheta} \in \mathbb{C}$}
+    \label{tab:smib-model}
+    \vspace*{12pt}
+    \centering
+    \small
+    \begin{tabularx}{\textwidth}{Xr}
+        % \toprule
+        \hline
+        \textbf{Parameter} & \textbf{Value} \\ \hline
+        % \midrule
+        Generator inertia $H$ & 3.5 s \\
+        Generator damping $D$ & 0.1 p.u. \\
+        Generator resistance $R$ & 0.01 p.u. \\
+        Generator reactance $X$ & 0.1 p.u. \\
+        Transformer resistance $R$ & 0.01 p.u. \\
+        Transformer reactance $X$ & 0.1 p.u. \\
+        Transmission line resistance $R$ & 0.01 p.u. \\
+        Transmission line reactance $X$ & 0.1 p.u. \\
+        % \bottomrule
+        \hline
+    \end{tabularx}
+\end{table}
+
+\subsubsection{IEEE nine-bus system}
+
+\subsubsection{Nordic test system}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results from the Python Framework}
@@ -15,13 +77,43 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Comparison to Results from PowerFactory}
 
+\subsubsection{Single Machine Infinite Bus (SMIB) Model}
 
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{validation/comp_simple_pi.pdf}
+    \caption{Comparison of the $\Pi$-modeled transformer in the \acs{SMIB} model between PowerFactory and the Python framework}
+    \label{fig:comp-simple-pi}
+\end{figure}
+
+\commenting{Place results here, looking at: off nominal tap ratio, and with off nominal phase shifting (e.g. $110^\circ$)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Case study}
+\label{chap:case-study}
+
+\begin{textblock*}{.7\textwidth}(70mm,25mm)
+    \begin{fquote}[Narcotics Anonymous]
+        Insanity is doing the same thing, over and over again, but expecting different results.
+    \end{fquote}
+\end{textblock*}
 
 \section{Scenario setting}
+
+\commenting{
+    Does it make sense to structure like that?
+
+    Or is it a better idea thinking in terms of specific \glqq use cases\grqq~as sections:
+    \begin{itemize}
+        \item What happens under strong grid conditions? -> Section: Strong grid condition behavior
+        \item What happens under weak grid conditions? -> Section: Weak grid condition behavior
+        \item Strongly interconnected grids
+        \item Widely extended linear string grids
+        \item Section: Use case of Wind farm integration
+        \item Influence on transient stability: SMIB model with and without OLTC
+    \end{itemize}
+}
 
 \section{Simulation}
 
