@@ -1,10 +1,10 @@
 %!TEX root = ../main.tex
 
-\begingroup
-\newgeometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
-\part{Practical Application: Simulation}
+% \begingroup
+% \newgeometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+% \part{Practical Application: Simulation}
 
-\endgroup
+% \endgroup
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -28,6 +28,7 @@ One very popular and thus powerful electrical network for the verification of po
 \begin{figure}[htb]
     \centering
     \begin{circuitikz}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
+        \small
         \draw (0,0) node[oscillator, anchor=east, name=gen]{} --(.5,0)
         to ++(.5,0) \bushere{1}{}{Bus 2}
         to[oosourcetrans] ++(2,0) 
@@ -51,9 +52,8 @@ One very popular and thus powerful electrical network for the verification of po
     \small
     \begin{tabularx}{\textwidth}{Xr}
         % \toprule
-        \hline
         \textbf{Parameter} & \textbf{Value} \\ \hline
-        % \midrule
+        \toprule
         Generator inertia $H$ & 3.5 s \\
         Generator damping $D$ & 0.1 p.u. \\
         Generator resistance $R$ & 0.01 p.u. \\
@@ -62,10 +62,32 @@ One very popular and thus powerful electrical network for the verification of po
         Transformer reactance $X$ & 0.1 p.u. \\
         Transmission line resistance $R$ & 0.01 p.u. \\
         Transmission line reactance $X$ & 0.1 p.u. \\
-        % \bottomrule
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{table}
+
+\subsubsection{Simple Single Machine Load Model}
+
+Follwing model is often recommended \quelle for easy voltage control studies, in explicit for \acsp{OLTC}. Similar to the \acs{SMIB} model, it consists from one synchronous generator, busses, and lines in a single branch. The \acs{IBB} is thus removed and changed to a load. This two element type o configuration allows for an easy analytical calculation of voltage stability and control. Although this thesis is focussing on \acs{OLTC} transformers, the model is extended with one in between. A single line representation is depicted in \autoref{fig:single-line-voltage-stability}.
+
+\begin{figure}[htb!]
+    \centering
+    \begin{circuitikz}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
+        % \draw [help lines] (-1,-5) grid (15,5);
+        \small
+        \draw (0,0) node[oscillator, anchor=east, name=gen]{} --(.5,0)
+        to ++(.5,0) \bushere{1}{}{Bus 2}
+        to[oosourcetrans] ++(2,0) 
+        \bushere{1}{}{Bus 1} -- ++(1.5,0) coordinate(line) -- ++(1.5,0)
+        \bushere{2}{}{Bus 0} coordinate(b0);
+        \draw (b0) ++(0,1) -- ++(1,0) \loadside{Load 1};
+        \draw (b0) ++(0,-1) -- ++(1,0) \loadside{Load 2} ++(1,0);
+    \end{circuitikz}
+    \caption{Single line representation of a simple single machine load model; own illustration with characterstics from \quelle}
+    \label{fig:single-line-voltage-stability}
+\end{figure}
+
+Further details about its configuration and simulation setup are included in \autoref{app:single-line-model}. It should be noted, that simple load models are not useful for simulation of this example network. Usually constant Z models are used as loads, therefore simulation results can be misleading and not showing desired effects or voltage instability mechanisms \quelle. \commenting{The simulation framework is extended with XX types of load models, to satisfy the requirements of the single machine load model, and a connected stability assessment.}
 
 \subsubsection{IEEE nine-bus system}
 
@@ -98,6 +120,15 @@ One very popular and thus powerful electrical network for the verification of po
         Insanity is doing the same thing, over and over again, but expecting different results.
     \end{fquote}
 \end{textblock*}
+
+\commenting{
+    In the interest of investigation / the Case Study are:
+    \begin{itemize}
+        \item Influence of switching times on stability margin/begin of destabilization,
+        \item Influence of max. ratio change per switching event, and
+        \item Influence on different test systems (destabilization mechanisms).
+    \end{itemize}
+}
 
 \section{Scenario setting}
 

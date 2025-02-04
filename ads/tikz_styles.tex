@@ -21,6 +21,17 @@
     % go back to where we started
     (tmp)
 }
+% new commands for styling of loads
+\newcommand{\loadside}[1]{
+   coordinate(tmp)
+   -| ++(0.5,-1) node[fill=white,shape=regular polygon, rotate=180, regular polygon sides=3,minimum size=0.8,draw](){} ++(.5,0) node[right]{#1}
+   (tmp)
+}
+\newcommand{\loadhanging}[0]{
+   coordinate(tmp)
+   -| ++(0.5,-1) node[fill=white,shape=regular polygon, rotate=180, regular polygon sides=3,minimum size=0.8,draw](){}
+   (tmp)
+}
 
 % program plan
 \tikzset{

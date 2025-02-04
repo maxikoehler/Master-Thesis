@@ -85,6 +85,7 @@
 \usepackage[printonlyused]{acronym} % falls gewünscht kann die Option footnote eingefügt werden, dann wird die Erklärung nicht inline sondern in einer Fußnote dargestellt
 \usepackage{listings}
 \usepackage{tabularx}
+\usepackage{booktabs}
 % \usepackage{pdflscape}
 \usepackage{lscape}
 \usepackage{rotating}
@@ -96,6 +97,7 @@
 \setlength{\skip\footins}{10pt plus 6pt minus 0pt} % Abstand zwischen Fußnoten und Fließtext erhöhen. Latex-Standard: 10pt plus 4pt minus 2pt
 \usepackage{mathtools}
 \usepackage{nicematrix}
+\usepackage{physics}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 % \usetikzlibrary{external}
@@ -171,6 +173,7 @@
 
 % Kommentarumgebung. Einsatz mit \comment{}. Alle Kommentare ausblenden mit dem Auskommentieren der folgenden und dem aktivieren der nächsten Zeile.
 \newcommand{\commenting}[1]{{\color{ees_red} #1}} % Kommentar anzeigen
+\newcommand{\ai}[1]{{\color{ees_green} #1}} % Kommentar anzeigen
 %\newcommand{\comment}[1]{} %Kommentar ausblenden
 
 
@@ -268,7 +271,7 @@
 \displaywidowpenalty=10000
 
 % Bildpfad
-\graphicspath{{images/}}
+\graphicspath{{images/}{../diffpssi-ma-kohler/}}
 
 % Einige häufig verwendete Sprachen
 \lstloadlanguages{PHP,Python,Java,C,C++,bash}
@@ -468,3 +471,6 @@
 
 % Math - vectors/matrices: new command for easy typesetting
 \newcommand{\mab}[1]{\mathrm{\textbf{#1}}}
+
+% easy access for comments of missing sources
+\newcommand{\quelle}[0]{\commenting{\textbf{[Quelle]}}~}

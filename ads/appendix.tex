@@ -2,7 +2,7 @@
 
 % \appendixtoc
 % \appendix
-\ohead[]{\textsc{Appendix}}
+% \ohead[]{\textsc{Appendix}}
 \label{app:appendix}
 
 % \renewcommand\thechapter{\roman{chapter}}
@@ -20,18 +20,91 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Python modeling}
+\chapter{Fundamentals}
 
-\section{Mathematical equations}
-\label{app:python-mathematical}
+\section{Description of the Power System Simulation process}
+
+In this appendix section, the general process of power system simulation is described. As this thesis is aiming to understand voltage stability and processes in longer periods of time, these explanations apply to pointer-based simulations, called RMS simulations. Meaning that the considered effects are slower electromechanical nature instead of faster electromagnetic ones. The in this thesis used Python framework \glqq \textit{diffpssi}\grqq~is based on this type of simulation, and due to its open-source based nature traceable.
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=\textwidth]{fundamentals/power-system-simulation-process.pdf}
+    \missingfigure{Power system simulation process}
+    \caption{Power system simulation process; own illustration}
+    \label{fig:power-system-simulation-process}
+\end{figure}
+
+\commenting{
+    Really basic: (?)
+    \begin{itemize}
+        \item Phasor description
+        \item Symmetricak Components
+        \item RMS vs EMT simulation (-> meaning one cannot simulate other faults than 3ph w/o ground)
+    \end{itemize}
+    Less basic and more advanced:
+    \begin{itemize}
+        \item rountines in the framework
+        \item two types: Algebraic and Differential equations have to be solved at each time step -> What is which? Which operational equipment is typically described with which type of equation?
+    \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Jacobian based voltage stability criterions}
+\label{app:jacobian-voltage-indices}
+
+\textcite{danishVoltageStabilityElectric2015} is showing, describing, and referencing some voltage stability indices based on the Jacobian matrix. The following table is a collection of these indices.
+
+\begin{sidewaystable}[h!]
+    \centering
+    \small
+    \caption{Jacobian based voltage stability criterions; after \textcite{danishVoltageStabilityElectric2015}}
+    \vspace*{12pt}
+    \renewcommand{\arraystretch}{2}
+    \begin{tabularx}{20cm}{llXXl}
+        % \toprule
+        \textbf{Index} & \textbf{Abbreviation} & \textbf{Calculation} & \textbf{Stability Threshold} & \textbf{Reference} \\
+        \toprule
+        Tangent Vector Index & \acs{TVI} & $\mathrm{TVI}_i=\left\lvert \frac{\dd{V_i}}{\dd{\lambda}}\right\rvert^{-1}$ & depending on load increase & \\ \midrule
+        Test Function & & $t_{cc}=\left\lvert e^T_c \cdot \mab{J} \times \mab{J}_{cc}^{-1} \cdot e_c\right\rvert$ & details are given in reference & \\ \midrule
+        & $i$ & $i=\frac{1}{i_0} \cdot \sigma_\mathrm{max} \cdot \big( \dv{\sigma_\mathrm{max}}{\lambda_\mathrm{total}} \big)^{-1}$ & $i > 0$ & \\ \midrule
+        Minimum Eigenvalue & & $\Delta V=\sum_{i} \frac{\xi_i\eta_i}{\lambda_i} \Delta Q$ & all eigenvalues should be positive & \\ \midrule
+        Minimum Singular Value & & $\begin{bmatrix} \Delta \vartheta \\ \Delta V \end{bmatrix}=\mab{V} \sum^-1 \mab{U}^T \begin{bmatrix} \Delta F \\ \Delta G \end{bmatrix}$ & details are given in reference & \\ \midrule
+        Predicting Voltage Collapse & & $\frac{V}{V_0}$ & the smallest index value & \\ \midrule
+        Impedance Ratio & & $\frac{Z_ii}{Z_i}$ & $\frac{Z_ii}{Z_i} \leq 1$ & \\
+        \bottomrule
+    \end{tabularx}
+\end{sidewaystable}
 
 
-\chapter{OLTC control}
 
-\chapter{Verification}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Comparison of System based and Jacobian based indices}
+\label{app:jacobian-vs-system-indices}
 
-\section{Single-machine infinite bus-bar model}
-\label{app:smib-model}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \chapter{Python modeling}
 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Mathematical equations}
+% \label{app:python-mathematical}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{OLTC control}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \chapter{Verification}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Single-machine infinite bus-bar model}
+% \label{app:smib-model}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \chapter{Case study}

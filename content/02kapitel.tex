@@ -1,10 +1,10 @@
 %!TEX root = ../main.tex
 
-\begingroup
-\newgeometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
-\part{Methodical}
+% \begingroup
+% \newgeometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+% \part{Methodical}
 
-\endgroup
+% \endgroup
 % A room without books is like a body without a soul.
 
 
@@ -123,7 +123,7 @@ Some literature and fundamentals about transformers, control, stability assessme
 \commenting{This is the description of the ideas, development, and implementation of a OLTC control scheme.}
 
 \subsection{Discrete Control Loop}
-This control method represents the currently most used and thus representative control scheme for \acsp{OLTC}. With the mechanic nature of the switching mechanism, the control look can only access discrete ratios within time frames of around a few seconds. Such a discrete control loop is described by \textcite{milanoHybridControlModel2011}. A scheme of this control loop is shown in \autoref{fig:discrete-control-loop}.
+This control method represents the currently most used and thus representative control scheme for \acsp{OLTC}. With the mechanic nature of the switching mechanism, the control look can only access discrete ratios within time frames of around a few seconds. Such a discrete control loop is described by \textcite{milanoHybridControlModel2011,milanoPowerSystemModelling2010}. A scheme of this control loop is shown in \autoref{fig:discrete-control-loop}.
 
 \begin{figure}[htb!]
         \centering
@@ -147,6 +147,13 @@ A negative aspect of a discrete control loop is the missing opportunity of gener
 
 \subsection{Continous Control Loop}
 
+\begin{figure}[htb!]
+        \centering
+        \includegraphics[width=.7\linewidth]{development_files/data/oltc_control_characterization.pdf}
+        \caption[short]{Characterization of the OLTC control loop; the input function simulates the to be regulated voltage, the output functions are characterized by $o(t)=i(t) \cdot \underline{\vartheta}_\mathrm{trafo}$}
+        \label{fig:oltc-control-characterization}
+\end{figure}
+
 \subsection{Control Schemes for the Fast Switching module}
 
 \subsubsection{Discrete Control Loop as most Representative}
@@ -160,3 +167,148 @@ A continous control loop for a \acs{FSM} is presented within \textcite{burlakinE
 \end{figure}
 
 \subsubsection{Continuous Control Loop for best Stability Assessment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Supplementary Modeling of Additional Components}
+
+As the python framework is currently missing some representations of components, this chapter aims to describe the implementation of those. Mainly focussing on source and load models, as the later considered test, benchmark, and use case networks require alternative behaviors. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Load Models}
+
+\subsection{ZIP Load Models}
+
+\commenting{Why important?}
+
+Mostly, a polynomial load model is used. It is called ZIP-model, as there are individual contributions to constant impedance $\underline{Z}$, constant current $\underline{I}$, and constant power $P$, or respectively $Q$, are considered. The model is described by \textcite{IEEEGuideLoad2022}. Either two ways of mathematical description are considered valid, dependent on the allowed influence of the frequency deviation. The use of periodized phasor representation, typical for a \acs{RMS} simulation, is missing or often neglecting this frequency information. Therefore the set of \autoref{eq:zip-1} and \autoref{eq:zip-2} is considered sufficient and implemented in the Python framework.
+\begin{align}
+        P&=P_n \cdot \Bigg[ p_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + p_2 \Bigg(\frac{U}{U_n}\Bigg) + p_3 \Bigg] \label{eq:zip-1} \\[12pt]
+        Q&=Q_n \cdot \Bigg[ q_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + q_2 \Bigg(\frac{U}{U_n}\Bigg) + q_3 \Bigg] \label{eq:zip-2} \\[12pt]
+        \text{with} \quad &p_i \in [0,1] \quad \text{and} \quad p_i \in [0,1] \notag
+\end{align}
+
+\commenting{Characteristics?}
+
+\begin{figure}[htb!]
+        \centering
+        % \begin{subfigure}[b]{.45\linewidth}
+        %         \centering
+        %         \includegraphics[width=\linewidth]{development_files/data/zip-load_characterization_impedance.pdf}
+        %         \vspace*{4pt}
+        %         \caption{}
+        %         \label{fig:zip-charac-y}
+        % \end{subfigure}
+        % \begin{subfigure}[b]{.45\linewidth}
+        %         \centering
+        %         \includegraphics[width=\linewidth]{development_files/data/zip-load_characterization_power.pdf}
+        %         \vspace*{4pt}
+        %         \caption{}
+        %         \label{fig:zip-charac-p}
+        % \end{subfigure}
+        \includegraphics[width=\linewidth]{development_files/data/zip-load_characterization_full.pdf}
+        \caption[Characterization of the ZIP load model]{Characterization of the ZIP load model; with (upper) the result of the impedances dependent on the voltage at the connected bus, and (lower) the resulting power consumption of the different models, representative only the real power $P$}
+        \label{fig:zip-charac}
+\end{figure}
+
+\commenting{How does it look like in the simulation environment?}
+
+% \begin{align}
+%         P&=P_n \cdot \Bigg[ p_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + p_2 \Bigg(\frac{U}{U_n}\Bigg) + p_3 \Bigg] \cdot (1+k_{pf} \Delta f) \label{eq:zip-with-f-1} \\[12pt]
+%         Q&=Q_n \cdot \Bigg[ q_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + q_2 \Bigg(\frac{U}{U_n}\Bigg) + q_3 \Bigg] \cdot (1+k_{qf} \Delta f) \label{eq:zip-with-f-2} \\[12pt]
+%         \text{with} \quad &\sum_{i=1}^{3} p_i =1 \quad \text{and} \quad \sum_{i=1}^{3} q_i =1 \notag
+% \end{align}
+
+% Although the subset of \autoref{eq:zip-with-f-1} and \autoref{eq:zip-with-f-2} would consider a relation to the frequency at the given time, it is not used. The use of periodized phasor representation, typical for a \acs{RMS} simulation, is missing this information. Therefore the set of \autoref{eq:zip-1} and \autoref{eq:zip-2} is implemented in the Python framework.
+
+\subsection{Induction Machine Models}
+
+As one of the most important loads to consider, especially for many load driven instability mechanisms, the \ac{IM} is a crucial component, \quelle
+
+\commenting{
+        Just briefly:
+        \begin{itemize}
+                \item Why is it crucial?
+                \item How do the instability mechanisms work and look like?
+                \item What are the different types of \acsp{IM} modeling (complete and dynamic, static, \dots)
+        \end{itemize}
+}
+
+Three main ways of \acs{IM} modeling are relevant to mention in this section:
+\begin{enumerate}
+        \item Static model as introduced in \textcite{IEEEGuideLoad2022},
+        \item a dynamic 'fixed-speed' \acs{IM} model, and
+        \item a doubly fed \acs{IM} model.
+\end{enumerate} 
+The last ones are mentioned and further described in \textcite{machowskiPowerSystemDynamics2020}. Least model requires very detailed information, and shall be suitable for \acs{SMIB} models for machine behavior studies or similar. The second model is suitable for network analysis and machine behaviors. The first model applies for high perception of \acsp{IM} in total loading of the network. As referencing to \textcite{IEEEGuideLoad2022}, is is similar implemented as the before mentioned ZIP load model, considering characteristic equations for its real power $P$ and reactive power $Q$. Both models shall be described in the following section.
+
+\subsubsection{Static Model of Induction Machines}
+
+For this operational unit type is a detailed dynamic modeling possible. With some considerations, it can be sufficient, modeling this equipment just with the  The model is described by \textcite{IEEEGuideLoad2022} as formulated in following set of equations. %\autoref{eq:im-model}.
+
+\begin{align}
+        P&=\Bigg( R_\mathrm{s} + \frac{R_\mathrm{r}}{s} \Bigg) \cdot \frac{U^2}{\Big( R_\mathrm{s} + \frac{R_\mathrm{r}}{S} \Big)^2 + (X_\mathrm{\gamma s} + X_\mathrm{\gamma r})^2} \\[12pt]
+        Q&=(X_\mathrm{\gamma s} + X_\mathrm{\gamma r}) \cdot \frac{U^2}{\Big( R_\mathrm{s} + \frac{R_\mathrm{r}}{S} \Big)^2 + (X_\mathrm{\gamma s} + X_\mathrm{\gamma r})^2} + \frac{U^2}{X_\mathrm{s}}
+\end{align}
+\mycomment[MK]{Is here really a difference between the two s in the equations?}
+
+\commenting{Briefly describe the implementation.}
+
+
+\subsubsection{Dynamic 'fixed-speed' Induction Machine model'}
+
+\ai{\textbf{From ChatGPT:}
+
+The dynamic model of \acsp{IM} is essential for accurately representing their behavior under various operating conditions. This model includes the differential equations that describe the machine's electrical and mechanical dynamics. The equations are typically derived from the machine's equivalent circuit and can be expressed in the d-q reference frame.
+
+The dynamic model can be represented by the following set of equations:
+
+\begin{align}
+        \frac{\dd\psi_\mathrm{d}}{dt} &= v_\mathrm{d} - R_\mathrm{s} i_\mathrm{d} + \omega \psi_\mathrm{q} \\[12pt]
+        \frac{\dd\psi_\mathrm{q}}{dt} &= v_\mathrm{q} - R_\mathrm{s} i_\mathrm{q} - \omega \psi_\mathrm{d} \\[12pt]
+        \frac{\dd\omega}{dt} &= \frac{1}{J} (T_m - T_e - B \omega)
+\end{align}
+
+where:
+\begin{itemize}
+        \item $\psi_\mathrm{d}, \psi_\mathrm{q}$ are the d-q axis flux linkages
+        \item $v_\mathrm{d}, v_\mathrm{q}$ are the d-q axis voltages
+        \item $i_\mathrm{d}, i_\mathrm{q}$ are the d-q axis currents
+        \item $R_\mathrm{s}$ is the stator resistance
+        \item $\omega$ is the rotor angular velocity
+        \item $T_\mathrm{m}$ is the mechanical torque
+        \item $T_\mathrm{e}$ is the electromagnetic torque
+        \item $J$ is the moment of inertia
+        \item $B$ is the damping coefficient
+\end{itemize}
+
+The electromagnetic torque $T_e$ can be calculated as:
+
+\begin{align}
+        T_e = \frac{3}{2} p (\psi_d i_q - \psi_q i_d)
+\end{align}
+
+where $p$ is the number of pole pairs.
+
+This dynamic model allows for the simulation of the \acsp{IM} transient response to changes in voltage, frequency, and load conditions. It is particularly useful for studying stability and control strategies in power systems.
+
+}
+
+\commenting{Briefly describe the implementation.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Source Models}
+
+\subsection{PQ Source without Machine Dynamics}
+
+\commenting{Isn't that quite the same as the ZIP load model, but with inversed Power characteristics? Or is there more, for example when looking at a short circuit event\dots}
+
+\commenting{
+        These sections (per module / model) should contain roughly follwing information and / or structure:
+        \begin{enumerate}
+                \item Why is this model important?
+                \item How is it implemented?
+                \item What are the characteristics (show in plots, description, etc.)?
+                \item How does it look like in the simulation environment? -> Smaller example networks, like the \acs{SMIB} model; most likely combined with verification data of PowerFactory.
+        \end{enumerate}
+}

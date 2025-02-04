@@ -46,8 +46,21 @@ Here are the research objectives and questions.
         \item Can a increased dynamic regulation help machine recovery?
         \item Does the increased tap ratio gradient harm transient stability of machines?
         Does it help or harm CCT of machines or machine groups?
+        \item Transformers act as big low-pass filters: Can this behavior be beneficial as well for the interactions of inverters in the grid on AC side (in the sense of Harmonic Stability)? \quelle
     \end{itemize}
 }
+
+\begin{tcolorbox}[float, colback=ees_blue!5!white,colframe=ees_blue!75!black, toptitle=1mm, bottomtitle=1mm, left=2mm, right=2.5mm, top=2mm, bottom=2mm, title={\textbf{Research question of this thesis}}]
+    How do different control types and characteristics of Tap Changing transformers influence the voltage stability?
+\end{tcolorbox}
+
+Therefore following questions/steps can be imagined as supportive:
+\begin{enumerate}
+    \item How can Voltage stability of a system be classified and be looked at? Which indices, measurements, etc.
+    \item Which transformer model has to be considered to show influences?
+    \item Which additional load models, source models, transmission model have to be modeled for an adequate assessment?
+    \item Which systems are useful to consider in showing effects? Which circumstances lead to a stability support, which to a decrease? Where can limits be drawn?
+\end{enumerate}
 
 \subsubsection{Construction of the thesis}
 
@@ -191,12 +204,14 @@ Displayed like in \autoref{eq:y-t-based}, the characteristic of the operational 
 \section{Voltage stability basics}
 
 \subsection{Voltage stability definitions, classifications, and conditions}
+A Practical introduction to voltage stability assessment, methods and indices is given in the standard and extending literature of \textcite{rueda-torresEvaluationVoltageStability,danishVoltageStabilityElectric2015,cutsemVoltageStabilityElectric1998}.
 
 \commenting{
     Interesting to note/implement here: Basic classification, definitions, and the nature or conditions of voltage stability. Such as
     \begin{itemize}
         \item Short term vs. long term
         \item Static vs. dynamic
+        \item Transmission driven vs. load driven vs. generation driven; stability/instability, and/or contributions 
         \item Influence OLTC: Restoring voltage level, but not adding reactive capacities; hence adding risk of voltage collapses
         \item Load vs. transmission aspects
         \item Example mechanism: \textbf{Collapse effect of the nordic test system} \autocite{vancutsemTestSystemsVoltage2020,cutsemVoltageStabilityElectric1998}
@@ -205,18 +220,18 @@ Displayed like in \autoref{eq:y-t-based}, the characteristic of the operational 
         
 \begin{table}
     \centering
-    \caption{Voltage instability types and different time frames with examples; after \commenting{\textbf{[QUELLE]}}}
+    \caption{Voltage instability types and different time frames with examples; after \quelle}
     \small
     \renewcommand\tabularxcolumn[1]{m{#1}}
     \vspace*{12pt}
     \begin{tabularx}{\textwidth}{llXX}
-        \hline
+        \toprule
         \textbf{No} & \textbf{Type} & \textbf{Cause of incident} & \textbf{Time frames} \\
-        \hline
+        \toprule
         1 & Long-term & Slowly use up of reactive reserves and no outage & Several minutes to several hours \\
         2 & Classical & Key outage leads to reactive power shortage & One to five minutes \\
         3 & Short-term & Induction motor stalling leads to reactive power shortage & Five to fifteen seconds \\
-        \hline
+        \bottomrule
     \end{tabularx}
 \end{table}
 
@@ -269,7 +284,7 @@ The Jacobian Matrix is defined as:
     \end{bmatrix}
 \end{align}
 
-Although this method seems easy to implement, there are some numerical problems realted to that. Checking if a Matrix is singular with numerical mathods, can only be realised as a probablilty expression. A result could be, that the determinant of the matrix is below a certain threshold. The algorithm would propose, that the matrix is probabilistic singular. \commenting{[QUELLE]} This problem leads to the necessity of applying other methods or indices for stability assessment.
+Although this method seems easy to implement, there are some numerical problems realted to that. Checking if a Matrix is singular with numerical mathods, can only be realised as a probablilty expression. A result could be, that the determinant of the matrix is below a certain threshold. The algorithm would propose, that the matrix is probabilistic singular. \commenting{[QUELLE]} This problem leads to the necessity of applying other methods or indices for stability assessment. \textcite{danishVoltageStabilityElectric2015} is proposing a few other indices, that are based on the Jacobian Matrix, and shows comparitive characteristics between Jacobian Matrix and system variable based voltage stability indices. These Jacobian Matrix based indices are listed and further described in \autoref{app:jacobian-voltage-indices}, while the comparative characteristics are described in \autoref{app:jacobian-vs-system-indices}. 
 
 \subsection{Assessment methods}
         
@@ -284,15 +299,11 @@ A few basics are in the interest, understanding differences between real world b
 
 \subsubsection{Typical presets are manually set}
 
-The target voltage is typically set from the control room of the grid operator, coming from pre-calculated load flow analysis. This can be set hours before, or even day-ahead with the estimated loads of the grid. This value is set locally for each operating unit subsequently. The control is then operating locally and without further involvement of the grid operator. 
-
-\commenting{Quelle dafür finden?}
+The target voltage is typically set from the control room of the grid operator, coming from pre-calculated load flow analysis. This can be set hours before, or even day-ahead with the estimated loads of the grid. This value is set locally for each operating unit subsequently. The control is then operating locally and without further involvement of the grid operator. \quelle
 
 \subsubsection{Discrete controllers are used in the field}
 
-Typically the used controller in the field is a discrete controller, which can change tap positions under load within a time frame of around few seconds. Practical tap steps are around $2~\mathrm{\%}$ of the overall transforming ratio. The control is set up with a dead band, to avoid unnecessary tap changes. It is necessecary to note here, that this control and its mathematical caracteristics contains logical elements, blocks, and delays, which cannot be translated in a typical control theory transmission function. This leads to the missing possibility to easily obtain mathematical stability for the control of the overall considered power system.
-
-\commenting{Quelle dafür finden?}
+Typically the used controller in the field is a discrete controller, which can change tap positions under load within a time frame of around few seconds. Practical tap steps are around $2~\mathrm{\%}$ of the overall transforming ratio. The control is set up with a dead band, to avoid unnecessary tap changes. It is necessecary to note here, that this control and its mathematical caracteristics contains logical elements, blocks, and delays, which cannot be translated in a typical control theory transmission function. This leads to the missing possibility to easily obtain mathematical stability for the control of the overall considered power system. \quelle
 
 \subsection{Dynamic voltage stability}
 
@@ -303,6 +314,7 @@ Typically the used controller in the field is a discrete controller, which can c
 \subsection{Bifurcations and Chaos theory control}
 
 \commenting{
+    Is this necessary or already out of scope?
     \begin{enumerate}
         \item Fuzzy Control mechanisms,
         \item Neural Networks,
