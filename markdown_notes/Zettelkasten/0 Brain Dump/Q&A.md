@@ -1,0 +1,16 @@
+- Why is operating a power source (wind turbines, photovoltaik panels, power plants in general) at a constant voltage (window) beneficial / the target?
+	- ...
+- What voltage is to be controlled at a OLTC-transformer? Why?
+	- ...
+- What to do with rings in distribution / LV-grids? 
+  -> When there is a different tap ratio, then a circular current can occur. 
+  -> Work-around or relevant for control scheme?
+	  - ... 
+- Is a FSM modeled differently than an OLTC alone?
+  -> Characteristics are the same, only the "reaction time" is different; stages / discrete steps can be varied identical. Or is it better to model it like a "2-step" OLTC with different time constants, ratios, and tapping boundaries?
+    - xyz
+- How is normally a voltage control implemented?
+  -> With a global control approach it could be easily possible, but just a local device cannot distinguish between the input and the control value
+  -> Depending on power flow scenario, the voltage control has to act differently  
+  -> Is there a standard, or already a "smart" control scheme known?
+    - xyz
