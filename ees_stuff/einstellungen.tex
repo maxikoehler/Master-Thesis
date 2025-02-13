@@ -1,0 +1,241 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some more used packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \usepackage{charter}
+% \setkomafont{disposition}{%
+% 	\normalfont\bfseries
+% }
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+% \usepackage{marginnote}
+% \usepackage{snotez}
+% \setsidenotes{
+%   note-mark-format={\hspace*{-2pt}},
+%   text-mark-format={\hspace*{-4pt}},
+%   text-format+={\RaggedRight\color{ees_blue}\itshape},
+%   sidefloat-format={\RaggedRight\color{ees_blue}\itshape\footnotesize},
+%   perpage=true
+% }
+\usepackage{booktabs}
+\usepackage{mathtools}
+\usepackage{nicematrix}
+\usepackage{physics}
+\usepackage{enumitem}
+\usepackage{csquotes}
+\usepackage{ragged2e}
+\usepackage{circuitikz}
+\usepackage[printonlyused]{acronym}
+\usepackage{todonotes}
+% \usepackage{sidenotes}
+\usepackage{lipsum}
+\usepackage{tcolorbox}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{rotating}
+\usepackage{longtable}
+\usepackage{enumitem}	% mehr Optionen bei Aufzählungen
+\usepackage{graphicx}
+\usepackage[right]{eurosym}
+\DeclareUnicodeCharacter{20AC}{\euro}
+\usepackage{lscape}
+\usepackage{bookmark} %nur ein latex-Durchlauf für die Aktualisierung von Verzeichnissen nötig
+\usepackage{listings}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Citation and bibliobraphy
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[
+	backend=biber,		% empfohlen. Falls biber Probleme macht: bibtex
+	bibwarn=true,
+	bibencoding=utf8,	% wenn .bib in utf8, sonst ascii
+	% sortlocale=en_US,
+	sorting=none,
+	style=ieee,
+]{biblatex}
+\setcounter{biburlnumpenalty}{100}
+\setcounter{biburlucpenalty}{100}
+\setcounter{biburllcpenalty}{100}
+
+\addbibresource{literatur.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Colors of the Chair
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ees_blue}{RGB}{0, 112, 192}
+\definecolor{ees_yellow}{RGB}{213, 223, 0}
+\definecolor{ees_green}{RGB}{0, 166, 74}
+\definecolor{ees_red}{RGB}{192, 0, 0}
+\definecolor{ees_lightblue}{RGB}{0, 176, 240}
+\definecolor{ees_black}{RGB}{0, 0, 0}
+
+%% Farben (Angabe in HTML-Notation mit großen Buchstaben)
+\newcommand{\ladefarben}{%
+	\definecolor{LinkColor}{HTML}{00007A}
+	% \definecolor{ListingBackground}{HTML}{FCF7DE}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Own commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\mycomment}{}
+\newcommand{\commenting}[1]{{\color{ees_red} #1}} % Kommentar anzeigen
+\newcommand{\ai}[1]{{\color{ees_green} #1}} % Kommentar anzeigen
+% easy access for comments of missing sources
+\newcommand{\quelle}[0]{\commenting{\textbf{[Quelle]}}~}
+% Math - vectors/matrices: new command for easy typesetting
+\newcommand{\mab}[1]{\mathrm{\textbf{#1}}}
+
+% catching all beauties
+\newcommand{\fqoute}{}
+\newcommand{\sidenote}{}
+\newcommand{\sidefigure}{}
+\newcommand{\sidecaption}{}
+\newcommand{\marginnote}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Preliminary comment on each page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareNewTOC[%
+  owner=\jobname, 
+  listname={Appendix},
+]{atoc}
+
+\makeatletter
+\AfterTOCHead[atoc]{\let\if@dynlist\if@tocleft}% <- gleiches Verhalten (gratuated oder flat) wie toc 
+\newcommand*{\useappendixtocs}{%
+  \renewcommand*{\ext@toc}{atoc}%
+  \scr@ifundefinedorrelax{hypersetup}{}{%
+    \hypersetup{bookmarkstype=atoc}%
+  }%
+  \renewcommand*{\ext@figure}{alof}%
+  \renewcommand*{\ext@table}{alot}%
+}
+\newcommand*{\usestandardtocs}{%
+  \renewcommand*{\ext@toc}{toc}%
+  \scr@ifundefinedorrelax{hypersetup}{}{%
+    \hypersetup{bookmarkstype=toc}%
+  }%
+  \renewcommand*{\ext@figure}{lof}%
+  \renewcommand*{\ext@table}{lot}%
+}
+\scr@ifundefinedorrelax{ext@toc}{%
+  \newcommand*{\ext@toc}{toc}
+  \renewcommand{\addtocentrydefault}[3]{%
+    \expandafter\tocbasic@addxcontentsline\expandafter{\ext@toc}{#1}{#2}{#3}%
+  }
+}{}
+\makeatother
+ 
+\usepackage{xpatch}
+\xapptocmd\appendix{%
+%   \addpart{\appendixname}
+  \useappendixtocs
+  \listofatocs
+%   \listofalofs
+%   \listofalots
+}{}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Preliminary comment on each page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \usepackage{scrtime}
+% \usepackage{prelim2e}
+% \renewcommand{\PrelimText}{\textcolor{red}{\textbf{\footnotesize[\today\ at \thistime\ -- preliminary version \version]}}}
+
+
+% Hurenkinder und Schusterjungen verhindern
+% http://projekte.dante.de/DanteFAQ/Silbentrennung
+\clubpenalty = 10000 % schließt Schusterjungen aus (Seitenumbruch nach der ersten Zeile eines neuen Absatzes)
+\widowpenalty = 10000 % schließt Hurenkinder aus (die letzte Zeile eines Absatzes steht auf einer neuen Seite)
+\displaywidowpenalty=10000
+
+% Bildpfad
+\graphicspath{{images/}{../diffpssi-ma-kohler/}}
+
+% Abstände in Tabellen
+\setlength{\tabcolsep}{10pt}
+\renewcommand{\arraystretch}{1.3}
+
+% Einige häufig verwendete Sprachen
+\lstloadlanguages{PHP,Python,Java,C,C++,bash}
+%% Programmiersprachen Highlighting (Listings)
+\newcommand{\listingsettings}{%
+	\lstset{%
+		language=Java,			% Standardsprache des Quellcodes
+		numbers=left,			% Zeilennummern links
+		stepnumber=1,			% Jede Zeile nummerieren.
+		numbersep=5pt,			% 5pt Abstand zum Quellcode
+		numberstyle=\tiny,		% Zeichengrösse 'tiny' für die Nummern.
+		breaklines=true,		% Zeilen umbrechen wenn notwendig.
+		breakautoindent=true,	% Nach dem Zeilenumbruch Zeile einrücken.
+		postbreak=\space,		% Bei Leerzeichen umbrechen.
+		tabsize=2,				% Tabulatorgrösse 2
+		basicstyle=\ttfamily\footnotesize, % Nichtproportionale Schrift, klein für den Quellcode
+		showspaces=false,		% Leerzeichen nicht anzeigen.
+		showstringspaces=false,	% Leerzeichen auch in Strings ('') nicht anzeigen.
+		extendedchars=true,		% Alle Zeichen vom Latin1 Zeichensatz anzeigen.
+		captionpos=b,			% sets the caption-position to bottom
+		% backgroundcolor=\color{ListingBackground}, % Hintergrundfarbe des Quellcodes setzen.
+    backgroundcolor=\color{white!50},
+		xleftmargin=0pt,		% Rand links
+		xrightmargin=0pt,		% Rand rechts
+		frame=single,			% Rahmen an
+		frameround=ffff,
+		rulecolor=\color{black},	% Rahmenfarbe
+		% fillcolor=\color{ListingBackground},
+    fillcolor=\color{white!50},
+		keywordstyle=\color[rgb]{0.133,0.133,0.6},
+		commentstyle=\color[rgb]{0.133,0.545,0.133},
+		%stringstyle=\color[rgb]{0.627,0.126,0.941}
+		stringstyle=\color{red}
+	}
+}
+\listingsettings{}
+% Umbennung des Listings
+\renewcommand\lstlistingname{\langlistingname}
+\renewcommand\lstlistlistingname{\langlistlistingname}
+\def\lstlistingautorefname{\langlistingautorefname}
+
+\lstdefinestyle{style-python}
+{
+  language=python,	% Programmiersorache einstellen, Latex erkennt dann automatisch code, kommentare, funktionen,...
+  basicstyle=\scriptsize\ttfamily,	% Schriftformatierung, ttfamily: text im Schreibmaschinen-Style
+  backgroundcolor=\color{white},		% Hintergrundfarbe
+  breaklines=true,	% automatischer Zeilenumbruch bei langen Zeilen, funktioniert nur bei bestimmen Zeichen, z.B. Umbruch nach Leerzeichen
+  keywordstyle=\bfseries\ttfamily\color{blue},	% Schlüsselwörter einstellen
+  stringstyle=\ttfamily\color{Peach},			% Textsrtrings
+  showstringspaces=false,	% Leerzeichen in Strings richtig darstellen
+  commentstyle=\color{ForestGreen}\ttfamily,	% Kommentare
+  flexiblecolumns=false,	% Spaltenbreite dynamisch/fest
+  numbers=left,		% Position der Zeilennummern
+  numberstyle=\tiny,	% Größe der Zeilennummern
+  numberblanklines=false,		% leere Zeilen werde mit ‚false‘ nicht durchnummeriert
+  stepnumber=1,		% Beginn der Nummerierung
+  numbersep=10pt,		% Abstand zwischen Zeilennummern und Quellcode
+  xleftmargin=20pt,	% Abstand zum linken Rand
+  xrightmargin=10pt,	% Abstand zum rechten Rand
+  extendedchars=true,	% Sonderzeichen korrekt darstellen
+  frame=trbl,			% Rahmen um gesamten Code: Top, right, bottom, left (Großbuchstaben ergeben Doppellinien)
+  frameround=ffff,	% Ecken des Rahmens anpassen, t: runde Ecken, f: default (eckig), es müssen 4 Buchstaben da stehen!
+  literate=		% ersetzen von Zeichen 1 durch Zeichen 2, hier: korrekte Einbindung der Sonderzeichen
+   {Ö}{{\"O}}1 
+   {Ä}{{\"A}}1 
+   {Ü}{{\"U}}1 
+   {ß}{{\ss}}1 
+   {ü}{{\"u}}1 
+   {ä}{{\"a}}1 
+   {ö}{{\"o}}1,
+  % mit ‚emph‘ und ‚emphstyle‘ können eigene Styles für Wörter angelegt werden
+  emph = [1]{clc, color},
+  emphstyle = [1]{\color{blue}},
+  emph = [2]{function, endfunction},
+  emphstyle = [2]{\color{BrickRed}},
+  emph = [3]{gcf},
+  emphstyle = [3]{\color{black}},
+}

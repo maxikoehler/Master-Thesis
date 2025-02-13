@@ -1,0 +1,122 @@
+\documentclass[
+12pt,               										% Schriftgr��e
+a4paper,            										% Layout f�r DINA4
+german,             										% deutsche Sprache, global
+twoside,            										% Layout f�r beidseitigen Druck
+headings=openright,
+headinclude,        									% Kopfzeile wird Seiten-Layouts mit ber�cksichtigt
+abstracton,         									% Abstract Überschriften
+headsepline,        									% horizontale Linie unter Kolumnentitel
+plainheadsepline,										% horizontale Linie unter Kolumnentitel auch bei Chapter
+BCOR=20mm,           									% Korrektur f�r die Bindung
+DIV=18,              									% DIV-Wert f�r die Erstellung des Satzspiegels, siehe scrguide
+parskip=half,       									% Absatzabstand statt Absatzeinzug
+% openany,            										% Kapitel k�nnen auf geraden und ungeraden Seiten beginnen
+bibliography=totoc,version=first, 						% Literaturverz. wird ins Inhaltsverzeichnis eingetragen
+numbers=noenddot,   								% Kapitelnummern immer ohne Punkt
+captions=tableheading,version=first, 					% korrekte Abst�nde bei Tabellen�berschriften
+fleqn,             										% fleqn: Glgen links (statt mittig)
+listof=totoc,version=first,								% Abbildungs- und Tabellenverzeichnis ins Inhaltsverzeichnis
+cleardoublepage=empty								% Kopfzeile bei leeren Seiten entfernen
+]{scrreprt}
+
+
+%--------------- Packages ----------------
+\usepackage[ngerman, english]{babel}
+\usepackage[utf8]{inputenc}							% direkte Eingabe von Umlauten & Co.
+\usepackage[T1]{fontenc}								% T1-Schriften
+\usepackage{lmodern}								% moderne Schriften
+\usepackage[format=hang,							% Captions ausrichten
+justification=raggedright,
+singlelinecheck=off,
+labelfont=bf,
+font=small,
+skip=4pt
+]{caption} 											
+\usepackage[centertags]{amsmath} 					% AMS-Mathematik, centertags zentriert Nummer bei split
+\usepackage{tabularx}								% erweiterte Tabellen
+\usepackage{graphicx}            							% zum Einbinden von Grafiken
+\usepackage{setspace}            							% Zeilenabstand einstellbar
+\usepackage{scrlayer-scrpage}           					% Kopf- und Fu�zeilen-Layout 
+\usepackage[pdfborderstyle={/S/U/W 1}]{hyperref}		% Die Links im PDF werden nur noch d�nn und rot unterstrichen, nicht mehr fett umrahmt. 
+\usepackage[absolute]{textpos}					% benutzerdefinierte Textpositionierung 
+
+
+%--------------- Sonstiges ----------------
+
+\pagestyle{scrheadings}									% Kopf- und Fu�zeile...
+% \usepackage{charter}
+% \setkomafont{disposition}{%
+% 	\normalfont\bfseries
+% }
+% \setkomafont{dictum}{\normalfont}
+% \renewcommand{\headfont}{\normalfont\sffamily}    		% Kolumnentitel serifenlos
+% \renewcommand{\pnumfont}{\normalfont\sffamily}    		% Seitennummern serifenlos
+\ihead[]{\headmark}              								% Kopfzeile innen
+\ohead[\pagemark]{\pagemark}     							% Kopfzeile au�en
+\ifoot[]{} 												% Fu�zeile innen
+\ofoot[]{}    												% Fu�zeile au�en	
+\setlength{\headheight}{1.5\baselineskip}
+\onehalfspacing											% 1,5 Zeilenabstand
+%\typearea[current]{current}        							% Neuberechnung des Satzspiegels mit alten Werten nach �nderung von Zeilenabstand,etc
+% \renewcommand{\bibname}{Literatur und Quellen} 			% Literaturverzeichnisbezeichnung
+% \renewcommand{\figurename}{Abb.}   						% Abbildungsbezeichnung
+% \renewcommand{\listfigurename}{Abbildungsverzeichnis} 	% Abbildungsverzeichnisbezeichnung
+\renewcommand{\captionfont}{\small}						% Bildunterschriften klein kursiv
+\graphicspath{{figs/}{images/}}    							% Bildverzeichnis
+
+\RedeclareSectionCommand[beforeskip=0pt]{chapter}		%kein Abstand zum oberen Seitenrand bei neuen Kapiteln
+
+\input{ees_stuff/einstellungen.tex}
+\input{ads/tikz_styles.tex}
+
+\makeindex
+
+% Titel, Autor und Datum
+\title{Modeling of Fast-Switching Transformers for Voltage Stability Studies in Python}
+\author{Maximilian Markus Veit Koehler}
+\date{02.05.2025}
+
+
+
+%----------------------- Beginn des Dokuments -----------------------
+\begin{document}
+\pagenumbering{Roman}									% R�mische Seitennummerierung
+
+\include{ees_stuff/deckblatt}									% Deckblatt
+\include{ads/abstract}									% Abstract
+\include{ees_stuff/erklaerung}								% Erkl�rung der Eigenarbeit
+\include{ees_stuff/aufgabe} 									% Aufgabenstellung (optional)
+\cleardoublepage
+\begin{spacing}{1.15}									% evtl. kleinerer Zeilenabstand im IV, AV, TV
+\pdfbookmark[1]{Contents}{toc}					% Inhaltsverzeichnis bei den Lesezeichen rein
+\tableofcontents 											% Inhaltsverzeichnis erzeugen
+\listoffigures   											% Abbildungsverzeichnis
+\listoftables   											% Tabellenverzeichnis
+\end{spacing}
+\cleardoublepage
+
+% \mainmatter												% Hauptteil beginnt
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\include{content/01kapitel.tex}
+\include{content/02kapitel.tex}
+\include{content/03kapitel.tex}
+\include{content/04kapitel.tex}
+\include{content/05kapitel.tex}
+\cleardoublepage
+
+\pagenumbering{Roman}
+\setcounter{page}{13}
+\include{ads/acronyms}									% Symbol- und Abk�rzungsverzeichnis
+\printbibliography
+
+\cleardoublepage
+\pagenumbering{alph}
+\setcounter{page}{1}
+\addcontentsline{toc}{chapter}{Appendix}
+\appendix
+\input{ads/appendix}
+
+\end{document}
+%------------------------- Ende des Dokuments -----------------------
