@@ -5,36 +5,36 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-\begin{textblock*}{.7\textwidth}(70mm,25mm)
-    \begin{fquote}[Albert Einstein]
-        % All models are wrong, but some are useful.
-        Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.
-    \end{fquote}
-\end{textblock*}
+% \begin{textblock*}{.7\textwidth}(70mm,25mm)
+%     \begin{fquote}[Albert Einstein]
+%         % All models are wrong, but some are useful.
+%         Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.
+%     \end{fquote}
+% \end{textblock*}
 
 Some blibla as introduction. \autocite{machowskiPowerSystemDynamics2020}
 
-\begin{sidefigure}
-    \begin{center}
-        \includegraphics[width=.9\linewidth]{images/fausiegel.pdf}
-    \end{center}
-    \vspace*{-6pt}
-    This is a figure in the margin to demonstrate something small or bring a hint as sidenote.
-\end{sidefigure}
+% \begin{sidefigure}
+%     \begin{center}
+%         \includegraphics[width=.9\linewidth]{images/fausiegel.pdf}
+%     \end{center}
+%     \vspace*{-6pt}
+%     This is a figure in the margin to demonstrate something small or bring a hint as sidenote.
+% \end{sidefigure}
 
 \lipsum[1]
-\marginnote{This is a side note for testing out some options.}
+% \marginnote{This is a side note for testing out some options.}
 
 \lipsum[2]
-\sidenote{This is a second side note for testing out some options.}
+% \sidenote{This is a second side note for testing out some options.}
 Some more Text.
 
 \lipsum[3]
-\mycomment[MK]{Write a nice introduction.}
+% \mycomment[MK]{Write a nice introduction.}
 
 \clearpage
 
-\subsubsection{Research interests}
+\subsubsection{Research Interests}
 
 Here are gaps and possible extension of knowledge.
 
@@ -62,7 +62,7 @@ Therefore following questions/steps can be imagined as supportive:
     \item Which systems are useful to consider in showing effects? Which circumstances lead to a stability support, which to a decrease? Where can limits be drawn?
 \end{enumerate}
 
-\subsubsection{Construction of the thesis}
+\subsubsection{Construction of the Thesis}
 
 This leads to the following structure for the paper: 
 \begin{itemize}
@@ -79,20 +79,20 @@ This leads to the following structure for the paper:
 \chapter{Fundamentals}
 \label{ch:fundamentals}
 
-\begin{textblock*}{.7\textwidth}(70mm,25mm)
-    \begin{fquote}[Frank Zappa]
-        So many books, so little time.
-    \end{fquote}
-\end{textblock*}
+% \begin{textblock*}{.7\textwidth}(70mm,25mm)
+%     \begin{fquote}[Frank Zappa]
+%         So many books, so little time.
+%     \end{fquote}
+% \end{textblock*}
 
 Following chapter shall introduce the basics for implementing an \acs{OLTC} equipped transformer into a existing \acs{PSS} framework. This is considering the already existing surrounding, more detailed the electric behavior of the transformer itself and some control engineering theory for the corrosponding \acs{OLTC}. Thus its main goal is increasing voltage stability \autocite{machowskiPowerSystemDynamics2020}, main indices and assessment methods are considered as well.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Power System Modeling}
 
-\subsection{General and existing model}
+\subsection{General and Existing Model}
 
-\subsection{Transformer electric model and behavior}
+\subsection{Transformer Electric Model and Behavior}
 
 \begin{figure}[h!]
     \centering
@@ -118,7 +118,7 @@ Following chapter shall introduce the basics for implementing an \acs{OLTC} equi
 \end{align}
 
 The admittance matrix of a two port network can be expressed after \textcite{machowskiPowerSystemDynamics2020} as \autoref{eq:admittance}. For the $\Pi$-model of an \acs{OLTC} transformer it is leading to \autoref{eq:admittance-oltc}.
-\sidenote(1.7cm){$\Pi$-admittance matrix}
+% \sidenote(1.7cm){$\Pi$-admittance matrix}
 \begin{align}
     \underline{\mab{Y}}_\mathrm{\Pi,T}&= 
     \begin{bmatrix}
@@ -204,7 +204,7 @@ Displayed like in \autoref{eq:y-t-based}, the characteristic of the operational 
 \section{Voltage stability basics}
 
 \subsection{Voltage stability definitions, classifications, and conditions}
-A Practical introduction to voltage stability assessment, methods and indices is given in the standard and extending literature of \textcite{rueda-torresEvaluationVoltageStability,danishVoltageStabilityElectric2015,cutsemVoltageStabilityElectric1998}.
+A Practical introduction to voltage stability assessment, methods and indices is given in the standard and extending literature of \textcite{rueda-torresEvaluationVoltageStability2024,danishVoltageStabilityElectric2015,cutsemVoltageStabilityElectric1998}.
 
 \commenting{
     Interesting to note/implement here: Basic classification, definitions, and the nature or conditions of voltage stability. Such as
@@ -235,7 +235,7 @@ A Practical introduction to voltage stability assessment, methods and indices is
     \end{tabularx}
 \end{table}
 
-\subsection{Stability indices}
+\subsection{Stability Indices}
 
 One easy idea for obtaining a stable operation is looking at the Jacobian Matrix. If this matrix is getting singular, the System will not remain in a stable operation. Singularity of matrices is checked by follwing two hypothesis tests:
 \begin{align}
@@ -243,7 +243,7 @@ One easy idea for obtaining a stable operation is looking at the Jacobian Matrix
     &J \times J^{-1} \uparrow \label{eq:jacobian-rank}
 \end{align}
 The Jacobian Matrix is defined as:
-\sidenote(5.2cm){Jacobian Matrix}
+% \sidenote(5.2cm){Jacobian Matrix}
 \begin{align}
     \mab{J}=
     \begin{bmatrix}

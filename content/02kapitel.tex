@@ -13,11 +13,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Transformer Equipment Modeling}
 
-\begin{textblock*}{.7\textwidth}(70mm,25mm)
-        \begin{fquote}[Mae West]
-                You only live once, but if you do it right, once is enough.
-        \end{fquote}
-\end{textblock*}
+% \begin{textblock*}{.7\textwidth}(70mm,25mm)
+%         \begin{fquote}[Mae West]
+%                 You only live once, but if you do it right, once is enough.
+%         \end{fquote}
+% \end{textblock*}
 
 Some literature and fundamentals about transformers, control, stability assessment, fast-switching modules, and analysis in Python. \todo{Hier steht ein Beispielkommentar.}
 
@@ -103,19 +103,31 @@ Some literature and fundamentals about transformers, control, stability assessme
         \label{fig:program-plan}
 \end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Current implementation of transformers}
-
-\commenting{Describe the current implementation of transformers in the Python framework.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Dynamic behavior of transformers}
+\section{Advancing the Transformer Model}
 
-\commenting{This is the description of the \glqq new\grqq implementation.}
+% \commenting{Describe the current implementation of transformers in the Python framework.}
+% \commenting{Follwing the description of the \glqq new\grqq implementation.}
 
 \subsection{Model Demands and Changes in the Framework}
 
-\subsection{Additional Modifications through a Fast Switching module}
+\commenting{
+        \begin{itemize}
+                \item What is the current implementation?
+                \item First model: Admittance Matrix manipulations
+                \item Second model: Current Injection Model
+        \end{itemize}
+}
+
+\subsection{Considering Load Flow Dependent Control}
+
+\commenting{
+        \begin{itemize}
+                \item How can I change the transformer control setpoints to be load flow dependent?
+                \item How can I ensure, utilization of the transformer is not $>S_\mathrm{n}$?
+        \end{itemize}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Tap Changer Control Modeling}
@@ -169,8 +181,12 @@ A continous control loop for a \acs{FSM} is presented within \textcite{burlakinE
 \subsubsection{Continuous Control Loop for best Stability Assessment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Transformer Model and Control Validation}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Supplementary Modeling of Additional Components}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Supplementary Modeling and Advancements}
 
 As the python framework is currently missing some representations of components, this chapter aims to describe the implementation of those. Mainly focussing on source and load models, as the later considered test, benchmark, and use case networks require alternative behaviors. 
 
@@ -185,7 +201,7 @@ Mostly, a polynomial load model is used. It is called ZIP-model, as there are in
 \begin{align}
         P&=P_n \cdot \Bigg[ p_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + p_2 \Bigg(\frac{U}{U_n}\Bigg) + p_3 \Bigg] \label{eq:zip-1} \\[12pt]
         Q&=Q_n \cdot \Bigg[ q_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + q_2 \Bigg(\frac{U}{U_n}\Bigg) + q_3 \Bigg] \label{eq:zip-2} \\[12pt]
-        \text{with} \quad &p_i \in [0,1] \quad \text{and} \quad p_i \in [0,1] \notag
+        \text{with} \quad &p_i \in [0,1] \quad \text{and} \quad q_i \in [0,1] \notag
 \end{align}
 
 \commenting{Characteristics?}
@@ -213,13 +229,13 @@ Mostly, a polynomial load model is used. It is called ZIP-model, as there are in
 
 \commenting{How does it look like in the simulation environment?}
 
-% \begin{align}
-%         P&=P_n \cdot \Bigg[ p_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + p_2 \Bigg(\frac{U}{U_n}\Bigg) + p_3 \Bigg] \cdot (1+k_{pf} \Delta f) \label{eq:zip-with-f-1} \\[12pt]
-%         Q&=Q_n \cdot \Bigg[ q_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + q_2 \Bigg(\frac{U}{U_n}\Bigg) + q_3 \Bigg] \cdot (1+k_{qf} \Delta f) \label{eq:zip-with-f-2} \\[12pt]
-%         \text{with} \quad &\sum_{i=1}^{3} p_i =1 \quad \text{and} \quad \sum_{i=1}^{3} q_i =1 \notag
-% \end{align}
+\begin{align}
+        P&=P_n \cdot \Bigg[ p_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + p_2 \Bigg(\frac{U}{U_n}\Bigg) + p_3 \Bigg] \cdot (1+k_{pf} \Delta f) \label{eq:zip-with-f-1} \\[12pt]
+        Q&=Q_n \cdot \Bigg[ q_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + q_2 \Bigg(\frac{U}{U_n}\Bigg) + q_3 \Bigg] \cdot (1+k_{qf} \Delta f) \label{eq:zip-with-f-2} \\[12pt]
+        \text{with} \quad &\sum_{i=1}^{3} p_i =1 \quad \text{and} \quad \sum_{i=1}^{3} q_i =1 \notag
+\end{align}
 
-% Although the subset of \autoref{eq:zip-with-f-1} and \autoref{eq:zip-with-f-2} would consider a relation to the frequency at the given time, it is not used. The use of periodized phasor representation, typical for a \acs{RMS} simulation, is missing this information. Therefore the set of \autoref{eq:zip-1} and \autoref{eq:zip-2} is implemented in the Python framework.
+Although the subset of \autoref{eq:zip-with-f-1} and \autoref{eq:zip-with-f-2} would consider a relation to the frequency at the given time, it is not used. The use of periodized phasor representation, typical for a \acs{RMS} simulation, is missing this information in the framework diffpssi. Therefore the set of \autoref{eq:zip-1} and \autoref{eq:zip-2} is implemented in the Python framework. It has to be mentioned, because the comparison tool PowerFactory is using this load model, though in some parts of the simulation results are showing a slightly bigger error.
 
 \subsection{Induction Machine Models}
 
