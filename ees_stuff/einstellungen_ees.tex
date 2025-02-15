@@ -1,10 +1,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Some more used packages
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \usepackage{charter}
+\usepackage{charter}
 % \setkomafont{disposition}{%
 % 	\normalfont\bfseries
 % }
+% \setkomafont{dictum}{\normalfont}                   % Kapitelüberschriften nicht in KOMA Font, sondern in normaler Schriftart
+% \renewcommand{\headfont}{\normalfont\sffamily}    		% Kolumnentitel serifenlos
+% \renewcommand{\pnumfont}{\normalfont\sffamily}    		% Seitennummern serifenlos
 
 \usepackage{tikz}
 \usetikzlibrary{positioning}
@@ -144,11 +147,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Preliminary comment on each page
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \usepackage{scrtime}
-% \usepackage{prelim2e}
-% \renewcommand{\PrelimText}{\textcolor{red}{\textbf{\footnotesize[\today\ at \thistime\ -- preliminary version \version]}}}
+\usepackage{scrtime}
+\usepackage{prelim2e}
+\renewcommand{\PrelimText}{\textcolor{red}{\textbf{\footnotesize[\today\ at \thistime\ -- preliminary version 0.1]}}}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Additional stuff
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Hurenkinder und Schusterjungen verhindern
 % http://projekte.dante.de/DanteFAQ/Silbentrennung
 \clubpenalty = 10000 % schließt Schusterjungen aus (Seitenumbruch nach der ersten Zeile eines neuen Absatzes)

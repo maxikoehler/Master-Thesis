@@ -4,9 +4,13 @@ endings = [
     '.gz',
     '.xml',
     '.bbl',
+    '.lol',
     '.atoc',
     '.aux',
     '.log',
+    '.md5',
+    '.dpth',
+    '.auxlock'
 ]
 
 def remove_files(dir_name, extensions):

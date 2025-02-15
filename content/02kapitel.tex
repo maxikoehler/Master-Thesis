@@ -19,7 +19,7 @@
 %         \end{fquote}
 % \end{textblock*}
 
-Some literature and fundamentals about transformers, control, stability assessment, fast-switching modules, and analysis in Python. \todo{Hier steht ein Beispielkommentar.}
+Some literature and fundamentals about transformers, control, stability assessment, fast-switching modules, and analysis in Python. % \todo{Hier steht ein Beispielkommentar.}
 
 % \begin{figure}[H]
 %         \centering
@@ -67,38 +67,7 @@ Some literature and fundamentals about transformers, control, stability assessme
 
 \begin{figure}[h]
         \centering
-        \begin{tikzpicture}[node distance = 1.5cm, auto]
-                % Place nodes
-                \node [papStart] (start) {start};
-                \node [papProcess, below of = start, yshift= -2mm] (pro1){initialize start and simulation parameters};
-                \node [papPredProc, below of = pro1, yshift= -5mm] (pro2){\nodepart{two} \shortstack{do \acs{TDS} with\\constant fault}};
-                \node [papProcess, below of = pro2, yshift= -5mm] (pro3){determine \acs{CCT} and critical angle};
-                \node [papPredProc, below of = pro3, yshift= -7mm](pro4){\nodepart{two}\shortstack{solving \acs{TDS}\\stable and unstable}};
-                \node [papProcess, below of = pro4, yshift= -5mm](pro5){plot results};
-                \node [papEnd, below of = pro5, yshift= -2mm] (end) {end};
-
-                \node [right of = pro4, xshift=25mm] (iter) {\footnotesize\itshape{iterate 1x}};
-                \node [right of = pro1, xshift=25mm] () {\footnotesize\itshape{init()}};
-                \node [right of = pro2, xshift=25mm] () {\footnotesize\itshape{odeint()}};
-                \node [right of = pro3, xshift=25mm] () {\footnotesize\itshape{determine\_cct()}};
-
-                % Place joins
-                \coordinate [above = of pro4, yshift= -9mm] (join1);
-                \coordinate [below of = pro4, yshift= 5mm] (join2);
-
-                % Draw edges
-                \path [papLine] (start) -- (pro1);
-                \path [papLine] (pro1) -- (pro2);
-                \path [papLine] (pro2) -- (pro3);
-                \path [papLine] (pro3) -- (pro4);
-                \path [papLine] (pro4) -- (pro5);
-                \path [papLine] (pro5) -- (end);
-                \path [papLine] (join2) -| (iter);
-                \path [papLine] (iter) |- (join1);
-                % \path [papLine] (dec1) -- node [above] {\papNo} (predproc1);
-                % \path [papLine] (predproc1) -- (pro3);
-                % \path [papLine] (pro3) |- (join1);
-        \end{tikzpicture}
+        \includegraphics{tikz_graphics/images/programm.pdf}
         \caption[Program plan proposal for determining the \acf{CCT}]{Program plan proposal for determining the \acf{CCT} $t_\mathrm{cc}$, critical power angle $\delta_\mathrm{cc}$ and the \acf{TDS} of the \acf{SMIB}-model; including the associated main function name}
         \label{fig:program-plan}
 \end{figure}

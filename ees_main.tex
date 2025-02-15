@@ -1,24 +1,32 @@
 \documentclass[
-12pt,               										% Schriftgr��e
-a4paper,            										% Layout f�r DINA4
-german,             										% deutsche Sprache, global
-twoside,            										% Layout f�r beidseitigen Druck
-headings=openright,
-headinclude,        									% Kopfzeile wird Seiten-Layouts mit ber�cksichtigt
-abstracton,         									% Abstract Überschriften
-headsepline,        									% horizontale Linie unter Kolumnentitel
-plainheadsepline,										% horizontale Linie unter Kolumnentitel auch bei Chapter
-BCOR=20mm,           									% Korrektur f�r die Bindung
-DIV=18,              									% DIV-Wert f�r die Erstellung des Satzspiegels, siehe scrguide
-parskip=half,       									% Absatzabstand statt Absatzeinzug
-% openany,            										% Kapitel k�nnen auf geraden und ungeraden Seiten beginnen
-bibliography=totoc,version=first, 						% Literaturverz. wird ins Inhaltsverzeichnis eingetragen
-numbers=noenddot,   								% Kapitelnummern immer ohne Punkt
-captions=tableheading,version=first, 					% korrekte Abst�nde bei Tabellen�berschriften
-fleqn,             										% fleqn: Glgen links (statt mittig)
-listof=totoc,version=first,								% Abbildungs- und Tabellenverzeichnis ins Inhaltsverzeichnis
-cleardoublepage=empty								% Kopfzeile bei leeren Seiten entfernen
+    % final,
+    12pt,               										% Schriftgr��e
+    a4paper,            										% Layout f�r DINA4
+    german,             										% deutsche Sprache, global
+    twoside,            										% Layout f�r beidseitigen Druck
+    % headings=openright,
+    headinclude,        									% Kopfzeile wird Seiten-Layouts mit ber�cksichtigt
+    abstracton,         									% Abstract Überschriften
+    headsepline,        									% horizontale Linie unter Kolumnentitel
+    plainheadsepline,										% horizontale Linie unter Kolumnentitel auch bei Chapter
+    BCOR=20mm,           									% Korrektur f�r die Bindung
+    DIV=18,              									% DIV-Wert f�r die Erstellung des Satzspiegels, siehe scrguide
+    parskip=half,       									% Absatzabstand statt Absatzeinzug
+    % openany,            										% Kapitel k�nnen auf geraden und ungeraden Seiten beginnen
+    bibliography=totoc,version=first, 						% Literaturverz. wird ins Inhaltsverzeichnis eingetragen
+    numbers=noenddot,   								% Kapitelnummern immer ohne Punkt
+    captions=tableheading,version=first, 					% korrekte Abst�nde bei Tabellen�berschriften
+    fleqn,             										% fleqn: Glgen links (statt mittig)
+    listof=totoc,version=first,								% Abbildungs- und Tabellenverzeichnis ins Inhaltsverzeichnis
+    cleardoublepage=empty,								% Kopfzeile bei leeren Seiten entfernen
+    footinclude=false,										% Fußzeile wird Seiten-Layouts nicht mit berücksichtigt
+    footheight=0pt,
+    autoenlargeheadfoot=false,                            % keine automatische Vergrößerung von Kopf- und Fußzeile
 ]{scrreprt}
+
+\title{Modeling of Fast-Switching Transformers for Voltage Stability Studies in Python}
+\author{Maximilian Markus Veit Köhler}
+\date{02.05.2025}
 
 
 %--------------- Packages ----------------
@@ -45,17 +53,12 @@ skip=4pt
 %--------------- Sonstiges ----------------
 
 \pagestyle{scrheadings}									% Kopf- und Fu�zeile...
-% \usepackage{charter}
-% \setkomafont{disposition}{%
-% 	\normalfont\bfseries
-% }
-% \setkomafont{dictum}{\normalfont}
-% \renewcommand{\headfont}{\normalfont\sffamily}    		% Kolumnentitel serifenlos
-% \renewcommand{\pnumfont}{\normalfont\sffamily}    		% Seitennummern serifenlos
+\clearpairofpagestyles									% ...leeren
 \ihead[]{\headmark}              								% Kopfzeile innen
+\automark[section]{chapter}		% Headmark bestehend aus Kolumnentitel
 \ohead[\pagemark]{\pagemark}     							% Kopfzeile au�en
-\ifoot[]{} 												% Fu�zeile innen
-\ofoot[]{}    												% Fu�zeile au�en	
+% \ifoot[]{} 												% Fu�zeile innen
+% \ofoot[]{}    												% Fu�zeile au�en	
 \setlength{\headheight}{1.5\baselineskip}
 \onehalfspacing											% 1,5 Zeilenabstand
 %\typearea[current]{current}        							% Neuberechnung des Satzspiegels mit alten Werten nach �nderung von Zeilenabstand,etc
@@ -63,20 +66,14 @@ skip=4pt
 % \renewcommand{\figurename}{Abb.}   						% Abbildungsbezeichnung
 % \renewcommand{\listfigurename}{Abbildungsverzeichnis} 	% Abbildungsverzeichnisbezeichnung
 \renewcommand{\captionfont}{\small}						% Bildunterschriften klein kursiv
-\graphicspath{{figs/}{images/}}    							% Bildverzeichnis
+\graphicspath{{images/}{tikz_graphics/images/}}    							% Bildverzeichnis
 
 \RedeclareSectionCommand[beforeskip=0pt]{chapter}		%kein Abstand zum oberen Seitenrand bei neuen Kapiteln
 
-\input{ees_stuff/einstellungen.tex}
+\input{ees_stuff/einstellungen_ees.tex}
 \input{ads/tikz_styles.tex}
 
 \makeindex
-
-% Titel, Autor und Datum
-\title{Modeling of Fast-Switching Transformers for Voltage Stability Studies in Python}
-\author{Maximilian Markus Veit Koehler}
-\date{02.05.2025}
-
 
 
 %----------------------- Beginn des Dokuments -----------------------
@@ -84,15 +81,13 @@ skip=4pt
 \pagenumbering{Roman}									% R�mische Seitennummerierung
 
 \include{ees_stuff/deckblatt}									% Deckblatt
-\include{ads/abstract}									% Abstract
-\include{ees_stuff/erklaerung}								% Erkl�rung der Eigenarbeit
-\include{ees_stuff/aufgabe} 									% Aufgabenstellung (optional)
+% \include{ads/abstract}									% Abstract
+% \include{ees_stuff/erklaerung}								% Erkl�rung der Eigenarbeit
+% \include{ees_stuff/aufgabe} 									% Aufgabenstellung (optional)
 \cleardoublepage
 \begin{spacing}{1.15}									% evtl. kleinerer Zeilenabstand im IV, AV, TV
 \pdfbookmark[1]{Contents}{toc}					% Inhaltsverzeichnis bei den Lesezeichen rein
 \tableofcontents 											% Inhaltsverzeichnis erzeugen
-\listoffigures   											% Abbildungsverzeichnis
-\listoftables   											% Tabellenverzeichnis
 \end{spacing}
 \cleardoublepage
 
@@ -108,8 +103,12 @@ skip=4pt
 
 \pagenumbering{Roman}
 \setcounter{page}{13}
-\include{ads/acronyms}									% Symbol- und Abk�rzungsverzeichnis
-\printbibliography
+\begin{spacing}{1.15}
+    \include{ads/acronyms}									% Symbol- und Abk�rzungsverzeichnis
+    \listoffigures   											% Abbildungsverzeichnis
+    \listoftables   											% Tabellenverzeichnis
+    \printbibliography
+\end{spacing}
 
 \cleardoublepage
 \pagenumbering{alph}

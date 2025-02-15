@@ -1,0 +1,48 @@
+%!TEX root = ../main.tex
+
+% PDF Einstellungen
+\usepackage[%
+	pdfcreator={pdflatex, LaTeX with KOMA-Script},
+	pdfpagemode=UseOutlines, 		% Beim Oeffnen Inhaltsverzeichnis anzeigen
+	pdfdisplaydoctitle=true, 		% Dokumenttitel statt Dateiname anzeigen.
+	%hidelinks,						% entfernt Umrandung von verlinkten Stellen, ohne Verlinkung zu löschen
+]{hyperref}
+
+% (Farb-)einstellungen für die Links im PDF
+\hypersetup{%
+	colorlinks=true, 		% Aktivieren von farbigen Links im Dokument
+	linkcolor=ees_blue, 	% Farbe festlegen
+	citecolor=ees_blue,
+	filecolor=ees_blue,
+	menucolor=ees_blue,
+	urlcolor=ees_blue,
+	linktocpage=false, 		% Nicht der Text sondern die Seitenzahlen in Verzeichnissen klickbar
+	bookmarksnumbered=true 	% Überschriftsnummerierung im PDF Inhalt anzeigen.
+}
+
+\usepackage[table,dvipsnames]{xcolor}
+
+\definecolor{lightgray}{RGB}{227, 227, 227}
+\definecolor{darkgray}{RGB}{100, 100, 100}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{schaeffler}{RGB}{0, 137, 61}
+\definecolor{dark-green}{RGB}{0, 110, 93}
+\definecolor{middle-green}{RGB}{115, 161, 149}
+\definecolor{light-green}{RGB}{199, 222, 160}
+
+\definecolor{pie1}{RGB}{115, 161, 149}
+\definecolor{pie2}{RGB}{192, 198, 191}
+\definecolor{pie3}{RGB}{135, 135, 135}
+\definecolor{pie4}{RGB}{29, 155, 178}
+\definecolor{pie5}{RGB}{182, 186, 194}
+\definecolor{pie6}{RGB}{161, 200, 97}
+\definecolor{pie7}{RGB}{67, 99, 91}
+\definecolor{pie8}{RGB}{112, 123, 110}
+\definecolor{pie9}{RGB}{113, 113, 113}
+
+\definecolor{ees_blue}{RGB}{0, 112, 192}
+\definecolor{ees_yellow}{RGB}{213, 223, 0}
+\definecolor{ees_green}{RGB}{0, 166, 74}
+\definecolor{ees_red}{RGB}{192, 0, 0}
+\definecolor{ees_lightblue}{RGB}{0, 176, 240}
+\definecolor{ees_black}{RGB}{0, 0, 0}

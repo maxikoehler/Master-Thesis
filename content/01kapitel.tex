@@ -127,6 +127,7 @@ The admittance matrix of a two port network can be expressed after \textcite{mac
     \end{bmatrix} \label{eq:admittance-oltc}
 \end{align}
 Another way of writing down the admittance matrix is shown in \autoref{eq:admittance-oltc-2}. It is considering, that the matrix can be split up in a symmetric, constant part, and a variable current injection part. The latter is not symmetrical and depends on the tap position of the transformer. Therefore in some simulation algorithms the static part is used in the admittance matrix, and the variable part is considered in the current injection vector. \autocite{machowskiPowerSystemDynamics2020}
+
 \begin{align}
     \begin{bmatrix}
         \underline{I}_1 \\
@@ -170,11 +171,13 @@ Another way of writing down the admittance matrix is shown in \autoref{eq:admitt
 \subsubsection*{Per unit system specialities}
 
 Reactances and resistances are referred to the base voltage and apparent power of the operational unit, such as the transformer. The power system simulation uses its own base voltage and base apparent power, enabling the use of one single calculation domain. This is done to simplify the calculation and to make the results easily comparable to each other. Hence, the reffered values have to be transformed from the equipment based values to the simulation based values. The relations and conversions are defined as follows.
+
 \begin{align}
-    &\underline{Y}_\mathrm{T}=\frac{1}{r_\mathrm{T} + x_\mathrm{T} \cdot i} \cdot \frac{b_\mathrm{T} \cdot i}{2} \notag \\[12pt]
+    &\underline{Y}_\mathrm{T}=\frac{1}{r_\mathrm{T} + x_\mathrm{T} \cdot j} \cdot \frac{b_\mathrm{T} \cdot j}{2} \notag \\[12pt]
     &\underline{Y}_\mathrm{T,~sim}=\underline{Y}_\mathrm{T} \cdot \frac{S_\mathrm{n}}{S_\mathrm{n,~sim}} \label{eq:y-t-based} \\[12pt]
     &\underline{U}_\mathrm{whatever,~sim}=\underline{U}_\mathrm{whatever} \cdot \frac{S_\mathrm{n}}{S_\mathrm{n,~sim}} \label{eq:voltages-based}
 \end{align}
+
 Displayed like in \autoref{eq:y-t-based}, the characteristic of the operational unit is referred to the simulation base value. Here, the admittance of the transformer is multiplied with its own rated apparent power, then devided by the apparent power of the simulation system. Similar, the voltages are calculated via \autoref{eq:voltages-based}. This specialities are considered in the tap changer modeling, thus further information is given in \autocite{machowskiPowerSystemDynamics2020}, Appendix A.
 
 \commenting{

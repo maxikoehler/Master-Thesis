@@ -1,0 +1,28 @@
+\chapter{Others}
+
+\lipsum[2]
+
+\vspace{1cm}
+
+% \begin{tikzpicture}[node distance = 1.5cm, auto]
+%     % Place nodes
+%     \node [papStart] (Start1){Start};
+%     \node [papProcess, below of = Start1,label={[shift={(2.7,-0.6)}]\footnotesize\textit{label 1}}] (pro1){Prozess};
+%     \node [papProcess, below of = pro1,label={[shift={(3,-0.6)}]\footnotesize\textit{label 2}}](pro2){Prozess};
+%     \node [papDecision, below of = pro2, yshift= -9mm](dec1){Entscheidung};
+%     \node [papPredProc,  right of = dec1, xshift=25mm](predproc1){\nodepart{two}\shortstack{vordefinierter\\Prozess}};
+%     \node [papProcess, below of = predproc1,label={[shift={(2.3,-0.6)}]\footnotesize\textit{label 3}}](pro3){Prozess};
+%     \node [papEnd, below of = dec1, yshift= -20mm] (End) {Ende};
+    
+%     % Place joins
+%     \coordinate [below of = dec1, yshift= -10mm] (join1);
+    
+%     % Draw edges
+%     \path [papLine] (Start1) -- (pro1);
+%     \path [papLine] (pro1) -- (pro2);
+%     \path [papLine] (pro2) -- (dec1);
+%     \path [papLine] (dec1) -- node [right] {\papYes} (End);
+%     \path [papLine] (dec1) -- node [above] {\papNo} (predproc1);
+%     \path [papLine] (predproc1) -- (pro3);
+%     \path [papLine] (pro3) |- (join1);
+% \end{tikzpicture}
