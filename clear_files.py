@@ -11,6 +11,8 @@ endings = [
     '.md5',
     '.dpth',
     '.auxlock'
+    '.lof',
+    '.out',
 ]
 
 def remove_files(dir_name, extensions):

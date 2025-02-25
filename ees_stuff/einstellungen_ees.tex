@@ -32,7 +32,7 @@
 \usepackage{ragged2e}
 \usepackage{circuitikz}
 \usepackage[printonlyused]{acronym}
-\usepackage{todonotes}
+\usepackage[obeyFinal,backgroundcolor=ees_yellow,linecolor=black, figwidth=.9\linewidth,figcolor=white,textwidth=3cm]{todonotes}
 % \usepackage{sidenotes}
 \usepackage{lipsum}
 \usepackage{tcolorbox}
@@ -194,7 +194,7 @@
 		frameround=ffff,
 		rulecolor=\color{black},	% Rahmenfarbe
 		% fillcolor=\color{ListingBackground},
-    fillcolor=\color{white!50},
+    fillcolor=\color{ees_blue!50},
 		keywordstyle=\color[rgb]{0.133,0.133,0.6},
 		commentstyle=\color[rgb]{0.133,0.545,0.133},
 		%stringstyle=\color[rgb]{0.627,0.126,0.941}
@@ -203,9 +203,9 @@
 }
 \listingsettings{}
 % Umbennung des Listings
-\renewcommand\lstlistingname{\langlistingname}
-\renewcommand\lstlistlistingname{\langlistlistingname}
-\def\lstlistingautorefname{\langlistingautorefname}
+\renewcommand\lstlistingname{Listing}
+\renewcommand\lstlistlistingname{List of Listings}
+\def\lstlistingautorefname{Listing}
 
 \lstdefinestyle{style-python}
 {
@@ -214,9 +214,9 @@
   backgroundcolor=\color{white},		% Hintergrundfarbe
   breaklines=true,	% automatischer Zeilenumbruch bei langen Zeilen, funktioniert nur bei bestimmen Zeichen, z.B. Umbruch nach Leerzeichen
   keywordstyle=\bfseries\ttfamily\color{blue},	% Schlüsselwörter einstellen
-  stringstyle=\ttfamily\color{Peach},			% Textsrtrings
+  stringstyle=\ttfamily\color{ees_yellow},			% Textsrtrings
   showstringspaces=false,	% Leerzeichen in Strings richtig darstellen
-  commentstyle=\color{ForestGreen}\ttfamily,	% Kommentare
+  commentstyle=\color{ees_green}\ttfamily,	% Kommentare
   flexiblecolumns=false,	% Spaltenbreite dynamisch/fest
   numbers=left,		% Position der Zeilennummern
   numberstyle=\tiny,	% Größe der Zeilennummern
@@ -240,7 +240,7 @@
   emph = [1]{clc, color},
   emphstyle = [1]{\color{blue}},
   emph = [2]{function, endfunction},
-  emphstyle = [2]{\color{BrickRed}},
+  emphstyle = [2]{\color{ees_red}},
   emph = [3]{gcf},
   emphstyle = [3]{\color{black}},
 }

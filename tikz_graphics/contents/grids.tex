@@ -76,6 +76,21 @@
     \caption{SMIB model}
 \end{figure}
 
+\tikzsetnextfilename{smib_model_with_load.pdf}
+\begin{figure}[htb]
+    \begin{tikzpicture}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
+        % \draw [help lines] (-1,-5) grid (15,5);
+        \draw (0,0) node[oscillator, anchor=east, name=gen]{} --(.5,0)
+        to ++(.5,0) \bushere{1}{}{Bus 2}
+        to[oosourcetrans] ++(2,0) coordinate(trafo_b1) ++(0,-0.5)
+        \bushere{1.5}{}{Bus 1} ++(0,-0.5) -- ++(1,0) \loadside{Load 1}{1}{0};
+        \draw (trafo_b1) -- ++(3,0) coordinate(line) -- ++(3,0)
+        \bushere{1}{}{Bus 0}
+        -- ++(1,0) node[gridnode, anchor=left, name=ib]{};
+    \end{tikzpicture}
+    \caption{SMIB model with additional load}
+\end{figure}
+
 \tikzsetnextfilename{4bus3load_model_random.pdf}
 \begin{figure}[htb]
     \begin{tikzpicture}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
