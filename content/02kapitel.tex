@@ -12,90 +12,68 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Methodical Modeling}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Transformer Equipment Modeling}
-
-% \begin{textblock*}{.7\textwidth}(70mm,25mm)
+% \begin{textblock*}{.7\textwidth}(70mm-\offset,25mm-\offset)
 %         \begin{fquote}[Mae West]
 %                 You only live once, but if you do it right, once is enough.
 %         \end{fquote}
 % \end{textblock*}
 
-Some literature and fundamentals about transformers, control, stability assessment, fast-switching modules, and analysis in Python. % \todo{Hier steht ein Beispielkommentar.}
-
-% \begin{figure}[H]
-%         \centering
-%         \vspace{1cm}
-%         \begin{circuitikz}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
-%                 \draw (0,0) node[oscillator, anchor=east, name=gen]{} --(.5,0)
-%                 to[L, name=X_g] ++(2,0) coordinate(f1)
-%                 % \bushere{1}{$\underline{E}_\mathrm{T}'$}{}
-%                 % to[oosourcetrans,prim=delta,sec=wye] ++(2,0)
-%                 \bushere{2}{$\underline{V}_\mathrm{bb}$}{\acs{SG} bus bar} coordinate(b1) ++(0,-1) -- ++(.25,0) -- coordinate(f2) ++(1.75,0)
-%                 to[L, name=X_l3] ++(1,0) -- ++(1.5,0) ++(0,1)
-%                 \bushere{2}{$E_\mathrm{ibb}~\angle~0^{\circ}$}{\acs{IBB}} ++(0,1) coordinate(b2) ++(0,-1) coordinate(b3) -- ++(.75,0) coordinate(f3) -- ++(.75,0) to[L, name=X_ibb] ++(1,0) -- ++(1,0)
-%                 node[gridnode, anchor=left, name=ib]{};
-
-%                 % draw other resistances
-%                 \draw (b1) ++(0,1) -- ++(.5,0) to[L, name=X_l1] (b2);
-%                 \draw (b1) -- ++(.5,0) to[L, name=X_l2] (b3);
-%                 % \draw[line width=2pt] (2.25,1) -- (2.25,-1);
-%                 % \draw[line width=2pt] (4.75,1) -- (4.75,-1);
-%                 % \draw[line width=2pt] (8.25,1) -- (8.25,-1);
-
-%                 % labels for the resistors
-%                 \node[above=6pt] at (X_g) {$X_\mathrm{g}'$};
-%                 \node[above=6pt] at (X_ibb) {$X_\mathrm{ibb}$};
-%                 \node[above=6pt] at (X_l1) {$3~X_\mathrm{l}$};
-%                 % \node[below=6pt] at (X_l2) {$X_\mathrm{l}$};
-%                 % \node[below=6pt] at (X_l3) {$X_\mathrm{l}$};
-
-%                 % pole voltages and angles
-%                 \path[->] (-1.2,.5) edge [bend right] node[left=6pt]{$E_\mathrm{p}~\angle~\delta$} (-1.2,-.5);
-%                 % \path[->] (ib) ++(.8,.5) edge [bend left] node[right=6pt]{$E_\mathrm{ibb}~\angle~0^{\circ}$} ++(0,-1);
-
-%                 % faults
-%                 % \draw[-Stealth, very thick, red] (f1) ++(0,-.5) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f1_text);
-%                 % \node[below, red] at (f1_text) {\scriptsize fault 1};
-%                 \draw[-Stealth, very thick, red] (f2) ++(0,.3) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f2_text);
-%                 \node[below, red, align=center] at (f2_text) {\scriptsize fault 2/3};
-%                 \draw[-Stealth, very thick, red] (f3) ++(0,.3) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f3_text);
-%                 \node[below, red] at (f3_text) {\scriptsize fault 1};
-%         \end{circuitikz}
-%         \vspace{.5cm}
-%         \caption[Representative circuit of a \acf{SMIB} model]{Representative circuit of a \acf{SMIB} model with pole wheel voltage $E_\mathrm{p}~\angle~\delta$ and \acf{IBB} voltage $E_\mathrm{ibb}~\angle~0^{\circ}$; positions of considered faults 1 to 3 are marked with red lightning arrows}
-%         \label{fig:smib-model}
-% \end{figure}
-
-\begin{figure}[h]
-        \centering
-        \includegraphics{tikz_graphics/images/programm.pdf}
-        \caption[Program plan proposal for determining the \acf{CCT}]{Program plan proposal for determining the \acf{CCT} $t_\mathrm{cc}$, critical power angle $\delta_\mathrm{cc}$ and the \acf{TDS} of the \acf{SMIB}-model; including the associated main function name}
-        \label{fig:program-plan}
-\end{figure}
-
+\begin{textblock*}{.7\textwidth}(70mm-\offset,25mm-\offset)
+        \begin{fquote}[Albert Einstein]
+            All models are wrong, but some are useful.
+        \end{fquote}
+\end{textblock*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Advancing the Transformer Model}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Transformer Equipment Modeling}
 
-% \commenting{Describe the current implementation of transformers in the Python framework.}
-% \commenting{Follwing the description of the \glqq new\grqq implementation.}
 
-\subsubsection{Model Demands and Changes in the Framework}
+Some literature and fundamentals about transformers, control, stability assessment, fast-switching modules, and analysis in Python. % \todo{Hier steht ein Beispielkommentar.}
+
+% \begin{figure}[h]
+%         \centering
+%         \includegraphics{tikz_graphics/images/programm.pdf}
+%         \caption[Program plan proposal for determining the \acf{CCT}]{Program plan proposal for determining the \acf{CCT} $t_\mathrm{cc}$, critical power angle $\delta_\mathrm{cc}$ and the \acf{TDS} of the \acf{SMIB}-model; including the associated main function name}
+%         \label{fig:program-plan}
+% \end{figure}
 
 \commenting{
-        \begin{itemize}
-                \item What is the current implementation?
+        Things to mention:
+        \begin{itemize}[nosep]
                 \item First model: Admittance Matrix manipulations
                 \item Second model: Current Injection Model
         \end{itemize}
 }
 
-\subsubsection{Considering Load Flow Dependent Control}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Implementing a $\Pi$-Representative Circuit with Variable Ratio}
+
+% \commenting{Describe the current implementation of transformers in the Python framework.}
+% \commenting{Follwing the description of the \glqq new\grqq implementation.}
+
+\subsubsection{Mathematical Description and Definitions}
 
 \commenting{
-        \begin{itemize}
+        Describe the Transformer circuit, the $\Pi$-model, simplification of impedances, relation to the specific side, ...
+        \begin{enumerate}[nosep]
+                \item Show the admittance matrix deduction process for placing the impedances on one side
+                \item How to interprete $\underline{\vartheta}$; especially if complex and a mixture of longitudinal and angle ratio\\
+                -> e.g. Asymmetrical shifter, vector groups, or only tapping on the current-voltage angle $\phi$
+                \item Illustrate differences if the impedance relation is switching sides (Machowski vs. Kundur / Milano)\\
+                -> refer the admittances to the lv or hv side: different definition of $\underline{\vartheta}$, different admittance matrix of the transformer
+                \item Dependency of connections? (which side, step-up, step-down transformer?)
+        \end{enumerate}
+}
+
+\subsubsection{Additional Algorithmics}
+
+\commenting{
+        \begin{itemize}[nosep]
+                \item How to automatically determine switching direction?\\
+                -> switchin direction dependent on what? (load-flow direction?)
+                \item Controller set points: also dependent on load flow?
                 \item How can I change the transformer control setpoints to be load flow dependent?
                 \item How can I ensure, utilization of the transformer is not $>S_\mathrm{n}$?
         \end{itemize}
@@ -107,6 +85,16 @@ Some literature and fundamentals about transformers, control, stability assessme
 \commenting{This is the description of the ideas, development, and implementation of a OLTC control scheme.}
 
 \subsubsection{Discrete Control Loop}
+\commenting{
+        \begin{itemize}[nosep]
+                \item Describe implementation
+                \item Describe benefits / drawbacks
+                \item Control scheme
+                \item Switching logic and behavior (voltage tracking)
+        \end{itemize}
+}
+
+\sidenote{General aspects and references}
 This control method represents the currently most used and thus representative control scheme for \acsp{OLTC}. With the mechanic nature of the switching mechanism, the control look can only access discrete ratios within time frames of around a few seconds. Such a discrete control loop is described by \textcite{milanoHybridControlModel2011,milanoPowerSystemModelling2010}. A scheme of this control loop is shown in \autoref{fig:discrete-control-loop}.
 
 \begin{figure}[htb!]
@@ -120,30 +108,66 @@ This control loop type is beneficial due to its accurate representability of cur
 
 A negative aspect of a discrete control loop is the missing opportunity of generating a transfer function. This blocks the stability assessment with standard control engineering methods. Further, popular analysis methods like eigenvalue analysis is not possible, due to the lack of possibility to form derivatives.
 
-\lstinputlisting[caption={Output Function of the discrete OLTC controller},captionpos=b,style=style-python,label=lst:oltc-discrete]{images/code/oltc-discrete.py}
+% \lstinputlisting[caption={Output Function of the discrete OLTC controller},captionpos=b,style=style-python,label=lst:oltc-discrete]{images/code/oltc-discrete.py}
 
+\sidenote{Implementation\\Structure}
+\commenting{The structure of the implementation is illustrated in the block diagram of \autoref{fig:discrete-oltc-implementation}. The controller is actively chainging the algebraic funtions of the simulation environment, therefore it is quasi dynamic. The controller output logic is called, when updating the admittance matrix of the transformer. Additionally, the differential functions of the connected simple controllers, like integrators, PT1-blocks, etc., are called by the solver and are thus part of the differential equations. The logic determines the physical interpretation of the \acs{OLTC}, and therefore
+\begin{enumerate}
+        \item If the OLTC has to switch,
+        \item When the switching operation is finished, and
+        \item What the current, or in case after a switching the new, tap ratio is.
+\end{enumerate}
+It is important to note, that this structure relies on the calculation of the dynamic admittance matrix on each time step.}
 
+\begin{figure}[htb!]
+        \centering
+        \missingfigure{Implementation structure of the discrete OLTC controller}
+        \caption[Implementation structure of the discrete OLTC controller]{Implementation structure of the discrete OLTC controller}
+        \label{fig:discrete-oltc-implementation}
+\end{figure}
+
+\sidenote{Output logic}
+The output of the controller is based on the following logic.
+
+\sidenote{Characterization plot and validation}
+
+% \lstinputlisting[caption={Output Function of the discrete OLTC controller 2},captionpos=b,style=style-python,label=lst:oltc-discrete2]{images/code/oltc-discrete.py}
+
+\subsubsection{Continous Control Loop}
+
+\begin{figure}[htb!]
+        \centering
+        \includegraphics[width=.7\linewidth]{development_files/validation/data/oltc_control_characterization.pdf}
+        \caption[Characterization of the OLTC control loops]{Characterization of the OLTC control loop; the input function simulates the to be regulated voltage, the output functions are characterized by $o(t)=i(t) \cdot \underline{\vartheta}_\mathrm{trafo}$}
+        \label{fig:oltc-control-characterization}
+\end{figure}
+
+\subsubsection{Control Schemes for the Fast Switching module}
 \commenting{
-        \begin{itemize}
+        \begin{itemize}[nosep]
                 \item Describe implementation
                 \item Describe benefits / drawbacks
                 \item Control scheme
                 \item Switching logic and behavior (voltage tracking)
         \end{itemize}
 }
+\sidenote{Functional basics of a \acs{FSM}}
+Describe the operational logic and structure of the \acf{FSM} first.
 
-\lstinputlisting[caption={Output Function of the discrete OLTC controller 2},captionpos=b,style=style-python,label=lst:oltc-discrete2]{images/code/oltc-discrete.py}
-
-\subsubsection{Continous Control Loop}
+\sidenote{Control logic}
+A control logic for a so called \acs{FSM} has been presented from \textcite{burlakinEnhancedVoltageControl2024}, and illustrated in \autoref{fig:fsm-control-loop}.
 
 \begin{figure}[htb!]
         \centering
-        \includegraphics[width=.7\linewidth]{development_files/data/oltc_control_characterization.pdf}
-        \caption[short]{Characterization of the OLTC control loop; the input function simulates the to be regulated voltage, the output functions are characterized by $o(t)=i(t) \cdot \underline{\vartheta}_\mathrm{trafo}$}
-        \label{fig:oltc-control-characterization}
+        \includegraphics[width=\textwidth]{modeling/fsm_control_scheme.png}
+        \caption[Control loop of a \acf{FSM}]{Control loop of a \acs{FSM}; scheme based on \textcite{burlakinEnhancedVoltageControl2024}}
+        \label{fig:fsm-control-loop}
 \end{figure}
 
-\subsubsection{Control Schemes for the Fast Switching module}
+\sidenote{Implementation\\differences}
+However, the implementation logic in Python is slightly differing from the presented scheme in \autocite{burlakinEnhancedVoltageControl2024}, simply for not overcomplication of the code and therefeore debugging. The implementation is similar to the afore discussed one of a standard \acs{OLTC} controller. 
+
+\sidenote{Characterization and validation}
 
 \subsubsection{Discrete Control Loop as most Representative}
 A continous control loop for a \acs{FSM} is presented within \textcite{burlakinEnhancedVoltageControl2024,burlakinEnhancingVariableShunt2024}. Similar to the solely \acs{OLTC} loop, it represents the real behavior best, but is obstructive for stability assessments. The scheme of the logic is shown in \autoref{fig:fsm-continuous-control-loop}.
@@ -167,8 +191,6 @@ A continous control loop for a \acs{FSM} is presented within \textcite{burlakinE
 \subsubsection{Varying the Voltage Setpoint and Target Calculation}
 
 \commenting{Here, another idea of control target creation shall be mentioned. Instead of a fixed bus voltage reference, the difference of both bus voltages is considered. Further, the sign of that difference is used to determine the direction of the tap change.}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -214,7 +236,7 @@ As one of the most important loads to consider, especially for many load driven 
 
 \commenting{
         Just briefly:
-        \begin{itemize}
+        \begin{itemize}[nosep]
                 \item Why is it crucial?
                 \item How do the instability mechanisms work and look like?
                 \item What are the different types of \acsp{IM} modeling (complete and dynamic, static, \dots)
@@ -303,18 +325,12 @@ This dynamic model allows for the simulation of the \acsp{IM} transient response
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Application of Voltage Stability}
 
-% \begin{textblock*}{.7\textwidth}(70mm,25mm)
-%         \begin{fquote}[Albert Einstein]
-%             All models are wrong, but some are useful.
-%         \end{fquote}
-%     \end{textblock*}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Influences of other device characteristics}
 
 \commenting{
         Just look on other mutual influences in the power system (simulation), such as:
-        \begin{itemize}
+        \begin{itemize}[nosep]
                 \item Load characteristics and types of modeling
                 \item Maximum thermal currents of cables and operating components
                 \item Asynchronous machines (or called \glqq induction motors\grqq?)
@@ -327,7 +343,7 @@ This dynamic model allows for the simulation of the \acsp{IM} transient response
 \subsubsection{Static and Dynamic Indices}
 
 \commenting{
-        \begin{itemize}
+        \begin{itemize}[nosep]
                 \item Which indices can be implemented?
                 \item Which make sense?
                 \item Implementation and calculation of them?
@@ -337,7 +353,7 @@ This dynamic model allows for the simulation of the \acsp{IM} transient response
 \subsubsection{Stability Monitoring}
 
 \commenting{
-        \begin{itemize}
+        \begin{itemize}[nosep]
                 \item Index combination and \glqq traffic light\grqq\~monitoring
                 \item Restauration options and opportunities
                 \item Local mapping

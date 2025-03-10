@@ -5,32 +5,32 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-% \begin{textblock*}{.7\textwidth}(70mm,25mm)
-%     \begin{fquote}[Albert Einstein]
-%         % All models are wrong, but some are useful.
-%         Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.
-%     \end{fquote}
-% \end{textblock*}
+\begin{textblock*}{.7\textwidth}(70mm-\offset,25mm-\offset)%(70mm,25mm)
+    \begin{fquote}[Albert Einstein]
+        % All models are wrong, but some are useful.
+        Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.
+    \end{fquote}
+\end{textblock*}
 
 Some blibla as introduction. \autocite{machowskiPowerSystemDynamics2020}
 
-% \begin{sidefigure}
-%     \begin{center}
-%         \includegraphics[width=.9\linewidth]{images/fausiegel.pdf}
-%     \end{center}
-%     \vspace*{-6pt}
-%     This is a figure in the margin to demonstrate something small or bring a hint as sidenote.
-% \end{sidefigure}
+\begin{sidefigure}
+    \begin{center}
+        \includegraphics[width=.9\linewidth]{images/fausiegel.pdf}
+    \end{center}
+    \vspace*{-6pt}
+    This is a figure in the margin to demonstrate something small or bring a hint as sidenote.
+\end{sidefigure}
 
 \lipsum[1]
-% \marginnote{This is a side note for testing out some options.}
+\marginnote{This is a side note for testing out some options.}
 
 \lipsum[2]
-% \sidenote{This is a second side note for testing out some options.}
+\sidenote{This is a second side note for testing out some options.}
 Some more Text.
 
 \lipsum[3]
-% \mycomment[MK]{Write a nice introduction.}
+\mycomment[MK]{Write a nice introduction.}
 
 \clearpage
 
@@ -41,7 +41,7 @@ Here are gaps and possible extension of knowledge.
 Here are the research objectives and questions.
 
 \commenting{
-    \begin{itemize}
+    \begin{itemize}[nosep]
         \item Influence of OLTC control on possible operational uses: Short-term voltage stability, long-term voltage stability; 
         \item Can a increased dynamic regulation help machine recovery?
         \item Does the increased tap ratio gradient harm transient stability of machines?
@@ -50,8 +50,8 @@ Here are the research objectives and questions.
     \end{itemize}
 }
 
-\begin{tcolorbox}[float, colback=ees_blue!5!white,colframe=ees_blue!75!black, toptitle=1mm, bottomtitle=1mm, left=2mm, right=2.5mm, top=2mm, bottom=2mm, title={\textbf{Research question of this thesis}}]
-    How do different control types and characteristics of Tap Changing transformers influence the voltage stability?
+\begin{tcolorbox}[float, colback=ees_blue!5!white,colframe=ees_blue, toptitle=1mm, bottomtitle=1mm, left=2mm, right=2.5mm, top=2mm, bottom=2mm, title={\textbf{Research Question of this Thesis}}]
+    How do different control types and characteristics of Tap Changing transformers influence the voltage stability of the given system?
 \end{tcolorbox}
 
 Therefore following questions/steps can be imagined as supportive:
@@ -62,39 +62,76 @@ Therefore following questions/steps can be imagined as supportive:
     \item Which systems are useful to consider in showing effects? Which circumstances lead to a stability support, which to a decrease? Where can limits be drawn?
 \end{enumerate}
 
+Additionally during the process of the thesis, the following question came up as an extension. Is is the second interest of this thesis, and shall be more focused in the later part. Therefore some assessments in the \autoref{chap:case-study} are conducted.
+
+\begin{tcolorbox}[float, colback=ees_blue!5!white,colframe=ees_lightblue, toptitle=1mm, bottomtitle=1mm, left=2mm, right=2.5mm, top=2mm, bottom=2mm, title={\textbf{Additional Question of this Thesis}}]
+    Can the already existing Tap Changer Control of the \acf{FSM} be improved towards a more operation oriented control?
+\end{tcolorbox}
+
 \subsubsection{Construction of the Thesis}
 
-This leads to the following structure for the paper: 
-\begin{itemize}
-    \item \textbf{\hyperref[chap:fundamentals]{Chapter 2},}\\
-    some description about chapter 2;
-    \item \textbf{\hyperref[chap:methods]{Chapter 3},}\\
-    some description about chapter 3;
-    \item \textbf{\hyperref[chap:results]{Chapter 4},}\\
-    some description about chapter 4.
-\end{itemize}
+% This leads to the following structure for the paper: 
+% \begin{itemize}
+%     \item \textbf{\hyperref[chap:fundamentals]{Chapter 2},}\\
+%     some description about chapter 2;
+%     \item \textbf{\hyperref[chap:methods]{Chapter 3},}\\
+%     some description about chapter 3;
+%     \item \textbf{\hyperref[chap:results]{Chapter 4},}\\
+%     some description about chapter 4.
+% \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Fundamentals}
 \label{ch:fundamentals}
 
-% \begin{textblock*}{.7\textwidth}(70mm,25mm)
-%     \begin{fquote}[Frank Zappa]
-%         So many books, so little time.
-%     \end{fquote}
-% \end{textblock*}
+\begin{textblock*}{.7\textwidth}(70mm-\offset,25mm-\offset)
+    \begin{fquote}[Frank Zappa]
+        So many books, so little time.
+    \end{fquote}
+\end{textblock*}
 
 Following chapter shall introduce the basics for implementing an \acs{OLTC} equipped transformer into a existing \acs{PSS} framework. This is considering the already existing surrounding, more detailed the electric behavior of the transformer itself and some control engineering theory for the corrosponding \acs{OLTC}. Thus its main goal is increasing voltage stability \autocite{machowskiPowerSystemDynamics2020}, main indices and assessment methods are considered as well.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Power System Modeling}
 
+\commenting{
+    Transformer $\Pi$-Model:
+    \begin{itemize}[nosep]
+        \item Deviation from 'normal' circuit
+        \item Placing the impedance elements on the LV side vs. HV side
+        \item Getting into a single line $\Pi$-model
+        \item Introducing the tapping factor $\vartheta$; if phase shifting it is getting complex -> how to consider this
+        \item Different Y-Bus matrices if LV or HV side is considered
+        \item Per-unit problems with the transformer characteristics
+        \item Short overview of Open-Source power system simulation packages
+    \end{itemize}
+    Voltage stability:
+    \begin{itemize}[nosep]
+        \item Definitions, classifications, conditions
+        \item PV-curves / QV-curves
+        \item Derivation of Indices: Practical application
+    \end{itemize}
+    Control engineering:
+    \begin{itemize}[nosep]
+        \item State-of-the-art control mechanisms for OLTCs
+        \item Chaos theory controllers
+    \end{itemize}
+}
+
 \subsection{General and Existing Model}
 
 \subsection{Transformer Electric Model and Behavior}
 
-\begin{figure}[h!]
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=.8\textwidth]{fundamentals/trafo_model_deviation.png}
+    \caption[Two-Winding Transformer Circuit in the Positive Sequence]{Two-Winding Transformer Circuit in the Positive Sequence; a) ideal representation with impedances on each \acs{HV} and \acs{LV} side and b) related impedances on the XX side; own figure after \autocite{machowskiPowerSystemDynamics2020}}
+    \label{fig:trafo-model-deviation}
+\end{figure}
+
+\begin{figure}[htb!]
     \centering
     \includegraphics[width=.7\textwidth]{fundamentals/pi_transformer.png}
     \caption[$\Pi$-representative circuit of a transformer with a longitudinal tap changer]{$\Pi$-representative circuit of a transformer with a longitudinal tap changer; own figure after \autocite{machowskiPowerSystemDynamics2020,burlakinEnhancedVoltageControl2024}}
@@ -182,7 +219,7 @@ Displayed like in \autoref{eq:y-t-based}, the characteristic of the operational 
 
 \commenting{
     Additionally to consider:
-    \begin{itemize}
+    \begin{itemize}[nosep]
         \item D-q transformations (???),
         \item Frequency domains: reactances and inductances are dependent and can change with the base frequency,
         \item Torque and power relations.
@@ -193,7 +230,7 @@ Displayed like in \autoref{eq:y-t-based}, the characteristic of the operational 
     
 \commenting{
     Some information about other open source python power system simulation tools, such as:
-    \begin{itemize}
+    \begin{itemize}[nosep]
         \item Pandapower,
         \item TOPS,
         \item ... .
@@ -211,7 +248,7 @@ A Practical introduction to voltage stability assessment, methods and indices is
 
 \commenting{
     Interesting to note/implement here: Basic classification, definitions, and the nature or conditions of voltage stability. Such as
-    \begin{itemize}
+    \begin{itemize}[nosep]
         \item Short term vs. long term
         \item Static vs. dynamic
         \item Transmission driven vs. load driven vs. generation driven; stability/instability, and/or contributions 
@@ -300,12 +337,12 @@ Although this method seems easy to implement, there are some numerical problems 
 
 A few basics are in the interest, understanding differences between real world beahavior, or possible ways of building up a \acs{OLTC} transformer control. This control theory difference can be limiting as well for the results and objectives compared to the actual possible control in the field.
 
-\subsubsection{Typical presets are manually set}
-
+% \subsubsection{Typical presets are manually set}
+\sidenote{Typical presets are manually set}
 The target voltage is typically set from the control room of the grid operator, coming from pre-calculated load flow analysis. This can be set hours before, or even day-ahead with the estimated loads of the grid. This value is set locally for each operating unit subsequently. The control is then operating locally and without further involvement of the grid operator. \quelle
 
-\subsubsection{Discrete controllers are used in the field}
-
+% \subsubsection{Discrete controllers are used in the field}
+\sidenote{Discrete controllers are used in the field}
 Typically the used controller in the field is a discrete controller, which can change tap positions under load within a time frame of around few seconds. Practical tap steps are around $2~\mathrm{\%}$ of the overall transforming ratio. The control is set up with a dead band, to avoid unnecessary tap changes. It is necessecary to note here, that this control and its mathematical caracteristics contains logical elements, blocks, and delays, which cannot be translated in a typical control theory transmission function. This leads to the missing possibility to easily obtain mathematical stability for the control of the overall considered power system. \quelle
 
 \subsection{Dynamic voltage stability}
@@ -318,7 +355,7 @@ Typically the used controller in the field is a discrete controller, which can c
 
 \commenting{
     Is this necessary or already out of scope?
-    \begin{enumerate}
+    \begin{enumerate}[nosep]
         \item Fuzzy Control mechanisms,
         \item Neural Networks,
         \item Bifurcations.

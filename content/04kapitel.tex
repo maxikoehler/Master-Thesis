@@ -11,15 +11,15 @@
 \chapter{Case study}
 \label{chap:case-study}
 
-% \begin{textblock*}{.7\textwidth}(70mm,25mm)
-%     \begin{fquote}[Narcotics Anonymous]
-%         Insanity is doing the same thing, over and over again, but expecting different results.
-%     \end{fquote}
-% \end{textblock*}
+\begin{textblock*}{.7\textwidth}(70mm-\offset,25mm-\offset)
+    \begin{fquote}[Narcotics Anonymous]
+        Insanity is doing the same thing, over and over again, but expecting different results.
+    \end{fquote}
+\end{textblock*}
 
 \commenting{
     In the interest of investigation / the Case Study are:
-    \begin{itemize}
+    \begin{itemize}[nosep]
         \item Influence of switching times on stability margin/begin of destabilization,
         \item Influence of max. ratio change per switching event, and
         \item Influence on different test systems (destabilization mechanisms).
@@ -32,7 +32,7 @@
     Does it make sense to structure like that? (Scenarios - Simulation - Results)
 
     Or is it a better idea thinking in terms of specific \glqq use cases\grqq~as sections:
-    \begin{itemize}
+    \begin{itemize}[nosep]
         \item What happens under strong grid conditions? -> Section: Strong grid condition behavior
         \item What happens under weak grid conditions? -> Section: Weak grid condition behavior
         \item Strongly interconnected grids
@@ -66,7 +66,7 @@ Following contains:
 \commenting{Extension in the Control Algorithm to decide which Bus has to be regulated, to avoid contrairy actions of the OLTC and FSM against the power flow. Therefore not decrease of stability, but increase. Possible Application: Grid coupling Transformers, Battery Storage assisted Virtual powerplants, etc.
 
 For this thinking maybe another control strategy is relevant:
-\begin{itemize}
+\begin{itemize}[nosep]
     \item No setpoint from a load flow day-ahead or similar time frame; but rather current load and bus voltages are considered
     \item Not the deviation of one transformer bus voltage from a setpoint, but the deviation between the two bus voltages is relevant
     \item Maybe the absolut deviation to the optimal bus voltages at the current load situation is relevant  

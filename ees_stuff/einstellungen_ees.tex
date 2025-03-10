@@ -41,12 +41,14 @@
 \usepackage{rotating}
 \usepackage{longtable}
 \usepackage{enumitem}	% mehr Optionen bei Aufzählungen
+\setlist{itemsep=0pt, parsep=0pt}
 \usepackage{graphicx}
 \usepackage[right]{eurosym}
 \DeclareUnicodeCharacter{20AC}{\euro}
 \usepackage{lscape}
 \usepackage{bookmark} %nur ein latex-Durchlauf für die Aktualisierung von Verzeichnissen nötig
 \usepackage{listings}
+\usepackage{comment}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -94,11 +96,10 @@
 \newcommand{\mab}[1]{\mathrm{\textbf{#1}}}
 
 % catching all beauties
-\newcommand{\fqoute}{}
-\newcommand{\sidenote}{}
-\newcommand{\sidefigure}{}
+\newcommand{\sidenote}[1]{}
 \newcommand{\sidecaption}{}
-\newcommand{\marginnote}{}
+\newcommand{\marginnote}[1]{}
+% \newenvironment{sidefigure}{}{}%{\begin{sidefigure}}{\end{sidefigure}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Preliminary comment on each page
@@ -244,3 +245,63 @@
   emph = [3]{gcf},
   emphstyle = [3]{\color{black}},
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Testing siome stuff
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\einstellung}[1]{%
+  \expandafter\newcommand\csname #1\endcsname{}
+  \expandafter\newcommand\csname setze#1\endcsname[1]{\expandafter\renewcommand\csname#1\endcsname{##1}}
+}
+\newcommand{\langstr}[1]{\einstellung{lang#1}}
+\einstellung{offset}
+\setzeoffset{100mm}
+
+\definecolor{quotemark}{gray}{0.7}
+\makeatletter
+\newlength\origparskip
+
+% \newcommand{\fquote}{}
+
+\newcommand{\fquote}{%
+  \@ifnextchar[{\fquote@i}{\fquote@i[]}%]
+}
+
+\def\fquote@i[#1]{%
+  \@ifnextchar[{\fquote@ii{#1}}{\fquote@ii{#1}[]}%]
+}%
+
+\def\fquote@ii#1[#2]{%
+  \def\pqm@tempa{#1}%
+  \def\pqm@tempb{#2}%
+  \noindent
+  \list
+    {}
+    {\setlength{\leftmargin}{0.3\textwidth}%
+     \setlength{\rightmargin}{0.1\textwidth}%
+     \setlength{\origparskip}{\parskip}}%
+    \item[]%
+      \begin{picture}(0,0)%
+        \put(-15,-8){\makebox(0,0){\scalebox{4}{%
+          \textcolor{ees_blue}{\textquotedblright}}}}%
+      \end{picture}%
+      \begingroup
+      \itshape
+      \ignorespaces}%
+
+\def\endfquote{%
+  \endgroup
+  \par
+  \raggedleft
+  \ifx\pqm@tempa\empty
+  \else
+    {\bfseries --- \pqm@tempa\par}%
+    \setlength{\parskip}{\origparskip}%
+    \ifx\pqm@tempb\empty
+    \else
+      (\pqm@tempb)%
+    \fi
+  \fi
+  \par
+  \endlist}
+\makeatother

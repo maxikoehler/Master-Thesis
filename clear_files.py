@@ -4,6 +4,8 @@ endings = [
     '.gz',
     '.xml',
     '.bbl',
+    '.bcf',
+    '.idx',
     '.lol',
     '.atoc',
     '.aux',
