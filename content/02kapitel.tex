@@ -67,6 +67,82 @@ Some literature and fundamentals about transformers, control, stability assessme
         \end{enumerate}
 }
 
+\subsubsection{Mathematical for MACHOWSKI / SIMULATION}
+
+\commenting{
+Similiar to the mentioned typical assumptions from \autocite{machowskiPowerSystemDynamics2020}
+\begin{itemize}
+        \item Neglecting (normally big) shunt branches in the circuit,
+        \item Assuming the impedances on the HV and LV side are symmetrical (the same), and
+        \item (\dots more?), 
+\end{itemize}
+these are considered in this paper as well. 
+
+Procedure for accounting the Admittance Matrix:
+\begin{enumerate}
+        \item Set constraints as Ohms law for the admittance matrix and the tap ratio,
+        \item Re-arrange equation to set currents and voltages independent of the transformer ratio, 
+        \item calculate the series admittance and the shunt admittances after the given standard formula.
+\end{enumerate}
+\begin{align}
+        \begin{bmatrix}
+                \underline{I}_1 \\ \underline{I}_2
+        \end{bmatrix}=
+        \begin{bmatrix}
+                \underline{Y}_{12} + \underline{Y}_{10} & -\underline{Y}_{12} \\ -\underline{Y}_{21} & \underline{Y}_{21} + \underline{Y}_{20}
+        \end{bmatrix} \cdot
+        \begin{bmatrix}
+                \underline{U}_1 \\ \underline{U}_2
+        \end{bmatrix}
+\end{align}
+
+\acs{OLTC} tap ratio definition:
+\begin{align}
+        \underline{\vartheta} &= 1 + k \cdot \Delta v \\[6pt]
+        \text{with } k &\in [k_\mathrm{min};k_\mathrm{max}]; k_\mathrm{min} \equiv  -k_\mathrm{max}
+\end{align}
+Angle definition as multiplication to the tap ratio:
+\begin{align}
+        \underline{a}_\mathrm{T} &= \exp(j \cdot \phi \cdot \frac{\pi}{180})
+\end{align}
+
+}
+\subsubsection{Mathematical for Paper ILYA and KUNDUR / MILANO}
+
+\sidenote{Definition OLTC ratio}
+\commenting{
+        Relavant points for the definition of the OLTC ratio:
+        \begin{itemize}[nosep]
+                \item Complex vs. Rational number: Angle or Asymetric shifter
+                \item How can angles and logitudinal ratios be mathematically expressed?
+                \item How to understand when Relation to hv or lv side?
+        \end{itemize}
+}
+The \acs{OLTC} ratio $\underline{\vartheta}$ when placing the replacement impedance $\underline{Z}_\mathrm{T}$, respectively the replacement admittance $\underline{Y}_\mathrm{T}$, on the high voltage side is defined as:
+\begin{align}
+        \underline{\vartheta} &= 1 + k \cdot \Delta v \label{eq:tap-ratio-hv} \\[6pt]
+        \text{with } k &\in [k_\mathrm{min};k_\mathrm{max}]; k_\mathrm{min} \equiv  -k_\mathrm{max} \label{eq:tap-pos}
+\end{align}
+Within this definition, $k_\mathrm{min}$ defines the minimum tap position, $k_\mathrm{max}$ the maximum \acs{OLTC} postition. When relating the replacement impedance to the low voltage side, the tap ratio is defined differently, while looking at the tap position in \autoref{eq:tap-pos} in the same manner.
+\begin{align}
+        \underline{\vartheta} &= \frac{1}{1 + k \cdot \Delta v} \label{eq:tap-ratio-lv}
+\end{align}
+
+\sidenote{Representation of\\Vector Groups}
+Voltage angle shifting through the influence of vector groups, meaning a different wiring and thus magnetic coupling of the transformer can be expressed within the transformer model. By mathematically applying a turning vector with the length of one to the overall tap ratio, this can be included in the model. Mathematical, this is expressed by the following equation. The characteristic number $n_\mathrm{T}$ is relating to to angle, with one step being equal to $30^\circ$ angle ratio.
+\begin{align}
+        \underline{a}_\mathrm{T} &= \exp(j \cdot n_\mathrm{T} \cdot \frac{\pi}{6}) \label{eq:vector-group}
+\end{align}
+
+\sidenote{Ideal vs. asymmetric ratio}
+\commenting{Just briefly desribe the influence of an asymetric vs. an ideal transformer. Why the difference and how the representation could work.}
+\begin{figure}[htb!]
+        \centering
+        \includegraphics[width=.7\linewidth]{images/modeling/asymetric_ratio_vector.png}
+        \caption[Illustration of the tap ratio vector for an ideal and an asymmetric transformer]{Illustration of the tap ratio vector for an ideal and an asymmetric transformer; from the \textcolor{ees_red}{\textbf{DIgSILENT Technical Reference Manual}} \dots \quelle}
+        \label{fig:asymetric-ratio-vector}
+\end{figure}
+
 \subsubsection{Additional Algorithmics}
 
 \commenting{
