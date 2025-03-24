@@ -125,23 +125,30 @@
 \tikzsetnextfilename{transformer_complete.pdf}
 \begin{figure}[htb]
     \centering
-    \begin{circuitikz}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
+    \begin{tikzpicture}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
+        \footnotesize
         % \ctikzset{quadpoles/transformer/height=2.5}
         % \draw [help lines] (-1,-5) grid (15,5);
 
-        \draw node[transformer, american] (T) at (8, 0) {} node[anchor=north] at ([yshift=-0.38cm]T.south){$1:\underline{\vartheta}$};
+        \draw node[transformer, american] (T) at (8, 0) {} node[anchor=north] at ([yshift=-0.38cm]T.south){$\underline{\vartheta}:1$};
         \draw[-{Latex[length=2mm]}, thick] (T.outer dot A2) -- (T.outer dot B1);
+        
+        \draw (T.A1) to [L, l_=$\underline{Z}_1$, label distance=4pt] ++(-3,0) coordinate(cross) to [L, l_=$\underline{Z}_2$, label distance=4pt] ++(-3,0) node[ocirc](v1){};
+        \draw (T.A2) -- ++(-3,0) coordinate(cross_2) -- ++(-3,0) node[ocirc]{};
+        \draw (cross) to [L, l_=$\underline{Z}_\mathrm{Fe, \mu}$, label distance=4pt] (cross_2);
+        
+        \draw (T.B1) -- ++(1,0) coordinate(v2_1) node[ocirc]{};
+        \draw (T.B2) -- ++(1,0) coordinate(v2_2) node[ocirc]{};
+        \draw[-{Latex}, color=ees_black] (v2_1) ++(0,-.2) -- node[anchor=west]{$\underline{U}_1$} ++(0,-1.9);
+        \node[below of=v2_2, anchor=south east](lv){LV side};
+        \draw[-{Latex}, color=ees_black] (v1) ++(0,-.2) -- node[anchor=east]{$\underline{U}_2$} ++(0,-1.9);
+        
+        \node[below of=cross_2, anchor=south](hv){HV side};   
         \node[ocirc] at (T.A1){};
         \node[ocirc] at (T.A2){};
         \node[ocirc] at (T.B1){};
         \node[ocirc] at (T.B2){};
-
-        \draw (T.A1) to [L] ++(-3,0) coordinate(cross) to [L] ++(-3,0) node[ocirc]{};
-        \draw (T.A2) -- ++(-3,0) coordinate(cross_2) -- ++(-3,0) node[ocirc]{};
-        \draw (cross) to [L] (cross_2);
-
-        \node[below of=cross_2](hv){HV side};
-    \end{circuitikz}
+    \end{tikzpicture}
     \caption{Complete transformer circuit}
 \end{figure}
 
@@ -149,53 +156,53 @@
 \tikzsetnextfilename{transformer_reduced.pdf}
 \begin{figure}[htb]
     \centering
-    \begin{circuitikz}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
+    \begin{tikzpicture}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
         \footnotesize
         % \ctikzset{quadpoles/transformer/height=2.5}
         % \draw [help lines] (-1,-5) grid (15,5);
 
-        \draw node[transformer, american] (T) at (8, 0) {} node[anchor=north] at ([yshift=-0.38cm]T.south){$1:\underline{\vartheta}$};
+        \draw node[transformer, american] (T) at (8, 0) {} node[anchor=north] at ([yshift=-0.38cm]T.south){$\underline{\vartheta}:1$};
         \draw[-{Latex[length=2mm]}, thick] (T.outer dot A2) -- (T.outer dot B1);
         
-        \draw (T.A1) to [L] ++(-3,0) node[ocirc](v1){};
-        \draw (T.A2) -- ++(-1.5,0) coordinate(cross_2) -- ++(-1.5,0) node[ocirc]{};
-        \node[below of=cross_2](hv){HV side};
+        \draw (T.A1) to[short, i_>=$\color{ees_red}\underline{\vartheta}^*\underline{I}_1$, color=ees_red] ++(-1,0) to [L, l_=$\underline{Y}_\mathrm{T}$, label distance=4pt] ++(-2,0) to[short, i_<=$\color{ees_red}\underline{I}_2$, color=ees_red] ++(-1,0) node[ocirc](v1){};
+        \draw (T.A2) -- ++(-2,0) coordinate(cross_2) -- ++(-2,0) node[ocirc]{};
+        \node[below of=cross_2, anchor=south](hv){HV side};
         
-        \draw[-{Latex}, color=ees_red] (T.A1) ++(0,-.2) -- node[anchor=east]{$\underline{\vartheta} \underline{U}_2$} ++(0,-1.9);
-        \draw[-{Latex}, color=ees_black] (v1) ++(0,-.2) -- node[anchor=east]{$\underline{U}_1$} ++(0,-1.9);
+        \draw[-{Latex}, color=ees_red] (T.A1) ++(0,-.2) -- node[anchor=east]{$\frac{1}{\underline{\vartheta}} \underline{U}_1$} ++(0,-1.9);
+        \draw[-{Latex}, color=ees_black] (v1) ++(0,-.2) -- node[anchor=east]{$\underline{U}_2$} ++(0,-1.9);
         
-        \draw (T.B1) -- ++(1,0) coordinate(v2_1) node[ocirc]{};
-        \draw (T.B2) -- ++(1,0) coordinate(v2_2) node[ocirc]{};
-        \draw[-{Latex}, color=ees_black] (v2_1) ++(0,-.2) -- node[anchor=west]{$\underline{U}_2$} ++(0,-1.9);
-        \node[below of=v2_2](lv){LV side};
+        \draw (T.B1) -- ++(.5,0) to[short, i<=$\underline{I}_1$] ++(1,0) node[ocirc](v2_1){};
+        \draw (T.B2) -- ++(1.5,0) node[ocirc](v2_2){};
+        \draw[-{Latex}, color=ees_black] (v2_1) ++(0,-.2) -- node[anchor=west]{$\underline{U}_1$} ++(0,-1.9);
+        \node[below of=v2_2, anchor=south east](lv){LV side};
 
         \node[ocirc] at (T.A1){};
         \node[ocirc] at (T.A2){};
         \node[ocirc] at (T.B1){};
         \node[ocirc] at (T.B2){};
-    \end{circuitikz}
-    \caption{Reduced transformer circuit}
+    \end{tikzpicture}
+    \caption{Reduced transformer circuit; based on Ilyas calculation}
 \end{figure}
 
 
 \tikzsetnextfilename{transformer_pi.pdf}
 \begin{figure}[htb]
     \centering
-    \begin{circuitikz}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
+    \begin{tikzpicture}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
         \footnotesize
-        \draw (0,0) node[ocirc](v1_1){} -- ++(2,0) coordinate(cross1) to [L, name=12] ++(5,0) coordinate(cross3) -- ++(2,0) node[ocirc](v2_1){};
+        \draw (0,0) node[ocirc](v1_1){} to[short, i>=$\color{ees_red}\underline{I}_1$, color=ees_red] ++(1,0) -- ++(1,0) coordinate(cross1) to [L, name=12] ++(5,0) coordinate(cross3) -- ++(1,0) to[short, i<=$\color{ees_red}\underline{I}_2$, color=ees_red] ++(1,0) node[ocirc](v2_1){};
         \draw (0,-3) node[ocirc](v1_2){} -- ++(2,0) coordinate(cross2) -- ++(5,0) coordinate(cross4) -- ++(2,0) node[ocirc](v2_2){};
 
-        \draw (cross1) to [L, name=10] (cross2);
-        \draw (cross3) to [L, name=20] (cross4);
+        \draw (cross1) to [L=$\underline{Z}_{10}$, name=10, label distance=4pt] (cross2);
+        \draw (cross3) to [L=$\underline{Z}_{20}$, name=20, label distance=4pt] (cross4);
 
-        \draw[-{Latex}, color=ees_black] (v1_1) ++(0,-.2) -- node[anchor=east]{$\underline{U}_1$} ++(0,-2.6);
+        \draw[-{Latex}, color=ees_red] (v1_1) ++(0,-.2) -- node[anchor=east]{$\color{ees_red}\underline{U}_1$} ++(0,-2.6);
         
-        \draw[-{Latex}, color=ees_black] (v2_1) ++(0,-.2) -- node[anchor=west]{$\underline{U}_2$} ++(0,-2.6);
+        \draw[-{Latex}, color=ees_red] (v2_1) ++(0,-.2) -- node[anchor=west]{$\color{ees_red}\underline{U}_2$} ++(0,-2.6);
 
         \node[above right of=10, anchor=west]{$\underline{Z}_{10}=\frac{1}{\underline{\vartheta}} \cdot \underline{Y}_\mathrm{T}$};
         \node[below left of=20, anchor=east]{$\underline{Z}_{20}=\frac{1}{\underline{\vartheta}} \cdot \underline{Y}_\mathrm{T}$};
         \node[above of=12, anchor=center]{$\underline{Z}_{12}=\frac{1}{\underline{\vartheta}} \cdot \underline{Y}_\mathrm{T}$; $\underline{Z}_{21}=\frac{1}{\underline{\vartheta}^*} \cdot \underline{Y}_\mathrm{T}$};
-    \end{circuitikz}
+    \end{tikzpicture}
     \caption{Transformer Pi circuit}
 \end{figure}

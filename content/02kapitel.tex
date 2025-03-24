@@ -1,22 +1,9 @@
 %!TEX root = ../main.tex
 
-% \begingroup
-% \newgeometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
-% \part{Methodical}
-
-% \endgroup
-% A room without books is like a body without a soul.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Methodical Modeling}
-
-% \begin{textblock*}{.7\textwidth}(70mm-\offset,25mm-\offset)
-%         \begin{fquote}[Mae West]
-%                 You only live once, but if you do it right, once is enough.
-%         \end{fquote}
-% \end{textblock*}
+\label{chap:methodical-modeling}
 
 \begin{textblock*}{.7\textwidth}(70mm-\offset,25mm-\offset)
         \begin{fquote}[Albert Einstein]
@@ -28,15 +15,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Transformer Equipment Modeling}
 
-
-Some literature and fundamentals about transformers, control, stability assessment, fast-switching modules, and analysis in Python. % \todo{Hier steht ein Beispielkommentar.}
-
-% \begin{figure}[h]
-%         \centering
-%         \includegraphics{tikz_graphics/images/programm.pdf}
-%         \caption[Program plan proposal for determining the \acf{CCT}]{Program plan proposal for determining the \acf{CCT} $t_\mathrm{cc}$, critical power angle $\delta_\mathrm{cc}$ and the \acf{TDS} of the \acf{SMIB}-model; including the associated main function name}
-%         \label{fig:program-plan}
-% \end{figure}
+Some literature and fundamentals about transformers, control, stability assessment, fast-switching modules, and analysis in Python. 
 
 \commenting{
         Things to mention:
@@ -46,12 +25,8 @@ Some literature and fundamentals about transformers, control, stability assessme
         \end{itemize}
 }
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Implementing a $\Pi$-Representative Circuit with Variable Ratio}
-
-% \commenting{Describe the current implementation of transformers in the Python framework.}
-% \commenting{Follwing the description of the \glqq new\grqq implementation.}
 
 \subsubsection{Mathematical Description and Definitions}
 
@@ -65,6 +40,7 @@ Some literature and fundamentals about transformers, control, stability assessme
                 -> refer the admittances to the lv or hv side: different definition of $\underline{\vartheta}$, different admittance matrix of the transformer
                 \item Dependency of connections? (which side, step-up, step-down transformer?)
         \end{enumerate}
+        Important note on indices: 1 always LV side, 2 always HV side; $\vartheta$ is always on the HV side, meaning when relating the impedances to another side, the admittance matrix is differing. This is the difference between the Machowski and the Kundur / Milano approach. In the simulation tool, this has to be understood and implemented towards the correct side.
 }
 
 \subsubsection{Mathematical for MACHOWSKI / SIMULATION}
@@ -268,181 +244,161 @@ A continous control loop for a \acs{FSM} is presented within \textcite{burlakinE
 
 \commenting{Here, another idea of control target creation shall be mentioned. Instead of a fixed bus voltage reference, the difference of both bus voltages is considered. Further, the sign of that difference is used to determine the direction of the tap change.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Supplementary Modeling and Advancements}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Supplementary Modeling and Advancements}
 
-As the python framework is currently missing some representations of components, this chapter aims to describe the implementation of those. Mainly focussing on source and load models, as the later considered test, benchmark, and use case networks require alternative behaviors. 
+% As the python framework is currently missing some representations of components, this chapter aims to describe the implementation of those. Mainly focussing on source and load models, as the later considered test, benchmark, and use case networks require alternative behaviors. 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{ZIP Load Model}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsection{ZIP Load Model}
 
-\commenting{Why important?}
+% \commenting{Why important?}
 
-Mostly, a polynomial load model is used. It is called ZIP-model, as there are individual contributions to constant impedance $\underline{Z}$, constant current $\underline{I}$, and constant power $P$, or respectively $Q$, are considered. The model is described by \textcite{IEEEGuideLoad2022}. Either two ways of mathematical description are considered valid, dependent on the allowed influence of the frequency deviation. The use of periodized phasor representation, typical for a \acs{RMS} simulation, is missing or often neglecting this frequency information. Therefore the set of \autoref{eq:zip-1} and \autoref{eq:zip-2} is considered sufficient and implemented in the Python framework.
-\begin{align}
-        P&=P_n \cdot \Bigg[ p_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + p_2 \Bigg(\frac{U}{U_n}\Bigg) + p_3 \Bigg] \label{eq:zip-1} \\[12pt]
-        Q&=Q_n \cdot \Bigg[ q_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + q_2 \Bigg(\frac{U}{U_n}\Bigg) + q_3 \Bigg] \label{eq:zip-2} \\[12pt]
-        \text{with} \quad &p_i \in [0,1] \quad \text{and} \quad q_i \in [0,1] \notag
-\end{align}
+% Mostly, a polynomial load model is used. It is called ZIP-model, as there are individual contributions to constant impedance $\underline{Z}$, constant current $\underline{I}$, and constant power $P$, or respectively $Q$, are considered. The model is described by \textcite{IEEEGuideLoad2022}. Either two ways of mathematical description are considered valid, dependent on the allowed influence of the frequency deviation. The use of periodized phasor representation, typical for a \acs{RMS} simulation, is missing or often neglecting this frequency information. Therefore the set of \autoref{eq:zip-1} and \autoref{eq:zip-2} is considered sufficient and implemented in the Python framework.
+% \begin{align}
+%         P&=P_n \cdot \Bigg[ p_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + p_2 \Bigg(\frac{U}{U_n}\Bigg) + p_3 \Bigg] \label{eq:zip-1} \\[12pt]
+%         Q&=Q_n \cdot \Bigg[ q_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + q_2 \Bigg(\frac{U}{U_n}\Bigg) + q_3 \Bigg] \label{eq:zip-2} \\[12pt]
+%         \text{with} \quad &p_i \in [0,1] \quad \text{and} \quad q_i \in [0,1] \notag
+% \end{align}
 
-\commenting{Characteristics?}
+% \commenting{Characteristics?}
 
-\begin{figure}[htb!]
-        \centering
-        \includegraphics[width=\linewidth]{development_files/data/zip-load_characterization_full.pdf}
-        \caption[Characterization of the ZIP load model]{Characterization of the ZIP load model; with (upper) the result of the impedances dependent on the voltage at the connected bus, and (lower) the resulting power consumption of the different models, representative only the real power $P$}
-        \label{fig:zip-charac}
-\end{figure}
+% \begin{figure}[htb!]
+%         \centering
+%         \includegraphics[width=\linewidth]{development_files/data/zip-load_characterization_full.pdf}
+%         \caption[Characterization of the ZIP load model]{Characterization of the ZIP load model; with (upper) the result of the impedances dependent on the voltage at the connected bus, and (lower) the resulting power consumption of the different models, representative only the real power $P$}
+%         \label{fig:zip-charac}
+% \end{figure}
 
-\commenting{How does it look like in the simulation environment?}
+% \commenting{How does it look like in the simulation environment?}
 
-\begin{align}
-        P&=P_n \cdot \Bigg[ p_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + p_2 \Bigg(\frac{U}{U_n}\Bigg) + p_3 \Bigg] \cdot (1+k_{pf} \Delta f) \label{eq:zip-with-f-1} \\[12pt]
-        Q&=Q_n \cdot \Bigg[ q_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + q_2 \Bigg(\frac{U}{U_n}\Bigg) + q_3 \Bigg] \cdot (1+k_{qf} \Delta f) \label{eq:zip-with-f-2} \\[12pt]
-        \text{with} \quad &\sum_{i=1}^{3} p_i =1 \quad \text{and} \quad \sum_{i=1}^{3} q_i =1 \notag
-\end{align}
+% \begin{align}
+%         P&=P_n \cdot \Bigg[ p_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + p_2 \Bigg(\frac{U}{U_n}\Bigg) + p_3 \Bigg] \cdot (1+k_{pf} \Delta f) \label{eq:zip-with-f-1} \\[12pt]
+%         Q&=Q_n \cdot \Bigg[ q_1 \Bigg(\frac{U}{U_n}\Bigg)^2 + q_2 \Bigg(\frac{U}{U_n}\Bigg) + q_3 \Bigg] \cdot (1+k_{qf} \Delta f) \label{eq:zip-with-f-2} \\[12pt]
+%         \text{with} \quad &\sum_{i=1}^{3} p_i =1 \quad \text{and} \quad \sum_{i=1}^{3} q_i =1 \notag
+% \end{align}
 
-Although the subset of \autoref{eq:zip-with-f-1} and \autoref{eq:zip-with-f-2} would consider a relation to the frequency at the given time, it is not used. The use of periodized phasor representation, typical for a \acs{RMS} simulation, is missing this information in the framework diffpssi. Therefore the set of \autoref{eq:zip-1} and \autoref{eq:zip-2} is implemented in the Python framework. It has to be mentioned, because the comparison tool PowerFactory is using this load model, though in some parts of the simulation results are showing a slightly bigger error.
+% Although the subset of \autoref{eq:zip-with-f-1} and \autoref{eq:zip-with-f-2} would consider a relation to the frequency at the given time, it is not used. The use of periodized phasor representation, typical for a \acs{RMS} simulation, is missing this information in the framework diffpssi. Therefore the set of \autoref{eq:zip-1} and \autoref{eq:zip-2} is implemented in the Python framework. It has to be mentioned, because the comparison tool PowerFactory is using this load model, though in some parts of the simulation results are showing a slightly bigger error.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Induction Machine Models}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsection{Induction Machine Models}
 
-As one of the most important loads to consider, especially for many load driven instability mechanisms, the \ac{IM} is a crucial component, \quelle
-
-\commenting{
-        Just briefly:
-        \begin{itemize}[nosep]
-                \item Why is it crucial?
-                \item How do the instability mechanisms work and look like?
-                \item What are the different types of \acsp{IM} modeling (complete and dynamic, static, \dots)
-        \end{itemize}
-}
-
-Three main ways of \acs{IM} modeling are relevant to mention in this section:
-\begin{enumerate}
-        \item Static model as introduced in \textcite{IEEEGuideLoad2022},
-        \item a dynamic 'fixed-speed' \acs{IM} model, and
-        \item a doubly fed \acs{IM} model.
-\end{enumerate} 
-The last ones are mentioned and further described in \textcite{machowskiPowerSystemDynamics2020}. Least model requires very detailed information, and shall be suitable for \acs{SMIB} models for machine behavior studies or similar. The second model is suitable for network analysis and machine behaviors. The first model applies for high perception of \acsp{IM} in total loading of the network. As referencing to \textcite{IEEEGuideLoad2022}, is is similar implemented as the before mentioned ZIP load model, considering characteristic equations for its real power $P$ and reactive power $Q$. Both models shall be described in the following section.
-
-\subsubsection{Static Model of Induction Machines}
-
-For this operational unit type is a detailed dynamic modeling possible. With some considerations, it can be sufficient, modeling this equipment just with the  The model is described by \textcite{IEEEGuideLoad2022} as formulated in following set of equations. %\autoref{eq:im-model}.
-
-\begin{align}
-        P&=\Bigg( R_\mathrm{s} + \frac{R_\mathrm{r}}{s} \Bigg) \cdot \frac{U^2}{\Big( R_\mathrm{s} + \frac{R_\mathrm{r}}{S} \Big)^2 + (X_\mathrm{\gamma s} + X_\mathrm{\gamma r})^2} \\[12pt]
-        Q&=(X_\mathrm{\gamma s} + X_\mathrm{\gamma r}) \cdot \frac{U^2}{\Big( R_\mathrm{s} + \frac{R_\mathrm{r}}{S} \Big)^2 + (X_\mathrm{\gamma s} + X_\mathrm{\gamma r})^2} + \frac{U^2}{X_\mathrm{s}}
-\end{align}
-\mycomment[MK]{Is here really a difference between the two s in the equations?}
-
-\commenting{Briefly describe the implementation.}
-
-\subsubsection{Dynamic 'fixed-speed' Induction Machine model'}
-
-\ai{\textbf{From ChatGPT:}
-
-The dynamic model of \acsp{IM} is essential for accurately representing their behavior under various operating conditions. This model includes the differential equations that describe the machine's electrical and mechanical dynamics. The equations are typically derived from the machine's equivalent circuit and can be expressed in the d-q reference frame.
-
-The dynamic model can be represented by the following set of equations:
-
-\begin{align}
-        \frac{\dd\psi_\mathrm{d}}{dt} &= v_\mathrm{d} - R_\mathrm{s} i_\mathrm{d} + \omega \psi_\mathrm{q} \\[12pt]
-        \frac{\dd\psi_\mathrm{q}}{dt} &= v_\mathrm{q} - R_\mathrm{s} i_\mathrm{q} - \omega \psi_\mathrm{d} \\[12pt]
-        \frac{\dd\omega}{dt} &= \frac{1}{J} (T_m - T_e - B \omega)
-\end{align}
-
-where:
-\begin{itemize}
-        \item $\psi_\mathrm{d}, \psi_\mathrm{q}$ are the d-q axis flux linkages
-        \item $v_\mathrm{d}, v_\mathrm{q}$ are the d-q axis voltages
-        \item $i_\mathrm{d}, i_\mathrm{q}$ are the d-q axis currents
-        \item $R_\mathrm{s}$ is the stator resistance
-        \item $\omega$ is the rotor angular velocity
-        \item $T_\mathrm{m}$ is the mechanical torque
-        \item $T_\mathrm{e}$ is the electromagnetic torque
-        \item $J$ is the moment of inertia
-        \item $B$ is the damping coefficient
-\end{itemize}
-
-The electromagnetic torque $T_e$ can be calculated as:
-
-\begin{align}
-        T_e = \frac{3}{2} p (\psi_d i_q - \psi_q i_d)
-\end{align}
-
-where $p$ is the number of pole pairs.
-
-This dynamic model allows for the simulation of the \acsp{IM} transient response to changes in voltage, frequency, and load conditions. It is particularly useful for studying stability and control strategies in power systems.
-
-}
-
-\commenting{Briefly describe the implementation.}
-
-% \subsection{PQ Source without Machine Dynamics}
-
-% \todo[inline]{Necessary? Because one can use just an inverter at defined operation points}
-
-% \commenting{Isn't that quite the same as the ZIP load model, but with inversed Power characteristics? Or is there more, for example when looking at a short circuit event\dots}
+% As one of the most important loads to consider, especially for many load driven instability mechanisms, the \ac{IM} is a crucial component, \quelle
 
 % \commenting{
-%         These sections (per module / model) should contain roughly follwing information and / or structure:
-%         \begin{enumerate}
-%                 \item Why is this model important?
-%                 \item How is it implemented?
-%                 \item What are the characteristics (show in plots, description, etc.)?
-%                 \item How does it look like in the simulation environment? -> Smaller example networks, like the \acs{SMIB} model; most likely combined with verification data of PowerFactory.
-%         \end{enumerate}
+%         Just briefly:
+%         \begin{itemize}[nosep]
+%                 \item Why is it crucial?
+%                 \item How do the instability mechanisms work and look like?
+%                 \item What are the different types of \acsp{IM} modeling (complete and dynamic, static, \dots)
+%         \end{itemize}
 % }
+
+% Three main ways of \acs{IM} modeling are relevant to mention in this section:
+% \begin{enumerate}
+%         \item Static model as introduced in \textcite{IEEEGuideLoad2022},
+%         \item a dynamic 'fixed-speed' \acs{IM} model, and
+%         \item a doubly fed \acs{IM} model.
+% \end{enumerate} 
+% The last ones are mentioned and further described in \textcite{machowskiPowerSystemDynamics2020}. Least model requires very detailed information, and shall be suitable for \acs{SMIB} models for machine behavior studies or similar. The second model is suitable for network analysis and machine behaviors. The first model applies for high perception of \acsp{IM} in total loading of the network. As referencing to \textcite{IEEEGuideLoad2022}, is is similar implemented as the before mentioned ZIP load model, considering characteristic equations for its real power $P$ and reactive power $Q$. Both models shall be described in the following section.
+
+% \subsubsection{Static Model of Induction Machines}
+
+% For this operational unit type is a detailed dynamic modeling possible. With some considerations, it can be sufficient, modeling this equipment just with the  The model is described by \textcite{IEEEGuideLoad2022} as formulated in following set of equations. %\autoref{eq:im-model}.
+
+% \begin{align}
+%         P&=\Bigg( R_\mathrm{s} + \frac{R_\mathrm{r}}{s} \Bigg) \cdot \frac{U^2}{\Big( R_\mathrm{s} + \frac{R_\mathrm{r}}{S} \Big)^2 + (X_\mathrm{\gamma s} + X_\mathrm{\gamma r})^2} \\[12pt]
+%         Q&=(X_\mathrm{\gamma s} + X_\mathrm{\gamma r}) \cdot \frac{U^2}{\Big( R_\mathrm{s} + \frac{R_\mathrm{r}}{S} \Big)^2 + (X_\mathrm{\gamma s} + X_\mathrm{\gamma r})^2} + \frac{U^2}{X_\mathrm{s}}
+% \end{align}
+% \mycomment[MK]{Is here really a difference between the two s in the equations?}
+
+% \commenting{Briefly describe the implementation.}
+
+% \subsubsection{Dynamic 'fixed-speed' Induction Machine model'}
+
+% \ai{\textbf{From ChatGPT:}
+
+% The dynamic model of \acsp{IM} is essential for accurately representing their behavior under various operating conditions. This model includes the differential equations that describe the machine's electrical and mechanical dynamics. The equations are typically derived from the machine's equivalent circuit and can be expressed in the d-q reference frame.
+
+% The dynamic model can be represented by the following set of equations:
+
+% \begin{align}
+%         \frac{\dd\psi_\mathrm{d}}{dt} &= v_\mathrm{d} - R_\mathrm{s} i_\mathrm{d} + \omega \psi_\mathrm{q} \\[12pt]
+%         \frac{\dd\psi_\mathrm{q}}{dt} &= v_\mathrm{q} - R_\mathrm{s} i_\mathrm{q} - \omega \psi_\mathrm{d} \\[12pt]
+%         \frac{\dd\omega}{dt} &= \frac{1}{J} (T_m - T_e - B \omega)
+% \end{align}
+
+% where:
+% \begin{itemize}
+%         \item $\psi_\mathrm{d}, \psi_\mathrm{q}$ are the d-q axis flux linkages
+%         \item $v_\mathrm{d}, v_\mathrm{q}$ are the d-q axis voltages
+%         \item $i_\mathrm{d}, i_\mathrm{q}$ are the d-q axis currents
+%         \item $R_\mathrm{s}$ is the stator resistance
+%         \item $\omega$ is the rotor angular velocity
+%         \item $T_\mathrm{m}$ is the mechanical torque
+%         \item $T_\mathrm{e}$ is the electromagnetic torque
+%         \item $J$ is the moment of inertia
+%         \item $B$ is the damping coefficient
+% \end{itemize}
+
+% The electromagnetic torque $T_e$ can be calculated as:
+
+% \begin{align}
+%         T_e = \frac{3}{2} p (\psi_d i_q - \psi_q i_d)
+% \end{align}
+
+% where $p$ is the number of pole pairs.
+
+% This dynamic model allows for the simulation of the \acsp{IM} transient response to changes in voltage, frequency, and load conditions. It is particularly useful for studying stability and control strategies in power systems.
+
+% }
+
+% \commenting{Briefly describe the implementation.}
+
+% % \subsection{PQ Source without Machine Dynamics}
+
+% % \todo[inline]{Necessary? Because one can use just an inverter at defined operation points}
+
+% % \commenting{Isn't that quite the same as the ZIP load model, but with inversed Power characteristics? Or is there more, for example when looking at a short circuit event\dots}
+
+% % \commenting{
+% %         These sections (per module / model) should contain roughly follwing information and / or structure:
+% %         \begin{enumerate}
+% %                 \item Why is this model important?
+% %                 \item How is it implemented?
+% %                 \item What are the characteristics (show in plots, description, etc.)?
+% %                 \item How does it look like in the simulation environment? -> Smaller example networks, like the \acs{SMIB} model; most likely combined with verification data of PowerFactory.
+% %         \end{enumerate}
+% % }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Application of Voltage Stability}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Influences of other device characteristics}
+\label{sec:application-voltage-stability}
 
 \commenting{
         Just look on other mutual influences in the power system (simulation), such as:
         \begin{itemize}[nosep]
                 \item Load characteristics and types of modeling
-                \item Maximum thermal currents of cables and operating components
-                \item Asynchronous machines (or called \glqq induction motors\grqq?)
         \end{itemize}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Observing the current state of the system}
-
-\subsubsection{Static and Dynamic Indices}
-
-\commenting{
+        General though process:
         \begin{itemize}[nosep]
                 \item Which indices can be implemented?
-                \item Which make sense?
-                \item Implementation and calculation of them?
+                \item Which make sense? (Aspects: Calculation time, accuracy, accessability: e.g. also for using PowerFactory Data)
+                \item Implementation of a framework:\\
+                -> Capable of using diffpssi or PF data, calculation of time series indices, EAC for voltage angle stability on machines, ... \\
+                -> Output characteristics: Voltage stability indices over time, critical time point of voltage stability, critical time point of voltage angle stability on machines...
         \end{itemize}
-}
-
-\subsubsection{Stability Monitoring}
-
-\commenting{
+        Further nice to have / additional:
         \begin{itemize}[nosep]
                 \item Index combination and \glqq traffic light\grqq\~monitoring
-                \item Restauration options and opportunities
                 \item Local mapping
                 \item Weak point identification
         \end{itemize}
 }
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \subsection{Wide-area control mechanisms}
-
-% \commenting{
-%         \begin{itemize}
-%                 \item What influences could an interconnected information system have on curretn \glqq dumb transformer control\grqq?
-%                 \item Reference voltages usually come from load flow analysis out of the back office (day-ahead); How can this be changed? How can transformers get more \glqq smart\grqq?
-%         \end{itemize}
-% }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Summary in Short and Simple Terms}

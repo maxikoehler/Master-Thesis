@@ -20,10 +20,6 @@ date: 2025-02-18
 2. **[[Voltage Stability Indices]]**; incl. Framework for stability evaluation / assessment
 	- [ ] On-Line possible indices: System variable based
 	- [ ] Jacobian Matrix based -> Using the abilities and possibilities of torch
-3. **Loads**
-	- [ ] ZIP load model
-	- [ ] Induction Machine static
-	- [ ] Induction machine dynamic
 ### Validation
 1. **[[Transformers]]**
 	- [x] Pi Model
@@ -37,9 +33,6 @@ date: 2025-02-18
 	  -> Slowly build up until stability margin is reached
 	  -> Analyzing the point relative to the theoretical limit (e.g. linearized distance to the limit)
 	  -> Is this already an evaluation criteria?
-4. **Loads**
-	- [ ] Characterization (Relation $\underline{Z}$ to Voltage) -> Also for Current Injections; Rated Powers; Impedance Matrix entries
-	- [ ] Static / Dynamic comparison to PowerFactory Events
 ### Case Study
 5. **Voltage Stability Limits**
 	- Can the different transformer tap changer control algorithm exceed the limits of voltage stability or approach the boarder closer as the standard OLTC?

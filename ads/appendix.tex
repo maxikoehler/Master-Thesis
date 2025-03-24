@@ -26,6 +26,7 @@
 \chapter{Fundamentals}
 
 \section{Description of the Power System Simulation process}
+\label{app:power-system-modeling}
 
 In this appendix section, the general process of power system simulation is described. As this thesis is aiming to understand voltage stability and processes in longer periods of time, these explanations apply to pointer-based simulations, called RMS simulations. Meaning that the considered effects are slower electromechanical nature instead of faster electromagnetic ones. The in this thesis used Python framework \glqq \textit{diffpssi}\grqq~is based on this type of simulation, and due to its open-source based nature traceable.
 
@@ -40,14 +41,18 @@ In this appendix section, the general process of power system simulation is desc
 \commenting{
     Really basic: (?)
     \begin{itemize}
-        \item Phasor description
-        \item Symmetricak Components
         \item RMS vs EMT simulation (-> meaning one cannot simulate other faults than 3ph w/o ground)
+        \item Phasor description
+        \item Basic formulation: Static (algebraic) and dynamic (differential) equations
+        \item Using of solvers (Integrators) for time domain simulation
+        \item Using of different optimizatinon algorithms for steady state (load flow) simulation -> initial values
     \end{itemize}
     Less basic and more advanced:
     \begin{itemize}
         \item rountines in the framework
         \item two types: Algebraic and Differential equations have to be solved at each time step -> What is which? Which operational equipment is typically described with which type of equation?
+        \item per unit system applying for easier simulation (different voltage levels)
+        \item ...
     \end{itemize}
 }
 

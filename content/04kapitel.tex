@@ -8,7 +8,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Case study}
+\chapter{Case Study}
 \label{chap:case-study}
 
 \begin{textblock*}{.7\textwidth}(70mm-\offset,25mm-\offset)
@@ -26,42 +26,52 @@
     \end{itemize}
 }
 
-\section{Scenario setting}
-
 \commenting{
     Does it make sense to structure like that? (Scenarios - Simulation - Results)
-
+    
     Or is it a better idea thinking in terms of specific \glqq use cases\grqq~as sections:
     \begin{itemize}[nosep]
         \item What happens under strong grid conditions? -> Section: Strong grid condition behavior
         \item What happens under weak grid conditions? -> Section: Weak grid condition behavior
         \item Strongly interconnected grids
         \item Widely extended linear string grids
-        \item Section: Use case of Wind farm integration
-        \item Influence on transient stability: SMIB model with and without OLTC
     \end{itemize}
 }
 
-\subsubsection{Influence of FSM on Machines and their stability criterions}
-
-\commenting{Thinking of Rotor Angle Stability, maybe considered by an EAC implementation?
-What does the fast Switching, esp. at up to 8\% of the nominal voltage, do to the machines?}
-
-\subsubsection{Novel Control Strategy FSM}
-
-\commenting{Thinking of fast and slow voltage gradients: fast gradients are compensated by the FSM, slow gradients are compensated by the OLTC. Therefore optimal utilisation of injected damping moment of the FSM. 
-
-Also thinking of different presets of the OLTC and FSM, which are tried to keep constant. Different grid operators can utilize for typical grid conditions of over- or undervoltage at \acs{PCC}.
-
-Following contains:
-\begin{itemize}
-    \item Implemetation of different logic
-    \item Testing of presets and switchin logic
-    \item Damping moment beneficial?
-\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Novel Control Strategy FSM}
+    
+\commenting{
+    Thinking of fast and slow voltage gradients: fast gradients are compensated by the FSM, slow gradients are compensated by the OLTC. Therefore optimal utilisation of injected damping moment of the FSM. 
+    
+    Also thinking of different presets of the OLTC and FSM, which are tried to keep constant. Different grid operators can utilize for typical grid conditions of over- or undervoltage at \acs{PCC}.
+    
+    Following contains:
+    \begin{itemize}
+        \item Implemetation of different logic
+        \item Testing of presets and switchin logic
+        \item Damping moment beneficial?
+    \end{itemize}
 }
 
-\subsubsection{Possible Extension for Power Flow congruent Control}
+\subsection{Scenario Setting}
+
+\subsection{Simulation}
+
+\subsection{Results}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Influence of FSM on Voltage Angle Stability of Machines}
+
+\commenting{Thinking of Rotor Angle Stability, maybe considered by an EAC implementation?
+
+What does the fast Switching, esp. at up to 8\% of the nominal voltage, do to the machines?
+
+Comparison between standard Transformer / OLTC and FSM control.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Possible Extension for Power Flow Congruent Control}
 
 \commenting{Extension in the Control Algorithm to decide which Bus has to be regulated, to avoid contrairy actions of the OLTC and FSM against the power flow. Therefore not decrease of stability, but increase. Possible Application: Grid coupling Transformers, Battery Storage assisted Virtual powerplants, etc.
 
@@ -74,6 +84,5 @@ For this thinking maybe another control strategy is relevant:
 
 Big general problem: In which direction does the OLTC / the FSM have to swith? In some cases, the direction is not correct, in some it is correct.}
 
-\section{Simulation}
 
-\section{Results}
+\section{Summary in Short and Simple Terms}

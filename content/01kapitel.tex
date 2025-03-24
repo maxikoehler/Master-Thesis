@@ -14,27 +14,23 @@
 
 Some blibla as introduction. \autocite{machowskiPowerSystemDynamics2020}
 
-\begin{sidefigure}
-    \begin{center}
-        \includegraphics[width=.9\linewidth]{images/fausiegel.pdf}
-    \end{center}
-    \vspace*{-6pt}
-    This is a figure in the margin to demonstrate something small or bring a hint as sidenote.
-\end{sidefigure}
+% \begin{sidefigure}
+%     \begin{center}
+%         \includegraphics[width=.9\linewidth]{images/fausiegel.pdf}
+%     \end{center}
+%     \vspace*{-6pt}
+%     This is a figure in the margin to demonstrate something small or bring a hint as sidenote.
+% \end{sidefigure}
 
 \lipsum[1]
-\marginnote{This is a side note for testing out some options.}
 
 \lipsum[2]
-\sidenote{This is a second side note for testing out some options.}
-Some more Text.
 
 \lipsum[3]
-\mycomment[MK]{Write a nice introduction.}
 
 \clearpage
 
-\subsubsection{Research Interests}
+\section{Research Interests}
 
 Here are gaps and possible extension of knowledge.
 
@@ -58,17 +54,60 @@ Therefore following questions/steps can be imagined as supportive:
 \begin{enumerate}
     \item How can Voltage stability of a system be classified and be looked at? Which indices, measurements, etc.
     \item Which transformer model has to be considered to show influences?
-    \item Which additional load models, source models, transmission model have to be modeled for an adequate assessment?
     \item Which systems are useful to consider in showing effects? Which circumstances lead to a stability support, which to a decrease? Where can limits be drawn?
 \end{enumerate}
 
 Additionally during the process of the thesis, the following question came up as an extension. Is is the second interest of this thesis, and shall be more focused in the later part. Therefore some assessments in the \autoref{chap:case-study} are conducted.
 
-\begin{tcolorbox}[float, colback=ees_blue!5!white,colframe=ees_lightblue, toptitle=1mm, bottomtitle=1mm, left=2mm, right=2.5mm, top=2mm, bottom=2mm, title={\textbf{Additional Question of this Thesis}}]
+\begin{tcolorbox}[float, colback=ees_green!5!white,colframe=ees_green, toptitle=1mm, bottomtitle=1mm, left=2mm, right=2.5mm, top=2mm, bottom=2mm, title={\textbf{Additional Question of this Thesis}}]
     Can the already existing Tap Changer Control of the \acf{FSM} be improved towards a more operation oriented control?
 \end{tcolorbox}
 
-\subsubsection{Construction of the Thesis}
+\section{Construction of the Thesis}
+
+The afore stated research interests in combination with the yet not sufficient framework to use make demands on the structure of this work. Therefore it seems not sufficient trying to apply a completely standard sequence of chapter like \glqq Introduction - Fundamentals - Methods - Results - Discussion\grqq. Instead, the following structure is chosen to fulfill the research interests and to give a clear and understandable overview of the work.
+
+\begin{tcolorbox}[colback=ees_blue!5!white,colframe=ees_blue, left=2mm, right=2.5mm, top=2mm, bottom=2mm]
+    \textbf{\hyperref[chap:intro]{Chapter 1}}: Introduction
+\end{tcolorbox}
+
+This chapter shall introduce tnot only the general problems and area of the research. Further it shall specify the research interests and questions, and give a short overview of the structure of the thesis.
+
+\begin{tcolorbox}[colback=ees_blue!5!white,colframe=ees_blue, left=2mm, right=2.5mm, top=2mm, bottom=2mm]
+    \textbf{\hyperref[chap:fundamentals]{Chapter 2}}: Fundamentals
+\end{tcolorbox}
+
+Blibla
+
+\begin{tcolorbox}[colback=ees_blue!5!white,colframe=ees_blue, left=2mm, right=2.5mm, top=2mm, bottom=2mm]
+    \textbf{\hyperref[chap:methodical-modeling]{Chapter 3}}: Methodical Modeling
+\end{tcolorbox}
+
+Blibla
+
+\begin{tcolorbox}[colback=ees_blue!5!white,colframe=ees_blue, left=2mm, right=2.5mm, top=2mm, bottom=2mm]
+    \textbf{\hyperref[chap:verification]{Chapter 4}}: Verification Setup and Results
+\end{tcolorbox}
+
+Blibla
+
+\begin{tcolorbox}[colback=ees_blue!5!white,colframe=ees_blue, left=2mm, right=2.5mm, top=2mm, bottom=2mm]
+    \textbf{\hyperref[chap:case-study]{Chapter 5}}: Case study
+\end{tcolorbox}
+
+Blibla
+
+\begin{tcolorbox}[colback=ees_blue!5!white,colframe=ees_blue, left=2mm, right=2.5mm, top=2mm, bottom=2mm]
+    \textbf{\hyperref[chap:discussion]{Chapter 6}}: Discussion of the Results
+\end{tcolorbox}
+
+Blibla
+
+\begin{tcolorbox}[colback=ees_blue!5!white,colframe=ees_blue, left=2mm, right=2.5mm, top=2mm, bottom=2mm]
+    \textbf{\hyperref[chap:summary]{Chapter 7}}: Summary and Outlook
+\end{tcolorbox}
+
+Blibla
 
 % This leads to the following structure for the paper: 
 % \begin{itemize}
@@ -83,7 +122,7 @@ Additionally during the process of the thesis, the following question came up as
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Fundamentals}
-\label{ch:fundamentals}
+\label{chap:fundamentals}
 
 \begin{textblock*}{.7\textwidth}(70mm-\offset,25mm-\offset)
     \begin{fquote}[Frank Zappa]
@@ -93,20 +132,17 @@ Additionally during the process of the thesis, the following question came up as
 
 Following chapter shall introduce the basics for implementing an \acs{OLTC} equipped transformer into a existing \acs{PSS} framework. This is considering the already existing surrounding, more detailed the electric behavior of the transformer itself and some control engineering theory for the corrosponding \acs{OLTC}. Thus its main goal is increasing voltage stability \autocite{machowskiPowerSystemDynamics2020}, main indices and assessment methods are considered as well.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Power System Modeling}
-
 \commenting{
-    Transformer $\Pi$-Model:
-    \begin{itemize}[nosep]
-        \item Deviation from 'normal' circuit
-        \item Placing the impedance elements on the LV side vs. HV side
-        \item Getting into a single line $\Pi$-model
-        \item Introducing the tapping factor $\vartheta$; if phase shifting it is getting complex -> how to consider this
-        \item Different Y-Bus matrices if LV or HV side is considered
-        \item Per-unit problems with the transformer characteristics
-        \item Short overview of Open-Source power system simulation packages
-    \end{itemize}
+    % Transformer $\Pi$-Model:
+    % \begin{itemize}[nosep]
+    %     \item Deviation from 'normal' circuit
+    %     \item Placing the impedance elements on the LV side vs. HV side
+    %     \item Getting into a single line $\Pi$-model
+    %     \item Introducing the tapping factor $\vartheta$; if phase shifting it is getting complex -> how to consider this
+    %     \item Different Y-Bus matrices if LV or HV side is considered
+    %     \item Per-unit problems with the transformer characteristics
+    %     \item Short overview of Open-Source power system simulation packages
+    % \end{itemize}
     Voltage stability:
     \begin{itemize}[nosep]
         \item Definitions, classifications, conditions
@@ -120,130 +156,11 @@ Following chapter shall introduce the basics for implementing an \acs{OLTC} equi
     \end{itemize}
 }
 
-\subsection{General and Existing Model}
-
-\subsection{Transformer Electric Model and Behavior}
-
-\begin{figure}[htb!]
-    \centering
-    \includegraphics[width=.8\textwidth]{fundamentals/trafo_model_deviation.png}
-    \caption[Two-Winding Transformer Circuit in the Positive Sequence]{Two-Winding Transformer Circuit in the Positive Sequence; a) ideal representation with impedances on each \acs{HV} and \acs{LV} side and b) related impedances on the XX side; own figure after \autocite{machowskiPowerSystemDynamics2020}}
-    \label{fig:trafo-model-deviation}
-\end{figure}
-
-\begin{figure}[htb!]
-    \centering
-    \includegraphics[width=.7\textwidth]{fundamentals/pi_transformer.png}
-    \caption[$\Pi$-representative circuit of a transformer with a longitudinal tap changer]{$\Pi$-representative circuit of a transformer with a longitudinal tap changer; own figure after \autocite{machowskiPowerSystemDynamics2020,burlakinEnhancedVoltageControl2024}}
-    \label{fig:pi-transformer}
-\end{figure}
-
-\begin{align}
-    \underline{I}&=\underline{\mab{Y}} \cdot \underline{U} \notag \\[12pt]
-    \begin{bmatrix}
-        \underline{I}_1 \\
-        \underline{I}_2
-    \end{bmatrix}&= 
-    \begin{bmatrix}
-        \underline{Y}_{11} & \underline{Y}_{12} \\
-        \underline{Y}_{21} & \underline{Y}_{22}
-    \end{bmatrix} \cdot
-    \begin{bmatrix}
-        \underline{U}_1 \\
-        \underline{U}_2
-    \end{bmatrix} \label{eq:admittance}
-\end{align}
-
-The admittance matrix of a two port network can be expressed after \textcite{machowskiPowerSystemDynamics2020} as \autoref{eq:admittance}. For the $\Pi$-model of an \acs{OLTC} transformer it is leading to \autoref{eq:admittance-oltc}.
-% \sidenote(1.7cm){$\Pi$-admittance matrix}
-\begin{align}
-    \underline{\mab{Y}}_\mathrm{\Pi,T}&= 
-    \begin{bmatrix}
-        \underline{Y}_\mathrm{T} & -\underline{\vartheta}\underline{Y}_\mathrm{T} \\
-        \underline{\vartheta}^*\underline{Y}_\mathrm{T} & -\underline{\vartheta}^*\underline{\vartheta}\underline{Y}_\mathrm{T}
-    \end{bmatrix} \label{eq:admittance-oltc}
-\end{align}
-Another way of writing down the admittance matrix is shown in \autoref{eq:admittance-oltc-2}. It is considering, that the matrix can be split up in a symmetric, constant part, and a variable current injection part. The latter is not symmetrical and depends on the tap position of the transformer. Therefore in some simulation algorithms the static part is used in the admittance matrix, and the variable part is considered in the current injection vector. \autocite{machowskiPowerSystemDynamics2020}
-
-\begin{align}
-    \begin{bmatrix}
-        \underline{I}_1 \\
-        -\underline{I}_2
-    \end{bmatrix} &=
-    \begin{bmatrix}
-        \underline{Y}_\mathrm{T} & -\underline{Y}_\mathrm{T} \\
-        -\underline{Y}_\mathrm{T} & \underline{Y}_\mathrm{T}
-    \end{bmatrix}
-    \begin{bmatrix}
-        \underline{U}_1 \\
-        \underline{U}_2
-    \end{bmatrix} -
-    \begin{bmatrix}
-        \Delta \underline{I}_1 \\
-        \Delta \underline{I}_2
-    \end{bmatrix}\text{, where } \notag \\[12pt]
-    \begin{bmatrix}
-        \Delta \underline{I}_1 \\
-        \Delta \underline{I}_2
-    \end{bmatrix} &=
-    \begin{bmatrix}
-        \underline{0} & (\underline{\vartheta}-1)\underline{Y}_\mathrm{T} \\
-        -(\underline{\vartheta}^*+1)\underline{Y}_\mathrm{T} & (\underline{\vartheta}^*\underline{\vartheta}+1)\underline{Y}_\mathrm{T}
-    \end{bmatrix}
-    \begin{bmatrix}
-        \underline{U}_1 \\
-        \underline{U}_2
-    \end{bmatrix} \text{ leading to } \notag \\[12pt]
-    \underline{\mab{Y}}_\mathrm{\Pi,T}&= 
-    \begin{bmatrix}
-        \underline{Y}_\mathrm{T} & -\underline{Y}_\mathrm{T} \\
-        -\underline{Y}_\mathrm{T} & \underline{Y}_\mathrm{T}
-    \end{bmatrix} -
-    \begin{bmatrix}
-        \underline{0} & (\underline{\vartheta}-1)\underline{Y}_\mathrm{T} \\
-        -(\underline{\vartheta}^*+1)\underline{Y}_\mathrm{T} & (\underline{\vartheta}^*\underline{\vartheta}+1)\underline{Y}_\mathrm{T}
-    \end{bmatrix} \label{eq:admittance-oltc-2}
-\end{align}
-
-\subsubsection*{Per unit system specialities}
-
-Reactances and resistances are referred to the base voltage and apparent power of the operational unit, such as the transformer. The power system simulation uses its own base voltage and base apparent power, enabling the use of one single calculation domain. This is done to simplify the calculation and to make the results easily comparable to each other. Hence, the reffered values have to be transformed from the equipment based values to the simulation based values. The relations and conversions are defined as follows.
-
-\begin{align}
-    &\underline{Y}_\mathrm{T}=\frac{1}{r_\mathrm{T} + x_\mathrm{T} \cdot j} \cdot \frac{b_\mathrm{T} \cdot j}{2} \notag \\[12pt]
-    &\underline{Y}_\mathrm{T,~sim}=\underline{Y}_\mathrm{T} \cdot \frac{S_\mathrm{n}}{S_\mathrm{n,~sim}} \label{eq:y-t-based} \\[12pt]
-    &\underline{U}_\mathrm{whatever,~sim}=\underline{U}_\mathrm{whatever} \cdot \frac{S_\mathrm{n}}{S_\mathrm{n,~sim}} \label{eq:voltages-based}
-\end{align}
-
-Displayed like in \autoref{eq:y-t-based}, the characteristic of the operational unit is referred to the simulation base value. Here, the admittance of the transformer is multiplied with its own rated apparent power, then devided by the apparent power of the simulation system. Similar, the voltages are calculated via \autoref{eq:voltages-based}. This specialities are considered in the tap changer modeling, thus further information is given in \autocite{machowskiPowerSystemDynamics2020}, Appendix A.
-
-\commenting{
-    Additionally to consider:
-    \begin{itemize}[nosep]
-        \item D-q transformations (???),
-        \item Frequency domains: reactances and inductances are dependent and can change with the base frequency,
-        \item Torque and power relations.
-    \end{itemize}
-    }
-
-\subsection{Open-Source Power System Simulation tools}
-    
-\commenting{
-    Some information about other open source python power system simulation tools, such as:
-    \begin{itemize}[nosep]
-        \item Pandapower,
-        \item TOPS,
-        \item ... .
-    \end{itemize}
-    Build up like a scan (see Georg's thesis).
-    
-    BUT: As well including the there used implementation of transformers mathematical background and complexity.
-}
-        
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Voltage stability basics}
+\section{Voltage Stability Basics}
 
-\subsection{Voltage stability definitions, classifications, and conditions}
+\subsection{Voltage Stability Definitions, Classifications, and Conditions}
+\label{sec:voltage-stability-definitions}
 A Practical introduction to voltage stability assessment, methods and indices is given in the standard and extending literature of \textcite{rueda-torresEvaluationVoltageStability2024,danishVoltageStabilityElectric2015,cutsemVoltageStabilityElectric1998}.
 
 \commenting{
@@ -260,7 +177,7 @@ A Practical introduction to voltage stability assessment, methods and indices is
         
 \begin{table}
     \centering
-    \caption{Voltage instability types and different time frames with examples; after \quelle}
+    \caption[Voltage instability types and different time frames]{Voltage instability types and different time frames with examples; after \quelle}
     \small
     \renewcommand\tabularxcolumn[1]{m{#1}}
     \vspace*{12pt}
@@ -275,9 +192,23 @@ A Practical introduction to voltage stability assessment, methods and indices is
     \end{tabularx}
 \end{table}
 
-\subsection{Stability Indices}
+        
+\subsection{Analytical Stability Calculation of Simple Static Power Systems}
+\label{sec:analytical-voltage-stability}
 
-One easy idea for obtaining a stable operation is looking at the Jacobian Matrix. If this matrix is getting singular, the System will not remain in a stable operation. Singularity of matrices is checked by follwing two hypothesis tests:
+\subsection{Stability Limits of Complexer Systems: Continuation Power Flow}
+\label{sec:continuation-power-flow}
+
+\subsection{Stability Indices for Time Series Calculation}
+\label{sec:stability-indices}
+
+\sidenote{Basic idea and references}
+The idea behind stability indices is monitoring the current voltage stability state of the power system in relation to the critical point. This applies not only to static load flow cases, but for time series calculations of short circuits, load shedding or other disturbances. Therefore the dynamic contribution can be included as well. \quelle
+
+Reviewing possible indices, either for online resp. real time monitoring or for subsequent analysis after a simulation, is out of the scope of this thesis. \textcite{danishVoltageStabilityElectric2015} has already included an extensive review in his work, with reference to \textcite{doigcardetAnalysisVoltageStability2010}, which is focussing on indices in interest for this thesis in particular. \commenting{Jacobian Matrix based interesting, because of the possible observability in \textit{diffpssi}.}
+
+\sidenote{The basics of the Jacobian Matrix}
+One easy idea for obtaining a stable operation is looking at the Jacobian Matrix. Although it is mainly used in load flow calculations, it is possible to derive statements about the voltage stability as well. This can be realized through the relation of real power $P$, reactive power $Q$, voltage angle $\delta$, and the voltage resp. voltage gradients $\Delta V$. If the Jacobian Matrix is getting singular, the System will not remain in a stable operation. Singularity of matrices is checked by following two hypothesis tests:
 \begin{align}
     &\det(\mab{J})=0 \label{eq:jacobian-det} \\[12pt]
     &J \times J^{-1} \uparrow \label{eq:jacobian-rank}
@@ -324,16 +255,213 @@ The Jacobian Matrix is defined as:
     \end{bmatrix}
 \end{align}
 
-Although this method seems easy to implement, there are some numerical problems realted to that. Checking if a Matrix is singular with numerical mathods, can only be realised as a probablilty expression. A result could be, that the determinant of the matrix is below a certain threshold. The algorithm would propose, that the matrix is probabilistic singular. \commenting{[QUELLE]} This problem leads to the necessity of applying other methods or indices for stability assessment. \textcite{danishVoltageStabilityElectric2015} is proposing a few other indices, that are based on the Jacobian Matrix, and shows comparitive characteristics between Jacobian Matrix and system variable based voltage stability indices. These Jacobian Matrix based indices are listed and further described in \autoref{app:jacobian-voltage-indices}, while the comparative characteristics are described in \autoref{app:jacobian-vs-system-indices}. 
+Although this method seems easy to implement, there are some numerical problems realted to that. Checking if a Matrix is singular with numerical methods, can only be realised as a probablilty expression. A result could be, that the determinant of the matrix is below a certain threshold. The algorithm would propose, that the matrix is probabilistic singular. \quelle
 
-\subsection{Assessment methods}
-        
-\subsection{Analytical stability calculation of static power systems}
+\sidenote{Indices adressing numerical problems}
+This problem leads to the necessity of applying other methods or indices for stability assessment. Further, the relation of the system state to the critical voltage collapse point is highly nonlinear in the Jacobian Matrix. This problem is adressed by the indices in various ways, leading to a more or less linearized relation. \quelle \textcite{danishVoltageStabilityElectric2015} is proposing a few other indices, that are based on the Jacobian Matrix, and shows comparitive characteristics between Jacobian Matrix and system variable based voltage stability indices. These Jacobian Matrix based indices are listed and further described in \autoref{app:jacobian-voltage-indices}, while the comparative characteristics are described in \autoref{app:jacobian-vs-system-indices}. The aforeside mentioned work of \textcite{doigcardetAnalysisVoltageStability2010} is focussing on these indices in particular.
+
+For this thesis, the indices in \autoref{tab:considered-indices} are chosen on the basis of the work of \textcite{danishVoltageStabilityElectric2015} and \textcite{doigcardetAnalysisVoltageStability2010}. They will be implemented in the Python framework in \autoref{sec:application-voltage-stability}, and used for with the theoretical calculated limits of \autoref{sec:analytical-voltage-stability} and \autoref{sec:continuation-power-flow}.
+
+\begin{table}[htb!]
+    \centering
+    \caption[Voltage stability indices for the assessment in this thesis]{Voltage stability indices for the assessment of the power system stability in this thesis; after \quelle}
+    \label{tab:considered-indices}
+    \vspace{12pt}
+    \begin{tabularx}{\textwidth}{llX}
+        \toprule
+        \textbf{Index} & \textbf{Basis} & \textbf{Description} \\
+        \toprule
+        VCPI & Jacobian Matrix & The index is based on the Jacobian Matrix, and is showing the proximity of the current system state to the critical voltage collapse point. \\
+        VSI & System Variables & The index is based on the system variables, and is showing the proximity of the current system state to the critical voltage collapse point. \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Power System Modeling}
+
+The simulation of power systems is a crucial tool, not only for stability studies, but for evaluating extensions or modifications in the planning process, the development of Assistance systems for operational management, and many other applications. \quelle Due to the complexity of the systems, simulations are often simplified. Not only with model constraints, bus as well in the way of calculations. Mainly seperating between \acf{EMT} and \acf{RMS} simulations, the latter is used in this thesis. The \autoref{app:power-system-modeling} is giving more details, literature, and summarizing the processes behind the used tool \textit{diffpssi}, if the reader is further interested in the topic.
+
+\subsection{Transformer Electric Model and Behavior}
+
+% \begin{figure}[htb!]
+%     \centering
+%     \includegraphics[width=.8\textwidth]{fundamentals/trafo_model_deviation.png}
+%     \caption[Two-Winding Transformer Circuit in the Positive Sequence]{Two-Winding Transformer Circuit in the Positive Sequence; a) ideal representation with impedances on each \acs{HV} and \acs{LV} side and b) related impedances on the XX side; own figure after \autocite{machowskiPowerSystemDynamics2020}}
+%     \label{fig:trafo-model-deviation}
+% \end{figure}
+
+% \sidenote{Basics}
+Typical for \acs{RMS}-modeling is the usage of sequence components, especially the positive sequence for symmetrical grid operation and test cases. \quelle An equivalent circuit for the positive sequence is shown in \autoref{fig:trafo-model} part a), respectively reduced to the transformer ratio, the series impedances of the windings on the \acs{LV} and \acs{HV} side, and the shunt branch affected by iron and magnetization losses. \autocite{machowskiPowerSystemDynamics2020,kundurPowerSystemStability2022,milanoPowerSystemModelling2010}
+
+The transformer ratio is typically noted as $\underline{\vartheta}$. Generally speaking it is the ratio between the number of windings of the secondary side to the primary side, as noted in \autoref{eq:trafo-ratio-easy}. With the typically used calculation unit \glqq per unit\grqq\footnote{means standardization to a reference value; further information on page \pageref{chap:symbols} and \textcite{machowskiPowerSystemDynamics2020}, Appendix A}, the ratio becomes one in the standard case. A transformer ratio, which is only shifting current angles with the shifting angle $\phi$, is represented through a complex number using the Euler Identity, as shown in \autoref{eq:trafo-ratio}.
+\begin{align}
+    \vartheta&=\frac{N_2}{N_1} \label{eq:trafo-ratio-easy} \\[6pt]
+    \underline{\vartheta}&=\frac{N_2}{N_1} \cdot \exp(j \cdot \phi \cdot \frac{\pi}{180})\label{eq:trafo-ratio}
+\end{align}
+
+\begin{figure}% [htb!]
+    \centering
+    \captionsetup[subfigure]{justification=centering} 
+    \begin{subfigure}[c]{.53\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{tikz_graphics/images/transformer_complete.pdf}
+        \caption{}
+    \end{subfigure}
+    \begin{subfigure}[c]{.46\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{tikz_graphics/images/transformer_reduced.pdf}
+        \caption{}
+    \end{subfigure}
+    % \includegraphics[width=.8\textwidth]{fundamentals/trafo_model_deviation.png}
+    \caption[Two-Winding Transformer Circuit in the Positive Sequence]{Two-Winding Transformer Circuit in the Positive Sequence; a) ideal representation with impedances on the \acs{HV} side and b) simplifyied circit with only the series impedance related on the \acs{HV} side; own figure after \autocite{machowskiPowerSystemDynamics2020,kundurPowerSystemStability2022,milanoPowerSystemModelling2010}}
+    \label{fig:trafo-model}
+\end{figure}
+
+\sidenote{Simplifications}
+The first simplification is step is considering two assumptions. First, the iron and magnetization losses are neglectable. This can be illustrated with a short-circuit test of the transformer on the secondary side. During this test, one can obtain with the concept of a voltage devider, that
+\begin{align}
+    \underline{U}_\mathrm{Fe, \mu} \ll \underline{U}_\mathrm{T,rated}, \notag
+\end{align}
+meaning that the shunt branch impedance is much greater that the series impedance of the transformer. Secondly, it is assumed, that the on the primary side related impedance of the secondary side, is equal to the impedance on the primary side. This leads to a symmetrical circuit of the transformer and the positive sequence equivalent circuit simplifies to \autoref{fig:trafo-model} part b). Mathematically this is shortly expressable as \autoref{eq:related-impedances}, \autoref{eq:trafo-symmetrical}, and \autoref{eq:series-impedance}. \autocite{machowskiPowerSystemDynamics2020,kundurPowerSystemStability2022,milanoPowerSystemModelling2010}
+\begin{align}
+    \underline{Z}_1 &= R_1 + jX_1\text{;}\quad\underline{Z}_2 = R_2 \vartheta^2 + jX_2 \vartheta^2 \label{eq:related-impedances} \\
+    \underline{Z}_1 &= \underline{Z}_2 \label{eq:trafo-symmetrical} \\
+    \underline{Z}_\mathrm{T} &= \underline{Z}_1 + \underline{Z}_2 \label{eq:series-impedance}
+\end{align}
+The afore described simplification leads to only the necessity of considering the series impedance. Considering the afore mentioned normal ratio of $\vartheta=1$ in the per unit system, the Python framework \textit{diffpssi} has been using this model with only the series impedance and no variable ratio, meaning no shunt branches, before.
+
+\sidenote{Introducing variable transformer ratios}
+When one wants to look at variable transformer ratios, either with representing vector groups, or implementing \acfp{OLTC}, this model of only considering the series impedance has to be extended. Using shunt branches, the variable ratio behavior can be represented in a $\Pi$-model, as shown in \autoref{fig:pi-transformer}. \autocite{machowskiPowerSystemDynamics2020,kundurPowerSystemStability2022,milanoPowerSystemModelling2010}
+
+\begin{figure}%[htb!]
+    \centering
+    \includegraphics[width=.7\textwidth]{tikz_graphics/images/transformer_pi.pdf}
+    \caption[$\Pi$-representative circuit of an idealized transformer with a tap changer]{$\Pi$-representative circuit of an idealized transformer with a tap changer; own figure after \autocite{milanoPowerSystemModelling2010,burlakinEnhancedVoltageControl2024}}
+    \label{fig:pi-transformer}
+\end{figure}
+
+Looking at the transformer as a black box two-port, with the index one being the \acs{LV} side, the index two being the \acs{HV} side, the admittance matrix for the variable ratio behavior can be expressed as in \autoref{eq:admittance-behavior}. The voltages and current are defined as in \autoref{fig:trafo-model} part b). With rearranging the equation, one can obtain the admittance matrix of the $\Pi$-model with to the \acs{HV} side related values as in \autoref{eq:admittance-matrix-pi}. \autocite{milanoPowerSystemModelling2010,burlakinEnhancedVoltageControl2024}
+
+\begin{align}
+    \begin{bmatrix}
+        {\color{ees_green}\underline{\vartheta}^*} \underline{I}_1 \\ \underline{I}_2
+    \end{bmatrix}&= 
+    \begin{bmatrix}
+        \underline{Y}_\mathrm{T} & -\underline{Y}_\mathrm{T} \\
+        -\underline{Y}_\mathrm{T} & \underline{Y}_\mathrm{T}
+    \end{bmatrix} \cdot
+    \begin{bmatrix}
+        {\color{ees_green}\frac{1}{\underline{\vartheta}}}~\underline{U}_1 \\ \underline{U}_2
+    \end{bmatrix} \label{eq:admittance-behavior} \\[12pt]
+    \underline{\mab{Y}}_\mathrm{\Pi,T}&=\underline{Y}_\mathrm{T} \cdot
+    \begin{bmatrix}
+        \frac{1}{\underline{\vartheta}\underline{\vartheta}^*} & -\frac{1}{\underline{\vartheta}^*} \\
+        -\frac{1}{\underline{\vartheta}} & 1
+    \end{bmatrix} \label{eq:admittance-matrix-pi}
+\end{align}
+
+For calculation of the individual shunt branches, one can apply the standard representation of two-ports consistent of a linear $\Pi$-circuit:
+\begin{align}
+    \begin{bmatrix}
+        \underline{I}_1 \\ \underline{I}_2
+    \end{bmatrix}=
+    \begin{bmatrix}
+        \underline{Y}_{10} + \underline{Y}_{12}& -\underline{Y}_{12} \\
+        -\underline{Y}_{21} & \underline{Y}_{20} + \underline{Y}_{21}
+    \end{bmatrix} \cdot
+    \begin{bmatrix}
+        \underline{U}_1 \\ \underline{U}_2
+    \end{bmatrix} \notag % \label{eq:shunt-calc}
+\end{align}
+When equating this with \autoref{eq:admittance-matrix-pi}, the shunt branches can be calculated respectivly giving the admittances written down as \autoref{eq:y-12}, \autoref{eq:y-10}, and \autoref{eq:y-20}, as they are noted in \autoref{fig:pi-transformer} as well. \autocite{milanoPowerSystemModelling2010,burlakinEnhancedVoltageControl2024}
+\begin{align}
+    \underline{Y}_{12}&=\frac{1}{\underline{\vartheta} \cdot \underline{a}_\mathrm{T}^*} \cdot \underline{Y}_\mathrm{T}\text{, and} \notag \\[6pt]
+    \underline{Y}_{21}&=\frac{1}{\underline{\vartheta} \cdot \underline{a}_\mathrm{T}} \cdot \underline{Y}_\mathrm{T} \label{eq:y-12} \\[12pt]
+    \underline{Y}_{10}&=\frac{1}{\underline{\vartheta}} \cdot \bigg(\frac{1}{\underline{\vartheta}} - \frac{1}{\underline{a}_\mathrm{T}}\bigg) \cdot \underline{Y}_\mathrm{T} \label{eq:y-10} \\[12pt]
+    \underline{Y}_{20}&=\bigg(1 - \frac{1}{\underline{\vartheta} \cdot \underline{a}_\mathrm{T}}\bigg) \cdot \underline{Y}_\mathrm{T} \label{eq:y-20}
+\end{align}
+
+% After MACHOWSKI:
+% \begin{align}
+%     \underline{\mab{Y}}_\mathrm{\Pi,T}&= 
+%     \begin{bmatrix}
+%         \underline{Y}_\mathrm{T} & -\underline{\vartheta}\underline{Y}_\mathrm{T} \\
+%         \underline{\vartheta}^*\underline{Y}_\mathrm{T} & -\underline{\vartheta}^*\underline{\vartheta}\underline{Y}_\mathrm{T}
+%     \end{bmatrix} \label{eq:admittance-oltc}
+% \end{align}
+% Another way of writing down the admittance matrix is shown in \autoref{eq:admittance-oltc-2}. It is considering, that the matrix can be split up in a symmetric, constant part, and a variable current injection part. The latter is not symmetrical and depends on the tap position of the transformer. Therefore in some simulation algorithms the static part is used in the admittance matrix, and the variable part is considered in the current injection vector. \autocite{machowskiPowerSystemDynamics2020}
+
+% \begin{align}
+%     \begin{bmatrix}
+%         \underline{I}_1 \\
+%         -\underline{I}_2
+%     \end{bmatrix} &=
+%     \begin{bmatrix}
+%         \underline{Y}_\mathrm{T} & -\underline{Y}_\mathrm{T} \\
+%         -\underline{Y}_\mathrm{T} & \underline{Y}_\mathrm{T}
+%     \end{bmatrix}
+%     \begin{bmatrix}
+%         \underline{U}_1 \\
+%         \underline{U}_2
+%     \end{bmatrix} -
+%     \begin{bmatrix}
+%         \Delta \underline{I}_1 \\
+%         \Delta \underline{I}_2
+%     \end{bmatrix}\text{, where } \notag \\[12pt]
+%     \begin{bmatrix}
+%         \Delta \underline{I}_1 \\
+%         \Delta \underline{I}_2
+%     \end{bmatrix} &=
+%     \begin{bmatrix}
+%         \underline{0} & (\underline{\vartheta}-1)\underline{Y}_\mathrm{T} \\
+%         -(\underline{\vartheta}^*+1)\underline{Y}_\mathrm{T} & (\underline{\vartheta}^*\underline{\vartheta}+1)\underline{Y}_\mathrm{T}
+%     \end{bmatrix}
+%     \begin{bmatrix}
+%         \underline{U}_1 \\
+%         \underline{U}_2
+%     \end{bmatrix} \text{ leading to } \notag \\[12pt]
+%     \underline{\mab{Y}}_\mathrm{\Pi,T}&= 
+%     \begin{bmatrix}
+%         \underline{Y}_\mathrm{T} & -\underline{Y}_\mathrm{T} \\
+%         -\underline{Y}_\mathrm{T} & \underline{Y}_\mathrm{T}
+%     \end{bmatrix} -
+%     \begin{bmatrix}
+%         \underline{0} & (\underline{\vartheta}-1)\underline{Y}_\mathrm{T} \\
+%         -(\underline{\vartheta}^*+1)\underline{Y}_\mathrm{T} & (\underline{\vartheta}^*\underline{\vartheta}+1)\underline{Y}_\mathrm{T}
+%     \end{bmatrix} \label{eq:admittance-oltc-2}
+% \end{align}
+
+\sidenote{Per unit system\\specialities}
+Reactances and resistances are referred to the base voltage and apparent power of the operational unit, such as the transformer. The power system simulation uses its own base voltage and base apparent power, enabling the use of one single calculation domain. This is done to simplify the calculation and to make the results easily comparable to each other. Hence, the reffered values have to be transformed from the equipment based values to the simulation based values. The relation for the transformer admittance is defined as follows. Generally speaking, this thesis is using and reffering to the per unit based values, although it is not denoted in the index of the values.
+\begin{align}
+    \underline{Y}_\mathrm{T,~based}&=\underline{Y}_\mathrm{T} \cdot \frac{S_\mathrm{n}}{S_\mathrm{n,~sim}} \label{eq:y-t-based} \\[6pt]
+    \underline{Z}_\mathrm{line,~based}&=\underline{Z}_\mathrm{line} \cdot \frac{S_\mathrm{n,~sim}}{V_\mathrm{n,~sim}^2} \label{eq:y-line-based}
+\end{align}
+Displayed like in \autoref{eq:y-t-based}, the characteristic of the operational unit is referred to the simulation base value. Here, the admittance of the transformer is multiplied with its own rated apparent power, then devided by the apparent power of the simulation system. Similar, the impedance of the lines are calculated via \autoref{eq:y-line-based}. This specialities are considered in the tap changer modeling, thus further information is given in \autocite{machowskiPowerSystemDynamics2020}, Appendix A.
+
+\subsection{Further Considerations of a Transformer Model}
+
+\commenting{Describe here the asymetric and non-idealized transformer; phase shifting transformers; transformers, which can control logitudinal and transversal ratios; ...}
+
+\subsection{Open-Source Power System Simulation tools}
+    
+\commenting{
+    Some information about other open source python power system simulation tools, such as:
+    \begin{itemize}[nosep]
+        \item Pandapower,
+        \item TOPS,
+        \item ... .
+    \end{itemize}
+    Build up like a scan (see Georg's thesis).
+    
+    BUT: As well including the there used implementation of transformers mathematical background and complexity.
+}
         
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Control engineering theory}
+% \section{Control engineering theory}
 
-\subsection{Commonly used on-load tap changer control}
+\section{Commonly Used On-Load Tap Changer Control}
 
 A few basics are in the interest, understanding differences between real world beahavior, or possible ways of building up a \acs{OLTC} transformer control. This control theory difference can be limiting as well for the results and objectives compared to the actual possible control in the field.
 
@@ -345,19 +473,23 @@ The target voltage is typically set from the control room of the grid operator, 
 \sidenote{Discrete controllers are used in the field}
 Typically the used controller in the field is a discrete controller, which can change tap positions under load within a time frame of around few seconds. Practical tap steps are around $2~\mathrm{\%}$ of the overall transforming ratio. The control is set up with a dead band, to avoid unnecessary tap changes. It is necessecary to note here, that this control and its mathematical caracteristics contains logical elements, blocks, and delays, which cannot be translated in a typical control theory transmission function. This leads to the missing possibility to easily obtain mathematical stability for the control of the overall considered power system. \quelle
 
-\subsection{Dynamic voltage stability}
+% \subsection{Dynamic voltage stability}
 
-\commenting{
-    Can I really express this as \glqq Controller theory\grqq?
-}
+% \commenting{
+%     Can I really express this as \glqq Controller theory\grqq?
+% }
 
-\subsection{Bifurcations and Chaos theory control}
+% \subsection{Bifurcations and Chaos theory control}
 
-\commenting{
-    Is this necessary or already out of scope?
-    \begin{enumerate}[nosep]
-        \item Fuzzy Control mechanisms,
-        \item Neural Networks,
-        \item Bifurcations.
-\end{enumerate}
-}
+% \commenting{
+%     Is this necessary or already out of scope?
+%     \begin{enumerate}[nosep]
+%         \item Fuzzy Control mechanisms,
+%         \item Neural Networks,
+%         \item Bifurcations.
+% \end{enumerate}
+% }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Summary in Short and Simple Terms}
