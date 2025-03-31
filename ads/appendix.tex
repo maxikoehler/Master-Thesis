@@ -60,21 +60,21 @@ In this appendix section, the general process of power system simulation is desc
 \section{Jacobian based voltage stability criterions}
 \label{app:jacobian-voltage-indices}
 
-\textcite{danishVoltageStabilityElectric2015} is showing, describing, and referencing some voltage stability indices based on the Jacobian matrix. The following table is a collection of these indices.
+\textcite{danish_2015} is showing, describing, and referencing some voltage stability indices based on the Jacobian matrix. The following table is a collection of these indices.
 
-\begin{sidewaystable}[h!]
+\begin{sidewaystable}[htbp!]
     \centering
     \small
-    \caption{Jacobian based voltage stability criterions; after \textcite{danishVoltageStabilityElectric2015}}
+    \caption{Jacobian based voltage stability criterions; after \textcite{danish_2015}}
     \vspace*{12pt}
     \renewcommand{\arraystretch}{2}
-    \begin{tabularx}{20cm}{llXXl}
+    \begin{tabularx}{23cm}{llXXl}
         % \toprule
         \textbf{Index} & \textbf{Abbreviation} & \textbf{Calculation} & \textbf{Stability Threshold} & \textbf{Reference} \\
         \toprule
         Tangent Vector Index & \acs{TVI} & $\mathrm{TVI}_i=\left\lvert \frac{\dd{V_i}}{\dd{\lambda}}\right\rvert^{-1}$ & depending on load increase & \\ \midrule
         Test Function & & $t_{cc}=\left\lvert e^T_c \cdot \mab{J} \times \mab{J}_{cc}^{-1} \cdot e_c\right\rvert$ & details are given in reference & \\ \midrule
-        & $i$ & $i=\frac{1}{i_0} \cdot \sigma_\mathrm{max} \cdot \big( \dv{\sigma_\mathrm{max}}{\lambda_\mathrm{total}} \big)^{-1}$ & $i > 0$ & \\ \midrule
+        Second Order Index & $i$ & $i=\frac{1}{i_0} \cdot \sigma_\mathrm{max} \cdot \big( \dv{\sigma_\mathrm{max}}{\lambda_\mathrm{total}} \big)^{-1}$ & $i > 0$ & \\ \midrule
         Minimum Eigenvalue & & $\Delta V=\sum_{i} \frac{\xi_i\eta_i}{\lambda_i} \Delta Q$ & all eigenvalues should be positive & \\ \midrule
         Minimum Singular Value & & $\begin{bmatrix} \Delta \vartheta \\ \Delta V \end{bmatrix}=\mab{V} \sum^-1 \mab{U}^T \begin{bmatrix} \Delta F \\ \Delta G \end{bmatrix}$ & details are given in reference & \\ \midrule
         Predicting Voltage Collapse & & $\frac{V}{V_0}$ & the smallest index value & \\ \midrule
@@ -91,11 +91,80 @@ In this appendix section, the general process of power system simulation is desc
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \chapter{Python modeling}
+\chapter{Modeling}
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \section{Mathematical equations}
-% \label{app:python-mathematical}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Admittance Calculation of a Two-Port}
+\label{app:admittance-deduction}
+
+Follwing part shall just give a short, but complete and clear overview, how the admittance matrix of a two-port system is calculated.
+Therefore the main focus of this thesis, a two-port with variable translation ratio, is kept.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Class Diagram of the Class Nose Curves}
+\label{app:nose-curve}
+
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=12cm]{tikz_graphics/images/class_diagram_nosecurve_complete.pdf}
+    \caption{Complete class diagram of the class Nose Curves; including all attributes and methods with data types, returns, and inputs}
+    \label{fig:class-diagram-nose-curves}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Analytical Calculation of Simple Nose Curves}
+\label{app:analytical-nose-curve}
+
+Some blibla and equations about the analytical calculation of simple nose curves.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Alternative Current Injection Model}
+\label{app:current-injection-model}
+
+\textcite{machowski_2020} describes another way of modeling a \acs{OLTC} transformer with variable ratio.
+This model is looking at the shunt brnaches as current injections, which are added to the individual busses.
+Beneficial, the system admittance matrix is staying symmetrical, while the different transformer state(s) are represented by the different current injections.
+This can be mathematically expressed by following set of equations:
+\begin{align}
+    \begin{bmatrix}
+        \underline{I}_1 \\
+        -\underline{I}_2
+    \end{bmatrix} &=
+    \begin{bmatrix}
+        \underline{Y}_\mathrm{T} & -\underline{Y}_\mathrm{T} \\
+        -\underline{Y}_\mathrm{T} & \underline{Y}_\mathrm{T}
+    \end{bmatrix}
+    \begin{bmatrix}
+        \underline{U}_1 \\
+        \underline{U}_2
+    \end{bmatrix} -
+    \begin{bmatrix}
+        \Delta \underline{I}_1 \\
+        \Delta \underline{I}_2
+    \end{bmatrix}\text{, where } \notag \\[12pt]
+    \begin{bmatrix}
+        \Delta \underline{I}_1 \\
+        \Delta \underline{I}_2
+    \end{bmatrix} &=
+    \begin{bmatrix}
+        \underline{0} & (\underline{\vartheta}-1)\underline{Y}_\mathrm{T} \\
+        -(\underline{\vartheta}^*+1)\underline{Y}_\mathrm{T} & (\underline{\vartheta}^*\underline{\vartheta}+1)\underline{Y}_\mathrm{T}
+    \end{bmatrix}
+    \begin{bmatrix}
+        \underline{U}_1 \\
+        \underline{U}_2
+    \end{bmatrix} \text{ leading to } \notag \\[12pt]
+    \underline{\mab{Y}}_\mathrm{\Pi,T,Current~Injection}&= 
+    \begin{bmatrix}
+        \underline{Y}_\mathrm{T} & -\underline{Y}_\mathrm{T} \\
+        -\underline{Y}_\mathrm{T} & \underline{Y}_\mathrm{T}
+    \end{bmatrix} -
+    \begin{bmatrix}
+        \underline{0} & (\underline{\vartheta}-1)\underline{Y}_\mathrm{T} \\
+        -(\underline{\vartheta}^*+1)\underline{Y}_\mathrm{T} & (\underline{\vartheta}^*\underline{\vartheta}+1)\underline{Y}_\mathrm{T}
+    \end{bmatrix} \notag % \label{eq:admittance-oltc-2}
+\end{align}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \section{OLTC control}

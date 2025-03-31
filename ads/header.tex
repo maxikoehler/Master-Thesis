@@ -8,22 +8,24 @@
 
 \documentclass[%
     % final,
+  paper=297mm:210mm,			% Papierformat
+  % BCOR=7mm,      % Bindekorrektur
 	pdftex,
 	twoside,			% Einseitiger Druck (oneside) oder zweiseitig (twoside)
 	headings=openright,	% Kapitelanfänge immer auf rechter Seite (bei zweiseitig)
 	cleardoublepage=empty,	% Leere Vakatseiten
-	11pt,				% Schriftgroesse
+	fontsize=12pt,				% Schriftgroesse
 	parskip=half,		% Halbe Zeile Abstand zwischen Absätzen (half).
 %	topmargin = 10pt,	% Abstand Seitenrand (Std:1in) zu Kopfzeile [laut log: unused]
 	headheight = 20pt,	% Höhe der Kopfzeile
-%	headsep = 30pt,	% Abstand zwischen Kopfzeile und Text Body  [laut log: unused]
+	% headsep = 30pt,	% Abstand zwischen Kopfzeile und Text Body  [laut log: unused]
 	headsepline,		% Linie nach Kopfzeile.
 	% footsepline,		% Linie vor Fusszeile.
 	footheight = 10pt,	% Höhe der Fusszeile
 	abstracton,		% Abstract Überschriften
 	DIV=calc,		% Satzspiegel berechnen
-	headinclude=false,	% Kopfzeile nicht in den Satzspiegel einbeziehen
-	footinclude=false,	% Fußzeile nicht in den Satzspiegel einbeziehen
+	headinclude=true,	% Kopfzeile nicht in den Satzspiegel einbeziehen
+	footinclude=true,	% Fußzeile nicht in den Satzspiegel einbeziehen
 	listof=totoc,		% Abbildungs-/ Tabellenverzeichnis im Inhaltsverzeichnis darstellen
 	toc=bibliography,	% Literaturverzeichnis im Inhaltsverzeichnis darstellen
 	pointlessnumbers,
@@ -62,7 +64,11 @@
 \usepackage{lipsum}
 \usepackage{bm}
 % \usepackage[left=3cm,right=2cm,top=2.5cm,bottom=2.5cm,foot=.5cm]{geometry}	% Seitenränder und Abstände
-\usepackage[left=2.5cm,right=4.5cm,top=2.5cm,bottom=2.5cm,foot=.5cm,marginparwidth=3.2cm,marginparsep=.6cm]{geometry}	% Seitenränder und Abstände
+\usepackage[inner=2.5cm,outer=4.5cm,top=2.5cm,bottom=2.5cm,foot=.5cm,marginparwidth=3.2cm,marginparsep=.6cm]{geometry}	% Seitenränder und Abstände
+\setlength{\headsep}{1cm}
+\setlength{\textheight}{680pt}
+\setlength{\footskip}{30pt}
+
 \usepackage[activate]{microtype} %Zeilenumbruch und mehr
 \usepackage[onehalfspacing]{setspace}
 \usepackage{makeidx}
@@ -115,9 +121,9 @@
 \setsidenotes{
   note-mark-format={\hspace*{-2pt}},
   text-mark-format={\hspace*{-4pt}},
-  text-format+={\RaggedRight\color{ees_blue}\itshape},
+  text-format+={\RaggedRight\color{ees_blue}\itshape},%\RaggedRight
   sidefloat-format={\RaggedRight\color{ees_blue}\itshape\footnotesize},
-  perpage=true
+  perpage=true,
 }
 
 \renewcommand*{\marginfont}{\color{ees_blue}\itshape\footnotesize}
@@ -339,10 +345,10 @@
 
 \clearpairofpagestyles
 % \ohead[]{\headmark}       		% Kopfzeile außen immer mit Headmark versehen
-\ohead[]{\pagemark}       		% Kopfzeile außen immer mit Headmark versehen
-\ihead[]{\headmark}       		% Kopfzeile außen immer mit Headmark versehen
+\ohead[]{\headmark}       		% Kopfzeile außen immer mit Headmark versehen
+% \ihead[]{}       		% Kopfzeile außen immer mit Headmark versehen
 \automark[section]{chapter}		% Headmark bestehend aus Kolumnentitel
-% \ofoot[\pagemark]{\pagemark}	% Fußzeile mit Seitenzahl außen
+\ofoot[\pagemark]{\pagemark}	% Fußzeile mit Seitenzahl außen
 \renewcommand*\chapterpagestyle{plain.scrheadings}
 % \renewcommand*\partpagestyle{plain.scrheadings}		%Bei Verwendung von Parts als Überschriftenebene: Setzen des Pagestyles global
 

@@ -39,12 +39,28 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Influence of FSM on Voltage Angle Stability of Machines}
+
+\commenting{Thinking of Rotor Angle Stability, maybe considered by an EAC implementation?
+
+What does the fast Switching, esp. at up to 8\% of the nominal voltage, do to the machines?
+
+Comparison between standard Transformer / OLTC and FSM control.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Utilization of FSM with a Power Swing Damping Effect}
+
+\commenting{Thinking of the damping effect of the FSM, especially in the case of power swings, caused by shortages and following swinging of Generators.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Novel Control Strategy FSM}
     
 \commenting{
-    Thinking of fast and slow voltage gradients: fast gradients are compensated by the FSM, slow gradients are compensated by the OLTC. Therefore optimal utilisation of injected damping moment of the FSM. 
+    Thinking of fast and slow voltage gradients: fast gradients are compensated by the FSM, slow gradients are compensated by the OLTC. 
+    Therefore optimal utilisation of injected damping moment of the FSM. 
     
-    Also thinking of different presets of the OLTC and FSM, which are tried to keep constant. Different grid operators can utilize for typical grid conditions of over- or undervoltage at \acs{PCC}.
+    Also thinking of different presets of the OLTC and FSM, which are tried to keep constant. 
+    Different grid operators can utilize for typical grid conditions of over- or undervoltage at \acs{PCC}.
     
     Following contains:
     \begin{itemize}
@@ -61,28 +77,25 @@
 \subsection{Results}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Influence of FSM on Voltage Angle Stability of Machines}
-
-\commenting{Thinking of Rotor Angle Stability, maybe considered by an EAC implementation?
-
-What does the fast Switching, esp. at up to 8\% of the nominal voltage, do to the machines?
-
-Comparison between standard Transformer / OLTC and FSM control.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Possible Extension for Power Flow Congruent Control}
 
-\commenting{Extension in the Control Algorithm to decide which Bus has to be regulated, to avoid contrairy actions of the OLTC and FSM against the power flow. Therefore not decrease of stability, but increase. Possible Application: Grid coupling Transformers, Battery Storage assisted Virtual powerplants, etc.
+\commenting{
+    Extension in the Control Algorithm to decide which Bus has to be regulated, to avoid contrairy actions of the OLTC and FSM against the power flow.
+    Therefore not decrease of stability, but increase. 
+    Possible Application: Grid coupling Transformers, Battery Storage assisted Virtual powerplants, etc.
 
-For this thinking maybe another control strategy is relevant:
-\begin{itemize}[nosep]
-    \item No setpoint from a load flow day-ahead or similar time frame; but rather current load and bus voltages are considered
-    \item Not the deviation of one transformer bus voltage from a setpoint, but the deviation between the two bus voltages is relevant
-    \item Maybe the absolut deviation to the optimal bus voltages at the current load situation is relevant  
-\end{itemize}
+    For this thinking maybe another control strategy is relevant:
+    \begin{itemize}[nosep]
+        \item No setpoint from a load flow day-ahead or similar time frame; but rather current load and bus voltages are considered
+        \item Not the deviation of one transformer bus voltage from a setpoint, but the deviation between the two bus voltages is relevant
+        \item Maybe the absolut deviation to the optimal bus voltages at the current load situation is relevant  
+    \end{itemize}
 
-Big general problem: In which direction does the OLTC / the FSM have to swith? In some cases, the direction is not correct, in some it is correct.}
+    Big general problem: In which direction does the OLTC / the FSM have to swith? 
+    In some cases, the direction is not correct, in some it is correct.
+}
 
 
 \section{Summary in Short and Simple Terms}

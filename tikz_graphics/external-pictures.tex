@@ -39,6 +39,7 @@
 \usepackage{circuitikzgit}
 \input{tikz_styles.tex}
 \usetikzlibrary{arrows.meta}
+\usepackage{pgf-umlcd}
 
 \tikzexternalize[prefix=images/]
 
@@ -48,6 +49,10 @@
 
 \pagestyle{empty}
 \usetikzlibrary{shapes,arrows,positioning,calc}
+
+\renewcommand{\umltextcolor}{ees_black}
+\renewcommand{\umlfillcolor}{ees_green!10}
+\renewcommand{\umldrawcolor}{ees_green!90}
 
 \begin{document}
 

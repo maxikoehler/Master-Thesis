@@ -16,18 +16,26 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Representative Electrical Networks}
 
-The following section shall introduce the used power systems in the simulation with the Python framework, considering verification, and also extension meaning the performed case studies in \autoref{chap:case-study}. The models are chosen to represent different network sizes and complexities, thus allowing the objective of graded interaction levels of the developed (transformer) model. The models are based on the work of \textcite{machowskiPowerSystemDynamics2020}, \textcite{kundurPowerSystemStability2022}, \textcite{IEEEGuideLoad2022}, and \textcite{vancutsemTestSystemsVoltage2020}.
+The following section shall introduce the used power systems in the simulation with the Python framework, considering verification, and also extension meaning the performed case studies in \autoref{chap:case-study}. 
+The models are chosen to represent different network sizes and complexities, thus allowing the objective of graded interaction levels of the developed (transformer) model. 
+The models are based on the work of \textcite{machowski_2020}, \textcite{kundur_2022}, \textcite{IEEELoadModeling_2022}, and \textcite{vancutsem_2020}.
 
 \subsubsection{Single Machine Infinite Bus (SMIB) Model}
 
-One very popular and thus powerful electrical network for the verification of power system stability is the \acs{SMIB} model. It is a compact and simplified model of a power system, allowing easy analytical calculation, verification and development. Mutual influences are comparably simple to understand and calculate, as the infinite bus bus is acting as a fixed grid connection point with a large adjoining grid. The generator is connected to the bus bar via a transmission line and a transformer. The model was largely discussed by \textcite{kundurPowerSystemStability2022}, and is shown in Figure \ref{fig:smib-model}. The generator and the \acs{IBB} are represented by synchronous machines, developed and discussed by \textcite{kordowichPhysicsInformedMachine2023}. The specific model details are included in \autoref{app:smib-model}, additionally the simulation setup for verification is described in \autoref{tab:smib-model}.
+One very popular and thus powerful electrical network for the verification of power system stability is the \acs{SMIB} model. 
+It is a compact and simplified model of a power system, allowing easy analytical calculation, verification and development. 
+Mutual influences are comparably simple to understand and calculate, as the infinite bus bus is acting as a fixed grid connection point with a large adjoining grid. 
+The generator is connected to the bus bar via a transmission line and a transformer. 
+The model was largely discussed by \textcite{kundur_2022}, and is shown in Figure \ref{fig:smib-model}. 
+The generator and the \acs{IBB} are represented by synchronous machines, developed and discussed by \textcite{kordowich_2023}. 
+The specific model details are included in \autoref{app:smib-model}, additionally the simulation setup for verification is described in \autoref{tab:smib-model}.
 
 \begin{figure}[htb]
     \centering
     \vspace{12pt}
     \includegraphics{tikz_graphics/images/smib_model.pdf}
     \vspace{12pt}
-    \caption[]{\acf{SMIB} model for verification and validation of the Python framework; own figure after \autocite{machowskiPowerSystemDynamics2020,kundurPowerSystemStability2022}}
+    \caption[]{\acf{SMIB} model for verification and validation of the Python framework; own figure after \autocite{machowski_2020,kundur_2022}}
     \label{fig:smib-model}
 \end{figure}
 
@@ -53,7 +61,8 @@ One very popular and thus powerful electrical network for the verification of po
     \end{tabularx}
 \end{table}
 
-Further, this model shall be slightly modified according to \autoref{fig:smib-model-mod}. A load is added at the secondary bus of the transformer, the rest of the system is kept. \autoref{tab:smib-model} already contains this modification.
+Further, this model shall be slightly modified according to \autoref{fig:smib-model-mod}. 
+A load is added at the secondary bus of the transformer, the rest of the system is kept. \autoref{tab:smib-model} already contains this modification.
 
 \begin{figure}[htb!]
     \centering
@@ -66,18 +75,26 @@ Further, this model shall be slightly modified according to \autoref{fig:smib-mo
 
 \subsubsection{Simple Single Machine Load Model}
 
-Following model is often recommended \quelle for easy voltage control studies, in explicit for \acsp{OLTC}. Similar to the \acs{SMIB} model, it consists from one synchronous generator, busses, and lines in a single branch. The \acs{IBB} is thus removed and changed to a load. This two element type o configuration allows for an easy analytical calculation of voltage stability and control. Although this thesis is focussing on \acs{OLTC} transformers, the model is extended with one in between. A single line representation is depicted in \autoref{fig:single-line-voltage-stability}.
+Following model is often recommended \quelle for easy voltage control studies, in explicit for \acsp{OLTC}. 
+Similar to the \acs{SMIB} model, it consists from one synchronous generator, busses, and lines in a single branch. 
+The \acs{IBB} is thus removed and changed to a load. 
+This two element type o configuration allows for an easy analytical calculation of voltage stability and control. 
+Although this thesis is focussing on \acs{OLTC} transformers, the model is extended with one in between. 
+A single line representation is depicted in \autoref{fig:single-line-voltage-stability}.
 
 \begin{figure}[htb!]
     \centering
     \vspace{12pt}
     \includegraphics{tikz_graphics/images/sm_load_model.pdf}
     \vspace{12pt}
-    \caption{Single line representation of a simple single machine load model; own illustration with characterstics from \quelle}
+    \caption[Single line representation of a simple single machine load model]{Single line representation of a simple single machine load model; own illustration with characterstics from \quelle}
     \label{fig:single-line-voltage-stability}
 \end{figure}
 
-Further details about its configuration and simulation setup are included in \autoref{app:single-line-model}. It should be noted, that simple load models are not useful for simulation of this example network. Usually constant Z models are used as loads, therefore simulation results can be misleading and not showing desired effects or voltage instability mechanisms \quelle. \commenting{The simulation framework is extended with XX types of load models, to satisfy the requirements of the single machine load model, and a connected stability assessment.}
+Further details about its configuration and simulation setup are included in \autoref{app:single-line-model}. 
+It should be noted, that simple load models are not useful for simulation of this example network. 
+Usually constant Z models are used as loads, therefore simulation results can be misleading and not showing desired effects or voltage instability mechanisms \quelle. 
+\commenting{The simulation framework is extended with XX types of load models, to satisfy the requirements of the single machine load model, and a connected stability assessment.}
 
 \subsubsection{IEEE Nine-Bus System}
 

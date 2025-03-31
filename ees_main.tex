@@ -86,8 +86,9 @@ skip=4pt
 \pagenumbering{Roman}									% R�mische Seitennummerierung
 
 \include{ees_stuff/deckblatt}									% Deckblatt
-% \include{ads/abstract}									% Abstract
-% \include{ees_stuff/erklaerung}								% Erkl�rung der Eigenarbeit
+\include{ads/acknowledgements}
+\include{ads/abstract}									% Abstract
+\include{ees_stuff/erklaerung}								% Erkl�rung der Eigenarbeit
 % \include{ees_stuff/aufgabe} 									% Aufgabenstellung (optional)
 \cleardoublepage
 \begin{spacing}{1.15}									% evtl. kleinerer Zeilenabstand im IV, AV, TV
@@ -119,7 +120,7 @@ skip=4pt
 \cleardoublepage
 \pagenumbering{alph}
 \setcounter{page}{1}
-\addcontentsline{toc}{chapter}{Appendix}
+\phantomsection\addcontentsline{toc}{chapter}{Appendix}
 \appendix
 \input{ads/appendix}
 

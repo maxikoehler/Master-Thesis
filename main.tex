@@ -3,11 +3,14 @@
 % \makeglossaries
 
 \input{ads/tikz_styles}
+% \usepackage{layout}
 
 \begin{document}
+	% \renewcommand{\sidenote}[1]{}
 	% \tikzexternalize[prefix=images/]
 	\pagenumbering{Roman}
 
+	% \layout
 	% \input{ads/FAU_Booklet_Cover}
 
 	% Deckblatt
@@ -42,13 +45,13 @@
 	% \cleardoublepage
 	% \input{ads/dedication.tex}
 
-	% % Acknowledgements
-	% \cleardoublepage
-	% \input{ads/acknowledgements.tex}
+	% Acknowledgements
+	\cleardoublepage
+	\input{ads/acknowledgements.tex}
 
-	% % Abstract
-	% \clearpage
-	% \input{ads/abstract.tex}
+	% Abstract
+	\clearpage
+	\input{ads/abstract.tex}
 
 	% % Aufgabenstellung
 	% \clearpage
@@ -138,7 +141,7 @@
 	\cleardoublepage
 	\pagenumbering{alph}
 	\setcounter{page}{1}
-	\addcontentsline{toc}{chapter}{Appendix}
+	\phantomsection\addcontentsline{toc}{chapter}{Appendix}
 	\appendix
 	\input{ads/appendix}
 \end{document}

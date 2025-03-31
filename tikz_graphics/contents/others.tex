@@ -4,6 +4,51 @@
 
 \vspace{1cm}
 
+
+\tikzsetnextfilename{class_diagram_nosecurve_red}
+\begin{figure}[htb]
+    \centering
+    \begin{tikzpicture}
+        % \footnotesize
+        % \begin{package}{voltage}
+            \begin{class}[text width=5cm]{NoseCurve}{0,0}
+                \attribute{+ results}
+                \attribute{+ ps$\_$sim}
+                \attribute{- p$\_$vector}
+                \attribute{- phi$\_$vector}
+                \attribute{- loadmodel}
+                \operation{+ run$\_$calculation()}
+                \operation{+ reset$\_$sim$\_$parameters()}
+                \operation{+ plot$\_$nose$\_$curve()}
+                \operation{+ get$\_$max$\_$loadings()}
+            \end{class}       
+        % \end{package}
+    \end{tikzpicture}
+    \caption{Class NoseCurve Diagram}
+\end{figure}
+
+\tikzsetnextfilename{class_diagram_nosecurve_complete}
+\begin{figure}[htb]
+    \centering
+    \begin{tikzpicture}
+        % \footnotesize
+        % \begin{package}{voltage}
+            \begin{class}[text width=12cm]{NoseCurve}{0,0}
+                \attribute{+ results: \hfill dict[DataFrame]}
+                \attribute{+ ps$\_$sim: \hfill diffpssi.PowerSystemSimulation}
+                \attribute{- p$\_$vector: \hfill list}
+                \attribute{- phi$\_$vector: \hfill list}
+                \attribute{- loadmodel: \hfill callable}
+                \operation{+ run$\_$calculation(bus: list[str]): \hfill dict[pd.DataFrame]}
+                \operation{+ reset$\_$sim$\_$parameters(): \hfill None}
+                \operation{+ plot$\_$nose$\_$curve(busses: list[str],\\\quad\quad size: tuple $=$ (12, 6),\\\quad\quad title: bool $=$ True,\\\quad\quad save$\_$path: str $=$ None): \hfill None}
+                \operation{+ get$\_$max$\_$loadings(busses: list[str]): \hfill dict[dict[DataFrame]]}
+            \end{class}       
+        % \end{package}
+    \end{tikzpicture}
+    \caption{Class NoseCurve Diagram Complete}
+\end{figure}
+
 % \begin{tikzpicture}[node distance = 1.5cm, auto]
 %     % Place nodes
 %     \node [papStart] (Start1){Start};

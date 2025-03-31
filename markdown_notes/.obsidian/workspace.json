@@ -8,22 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "410860b7b6119366",
-            "type": "leaf",
-            "pinned": true,
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Zettelkasten/Y Meeting Notes/2025-03-17 Bi-Weekly 11.md",
-                "mode": "source",
-                "source": false
-              },
-              "pinned": true,
-              "icon": "lucide-file",
-              "title": "2025-03-17 Bi-Weekly 11"
-            }
-          },
-          {
             "id": "2d9d9804a776bae7",
             "type": "leaf",
             "pinned": true,
@@ -42,13 +26,15 @@
           {
             "id": "25e7b85c0640ec9d",
             "type": "leaf",
+            "pinned": true,
             "state": {
               "type": "markdown",
               "state": {
                 "file": "Zettelkasten/Y Meeting Notes/2025-04-07 Bi-Weekly 13.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
+              "pinned": true,
               "icon": "lucide-file",
               "title": "2025-04-07 Bi-Weekly 13"
             }
@@ -243,15 +229,15 @@
       "command-palette:Befehlspalette öffnen": false
     }
   },
-  "active": "2d9d9804a776bae7",
+  "active": "25e7b85c0640ec9d",
   "lastOpenFiles": [
+    "Zettelkasten/Y Meeting Notes/2025-03-24 Bi-Weekly 12.md",
+    "Zettelkasten/Y Meeting Notes/2025-03-17 Bi-Weekly 11.md",
+    "Zettelkasten/Y Meeting Notes/2025-04-07 Bi-Weekly 13.md",
     "Zettelkasten/0 Brain Dump/Work to Do - Perspective Packages.md",
     "Zettelkasten/0 Brain Dump/Fast-Switching Module (FSM) - functional operation.md",
     "Zettelkasten/0 Brain Dump/Thesis structure.md",
     "Validation Test Cases.md",
-    "Zettelkasten/Y Meeting Notes/2025-04-07 Bi-Weekly 13.md",
-    "Zettelkasten/Y Meeting Notes/2025-03-24 Bi-Weekly 12.md",
-    "Zettelkasten/Y Meeting Notes/2025-03-17 Bi-Weekly 11.md",
     "Zettelkasten/Y Meeting Notes/2025-02-24 Bi-Weekly 10.md",
     "Zettelkasten/Y Meeting Notes/2025-02-10 Bi-Weekly 9.md",
     "Zettelkasten/0 Brain Dump/Time Dependent Load- and Supply Power.md",
