@@ -1,5 +1,7 @@
 */*.DS_Store
 
+.venv
+
 ## Core latex/pdflatex auxiliary files:
 */*.alof
 */*.alotx

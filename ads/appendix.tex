@@ -25,12 +25,47 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Fundamentals}
 
+\section{Comparison of Trigonometric Functions}
+\label{app:trogonometric-func-comp}
+
+\begin{figure}[htbp!]
+    \centering
+    % \missingfigure{Comparison Tan, Cos, and Sin}
+    \includegraphics[width=\linewidth]{plots/trigonometric_functions.pdf}
+    \caption[Plot comparison of trigonometric functions]{Plot comparison of trigonometric functions}
+    \label{fig:trigonometric-func}
+\end{figure}
+
+\begin{table}[htbp!]
+    \centering
+    \small
+    \caption{Comparison of trigonometric functions dependent on the angle $\phi$ in degree or radians}
+    \vspace*{12pt}
+    \begin{tabularx}{\linewidth}{XXXXX}
+        \textbf{Angle in $^\circ$} & \textbf{Angle in rad} & \textbf{$\sin$} & \textbf{$\cos$} & \textbf{$\tan$} \\ \toprule
+        0   & 0         & 0         & 1         & 0 \\
+        10  & 0.1745    & 0.1736    & 0.9848    & 0.1763 \\
+        20  & 0.3490    & 0.3420    & 0.9397    & 0.3640 \\
+        30  & 0.5236    & 0.5       & 0.8660    & 0.5774 \\
+        40  & 0.6981    & 0.6428    & 0.7660    & 0.8391 \\
+        50  & 0.8727    & 0.7660    & 0.6428    & 1.1918 \\ 
+        60  & 1.0472    & 0.8660    & 0.5       & 1.7321 \\
+        70  & 1.2217    & 0.9397    & 0.3420    & 2.7475 \\
+        80  & 1.3962    & 0.9848    & 0.1736    & 5.6713 \\
+        90  & 1.5708    & 1         & 0         & $\nexists$ \\
+        120 & 2.0944    & 0.8660    & -0.5      & -1.7321 \\
+        150 & 2.6180    & 0.5       & -0.8660   & -0.5774 \\
+        180 & 3.1416    & 0         & -1        & 0 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
 \section{Description of the Power System Simulation process}
 \label{app:power-system-modeling}
 
 In this appendix section, the general process of power system simulation is described. As this thesis is aiming to understand voltage stability and processes in longer periods of time, these explanations apply to pointer-based simulations, called RMS simulations. Meaning that the considered effects are slower electromechanical nature instead of faster electromagnetic ones. The in this thesis used Python framework \glqq \textit{diffpssi}\grqq~is based on this type of simulation, and due to its open-source based nature traceable.
 
-\begin{figure}[htbp]
+\begin{figure}[htbp!]
     \centering
     % \includegraphics[width=\textwidth]{fundamentals/power-system-simulation-process.pdf}
     \missingfigure{Power system simulation process}
@@ -62,7 +97,7 @@ In this appendix section, the general process of power system simulation is desc
 
 \textcite{danish_2015} is showing, describing, and referencing some voltage stability indices based on the Jacobian matrix. The following table is a collection of these indices.
 
-\begin{sidewaystable}[htbp!]
+\begin{sidewaystable}[h]
     \centering
     \small
     \caption{Jacobian based voltage stability criterions; after \textcite{danish_2015}}

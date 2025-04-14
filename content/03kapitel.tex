@@ -105,17 +105,45 @@ Usually constant Z models are used as loads, therefore simulation results can be
 \section{Validation Steps}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Validation of the $\Pi$-Modeled Transformer with Variable Tap Position}
+\subsection{Validation of the Modeled Transformer with Variable Tap Position}
 
-\begin{figure}[htb!]
+\begin{figure}[htbp!]
     \centering
     \includegraphics[width=\textwidth]{validation/comp_simple_pi.pdf}
     \caption{Comparison of the $\Pi$-modeled transformer in the \acs{SMIB} model between PowerFactory and the Python framework}
     \label{fig:comp-simple-pi}
 \end{figure}
 
+\begin{figure}[htbp!]
+    \centering
+    \missingfigure{Comparison S, theta, x1}
+    \caption{Comparison of different varied parameters between \textit{diffpssi} and \textit{DIgSILENT PowerFactory}}
+    \label{fig:validation-params-pi-trafo}
+\end{figure}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Validation of the OLTC Control Schemes}
+
+\begin{figure}[htbp!]
+    \centering
+    \missingfigure{Scenario -> Comparison of bus voltage development between PF and diffpssi}
+    \caption{Comparison of bus voltages over the simulation time for both Python framework \textit{diffpssi} and \textit{DIgSILENT PowerFactory} with the applied \acs{FSM} control scheme}
+    \label{fig:comp-fsm-control}
+\end{figure}
+
+\commenting{
+    Due to some factors (which?), the control becomes more off the more states it has -> FSM seems not good, OLTC okay, Loads nearly identical.
+    This means there must be differences within the static / dynamic time steps, the load model parameterization, The load model behavior, the model of the transformer itself, the discrecity of the transformer tap control etc.
+
+    This means: Showing, that the control algorithmics is switching correctly, no matter what the result does look like at the bus voltages e.g.
+}
+
+\begin{figure}[htbp!]
+    \centering
+    \missingfigure{Scenario -> K and M integgrator, switching signals, voltahe differences (inputs etc.)}
+    \caption{Internal states in the \acs{FSM} control during the applied scenario}
+    \label{fig:internal-states-fsm-control}
+\end{figure}
 
 \subsubsection{Standard Discrete OLTC Control}
 
@@ -124,9 +152,18 @@ Usually constant Z models are used as loads, therefore simulation results can be
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Voltage Stability Rating Plausibility}
 
-\commenting{Place results here, looking at: off nominal tap ratio, and with off nominal phase shifting (e.g. $110^\circ$)}
+\commenting{
+    Place results here, looking at: off nominal tap ratio, and with off nominal phase shifting (e.g. $110^\circ$)
+
+    Things to illustrate:
+    \begin{enumerate}
+        \item Validity of Top Branch Nose Curves: Analytical and PowerFactory; Simple Network and e.g. IEEE 9-bus 
+        \item Analytical Validity OLTC ratio dependent Nose Curves
+        \item Time Domain Projection: Dependence and Stability in transient scenarios vs. continous load increase; Dependence on Machine Controls; Dependence on Apparent Power Capacity of machine 
+    \end{enumerate}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Discussion of Model Limitations and Improvements}
+\section{Model Limitations and Improvements}
 
 \section{Summary in Short and Simple Terms}

@@ -14,6 +14,12 @@
 
 Some blibla as introduction. \autocite{machowski_2020}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{modeling/frt-type2_mv.png}
+    \caption{FRT curve; MV type 2 units}
+\end{figure}
+
 \section{Research Interests}
 \label{sec:research-interests}
 
@@ -165,30 +171,6 @@ Following chapter shall introduce the basics for implementing an \acs{OLTC} equi
 This is considering the already existing surrounding, more detailed the electric behavior of the transformer itself and some control engineering theory for the corrosponding \acs{OLTC}. 
 Thus its main goal is increasing voltage stability \autocite{machowski_2020}, main indices and assessment methods are considered as well.
 
-\commenting{
-    % Transformer $\Pi$-Model:
-    % \begin{itemize}[nosep]
-    %     \item Deviation from 'normal' circuit
-    %     \item Placing the impedance elements on the LV side vs. HV side
-    %     \item Getting into a single line $\Pi$-model
-    %     \item Introducing the tapping factor $\vartheta$; if phase shifting it is getting complex -> how to consider this
-    %     \item Different Y-Bus matrices if LV or HV side is considered
-    %     \item Per-unit problems with the transformer characteristics
-    %     \item Short overview of Open-Source power system simulation packages
-    % \end{itemize}
-    Voltage stability:
-    \begin{itemize}[nosep]
-        \item Definitions, classifications, conditions
-        \item PV-curves / QV-curves
-        \item Derivation of Indices: Practical application
-    \end{itemize}
-    Control engineering:
-    \begin{itemize}[nosep]
-        \item State-of-the-art control mechanisms for OLTCs
-        \item Chaos theory controllers
-    \end{itemize}
-}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Voltage Stability Basics}
 \label{sec:voltage-stability}
@@ -197,15 +179,26 @@ Thus its main goal is increasing voltage stability \autocite{machowski_2020}, ma
 A Practical introduction to voltage stability assessment, methods and indices is given in the standard and extending literature of \textcite{rueda-torres_2024,danish_2015,cutsem_1998}.
 
 \commenting{
-    Interesting to note/implement here: Basic classification, definitions, and the nature or conditions of voltage stability. Such as
+    Interesting to note / implement here: Basic classification, definitions, and the nature or conditions of voltage stability. Such as
     \begin{itemize}[nosep]
         \item Short term vs. long term
         \item Static vs. dynamic
         \item Transmission driven vs. load driven vs. generation driven; stability/instability, and/or contributions 
-        \item Influence OLTC: Restoring voltage level, but not adding reactive capacities; hence adding risk of voltage collapses
         \item Load vs. transmission aspects
+        \item \textbf{Influence OLTC:} Restoring voltage level, but not adding reactive capacities; hence adding risk of voltage collapses
         \item Example mechanism: \textbf{Collapse effect of the nordic test system} \autocite{vancutsem_2020,cutsem_1998}
     \end{itemize}
+}
+
+\commenting{
+    Illustrate possible tools for Voltage Stability Analysis:
+    \begin{itemize}[nosep]
+        \item Nose Curves as static assessment
+        \item Voltage - Power Gradients -> Some sort of Load stiffness
+        \item FRT curves
+        \item And the overall possibilities / goals: Increase time until collapse or problematic behavior: Other units, FACTS, generators, inverters, controllable shunts, load shedding, can begin to act, has more time etc. to impact the system and its voltage stability
+        \item The lomgitudinal OLTC can't be really "supporting" in voltage support -> no change in $\tan \phi$ possible; phase shifting transformers could adress this problem
+    \end{itemize} 
 }
         
 \begin{table}
@@ -215,7 +208,7 @@ A Practical introduction to voltage stability assessment, methods and indices is
     \renewcommand\tabularxcolumn[1]{m{#1}}
     \vspace*{12pt}
     \begin{tabularx}{\textwidth}{llXX}
-        \toprule
+        % \toprule
         \textbf{No} & \textbf{Type} & \textbf{Cause of incident} & \textbf{Time frames} \\
         \toprule
         1 & Long-term & Slowly use up of reactive reserves and no outage & Several minutes to several hours \\
@@ -225,17 +218,86 @@ A Practical introduction to voltage stability assessment, methods and indices is
     \end{tabularx}
 \end{table}
 
+An important comment has to be added towards the dynamic behaviors and the connected analysis strategy towards this.
+This thesis aims to partly enlighten the dynamic influence of \acs{OLTC} control strategies on the dynamic beahavior of the, or resp. one power system.
+According to many standard literautes, is is quite complicated to simplified state or predict stable or unstable operation of a power system in terms of voltage behavior \autocite{machowski_2020}.
+Simply the complex interaction between different units, their control schemes and characteristics, and at least the characteristics of protectional devices, are too many influences.
+As this thesis is only considering a few aspects of the previous mentioned, only a relative comparison can be targeted.
+The use of one stability index for this analysis or predictions is highly unlikely.
+Therefore mixtures of possible illustrations, analysis techniques or similar are combined, enabling a discussion about the thesis scope, transformers and their tap changer control schemes.  
         
 \subsection{Analytical Stability Calculation of Simple Static Power Systems}
 \label{sec:analytical-voltage-stability}
 
-\subsection{Stability Limits of Complexer Systems: Continuation Power Flow}
-\label{sec:continuation-power-flow}
+When looking at a simple power system, consistent of a load and a source, analytically deriving the behavior of voltage over power is in its simplest form.
+The resulting curves show how the system behaves in (quasi-) stationary scenarios.
+Following a system like \autoref{fig:v-stability-system} is used. 
+All follwing equations and analysis methods can be re read in standard literatur like \textcite{machowski_2020}, \textcite{kundur_2022}, or \autocite{cutsem_1998}. 
+
+\begin{figure}[htbp!]
+    \centering
+    % \missingfigure{Simple system from standard literature}
+    \includegraphics[width=\linewidth]{fundamentals/Simple_Load.png}
+    \caption[Simplest Load - Source system for deriving voltage - power behaviors]{Simplest Load - Source system for deriving voltage - power behaviors; own illustration after \autocite{machowski_2020,kundur_2022,milano_2010}}
+    \label{fig:v-stability-system}
+\end{figure}
+
+When looking at the load flow equations, the transferable power over the system from bus one to bus two can be represented by
+\begin{align}
+    S&=P + jQ = \underline{V} \cdot \underline{I}^* \notag \\[12pt]
+    &=\underline{V} \cdot \frac{\underline{E}^* - \underline{V}^*}{-jX} \notag \\[6pt]
+    &=\frac{j}{X} (EV \cos \phi + jEV \sin \phi -V^2). \notag
+\end{align}
+These equations can be split up into the transferable real power in \autoref{eq:func-p-transfer} and the transferable reactive power in \autoref{eq:func-q-transfer}, which might be more common in knowledge and use.
+\begin{align}
+    P&=-\frac{EV}{X} \cdot \sin \phi \label{eq:func-p-transfer} \\[6pt]
+    Q&=-\frac{V^2}{X} + \frac{EV}{X} \cdot \cos \phi \label{eq:func-q-transfer}
+\end{align}
+After elimination of $\phi$, a second order equation dependent on $V^2$ can be obtained.
+Simplifying the terms and rearanging is giving the follwing \autoref{eq:transfer-func}.
+\begin{align}
+    &-P^2 - \frac{E^2}{X}Q + \bigg(\frac{E^2}{2X}\bigg)^2 \geq 0 \label{eq:transfer-func} \\[12pt]
+    &P \leq \frac{E^2}{2X} \quad\text{for}\quad Q=0 \label{eq:simplified-transfer-p} \\[6pt]
+    &Q \leq \frac{E^2}{4X} \quad\text{for}\quad P=0 \label{eq:simplified-transfer-q}
+\end{align}
+The easy intuitively accessed functions, which can be kept in mind are \autoref{eq:simplified-transfer-p} and \autoref{eq:simplified-transfer-q}.
+These represent the functions of the voltage dependent on the real power, when setting the reacitve power to zero, and vice versa. 
+This accounts for power factors of $\cos \phi = 0$ or respectively $\sin \phi = 0$, or translated to the angle itself $\phi = \{0^\circ; 90^\circ\}$.
+\footnote{for all angles in the interval of $\phi = [0^\circ, 180^\circ]$}
+One note to take here, is that the power factor is not consistently used.
+For load flow calculations mostly the sine and cosine representation of the angle between current and voltage is used, for stability analysis, often the tangent function is preferred.
+A table and plot comparison of relations between the functions $\cos$, $\sin$, and $\tan$ are included in the appendix \autoref{app:trogonometric-func-comp}. 
+This also leads to the dependency of $\tan \phi$ in the plotting of the so called Nose Curves, the result of when one is plotting the solutions of \autoref{eq:transfer-func}.
+
+\begin{figure}[htbp!]
+    \centering
+    % \missingfigure{Nose Curves P and Q dependent on V}
+    \begin{subfigure}[b]{.49\linewidth}
+        \includegraphics[width=\linewidth]{fundamentals/p_v_curve.png}
+        \subcaption{P-V \glqq Nose Curve\grqq}
+    \end{subfigure}
+    \begin{subfigure}[b]{.49\linewidth}
+        \includegraphics[width=\linewidth]{fundamentals/v_q_curve.png}
+        \subcaption{V-Q Curve}
+    \end{subfigure}
+    \caption[Nose Curves resulting from maximum power transfer equations]{Nose Curves resulting from maximum power transfer equations; own illustration after \autocite{machowski_2020,kundur_2022,cutsem_1998}}
+    \label{fig:v-stability-system}
+\end{figure}
+
+\commenting{Describe the Nose Curves here briefly: What can one see and extract from that?}
+
+\commenting{
+    Comment on $X$: If completely reactive then Nose curve shape, if real part in there, then form is drastically changing.
+    There is a more complex illustration in 3D with axis P-Q-V.
+}
+
+% \subsection{Stability Limits of Complexer Systems: Continuation Power Flow}
+% \label{sec:continuation-power-flow}
 
 \subsection{Stability Indices for Time Series Calculation}
 \label{sec:stability-indices}
 
-\sidenote{Basic idea and references}
+\sidenote{Basic idea\\and references}
 The idea behind stability indices is monitoring the current voltage stability state of the power system in relation to the critical point.
 This applies not only to static load flow cases, but for time series calculations of short circuits, load shedding or other disturbances.
 Therefore the dynamic contribution can be included as well. \quelle
@@ -318,7 +380,7 @@ They will be implemented in the Python framework in \autoref{sec:application-vol
     \label{tab:considered-indices}
     \vspace{12pt}
     \begin{tabularx}{\textwidth}{llX}
-        \toprule
+        % \toprule
         \textbf{Index} & \textbf{Basis} & \textbf{Description} \\
         \toprule
         VCPI & Jacobian Matrix & The index is based on the Jacobian Matrix, and is showing the proximity of the current system state to the critical voltage collapse point. \\
@@ -373,16 +435,16 @@ A transformer ratio, which is only shifting current angles with the shifting ang
 
 \begin{figure}% [htb!]
     \centering
-    \captionsetup[subfigure]{justification=centering} 
+    % \captionsetup[subfigure]{justification=centering} 
     \begin{subfigure}[c]{.53\textwidth}
         \centering
         \includegraphics[width=\linewidth]{tikz_graphics/images/transformer_complete.pdf}
-        \caption{}
+        \subcaption{Ideal Representation}
     \end{subfigure}
     \begin{subfigure}[c]{.46\textwidth}
         \centering
         \includegraphics[width=\linewidth]{tikz_graphics/images/transformer_reduced.pdf}
-        \caption{}
+        \subcaption{Simplifyied Representation}
     \end{subfigure}
     % \includegraphics[width=.8\textwidth]{fundamentals/trafo_model_deviation.png}
     \caption[Two-Winding Transformer Circuit in the Positive Sequence]{Two-Winding Transformer Circuit in the Positive Sequence; a) ideal representation with impedances on the \acs{HV} side and b) simplifyied circit with only the series impedance related on the \acs{HV} side; own figure after \autocite{machowski_2020,kundur_2022,milano_2010}}
@@ -514,7 +576,7 @@ This specialities are considered in the tap changer modeling, thus further infor
         \item TOPS,
         \item ... .
     \end{itemize}
-    Maybe relate to \href{https://github.com/ps-wiki/best-of-ps}{this GitHub Repo}, comparing different Open-Source Power System Simulation tools.
+    Maybe relate to \href{https://github.com/ps-wiki/best-of-ps}{this GitHub Repo}, comparing different Open-Source Power System Simulation tools. See at source \autocite{jinningwang_2025}.
     Build up like a scan (see Georg's thesis).
 }
         
