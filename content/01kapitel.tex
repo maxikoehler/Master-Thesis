@@ -1,16 +1,24 @@
 %!TEX root = ../main.tex
-
+\begingroup
+\RedeclareSectionCommand[beforeskip=4.5cm]{chapter}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Revitalization of the OLTC} % for Modern Grid Requirements}
 \label{chap:intro}
 
+% \begin{textblock*}{.7\textwidth}(70mm-\offset,25mm-\offset)%(70mm,25mm)
+%     \begin{fquote}[Albert Einstein]
+%         % All models are wrong, but some are useful.
+%         Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.
+%     \end{fquote}
+% \end{textblock*}
 \begin{textblock*}{.7\textwidth}(70mm-\offset,25mm-\offset)%(70mm,25mm)
     \begin{fquote}[Albert Einstein]
-        % All models are wrong, but some are useful.
-        Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.
+        For knowledge is limited to all we know and understand, while imagination embraces the entire world, and all there will be ever to know and understand.
     \end{fquote}
 \end{textblock*}
+
+\endgroup
 
 Some blibla as introduction. \autocite{machowski_2020}
 
@@ -579,6 +587,7 @@ The first and main objective, \textit{diffpssi} is an open source project from G
 This open source tool provides a \acs{RMS} domain simulation of Power Systems, considering passive grid elements like lines, shunts, loads etc., but dynamic and controlled models like Synchronous Machines, Inverters or similar as well.
 The project and the integration of a full Synchronous Machine model is presented in the published paper of \textcite{kordowich_2023}.
 The project is based on little dependencies like numpy, but can as well use the Python module \textit{PyTorch} as backend.
+\textit{PyTorch} allows for differentiation of simulation variables.
 With this, optimzation of grid and machine parameters is possible.
 Future extension and usage in the topics like voltage stability and resp. or control strategies is likely as well.
 

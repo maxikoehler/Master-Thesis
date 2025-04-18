@@ -259,6 +259,13 @@ For simple load:
     \label{fig:valid-ratio-09}
 \end{figure}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{development_files/validation/data/comp_oltc_simple-load_discrept.pdf}
+    \caption[Discreptancy bus voltages when looking at the validation of the simple load model with discrete \acs{OLTC} control]{Discreptancy when looking at the validation of the simple load model with discrete \acs{OLTC} control}
+    \label{fig:comp-oltc-control-discrep}
+\end{figure}
+
 For SMIB with load:
 \begin{figure}[H]
     \centering
@@ -277,15 +284,21 @@ For SMIB with load:
 \subsection{FSM validation}
 
 For simple load:
-Figure with other TDS
-
-Figure with other error 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{development_files/validation/data/signal_vdead_fsm_simple.pdf}
+    \caption{Signal evolution for the voltage difference dependent \acs{FSM} control scheme; Plot of the deadband filtered voltage difference $v_\mathrm{dead}$ for the simple load validation case}
+    \label{fig:signal-vdead-fsm-simple}
+\end{figure}
 
 For SMIB with load:
-Figure with other TDS
 
-Figure with other error 
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{development_files/validation/data/tds_fsm_vdiff.pdf}
+    \caption[\acs{TDS} for a \acs{FSM} control scheme switching based on the voltage difference]{\acs{TDS} for a \acs{FSM} control scheme switching based on the voltage difference}
+    \label{fig:tds-fsm-vdiff-ext-smib}
+\end{figure}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
