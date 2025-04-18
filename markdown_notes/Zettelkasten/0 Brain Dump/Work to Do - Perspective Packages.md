@@ -46,9 +46,11 @@ date: 2025-02-18
 	- [ ] Extended Ideas Controls
 	- [ ] Voltage Stability Calculations
 - [ ] Verification
-	- [ ] Grids / Networks
-	- [ ] Pi Model Validation
+	- [x] Grids / Networks
+	- [x] Pi Model Validation
 	- [ ] Control Circuit Validation
+	- [ ] Describe all parameters of the grids; All scenarios, all everything in detail
+	- [ ] Describe differences between model Machowski and Ilya
 - [ ] Case Studies:
 	- [ ] Objectives
 	- [ ] Setups

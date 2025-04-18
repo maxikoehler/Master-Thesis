@@ -22,6 +22,23 @@ It is not evolving more than necessary details about the package {\itshape diffp
 This section respectively focusses on the dynamics and model behavior of the transformer itself.
 It is split according to the structure of the implementation itself, into the modeling of the $\Pi$-model and the tap changer control.
 For the last mentioned, there are different control schemes implemented and thus described in the subsequent section.
+In the beginning, the rough software structure idea of the extension is described, continuing with a dive into the mathematical relations, and specialities.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Software Architecture Design}
+\label{sec:modeling-architecture}
+
+The first scope of the \textit{diffpssi} extension is to form a modular and easy to maintain class structure. 
+The background is to enable support of adding other types of transformers and resp. or connected control circuits.
+A conceptual chart of this architecture is shown in \autoref{fig:transformer-architecture}.
+It is representing only necessary classes or packages for the transformer and its control.
+
+\begin{figure}[htbp!]
+        \centering
+        \includegraphics[angle=90, width=\linewidth]{modeling/diffpssi_trafo_architecture.png}
+        \caption[Architecture of the implemented models in \textit{diffpssi}]{Architecture of the implemented models in \textit{diffpssi}; Using abstract classes for correct interfaces and improved reusability; only necessary packages, modules and classes are depicted}
+        \label{fig:transformer-architecture}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Implementing a $\Pi$-Representative Circuit with Variable Ratio}
@@ -31,7 +48,7 @@ This results on the one hand from the major differences in the standard literatu
 On the other hand, these differences occur as well in the comparative and validation simulation software \textit{DIgSILENT PowerFactory}.
 The use of these different models is described in its technical reference manual \quelle. 
 
-\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Mathematical Description and Definitions}
 
 \sidenote{Important definitions and literature differences}
@@ -77,7 +94,7 @@ The admittance matrix is then defined as:
         \end{bmatrix} \label{eq:admittance-oltc}
     \end{align}
 The following mathematical result leads to a necessary change in the software implementation.
-Either
+Either \mycomment[MK]{Is this actually the case? Or is it a different condition?}
 \begin{itemize}
         \item the admittance matrix bus indices have to be changed,
         \item the tap ratio has to be reciprocal according to \autoref{eq:tap-ratio-lv}, or
@@ -111,22 +128,10 @@ Another thought or way of representing a transformer with off-nominal ratio is d
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Tap Changer Control Modeling}
+\label{sec:modeling-tap-changer-control}
 
 \commenting{This is the description of the ideas, development, and implementation of a OLTC control scheme.}
 
-\subsubsection{Software Architecture Design}
-
-The first scope of the \textit{diffpssi} extension is to form a modular and easy to maintain class structure. 
-The background is to enable support of adding other types of transformers and resp. or connected control circuits.
-A conceptual chart of this architecture is shown in \autoref{fig:transformer-architecture}.
-It is representing only necessary classes or packages for the transformer and its control.
-
-\begin{figure}[htbp!]
-        \centering
-        \includegraphics[angle=90, width=\linewidth]{modeling/diffpssi_trafo_architecture.png}
-        \caption[Architecture of the implemented models in \textit{diffpssi}]{Architecture of the implemented models in \textit{diffpssi}; Using abstract classes for correct interfaces and improved reusability; only necessary packages, modules and classes are depicted}
-        \label{fig:transformer-architecture}
-\end{figure}
 
 \subsubsection{Discrete Control Loop}
 \commenting{
@@ -197,6 +202,9 @@ The output of the controller is based on the following logic.
 \end{figure}
 
 \subsubsection{Control Schemes for the Fast Switching module}
+
+\commenting{\textbf{ATTENTION:} Two models availabel, described in the paper, where the FSM is preferred and the 'novel' scheme where usage of FSM or OLTC ios dependent on the tap skipping and the deas band. Only the last is usable for verification!}
+
 \commenting{
         \begin{itemize}[nosep]
                 \item Describe implementation
@@ -399,13 +407,13 @@ The solution is reaching exactly until the critical point of power transfer.
         \label{fig:nose-curve-simple-comp}
 \end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Linearization of Power Reserves: Voltage Indices}
-\label{sec:voltage-indices-implementation}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsection{Linearization of Power Reserves: Voltage Indices}
+% \label{sec:voltage-indices-implementation}
 
-\commenting{
-        Basic tangent vector index or second order index implementation possible?
-}
+% \commenting{
+%         Basic tangent vector index or second order index implementation possible?
+% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Using Voltage Envelopes for Criticality Evaluation}
@@ -416,6 +424,7 @@ The solution is reaching exactly until the critical point of power transfer.
         Not only for this classifyied envelope, bus as well for FRT envelopes (MV, HV; Type 2 generation units)
 }
 
+Adding the envelopes described in \textcite{scheiner_2022}, and \textcite{wildenhues_2015}, but as well the \acs{FRT} curves from the the regulations for technical connections to the medium- and high-voltage networks \autocite{vde-tar_2018,vde-tar_2023}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Utilization of Time Series Calculations}

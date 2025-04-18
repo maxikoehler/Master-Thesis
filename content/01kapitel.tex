@@ -14,11 +14,11 @@
 
 Some blibla as introduction. \autocite{machowski_2020}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{modeling/frt-type2_mv.png}
-    \caption{FRT curve; MV type 2 units}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\linewidth]{modeling/frt-type2_mv.png}
+%     \caption{FRT curve; MV type 2 units}
+% \end{figure}
 
 \section{Research Interests}
 \label{sec:research-interests}
@@ -176,7 +176,7 @@ Thus its main goal is increasing voltage stability \autocite{machowski_2020}, ma
 \label{sec:voltage-stability}
 
 % \subsection{Voltage Stability Definitions, Classifications, and Conditions}
-A Practical introduction to voltage stability assessment, methods and indices is given in the standard and extending literature of \textcite{rueda-torres_2024,danish_2015,cutsem_1998}.
+A Practical introduction to voltage stability assessment, methods and indices is given in the standard and extending literature of \textcite{danish_2015,cutsem_1998}. Further, some useful definitions about voltage sagging and practices are mentioned by \textcite{shoup_2004}, some other best practices, current standards, and development potential is presented by \textcite{rueda-torres_2024}.
 
 \commenting{
     Interesting to note / implement here: Basic classification, definitions, and the nature or conditions of voltage stability. Such as
@@ -285,6 +285,10 @@ This also leads to the dependency of $\tan \phi$ in the plotting of the so calle
 \end{figure}
 
 \commenting{Describe the Nose Curves here briefly: What can one see and extract from that?}
+The typical nose shape is visible for a simple network, with only considering reactances $X$ as attributes of the line or transportation grid.
+Directly visible, that no static solution can be found, when surpassing a certain level of real power. 
+This maximum often is referred to as the power transfer limit of the grid or network.
+
 
 \commenting{
     Comment on $X$: If completely reactive then Nose curve shape, if real part in there, then form is drastically changing.
@@ -568,6 +572,22 @@ This specialities are considered in the tap changer modeling, thus further infor
 \end{figure}
 
 \subsection{Open-Source Power System Simulation tools}
+\label{sec:simulation-tools}
+
+For this thesis relevant are mainly two Power System Simulation tools.
+The first and main objective, \textit{diffpssi} is an open source project from Georg Kordowich, member of the chair hosting this thesis.
+This open source tool provides a \acs{RMS} domain simulation of Power Systems, considering passive grid elements like lines, shunts, loads etc., but dynamic and controlled models like Synchronous Machines, Inverters or similar as well.
+The project and the integration of a full Synchronous Machine model is presented in the published paper of \textcite{kordowich_2023}.
+The project is based on little dependencies like numpy, but can as well use the Python module \textit{PyTorch} as backend.
+With this, optimzation of grid and machine parameters is possible.
+Future extension and usage in the topics like voltage stability and resp. or control strategies is likely as well.
+
+The second relevant tool is a commercial software called \textit{PowerFactory} by the company \textit{DIgSILENT}.
+Modeling of the power system elements is described in its technical references, but not open source like \textit{diffpssi}.
+\commenting{Some blibla about PF...}
+
+To give an overview of other open source power system simulation projects, this section shall be used as well.
+
     
 \commenting{
     Some information about other open source python power system simulation tools, such as:
@@ -617,3 +637,12 @@ This leads to the missing possibility to easily obtain mathematical stability fo
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Summary in Short and Simple Terms}
+
+\commenting{
+    Shortly summarize the bullet points / key takeaways from the topics
+    \begin{itemize}
+        \item Voltage Stability - Static and dynamic
+        \item Power System Modeling - especially Transformer Modeling
+        \item New Advancement from Ilya
+    \end{itemize}
+}

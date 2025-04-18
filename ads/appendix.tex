@@ -28,7 +28,7 @@
 \section{Comparison of Trigonometric Functions}
 \label{app:trogonometric-func-comp}
 
-\begin{figure}[htbp!]
+\begin{figure}[H]
     \centering
     % \missingfigure{Comparison Tan, Cos, and Sin}
     \includegraphics[width=\linewidth]{plots/trigonometric_functions.pdf}
@@ -36,7 +36,7 @@
     \label{fig:trigonometric-func}
 \end{figure}
 
-\begin{table}[htbp!]
+\begin{table}[H]
     \centering
     \small
     \caption{Comparison of trigonometric functions dependent on the angle $\phi$ in degree or radians}
@@ -65,7 +65,7 @@
 
 In this appendix section, the general process of power system simulation is described. As this thesis is aiming to understand voltage stability and processes in longer periods of time, these explanations apply to pointer-based simulations, called RMS simulations. Meaning that the considered effects are slower electromechanical nature instead of faster electromagnetic ones. The in this thesis used Python framework \glqq \textit{diffpssi}\grqq~is based on this type of simulation, and due to its open-source based nature traceable.
 
-\begin{figure}[htbp!]
+\begin{figure}[H]
     \centering
     % \includegraphics[width=\textwidth]{fundamentals/power-system-simulation-process.pdf}
     \missingfigure{Power system simulation process}
@@ -97,7 +97,7 @@ In this appendix section, the general process of power system simulation is desc
 
 \textcite{danish_2015} is showing, describing, and referencing some voltage stability indices based on the Jacobian matrix. The following table is a collection of these indices.
 
-\begin{sidewaystable}[h]
+\begin{sidewaystable}[H]
     \centering
     \small
     \caption{Jacobian based voltage stability criterions; after \textcite{danish_2015}}
@@ -139,7 +139,7 @@ Therefore the main focus of this thesis, a two-port with variable translation ra
 \section{Class Diagram of the Class Nose Curves}
 \label{app:nose-curve}
 
-\begin{figure}[htbp!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=12cm]{tikz_graphics/images/class_diagram_nosecurve_complete.pdf}
     \caption{Complete class diagram of the class Nose Curves; including all attributes and methods with data types, returns, and inputs}
@@ -205,13 +205,86 @@ This can be mathematically expressed by following set of equations:
 % \section{OLTC control}
 
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \chapter{Verification}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Verification}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \section{Single-machine infinite bus-bar model}
 % \label{app:smib-model}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Additional Plots from the  Pi Model Validation}
+\label{app:add-validation-plots}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{development_files/validation/data/s_n_comp_complete.pdf}
+    \caption[Model results concerning the variation of the rated apparent power]{Voltage results of the $\Pi$-modeled transformer in the \acs{SMIB} model between PowerFactory and the Python framework; Variation of the rated apparent power $S_\mathrm{n}$; Left column is showing the data for the Pathon module \textit{diffpssi}, on the right the comparative tool \textit{DIgSILENT PowerFactory}}
+    \label{fig:valid-s-compl}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{development_files/validation/data/s_n_comp_1100mva.pdf}
+    \caption{Comparison of one variation parameter between \textit{diffpssi} and \textit{DIgSILENT PowerFactory}; each plot focussing on one bus in the variation of the rated apparent power $S_\mathrm{n}$}
+    \label{fig:valid-s-1100}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{development_files/validation/data/theta_comp_complete.pdf}
+    \caption{Comparison of the $\Pi$-modeled transformer in the \acs{SMIB} model between PowerFactory and the Python framework}
+    \label{fig:valid-ratio-comp}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{development_files/validation/data/theta_comp_ratio09.pdf}
+    \caption{Comparison of one variation parameter between \textit{diffpssi} and \textit{DIgSILENT PowerFactory}; each plot focussing on one bus in the variation of the longitudinal transformer ratio $\vartheta$}
+    \label{fig:valid-ratio-09}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Additional Plots from the Tap Changer Control Schemes}
+\label{app:add-validation-tap-changer}
+
+\subsection{OLTC validation}
+
+For simple load:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{development_files/validation/data/tds_oltc_simple-load.pdf}
+    \caption{\acf{TDS} for standard discrete \acs{OLTC} control scheme applied to the simple load network}
+    \label{fig:valid-ratio-09}
+\end{figure}
+
+For SMIB with load:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{development_files/validation/data/tds_oltc_ex-smib.pdf}
+    \caption[Time Domain Result of the OLTC control scheme applied on the extended \acs{SMIB} network]{\acf{TDS} of the standard discrete \acs{OLTC} control scheme; Result of the extended or modified \acs{SMIB} model with additional load}
+    \label{fig:tds-oltc-ex-smib}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{development_files/validation/data/oltc_ex-smib_integrator.pdf}
+    \caption{Internal signal of the standard discrete \acs{OLTC} control: The integrator signal, representing the time constant for enabling the switching operation}
+    \label{fig:int-signal-oltc-ext-smib-integrator}
+\end{figure}
+
+\subsection{FSM validation}
+
+For simple load:
+Figure with other TDS
+
+Figure with other error 
+
+For SMIB with load:
+Figure with other TDS
+
+Figure with other error 
 
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

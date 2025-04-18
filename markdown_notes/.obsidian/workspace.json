@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Zettelkasten/Y Meeting Notes/2025-04-XX Bi-Weekly 15.md",
+                "file": "Zettelkasten/Y Meeting Notes/2025-04-23 Bi-Weekly 15.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2025-04-XX Bi-Weekly 15"
+              "title": "2025-04-23 Bi-Weekly 15"
             }
           },
           {
@@ -127,7 +127,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "b7017a29e23065ed",
@@ -220,9 +221,9 @@
   "active": "3c41776c06bb8214",
   "lastOpenFiles": [
     "Zettelkasten/0 Brain Dump/Work to Do - Perspective Packages.md",
-    "Zettelkasten/0 Brain Dump/Case Studies.md",
-    "Zettelkasten/Y Meeting Notes/2025-04-XX Bi-Weekly 15.md",
+    "Zettelkasten/Y Meeting Notes/2025-04-23 Bi-Weekly 15.md",
     "2025-04-07 Bi-Weekly 14.md",
+    "Zettelkasten/0 Brain Dump/Case Studies.md",
     "Zettelkasten/Y Meeting Notes/2025-03-31 Bi-Weekly 13.md",
     "Validation Test Cases.md",
     "Zettelkasten/0 Brain Dump/Fast-Switching Module (FSM) - functional operation.md",
