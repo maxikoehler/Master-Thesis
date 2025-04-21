@@ -36,10 +36,17 @@
     \label{fig:trigonometric-func}
 \end{figure}
 
+Trigonometric functions are used as relation between apparent power $S$, active $P$ and reactive power $Q$.
+While in discription of dynamics, the planning of networks or connection of machines, often the cosinodal function and therefore its value is present in the feeling of (engineering) people.
+In stability analysis often the $\tan$ function is used, simply because its directly connecting onle active and reactive power, and because some athematic reformulations are possible with that. 
+\autoref{fig:trigonometric-func} is illustrating relations of these functional values to the angle in rad and degree, while \autoref{tab:trigonometric-func} gives a numerical connection.
+This shall increase the feeling and evaluation of this thesis readers.
+
 \begin{table}[H]
     \centering
     \small
     \caption{Comparison of trigonometric functions dependent on the angle $\phi$ in degree or radians}
+    \label{tab:trigonometric-func}
     \vspace*{12pt}
     \begin{tabularx}{\linewidth}{XXXXX}
         \textbf{Angle in $^\circ$} & \textbf{Angle in rad} & \textbf{$\sin$} & \textbf{$\cos$} & \textbf{$\tan$} \\ \toprule
@@ -259,13 +266,6 @@ For simple load:
     \label{fig:valid-ratio-09}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth]{development_files/validation/data/comp_oltc_simple-load_discrept.pdf}
-    \caption[Discreptancy bus voltages when looking at the validation of the simple load model with discrete \acs{OLTC} control]{Discreptancy when looking at the validation of the simple load model with discrete \acs{OLTC} control}
-    \label{fig:comp-oltc-control-discrep}
-\end{figure}
-
 For SMIB with load:
 \begin{figure}[H]
     \centering
@@ -298,6 +298,14 @@ For SMIB with load:
     \includegraphics[width=\linewidth]{development_files/validation/data/tds_fsm_vdiff.pdf}
     \caption[\acs{TDS} for a \acs{FSM} control scheme switching based on the voltage difference]{\acs{TDS} for a \acs{FSM} control scheme switching based on the voltage difference}
     \label{fig:tds-fsm-vdiff-ext-smib}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{development_files/validation/data/tds_fsm_preferred.pdf}
+    \caption[Differing \acs{TDS} for a \acs{FSM} control scheme preferring the \acs{FSM}]{Differing \acs{TDS} for a \acs{FSM} control scheme preferring the \acs{FSM}}
+    \label{fig:tds-fsm-preferred}
 \end{figure}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

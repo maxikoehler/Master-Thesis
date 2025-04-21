@@ -40,6 +40,8 @@ It is representing only necessary classes or packages for the transformer and it
         \label{fig:transformer-architecture}
 \end{figure}
 
+\commenting{Describe the logic and thought sof the software here.}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Implementing a $\Pi$-Representative Circuit with Variable Ratio}
 
@@ -108,21 +110,14 @@ Another thought or way of representing a transformer with off-nominal ratio is d
 
 \subsubsection{Thoughts, Design, and Implemetation of Algorithmics}
 
+\commenting{OLTC Transformer Class (needed interface / logable data, interface methods, and the abstract design)}
+
 \commenting{
-        Base idea here: 
-        \begin{itemize}[nosep]
-                \item Show the thought process, design sketches and the implemetation algorithmics in the Python framework.
-                \item Add a class diagram of the transformer model, with all needed interface / logable data, interface methods, and the abstract design.
-                \item Describe addtional methods.
-                \item Show the algorithmic implemetation logic of the Pi model, but not the Tap Changer, as this is seperated. 
-        \end{itemize}
         Additionally interesting extensions:
         \begin{itemize}[nosep]
-                \item How to automatically determine switching direction?\\
-                -> switchin direction dependent on what? (load-flow direction?)
-                \item Controller set points: also dependent on load flow?
-                \item How can I change the transformer control setpoints to be load flow dependent?
-                \item How can I ensure, utilization of the transformer is not $>S_\mathrm{n}$?
+                \item In which direction the matrix has to be inserted?
+                \item Transformer types
+                \item Measurement side detection for interface towards Tap changer control
         \end{itemize}
 }
 
@@ -140,6 +135,13 @@ Another thought or way of representing a transformer with off-nominal ratio is d
                 \item Describe benefits / drawbacks
                 \item Control scheme
                 \item Switching logic and behavior (voltage tracking)
+        \end{itemize}
+        Additionally interesting extensions:
+        \begin{itemize}[nosep]
+                \item How to automatically determine switching direction?\\
+                -> switchin direction dependent on what? (load-flow direction?)
+                \item Controller set points: also dependent on load flow?
+                \item How can I change the transformer control setpoints to be load flow dependent?
         \end{itemize}
 }
 

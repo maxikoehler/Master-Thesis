@@ -500,23 +500,23 @@ With rearranging the equation, one can obtain the admittance matrix of the $\Pi$
 
 \begin{align}
     \begin{bmatrix}
-        {\color{ees_green}\underline{\vartheta}^*} \underline{I}_1 \\ \underline{I}_2
+        \underline{I}_1 \\ {\color{ees_green}\underline{\vartheta}^*} \underline{I}_2
     \end{bmatrix}&= 
     \begin{bmatrix}
         \underline{Y}_\mathrm{T} & -\underline{Y}_\mathrm{T} \\
         -\underline{Y}_\mathrm{T} & \underline{Y}_\mathrm{T}
     \end{bmatrix} \cdot
     \begin{bmatrix}
-        {\color{ees_green}\frac{1}{\underline{\vartheta}}}~\underline{U}_1 \\ \underline{U}_2
+        \underline{U}_1 \\ {\color{ees_green}\frac{1}{\underline{\vartheta}}}~\underline{U}_2
     \end{bmatrix} \label{eq:admittance-behavior} \\[12pt]
     \underline{\mab{Y}}_\mathrm{\Pi,T}&=\underline{Y}_\mathrm{T} \cdot
     \begin{bmatrix}
-        \frac{1}{\underline{\vartheta}\underline{\vartheta}^*} & -\frac{1}{\underline{\vartheta}^*} \\
-        -\frac{1}{\underline{\vartheta}} & 1
+        1 & -\frac{1}{\underline{\vartheta}} \\
+        -\frac{1}{\underline{\vartheta}^*} & \frac{1}{\underline{\vartheta}\underline{\vartheta}^*} 
     \end{bmatrix} \label{eq:admittance-matrix-pi}
 \end{align}
 
-For calculation of the individual shunt branches, one can apply the standard representation of two-ports consistent of a linear $\Pi$-circuit:
+For calculation of the individual shunt branches, one can apply the standard representation of two-ports consistent of a linear $\Pi$-circuit:\mycomment[MK]{Work this through again!!}
 \begin{align}
     \begin{bmatrix}
         \underline{I}_1 \\ \underline{I}_2

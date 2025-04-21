@@ -49,6 +49,27 @@
     \caption{Class NoseCurve Diagram Complete}
 \end{figure}
 
+\tikzsetnextfilename{class_diagram_oltc_transformer_complete}
+\begin{figure}[htb]
+    \centering
+    \begin{tikzpicture}
+        % \footnotesize
+        % \begin{package}{voltage}
+            \begin{class}[text width=12cm]{OLTC Transformer}{0,0}
+                \attribute{+ from$\_$bus: \hfill dict[DataFrame]}
+                \attribute{+ from$\_$bus$\_$id: \hfill dict[DataFrame]}
+                \attribute{+ from$\_$bus$\_$name: \hfill dict[DataFrame]}
+                \attribute{+ from$\_$voltage: \hfill dict[DataFrame]}
+                \attribute{+ measure$\_$bus: \hfill dict[DataFrame]}
+                \attribute{+ name: \hfill diffpssi.PowerSystemSimulation}
+
+                \operation{+ run$\_$calculation(bus: list[str]): \hfill dict[pd.DataFrame]}
+            \end{class}       
+        % \end{package}
+    \end{tikzpicture}
+    \caption{Class OLTC Transformer Diagram Complete}
+\end{figure}
+
 % \begin{tikzpicture}[node distance = 1.5cm, auto]
 %     % Place nodes
 %     \node [papStart] (Start1){Start};

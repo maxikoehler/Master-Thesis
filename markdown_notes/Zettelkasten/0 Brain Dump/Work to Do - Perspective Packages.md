@@ -19,10 +19,8 @@ date: 2025-02-18
 - [ ] General diffpssi
 	- [x] Zeitabhängige Lasten
 	- [x] Verhalten Synchronmaschine: konst. PV liefern auf konst. PQ (?)
-	- [ ] Second / Third FSM Control: 
-	      - FSM preferred, 
-	      - FSM dependent on tap skips, 
-	      - FSM / OLTC dependent on dynamics
+	- [x] Second FSM Control (FSM dependent on tap skips / Voltage difference)
+	- [ ] Third FSM Control (Dynamic dependent switching)
 	- [ ] _(Plotting Lib)_ 
 	     - Basic TDS Plots von Spannungen an Bussen
 	     - FRT Kurven adden, 
@@ -32,19 +30,18 @@ date: 2025-02-18
 	- [ ] Doku?
 	- [ ] Test Cases?
 ### Validation
-1. Pi Model Notebook
-2. Control Schemes Notebook
-	 - Bus Voltage behavior
-	 - Inner Constants and Switching signals
+1. ✅ Pi Model Notebook
+2. ✅ Control Schemes Notebook
 3. Voltage Stability RATING tool: Plausibilities
 	- [ ] Validation of Nose Curve Calculation in PF
-
--> Dazu auf vernünftige Plots achten!
+	- [ ] OLTC Taps as Nose curves
+	- [ ] Time Series Calculation and Load Intersections
 ### Writing
 - [ ] Methodical Modeling:
 	- [ ] Tap Changer Controls
 	- [ ] Extended Ideas Controls
 	- [ ] Voltage Stability Calculations
+	- [ ] Klassendiagramme / Flow Charts / etc.
 - [ ] Verification
 	- [x] Grids / Networks
 	- [x] Pi Model Validation
@@ -77,6 +74,7 @@ Idea here maybe for better comparison: If one has a critical scenario, all busse
 4. **Change of Load Flow** -> Like model I currently have...
 	- Analyze and discuss the SMIB example with load
 	- Observation: Load flow direction is changing, therefore control algorithm of OLTC is not sufficient enough. -> PF same result...
+	- OR: Automatic Detection of the Switching direction
 # Literature
 - [[Machowski, Bialek, Bumby - Power System Dynamics, Stability and Control]]
 - [[IEEE Guide for Load modeling]]
