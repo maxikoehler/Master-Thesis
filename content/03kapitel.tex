@@ -432,6 +432,24 @@ Resulting in the same critical maximum loading of the grid, but at different vol
 This could be expected, as this \acs{OLTC} is solely a longitudinal tap changes, with no phase shifting capabilities at all.
 The maximum transferable power shall thus not be different, as the transformer alone cannont support any reactive power
 
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=\linewidth]{development_files/voltage_stability/plots/nose_curve_tds_load.pdf}
+    \caption{Nose Curve with added \acs{TDS} and the power of a constant impedance load dependent on the voltage as intersection point}
+    \label{fig:nc-tds-load}
+\end{figure}
+
+When concerning the first two visualization extensions, the includation of a \acs{TDS} and the load behavior in the static plot, one can obtain the results from \autoref{fig:nc-tds-load}.
+The basis sceario for this figure is the simple grid model, with an continous linear load increase over time statrting at the ase load of $P=400\text{ MW}$ and $Q=0\text{ Mvar}$.
+The load could then be described in dependence of the time $t$ as 
+\begin{align}
+    s(t) = s_0 + 80\text{ MVA} \cdot t \notag,
+\end{align}
+resulting in a maximum power of approx. $P=10^4\text{ MW}$ after the complete simulation time of $120$ s.
+One important thing to note on this figure is the usage of machine controllers, explicitly a \ac{SEXS}, \ac{GOV}, and a \ac{PSS}.
+The parameterization of these models is included in \autoref{tab:machine-controllers}.
+The size of the machine is set to $2200$ MVA, while its power delivery is at $P=1998$ MW.
+
 \commenting{
     Things to consider:
     \begin{itemize}[nosep]
@@ -444,15 +462,25 @@ The maximum transferable power shall thus not be different, as the transformer a
 
 \begin{figure}[htbp!]
     \centering
-    \includegraphics[width=\linewidth]{development_files/voltage_stability/plots/nose_curve_tds_load.pdf}
-    \caption{Nose Curve with added \acs{TDS} and the power of a constant impedance load dependent on the voltage as intersection point}
-    \label{fig:nc-tds-load}
+    \begin{subfigure}[b]{.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{development_files/voltage_stability/plots/nose_cuve_small-machine.pdf}
+        \subcaption{$2200$ MVA}
+    \end{subfigure}
+    \begin{subfigure}[b]{.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{development_files/voltage_stability/plots/nose_cuve_big-machine.pdf}
+        \subcaption{$5 \cdot 2200$ MVA}
+    \end{subfigure}
+    \caption[Nose Curve and \acs{TDS} for a simple load system without machine controllers]{Nose Curve and \acs{TDS} for a simple load system; Considering a machine without controllers and continous load increase; Left side showing a machine with $2200$ MVA size, on the right five times the size}
+    \label{fig:tds-nose-curve-machine-sizes}
 \end{figure}
+
 
 \subsubsection{Envelope Violation Index}
 
 The following shall demontrate the usage of the \acf{TVI}, when a scenario is either stable or unstable.
-Using a standard \acs{SMIB} from \autoref{sec:networks}, and a added short circuit event from the time step $1$ s untill either $1.1$ s for the stable scenario, and $1.17$s for the unstable scenario.
+Using a standard \acs{SMIB} from \autoref{sec:networks}, and a added short circuit event from the time step $1$ s untill either $1.1$ s for the stable scenario, and $1.17$ s for the unstable scenario.
 Now one can calculate the \acs{TVI} of each bus, the \acs{CSI} of the overall system, and relate all busses to the average of the system.
 Further, the time stamps, where the voltage envelope is cut, can be returned as well. 
 The shwon envelope in \autoref{fig:env-stable} can be replaced by a set of \acs{FRT}-curves as well.
