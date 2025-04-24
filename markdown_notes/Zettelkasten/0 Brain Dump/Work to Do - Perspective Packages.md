@@ -45,7 +45,8 @@ date: 2025-02-18
 - [ ] Verification
 	- [x] Grids / Networks
 	- [x] Pi Model Validation
-	- [ ] Control Circuit Validation
+	- [x] Control Circuit Validation
+	- [x] Voltage Tools
 	- [ ] Describe all parameters of the grids; All scenarios, all everything in detail
 	- [ ] Describe differences between model Machowski and Ilya
 - [ ] Case Studies:

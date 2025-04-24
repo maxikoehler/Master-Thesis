@@ -31,16 +31,28 @@ In the beginning, the rough software structure idea of the extension is describe
 The first scope of the \textit{diffpssi} extension is to form a modular and easy to maintain class structure. 
 The background is to enable support of adding other types of transformers and resp. or connected control circuits.
 A conceptual chart of this architecture is shown in \autoref{fig:transformer-architecture}.
-It is representing only necessary classes or packages for the transformer and its control.
+It is representing only necessary packages, classes, and and attributes for the transformer and its control.
 
 \begin{figure}[htbp!]
         \centering
-        \includegraphics[angle=90, width=\linewidth]{modeling/diffpssi_trafo_architecture.png}
+        \includegraphics[angle=90, height=18cm]{./tikz_graphics/images/software_structure.pdf}%{modeling/diffpssi_trafo_architecture.png}
         \caption[Architecture of the implemented models in \textit{diffpssi}]{Architecture of the implemented models in \textit{diffpssi}; Using abstract classes for correct interfaces and improved reusability; only necessary packages, modules and classes are depicted}
         \label{fig:transformer-architecture}
 \end{figure}
 
-\commenting{Describe the logic and thought sof the software here.}
+The main class for the Power System Simulation, hosting the central data structures and results is called \textit{PowerSystemSimulator}.
+Models, busses, lines, but also transformer objects are connected to each other, and on top of that referenced in the main simulation object as groups represented by lists.
+The transformers shall be connected in the same way as before, but differing from the old transformer considering just the serial impedance, a simple non-tapping transformer sall be integrated next to a longitudinal tap-changing one.
+The room for possible extension, meaning phase shifters or mixtures of these models can be kept by using a abstract class as interface.
+This forces the inheritating classses to override the necessary methods, have at least the mandatory attributes.
+Copying existing and functional structures is easier as well.
+
+The transformer itself is just a mathematical representation of the pi model, considering a serial impedance and two shunt branches.
+Connected control units shall be excluded from this, to ensure modularity as well. 
+Therefore a lot of different control tweaks can be easily implemented and tested.
+To provide a consistant interface here as well, the abstract class \textit{Voltage$\_$Controller} is used.
+Within this thesis implemented are a discrete and a continuous \acs{OLTC} controller, and two discrete \acs{FSM} controllers.
+These reference to the standardized control blocks as well, e.g. PT1 or Integrating elements.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Implementing a $\Pi$-Representative Circuit with Variable Ratio}
@@ -221,13 +233,6 @@ Describe the operational logic and structure of the \acf{FSM} first.
 
 \sidenote{Control logic}
 A control logic for a so called \acs{FSM} has been presented from \textcite{burlakin_2024}, and illustrated in \autoref{fig:fsm-control-loop}.
-
-\begin{figure}[htb!]
-        \centering
-        \includegraphics[width=\textwidth]{modeling/fsm_control_scheme.png}
-        \caption[Control loop of a \acf{FSM}]{Control loop of a \acs{FSM}; scheme based on \textcite{burlakin_2024}}
-        \label{fig:fsm-control-loop}
-\end{figure}
 
 \sidenote{Implementation\\differences}
 However, the implementation logic in Python is slightly differing from the presented scheme in \autocite{burlakin_2024}, simply for not overcomplication of the code and therefeore debugging. 
@@ -410,46 +415,6 @@ The solution is reaching exactly until the critical point of power transfer.
         \label{fig:nose-curve-simple-comp}
 \end{figure}
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \subsection{Linearization of Power Reserves: Voltage Indices}
-% \label{sec:voltage-indices-implementation}
-
-% \commenting{
-%         Basic tangent vector index or second order index implementation possible?
-% }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Using Voltage Envelopes for Criticality Evaluation}
-\label{sec:comb-rating-tool}
-
-\commenting{
-        Using the methods of \autocite{scheiner_2022, wildenhues_2015}: Trajectory Violation Index.
-        Not only for this classifyied envelope, bus as well for FRT envelopes (MV, HV; Type 2 generation units)
-}
-
-Adding the envelopes described in \textcite{scheiner_2022}, and \textcite{wildenhues_2015}, but as well the \acs{FRT} curves from the the regulations for technical connections to the medium- and high-voltage networks \autocite{vde-tar_2018,vde-tar_2023}.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Utilization of Time Series Calculations}
-\label{sec:voltage-stability-time-series}
-
-\commenting{
-        As section before: 
-        \begin{itemize}[nosep]
-                \item Finding critical points of the given system and load parameters
-                \item At every load change: Find static voltage stability point
-                \item Map distance between those points an on the Nose Curves. As well for different Tap changer positions.
-                \item Find the time between an event / begin of non-static behavior, until the critical point is reached and overstepped
-                \item Nice visualization possible?
-        \end{itemize}
-        With similar structure as before:
-        \begin{enumerate}[nosep]
-                \item Idea and background 
-                \item Implementation
-                \item Results
-        \end{enumerate}
-}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Combination of Static Methods with Time Domain Solutions}
@@ -470,8 +435,45 @@ Adding the envelopes described in \textcite{scheiner_2022}, and \textcite{wilden
                 \item Time Indices: Transfer Maximum, Voltage Band, FRT cut
                 \item Integration of Voltage difference over time: Difference between voltage and voltage envelope 
         \end{itemize}
+        
+        Procedure:
+        \begin{enumerate}
+                \item Static solutions available for this scenario: The Load scenario can be stable, but dynamically maye not.
+                \item OLTC can support, and really longer the time, the closer the solution is to the static grid solution
+                \item Critical times for envelope violations
+                \item Comparison of stability scenarios with envelopes
+                \item Weak bus identification
+        \end{enumerate}
+        }
+        
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Using Voltage Envelopes for Criticality Evaluation}
+\label{sec:comb-rating-tool}
+
+\commenting{
+        Using the methods of \autocite{scheiner_2022, wildenhues_2015}: Trajectory Violation Index.
+        Not only for this classifyied envelope, bus as well for FRT envelopes (MV, HV; Type 2 generation units)
 }
+
+Adding the envelopes described in \textcite{scheiner_2022}, and \textcite{wildenhues_2015}, but as well the \acs{FRT} curves from the the regulations for technical connections to the medium- and high-voltage networks \autocite{vde-tar_2018,vde-tar_2023}.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Summary in Short and Simple Terms}
+
+\commenting{
+        Transformer equipment:
+        \begin{itemize}[nosep]
+                \item Two models -> One has to look out for which and which circumstances and definitions
+                \item Phase shifting not possible -> Would be complex number instead of rational 
+                \item Standardized interfaces and design
+        \end{itemize}
+        Voltage Rating Tool:
+        \begin{itemize}[nosep]
+                \item Combination of static and dynamic indices -> Evaluation of network capabilities, machine relation to that, evaluation of dynamic behavior, and assessment of the events
+                \item (Static) Indexes would classify the distance / reserves of the system
+                \item One number to compare for more or less stable
+                \item Finding the weakest busses poossible with that -> Regarding complexer networks
+        \end{itemize}
+}

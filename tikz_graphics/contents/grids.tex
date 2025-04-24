@@ -91,6 +91,18 @@
     \caption{SMIB model with additional load}
 \end{figure}
 
+\tikzsetnextfilename{analytical_model}
+\begin{figure}[htb]
+    \begin{tikzpicture}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
+        % \draw [help lines] (-1,-5) grid (15,5);
+        \draw (0,0) node[oscillator, anchor=east, name=gen]{} --(.5,0)
+        to ++(.5,0) \bushere{1}{$\underline{E}$}{Ref.}
+        to[L=$\underline{Z}$] ++(3,0)
+        \bushere{1}{$\underline{V}$}{Load Bus} -- ++(1,0) \loadside{$P, Q$}{1}{0};
+    \end{tikzpicture}
+    \caption{SMIB model with additional load}
+\end{figure}
+
 \tikzsetnextfilename{4bus3load_model_random}
 \begin{figure}[htb]
     \begin{tikzpicture}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]

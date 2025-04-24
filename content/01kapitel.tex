@@ -183,32 +183,21 @@ Thus its main goal is increasing voltage stability \autocite{machowski_2020}, ma
 \section{Voltage Stability Basics}
 \label{sec:voltage-stability}
 
-% \subsection{Voltage Stability Definitions, Classifications, and Conditions}
 A Practical introduction to voltage stability assessment, methods and indices is given in the standard and extending literature of \textcite{danish_2015,cutsem_1998}. Further, some useful definitions about voltage sagging and practices are mentioned by \textcite{shoup_2004}, some other best practices, current standards, and development potential is presented by \textcite{rueda-torres_2024}.
 
 \commenting{
     Interesting to note / implement here: Basic classification, definitions, and the nature or conditions of voltage stability. Such as
     \begin{itemize}[nosep]
+        \item Some definitions and understandings from \autocite{shoup_2004}
         \item Short term vs. long term
         \item Static vs. dynamic
         \item Transmission driven vs. load driven vs. generation driven; stability/instability, and/or contributions 
         \item Load vs. transmission aspects
-        \item \textbf{Influence OLTC:} Restoring voltage level, but not adding reactive capacities; hence adding risk of voltage collapses
+        \item \textbf{Influence OLTC:} Restoring voltage level, but not adding reactive capacities; hence adding risk / points of voltage collapses -> It can just extend the time, until the voltage band is exceeded
         \item Example mechanism: \textbf{Collapse effect of the nordic test system} \autocite{vancutsem_2020,cutsem_1998}
     \end{itemize}
 }
-
-\commenting{
-    Illustrate possible tools for Voltage Stability Analysis:
-    \begin{itemize}[nosep]
-        \item Nose Curves as static assessment
-        \item Voltage - Power Gradients -> Some sort of Load stiffness
-        \item FRT curves
-        \item And the overall possibilities / goals: Increase time until collapse or problematic behavior: Other units, FACTS, generators, inverters, controllable shunts, load shedding, can begin to act, has more time etc. to impact the system and its voltage stability
-        \item The lomgitudinal OLTC can't be really "supporting" in voltage support -> no change in $\tan \phi$ possible; phase shifting transformers could adress this problem
-    \end{itemize} 
-}
-        
+      
 \begin{table}
     \centering
     \caption[Voltage instability types and different time frames]{Voltage instability types and different time frames with examples; after \quelle}
@@ -217,7 +206,7 @@ A Practical introduction to voltage stability assessment, methods and indices is
     \vspace*{12pt}
     \begin{tabularx}{\textwidth}{llXX}
         % \toprule
-        \textbf{No} & \textbf{Type} & \textbf{Cause of incident} & \textbf{Time frames} \\
+        \textbf{No.} & \textbf{Type} & \textbf{Cause of incident} & \textbf{Time frames} \\
         \toprule
         1 & Long-term & Slowly use up of reactive reserves and no outage & Several minutes to several hours \\
         2 & Classical & Key outage leads to reactive power shortage & One to five minutes \\
@@ -226,6 +215,7 @@ A Practical introduction to voltage stability assessment, methods and indices is
     \end{tabularx}
 \end{table}
 
+\sidenote{Appraoach for dynamic analysis}
 An important comment has to be added towards the dynamic behaviors and the connected analysis strategy towards this.
 This thesis aims to partly enlighten the dynamic influence of \acs{OLTC} control strategies on the dynamic beahavior of the, or resp. one power system.
 According to many standard literautes, is is quite complicated to simplified state or predict stable or unstable operation of a power system in terms of voltage behavior \autocite{machowski_2020}.
@@ -234,9 +224,10 @@ As this thesis is only considering a few aspects of the previous mentioned, only
 The use of one stability index for this analysis or predictions is highly unlikely.
 Therefore mixtures of possible illustrations, analysis techniques or similar are combined, enabling a discussion about the thesis scope, transformers and their tap changer control schemes.  
         
-\subsection{Analytical Stability Calculation of Simple Static Power Systems}
+\subsection{Analytical Stability Limits of Simple Static Power Systems}
 \label{sec:analytical-voltage-stability}
 
+\sidenote{Simple load system}
 When looking at a simple power system, consistent of a load and a source, analytically deriving the behavior of voltage over power is in its simplest form.
 The resulting curves show how the system behaves in (quasi-) stationary scenarios.
 Following a system like \autoref{fig:v-stability-system} is used. 
@@ -245,8 +236,8 @@ All follwing equations and analysis methods can be re read in standard literatur
 \begin{figure}[htbp!]
     \centering
     % \missingfigure{Simple system from standard literature}
-    \includegraphics[width=\linewidth]{fundamentals/Simple_Load.png}
-    \caption[Simplest Load - Source system for deriving voltage - power behaviors]{Simplest Load - Source system for deriving voltage - power behaviors; own illustration after \autocite{machowski_2020,kundur_2022,milano_2010}}
+    \includegraphics{./tikz_graphics/images/analytical_model.pdf}
+    \caption[Simple load source system for deriving voltage power behaviors]{Simple load source system for deriving voltage power behaviors; own illustration after \autocite{machowski_2020,kundur_2022,milano_2010}}
     \label{fig:v-stability-system}
 \end{figure}
 
@@ -268,6 +259,7 @@ Simplifying the terms and rearanging is giving the follwing \autoref{eq:transfer
     &P \leq \frac{E^2}{2X} \quad\text{for}\quad Q=0 \label{eq:simplified-transfer-p} \\[6pt]
     &Q \leq \frac{E^2}{4X} \quad\text{for}\quad P=0 \label{eq:simplified-transfer-q}
 \end{align}
+\sidenote{Power angle $\phi$ and its usage}
 The easy intuitively accessed functions, which can be kept in mind are \autoref{eq:simplified-transfer-p} and \autoref{eq:simplified-transfer-q}.
 These represent the functions of the voltage dependent on the real power, when setting the reacitve power to zero, and vice versa. 
 This accounts for power factors of $\cos \phi = 0$ or respectively $\sin \phi = 0$, or translated to the angle itself $\phi = \{0^\circ; 90^\circ\}$.
@@ -281,7 +273,7 @@ This also leads to the dependency of $\tan \phi$ in the plotting of the so calle
     \centering
     % \missingfigure{Nose Curves P and Q dependent on V}
     \begin{subfigure}[b]{.49\linewidth}
-        \includegraphics[width=\linewidth]{fundamentals/p_v_curve.png}
+        \includegraphics[width=\linewidth]{development_files/theoretical/plots/p_v_analytical.pdf}
         \subcaption{P-V \glqq Nose Curve\grqq}
     \end{subfigure}
     \begin{subfigure}[b]{.49\linewidth}
@@ -292,6 +284,7 @@ This also leads to the dependency of $\tan \phi$ in the plotting of the so calle
     \label{fig:v-stability-system}
 \end{figure}
 
+\sidenote{What can one see and read from the curves?}
 \commenting{Describe the Nose Curves here briefly: What can one see and extract from that?}
 The typical nose shape is visible for a simple network, with only considering reactances $X$ as attributes of the line or transportation grid.
 Directly visible, that no static solution can be found, when surpassing a certain level of real power. 
@@ -306,112 +299,156 @@ This maximum often is referred to as the power transfer limit of the grid or net
 % \subsection{Stability Limits of Complexer Systems: Continuation Power Flow}
 % \label{sec:continuation-power-flow}
 
-\subsection{Stability Indices for Time Series Calculation}
+\subsection{Evaluation of Time Series Calculation}
 \label{sec:stability-indices}
 
 \sidenote{Basic idea\\and references}
-The idea behind stability indices is monitoring the current voltage stability state of the power system in relation to the critical point.
+The idea behind stability indices is monitoring the current voltage stability state of the power system in relation to the critical points or operational limits.
 This applies not only to static load flow cases, but for time series calculations of short circuits, load shedding or other disturbances.
-Therefore the dynamic contribution can be included as well. \quelle
-
 Reviewing possible indices, either for online resp. real time monitoring or for subsequent analysis after a simulation, is out of the scope of this thesis.
-\textcite{danish_2015} has already included an extensive review in his work, with reference to \textcite{doigcardet_2010}, which is focussing on indices in interest for this thesis in particular. 
-\commenting{Jacobian Matrix based interesting, because of the possible observability in \textit{diffpssi}.}
+For static analysis, often the Jacobian Matrix is used as basis.
+The Newton-Raphson algorithm for load flow analysis is based on this construct, as well as many indices.
+Voltage stability can be mathematically formulated, if the Jacobian Matrix is not singular.
 
-\sidenote{The basics of the Jacobian Matrix}
-One easy idea for obtaining a stable operation is looking at the Jacobian Matrix. 
-Although it is mainly used in load flow calculations, it is possible to derive statements about the voltage stability as well.
-This can be realized through the relation of real power $P$, reactive power $Q$, voltage angle $\delta$, and the voltage resp. voltage gradients $\Delta V$. 
-If the Jacobian Matrix is getting singular, the System will not remain in a stable operation.
-Singularity of matrices is checked by following two hypothesis tests:
-\begin{align}
-    &\det(\mab{J})=0 \label{eq:jacobian-det} \\[12pt]
-    &J \times J^{-1} \uparrow \label{eq:jacobian-rank}
-\end{align}
-The Jacobian Matrix is defined as:
-% \sidenote(5.2cm){Jacobian Matrix}
-\begin{align}
-    \mab{J}=
-    \begin{bmatrix}
-        \Delta \mab{P} \\
-        \Delta \mab{Q}
-    \end{bmatrix}&=
-    \begin{bNiceArray}{c|c}
-        \mab{H} & \mab{M'} \\ \hline
-        \mab{N} & \mab{K'}
-    \end{bNiceArray} \cdot
-    \begin{bmatrix}
-        \Delta \delta \\
-        \Delta V/V
-    \end{bmatrix} \notag \\[12pt]
-    \begin{bmatrix}
-        \Delta P_1 \\
-        \vdots \\
-        \Delta P_n \\ \hline
-        \Delta Q_1 \\
-        \vdots \\
-        \Delta Q_n
-    \end{bmatrix}&=
-    \begin{bNiceArray}{ccc|ccc}
-        \frac{\partial P_1}{\partial \delta_1} & \hdots & \frac{\partial P_1}{\partial \delta_n} & V_1\frac{\partial P_1}{\partial V_1} & \hdots & V_n\frac{\partial P_1}{\partial V_n} \\
-        \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
-        \frac{\partial P_n}{\partial \delta_1} & \hdots & \frac{\partial P_n}{\partial \delta_n} & V_1\frac{\partial P_n}{\partial V_1} & \hdots & V_n\frac{\partial P_n}{\partial V_n} \\ \hline
-        \frac{\partial Q_1}{\partial \delta_1} & \hdots & \frac{\partial Q_1}{\partial \delta_n} & V_1\frac{\partial Q_1}{\partial V_1} & \hdots & V_n\frac{\partial Q_1}{\partial V_n} \\
-        \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
-        \frac{\partial Q_n}{\partial \delta_1} & \hdots & \frac{\partial Q_n}{\partial \delta_n} & V_1\frac{\partial Q_n}{\partial V_1} & \hdots & V_n\frac{\partial Q_n}{\partial V_n} \\
-    \end{bNiceArray} \cdot
-    \begin{bmatrix}
-        \Delta \delta_1 \\
-        \vdots \\
-        \Delta \delta_n \\ \hline
-        \Delta V_1/V_1 \\
-        \vdots \\
-        \Delta V_n/V_n
-    \end{bmatrix}
-\end{align}
-
-Although this method seems easy to implement, there are some numerical problems realted to that.
-Checking if a Matrix is singular with numerical methods, can only be realised as a probablilty expression. 
-A result could be, that the determinant of the matrix is below a certain threshold. 
-The algorithm would propose, that the matrix is probabilistic singular. \quelle
+% \textcite{danish_2015} has already included an extensive review in his work, with reference to \textcite{doigcardet_2010}, which is focussing on indices trying to show remaining capabilites to the static power limit. 
+% These indices are often referred to as a linearization of the static assessment with nose curves, as these simple power voltage illustrations have higly nonlinear behavior esp. around the critical point. 
 
 \sidenote{Indices adressing numerical problems}
+Using solely the signularity of the Jacobian Matrix for determination of a stable system is numerical hard to solve and usually very error-prone.
 This problem leads to the necessity of applying other methods or indices for stability assessment. 
 Further, the relation of the system state to the critical voltage collapse point is highly nonlinear in the Jacobian Matrix. 
-This problem is adressed by the indices in various ways, leading to a more or less linearized relation. 
-\quelle \textcite{danish_2015} is proposing a few other indices, that are based on the Jacobian Matrix, and shows comparitive characteristics between Jacobian Matrix and system variable based voltage stability indices. 
-These Jacobian Matrix based indices are listed and further described in \autoref{app:jacobian-voltage-indices}, while the comparative characteristics are described in \autoref{app:jacobian-vs-system-indices}. 
+This problem is adressed by the indices in various ways, leading to a more or less linearized relation \autocite{machowski_2020,danish_2015}. 
+\textcite{danish_2015} is proposing indices, that are also based on the Jacobian Matrix, and shows comparitive characteristics between Jacobian Matrix and system variable based voltage stability indices. 
+These Jacobian Matrix based indices are listed and shortly described in \autoref{app:jacobian-voltage-indices}, while the comparative characteristics are described in \autoref{app:jacobian-vs-system-indices}. 
 The aforeside mentioned work of \textcite{doigcardet_2010} is focussing on these indices in particular.
+This thesis is thus not considering these static assessment based indices, as the simulative nature allows for easier static eavluation with simple nose curves. 
 
-For this thesis, the indices in \autoref{tab:considered-indices} are chosen on the basis of the work of \textcite{danish_2015} and \textcite{doigcardet_2010}. 
-They will be implemented in the Python framework in \autoref{sec:application-voltage-stability}, and used for with the theoretical calculated limits of \autoref{sec:analytical-voltage-stability} and \autoref{sec:continuation-power-flow}.
+\sidenote{Comparability of time series}
+Considering the nose curve from \autoref{fig:v-stability-system}, one can see a static solution around the maximum power transfer, that is way below the initial voltage.
+And when taking into account grid codes and their connection rules for generation units, also outside any \ac{FRT} behavior neither a static reasonable operation point.
+Therefore, not only to comply with grid codes, but to avoid operational unit failures due to high currents or high voltages, this \acs{FRT} behavior shall be used as a sort of envelope.
+This allows or easy comparison, either if the scenario is exceeding this grid code envelopes seen as critical, but also to calculate the significance of this violation.
+\textcite{scheiner_2022} and \textcite{wildenhues_2015} propose an index called \ac{TVI}
+The index is, simplified summarized, integrating the envelope violation over the simulation time.
+Although they are using not \acs{FRT} curves, but a more scientific representation of such an envelope, this idea shall be implemented and used in this thesis.
 
-\begin{table}[htb!]
-    \centering
-    \caption[Voltage stability indices for the assessment in this thesis]{Voltage stability indices for the assessment of the power system stability in this thesis; after \quelle}
-    \label{tab:considered-indices}
-    \vspace{12pt}
-    \begin{tabularx}{\textwidth}{llX}
-        % \toprule
-        \textbf{Index} & \textbf{Basis} & \textbf{Description} \\
-        \toprule
-        VCPI & Jacobian Matrix & The index is based on the Jacobian Matrix, and is showing the proximity of the current system state to the critical voltage collapse point. \\
-        VSI & System Variables & The index is based on the system variables, and is showing the proximity of the current system state to the critical voltage collapse point. \\
-        \bottomrule
-    \end{tabularx}
-\end{table}
+\sidenote{Description of the Index}
+The mathematical background shall be introduced in the following.
+First, the envelopes are computed according to \autoref{eq:t-low} and \autoref{eq:t-upp}.
+The typical used values for this envelope are $v_\mathrm{st}=0.9$ and $\beta \in [0.05,0.1]$ according to \textcite{wildenhues_2015}.
+If one wants to choose the \acs{FRT} curves as envelopes, the technical connection guide lines describe these curves for different generation units connected to different voltage level grids \autocite{vde-tar_2018,vde-tar_2023}.
+\begin{align}
+    T_\mathrm{low}(t) &= \frac{\bigg(\frac{t}{t_\mathrm{end}} \cdot \exp(\frac{t}{t_\mathrm{end}})\bigg)^\beta}{\exp(\beta)},\quad \forall t \in [t_\mathrm{f}, t_\mathrm{end}] \label{eq:t-low} \\[12pt]
+    T_\mathrm{upp}(t) &= 2-T_\mathrm{low}(t) \label{eq:t-upp}
+\end{align}
+The integral is then calculated as the difference between the voltage magnitude and the envelope boarder, resp. the area between the two curves exceeding the envelope.
+The voltage difference equates the voltage violation in \autoref{eq:tvi}.
+This is achieved through the case dependent function in \autoref{eq:tvi-integration-rules}.
+\begin{align}
+    \text{TVI} &= \int_{t_\mathrm{f}}^{t_\mathrm{end}} v_\mathrm{v}(t) \dd{t} \label{eq:tvi}\\[12pt]
+    v_\mathrm{v}(t) &= \begin{cases}
+            T_\mathrm{low}(t) - v(t) & \text{if } v(t) < T_\mathrm{low}(t)\\
+            v(t) - T_\mathrm{upp}(t) & \text{if } v(t) > T_\mathrm{low}(t)\\
+            0 & \text{otherwise}
+    \end{cases} \label{eq:tvi-integration-rules}
+\end{align}
+As this index is dependent on one voltage value, measurement is typically done at each bus.
+The \acs{TVI} then is calculated for every bus.
+One can calculate the \acs{TVI} for the total system according to \autoref{eq:tvi-system}.
+It can be understood as the envelope violation magnitude multiplied by the time.
+\begin{align}
+    \text{TVI}_\mathrm{tot} &= \sum_{i \in N_\mathrm{busses}} \text{TVI}_i \label{eq:tvi-system} \\[12pt]
+    \text{CSI} &= \frac{1}{N_\mathrm{busses}} \sum_{i=1}^{N_\mathrm{busses}} \text{TVI}_i \label{eq:csi-system}
+\end{align}
+On the other hand one can calculate the \ac{CSI} with help of the \acs{TVI} as displayed in \autoref{eq:csi-system}.
+This index is not only giving an approach to normalization the \acs{TVI} regarding to grid sizes through the total number of busses $N_\mathrm{busses}$.
+With this index, short circuit scenarios and their dynamic affecct on various grids can be compared.
+On the other hand it could be used as an average and related to the bus individual \acsp{TVI}.
+This allows for evaluation of the most affected bus(ses) in the system.
 
-\section{Voltage Angle Stability of Machines}
+% \sidenote{The basics of the Jacobian Matrix}
+% One easy idea for obtaining a stable operation is looking at the Jacobian Matrix. 
+% Although it is mainly used in load flow calculations, it is possible to derive statements about the voltage stability as well.
+% This can be realized through the relation of real power $P$, reactive power $Q$, voltage angle $\delta$, and the voltage resp. voltage gradients $\Delta V$. 
+% If the Jacobian Matrix is getting singular, the System will not remain in a stable operation.
+% Singularity of matrices is checked by following two hypothesis tests:
+% \begin{align}
+%     &\det(\mab{J})=0 \label{eq:jacobian-det} \\[12pt]
+%     &J \times J^{-1} \uparrow \label{eq:jacobian-rank}
+% \end{align}
+% The Jacobian Matrix is defined as:
+% % \sidenote(5.2cm){Jacobian Matrix}
+% \begin{align}
+%     \mab{J}=
+%     \begin{bmatrix}
+%         \Delta \mab{P} \\
+%         \Delta \mab{Q}
+%     \end{bmatrix}&=
+%     \begin{bNiceArray}{c|c}
+%         \mab{H} & \mab{M'} \\ \hline
+%         \mab{N} & \mab{K'}
+%     \end{bNiceArray} \cdot
+%     \begin{bmatrix}
+%         \Delta \delta \\
+%         \Delta V/V
+%     \end{bmatrix} \notag \\[12pt]
+%     \begin{bmatrix}
+%         \Delta P_1 \\
+%         \vdots \\
+%         \Delta P_n \\ \hline
+%         \Delta Q_1 \\
+%         \vdots \\
+%         \Delta Q_n
+%     \end{bmatrix}&=
+%     \begin{bNiceArray}{ccc|ccc}
+%         \frac{\partial P_1}{\partial \delta_1} & \hdots & \frac{\partial P_1}{\partial \delta_n} & V_1\frac{\partial P_1}{\partial V_1} & \hdots & V_n\frac{\partial P_1}{\partial V_n} \\
+%         \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+%         \frac{\partial P_n}{\partial \delta_1} & \hdots & \frac{\partial P_n}{\partial \delta_n} & V_1\frac{\partial P_n}{\partial V_1} & \hdots & V_n\frac{\partial P_n}{\partial V_n} \\ \hline
+%         \frac{\partial Q_1}{\partial \delta_1} & \hdots & \frac{\partial Q_1}{\partial \delta_n} & V_1\frac{\partial Q_1}{\partial V_1} & \hdots & V_n\frac{\partial Q_1}{\partial V_n} \\
+%         \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+%         \frac{\partial Q_n}{\partial \delta_1} & \hdots & \frac{\partial Q_n}{\partial \delta_n} & V_1\frac{\partial Q_n}{\partial V_1} & \hdots & V_n\frac{\partial Q_n}{\partial V_n} \\
+%     \end{bNiceArray} \cdot
+%     \begin{bmatrix}
+%         \Delta \delta_1 \\
+%         \vdots \\
+%         \Delta \delta_n \\ \hline
+%         \Delta V_1/V_1 \\
+%         \vdots \\
+%         \Delta V_n/V_n
+%     \end{bmatrix}
+% \end{align}
 
-\commenting{
-    Just short and briefly Describe
-    \begin{itemize}[nosep]
-        \item What is Voltage Angle Stability?
-        \item Why relevant to this thesis?
-        \item How to evaluate: EAC and CCT of a generator
-        \item Maybe something like a max. utilization of max power angle?
-    \end{itemize}
-}
+% Although this method seems easy to implement, there are some numerical problems realted to that.
+% Checking if a Matrix is singular with numerical methods, can only be realised as a probablilty expression. 
+% A result could be, that the determinant of the matrix is below a certain threshold. 
+% The algorithm would propose, that the matrix is probabilistic singular. \quelle
+
+% \begin{table}[htb!]
+%     \centering
+%     \caption[Voltage stability indices for the assessment in this thesis]{Voltage stability indices for the assessment of the power system stability in this thesis; after \quelle}
+%     \label{tab:considered-indices}
+%     \vspace{12pt}
+%     \begin{tabularx}{\textwidth}{llX}
+%         % \toprule
+%         \textbf{Index} & \textbf{Basis} & \textbf{Description} \\
+%         \toprule
+%         VCPI & Jacobian Matrix & The index is based on the Jacobian Matrix, and is showing the proximity of the current system state to the critical voltage collapse point. \\
+%         VSI & System Variables & The index is based on the system variables, and is showing the proximity of the current system state to the critical voltage collapse point. \\
+%         \bottomrule
+%     \end{tabularx}
+% \end{table}
+
+% \section{Voltage Angle Stability of Machines}
+
+% \commenting{
+%     Just short and briefly Describe
+%     \begin{itemize}[nosep]
+%         \item What is Voltage Angle Stability?
+%         \item Why relevant to this thesis?
+%         \item How to evaluate: EAC and CCT of a generator
+%         \item Maybe something like a max. utilization of max power angle?
+%     \end{itemize}
+% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Power System Modeling}
@@ -491,6 +528,7 @@ Using shunt branches, the variable ratio behavior can be represented in a $\Pi$-
     \centering
     \includegraphics[width=.7\textwidth]{tikz_graphics/images/transformer_pi.pdf}
     \caption[$\Pi$-representative circuit of an idealized transformer with a tap changer]{$\Pi$-representative circuit of an idealized transformer with a tap changer; own figure after \autocite{milano_2010,burlakin_2024}}
+    \todo[inline]{Correct the shunt branches.}
     \label{fig:pi-transformer}
 \end{figure}
 
@@ -537,18 +575,6 @@ When equating this with \autoref{eq:admittance-matrix-pi}, the shunt branches ca
     \underline{Y}_{20}&=\bigg(1 - \frac{1}{\underline{\vartheta} \cdot \underline{a}_\mathrm{T}}\bigg) \cdot \underline{Y}_\mathrm{T} \label{eq:y-20}
 \end{align}
 
-% After MACHOWSKI:
-% \begin{align}
-%     \underline{\mab{Y}}_\mathrm{\Pi,T}&= 
-%     \begin{bmatrix}
-%         \underline{Y}_\mathrm{T} & -\underline{\vartheta}\underline{Y}_\mathrm{T} \\
-%         \underline{\vartheta}^*\underline{Y}_\mathrm{T} & -\underline{\vartheta}^*\underline{\vartheta}\underline{Y}_\mathrm{T}
-%     \end{bmatrix} \label{eq:admittance-oltc}
-% \end{align}
-% Another way of writing down the admittance matrix is shown in \autoref{eq:admittance-oltc-2}. It is considering, that the matrix can be split up in a symmetric, constant part, and a variable current injection part. The latter is not symmetrical and depends on the tap position of the transformer. Therefore in some simulation algorithms the static part is used in the admittance matrix, and the variable part is considered in the current injection vector. \autocite{machowski_2020}
-
-
-
 \sidenote{Per unit system\\specialities}
 Reactances and resistances are referred to the base voltage and apparent power of the operational unit, such as the transformer. 
 The power system simulation uses its own base voltage and base apparent power, enabling the use of one single calculation domain. 
@@ -568,10 +594,22 @@ This specialities are considered in the tap changer modeling, thus further infor
 \subsection{Further Considerations of a Transformer Model}
 \label{sec:further-considerations}
 
-\commenting{Describe here the asymetric and non-idealized transformer; phase shifting transformers; transformers, which can control logitudinal and transversal ratios; ...}
+The following described (possible) characteristics of transformers shall not be considered in this thesis.
+They are mentioned in case differences towards other simulation tools occur, which might consider these.
+However, they could be also seen as possible extension of this thesis.
+Some of them could target the stabilization of voltage instable scenarios better, e.g. phase shifting transformers. 
+
+\commenting{
+    Describe here:
+    \begin{itemize}[nosep]
+        \item the asymetric and non-idealized transformer; 
+        \item phase shifting transformers; 
+        \item transformers, which can control logitudinal and transversal ratios; 
+        \item ...
+    \end{itemize} 
+}
 
 \sidenote{Ideal vs. asymmetric ratio}
-\commenting{Just briefly desribe the influence of an asymetric vs. an ideal transformer. Why the difference and how the representation could work.}
 \begin{figure}[htb!]
         \centering
         \includegraphics[width=.7\linewidth]{images/modeling/asymetric_ratio_vector.png}
@@ -579,9 +617,10 @@ This specialities are considered in the tap changer modeling, thus further infor
         \label{fig:asymetric-ratio-vector}
 \end{figure}
 
-\subsection{Open-Source Power System Simulation tools}
+\subsection{Use of Power System Simulation Tools}
 \label{sec:simulation-tools}
 
+\sidenote{diffpssi}
 For this thesis relevant are mainly two Power System Simulation tools.
 The first and main objective, \textit{diffpssi} is an open source project from Georg Kordowich, member of the chair hosting this thesis.
 This open source tool provides a \acs{RMS} domain simulation of Power Systems, considering passive grid elements like lines, shunts, loads etc., but dynamic and controlled models like Synchronous Machines, Inverters or similar as well.
@@ -591,23 +630,17 @@ The project is based on little dependencies like numpy, but can as well use the 
 With this, optimzation of grid and machine parameters is possible.
 Future extension and usage in the topics like voltage stability and resp. or control strategies is likely as well.
 
+\sidenote{DIgSILENT PowerFactory}
 The second relevant tool is a commercial software called \textit{PowerFactory} by the company \textit{DIgSILENT}.
 Modeling of the power system elements is described in its technical references, but not open source like \textit{diffpssi}.
-\commenting{Some blibla about PF...}
+In this thesis it is used as comparative tool, as it is also widely used in companies and at universities for power system studies and research.
+The accounted version is \textit{DIgSILENT PowerFactory 2023 SP1}.
 
-To give an overview of other open source power system simulation projects, this section shall be used as well.
-
-    
-\commenting{
-    Some information about other open source python power system simulation tools, such as:
-    \begin{itemize}[nosep]
-        \item Pandapower,
-        \item TOPS,
-        \item ... .
-    \end{itemize}
-    Maybe relate to \href{https://github.com/ps-wiki/best-of-ps}{this GitHub Repo}, comparing different Open-Source Power System Simulation tools. See at source \autocite{jinningwang_2025}.
-    Build up like a scan (see Georg's thesis).
-}
+\sidenote{Other open source tools}
+To give an overview of other open source power system simulation projects, one can have a look at \href{https://github.com/ps-wiki/best-of-ps}{this GitHub repository}.
+At the submission date of this thesis, this repository is getting updated on a regular basis.
+\textcite{jinningwang_2025} ranks around 140 open-source projects for power system analysis, grouped into 15 categories.
+If one wants to compare, investigate or look out for other funcitonalities, modeling techniques or software structures, this can be used as a starting point.
         
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{On-Load Tap Changer Controls}
@@ -632,16 +665,52 @@ The control is set up with a dead band, to avoid unnecessary tap changes.
 It is necessecary to note here, that this control and its mathematical caracteristics contains logical elements, blocks, and delays, which cannot be translated in a typical control theory transmission function. 
 This leads to the missing possibility to easily obtain mathematical stability for the control of the overall considered power system. \quelle
 
+\newpage
 \subsection{Advancement: Fast Switching Module and its Control}
+\label{sec:fsm-description}
 
-\commenting{
-    Describe the findings of Ilya:
-    \begin{enumerate}[nosep]
-        \item Approach and technological (short and not too detailed),
-        \item Control proposal of Ilya,
-        \item (Hardware) Development potential.
+\begin{wrapfigure}[21]{l}{0.6\linewidth} 
+    \centering
+    \includegraphics[width=.77\linewidth]{fundamentals/scheme_fsm.png}
+    \caption[Schematic illustration of the \acs{FSM}]{Schematic illustration of the \acs{FSM}; from \autocite{burlakin_2024a}}
+    \label{fig:phys-scheme-fsm}
+\end{wrapfigure}
+\sidenote{Physical funcitonalities}
+The basic idea of the \acf{FSM} is using a conventional \acs{OLTC}, but connecting it with a power electronics based additional switching unit.
+The complete module and a detailed description can be found in \autocite{burlakin_2024a} and \autocite{maschinenfabrikreinhausengmbh_2023}.
+This module is serial to the normal tap changer, and can connect resp. make use of additional windings, either as addition or subtraction.
+This module can be used in any tap position of the \acs{OLTC}.
+The \acs{FSM} windings have to be located on the same core as the main and \acs{OLTC} regulating windings.
+In contrast to the conventional \acs{OLTC} not only the next lower or higher tap position can be accessed.
+Instead each \acs{FSM} tap position is reachable from every other, inroducing much bigger possible switching steps at one time.
+The tap increment $\Delta m$ of the \acs{FSM} is understood as factor of the conventional tap increment.
+Typically used values for $\Delta m$ are $1$ or $2$, the number of tap positions is limited in the interval $[-4,4]$.
+Considering a \acs{OLTC} voltage change of $0.02$ p.u. per tap, this is resulting in a maximum change magnitude of $32$ \%.
+With a minimum time constant of $0.02$ s\footnote{limited by the filtering of a $50$ Hz signal}, this results in possibly large dynamic actions.
+A scheme of the structure is added in \autoref{fig:phys-scheme-fsm}, where following items are numbered:
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+    \item \textbf{Main winding} with coarse change-over selector
+    \item \textbf{Regulating winding} for the \acs{OLTC}
+    \item \textbf{Regulating winding} for the \acs{FSM}
+    \item \textbf{Tank} for the reactor
+    \item \textbf{\acs{FSM}} in a seperate container
 \end{enumerate}
-}
+
+\sidenote{FSM control circuit}
+Going further into the grid relevant aspects, the operational control of this extended transformer, \textcite{burlakin_2024} gives a first approach for a control scheme.
+This is based on the conventional understanding and control of \acsp{OLTC} so far.
+The control loop can be observed in \autoref{fig:fsm-control-loop}.
+It is also implemented in the comparative tool \textit{DIgSILENT PowerFactory}, just with one slight modification.
+The \acs{OLTC} is not only activated after the \acs{FSM} reached an extreme position, thus the last is not preferred for switching.
+The control enables the \acs{OLTC} first when exceeding the deadband.
+The \acs{FSM} is only getting activated, when the function for tap skipping is not zero anymore.
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=\textwidth]{modeling/fsm_control_scheme.png}
+    \caption[Control loop of a \acf{FSM}]{Control loop of a \acs{FSM}; scheme based on \textcite{burlakin_2024}}
+    \label{fig:fsm-control-loop}
+\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

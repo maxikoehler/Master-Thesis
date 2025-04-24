@@ -163,7 +163,7 @@
 ]{subsection, subsubsection}
 
 % Notizen. Einsatz mit \todo{Notiz} oder \todo[inline]{Notiz}. Documentation: https://tug.ctan.org/macros/latex/contrib/todonotes/todonotes.pdf
-\usepackage[obeyFinal,backgroundcolor=yellow,linecolor=black, figwidth=.9\linewidth,figcolor=white,textwidth=3cm]{todonotes}
+\usepackage[obeyFinal,backgroundcolor=ees_red!40,linecolor=ees_red, figwidth=.9\linewidth,figcolor=white,textwidth=3cm]{todonotes}
 % \setlength{\marginparwidth}{2.5cm}
 % \reversemarginpar
 \newcounter{mycomment}
@@ -481,3 +481,9 @@
 
 % easy access for comments of missing sources
 \newcommand{\quelle}[0]{\commenting{\textbf{[Quelle]}}~}
+
+% circles as enumeration
+\newcommand*\circledblue[1]{\tikz[baseline=(char.base)]{%
+            \node[shape=circle,fill=ees_blue!40,draw,inner sep=2pt] (char) {#1};}}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{%
+            \node[shape=circle,fill=white,draw,inner sep=2pt] (char) {#1};}}

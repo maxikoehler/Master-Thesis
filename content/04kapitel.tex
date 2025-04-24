@@ -17,6 +17,13 @@
     \end{fquote}
 \end{textblock*}
 
+This part of the thesis aims to apply the developed and implemented model to different scenarios in possible interest.
+Ideas, that have come up during the implementation and validation of the models, shall be picked up here and used as a demonstration for \textit{diffpssi}
+On the other hand they can give more hints and discussion potential for the research questions targeting the \acs{FSM}.
+The constituton of the following sections is differing compared to the rest of the thesis.
+Each subsection will look at a specific idea or area, where a hypothesis or expectation is presented, the simulation set-up described, and the results drawn.
+This deviation targets not to mix the cases or ideas up and to strive for a more consistent argumentation.
+
 \ai{
     Maybe interesting assessment: Can one prevent the forming of one weak bus? 
     -> If the grid is weak, all busses are getting weaker / problematic during a fault. 
@@ -57,7 +64,13 @@
         \item Influences of faster response, bigger voltage range, etc.
     \end{itemize}
 }
+\subsubsection{Objectives and Expectations}
 
+\subsubsection{Simulation Set Up}
+
+\subsubsection{Results}
+
+\subsubsection{Deductions and Futher Improvements}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Influence of FSM on Power or Voltage Swings of Machines}
@@ -68,13 +81,21 @@ What does the fast Switching, esp. at up to 8\% of the nominal voltage, do to th
 
 Comparison between standard Transformer / OLTC and FSM control.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Utilization of FSM with a Power Swing Damping Effect}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Utilization of FSM with a Power Swing Damping Effect}
 
 \commenting{Thinking of the damping effect of the FSM, especially in the case of power swings, caused by shortages and following swinging of Generators.}
 
+\subsubsection{Objectives and Expectations}
+
+\subsubsection{Simulation Set Up}
+
+\subsubsection{Results}
+
+\subsubsection{Deductions and Futher Improvements}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Novel Control Strategy FSM}
+\section{Novel Control Strategy Aspects to a FSM Control}
     
 \commenting{
     Thinking of fast and slow voltage gradients: fast gradients are compensated by the FSM, slow gradients are compensated by the OLTC. 
@@ -91,32 +112,41 @@ Comparison between standard Transformer / OLTC and FSM control.}
     \end{itemize}
 }
 
-\subsection{Scenario Setting}
+\subsection{Alternative Tap Skipping Logics}
 
-\subsection{Simulation}
+\subsection{Voltage Difference Based Time Constants}
 
-\subsection{Results}
+\subsection{Voltage Gradient Based Time Constants}
 
+
+
+\subsubsection{Objectives and Expectations}
+
+\subsubsection{Simulation Set Up}
+
+\subsubsection{Results}
+
+\subsubsection{Deductions and Futher Improvements}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Possible Extension for Power Flow Congruent Control}
+
+% \commenting{
+%     Extension in the Control Algorithm to decide which Bus has to be regulated, to avoid contrairy actions of the OLTC and FSM against the power flow.
+%     Therefore not decrease of stability, but increase. 
+%     Possible Application: Grid coupling Transformers, Battery Storage assisted Virtual powerplants, etc.
+
+%     For this thinking maybe another control strategy is relevant:
+%     \begin{itemize}[nosep]
+%         \item No setpoint from a load flow day-ahead or similar time frame; but rather current load and bus voltages are considered
+%         \item Not the deviation of one transformer bus voltage from a setpoint, but the deviation between the two bus voltages is relevant
+%         \item Maybe the absolut deviation to the optimal bus voltages at the current load situation is relevant  
+%     \end{itemize}
+
+%     Big general problem: In which direction does the OLTC / the FSM have to swith? 
+%     In some cases, the direction is not correct, in some it is correct.
+% }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Possible Extension for Power Flow Congruent Control}
-
-\commenting{
-    Extension in the Control Algorithm to decide which Bus has to be regulated, to avoid contrairy actions of the OLTC and FSM against the power flow.
-    Therefore not decrease of stability, but increase. 
-    Possible Application: Grid coupling Transformers, Battery Storage assisted Virtual powerplants, etc.
-
-    For this thinking maybe another control strategy is relevant:
-    \begin{itemize}[nosep]
-        \item No setpoint from a load flow day-ahead or similar time frame; but rather current load and bus voltages are considered
-        \item Not the deviation of one transformer bus voltage from a setpoint, but the deviation between the two bus voltages is relevant
-        \item Maybe the absolut deviation to the optimal bus voltages at the current load situation is relevant  
-    \end{itemize}
-
-    Big general problem: In which direction does the OLTC / the FSM have to swith? 
-    In some cases, the direction is not correct, in some it is correct.
-}
-
-
 \section{Summary in Short and Simple Terms}

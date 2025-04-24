@@ -70,6 +70,48 @@
     \caption{Class OLTC Transformer Diagram Complete}
 \end{figure}
 
+\begin{landscape}
+    \tikzsetnextfilename{software_structure}
+    \begin{figure}[htb]
+        \centering
+        \begin{tikzpicture}% [show background grid]
+            \footnotesize
+            \begin{package}{simulator}
+                \begin{class}{PowerSystemSimulator}{0,0}
+                \end{class}       
+            \end{package}
+            \begin{package}{transformer}
+                \begin{abstractclass}{Transformer}{-8,-3}
+                \end{abstractclass}
+
+                \begin{class}{SimpleTransformer}{-8,-5}
+                    \inherit{Transformer}
+                \end{class}
+                \begin{class}{OLTC Transformer}{-5,-7}
+                    \inherit{Transformer}
+                \end{class}
+            \end{package}
+            \begin{package}{voltage controller}
+                \begin{abstractclass}{VoltageController}{2,-3}
+                \end{abstractclass}
+                \begin{class}{OLTCdiscrete}{2,-5}
+                    \inherit{VoltageController}
+                \end{class}
+                \begin{class}{FSM1}{8,-5}
+                    \inherit{VoltageController}
+                \end{class}
+                \begin{class}{FSM2}{5,-7}
+                    \inherit{VoltageController}
+                \end{class}
+            \end{package}
+
+            \association{Transformer}{}{0..n}{PowerSystemSimulator}{}{1}
+            \association{VoltageController}{}{1}{Transformer}{}{1}
+        \end{tikzpicture}
+        \caption{Software Structure idea}
+    \end{figure}
+\end{landscape}
+
 % \begin{tikzpicture}[node distance = 1.5cm, auto]
 %     % Place nodes
 %     \node [papStart] (Start1){Start};

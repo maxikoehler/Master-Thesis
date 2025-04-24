@@ -308,3 +308,9 @@
   \par
   \endlist}
 \makeatother
+
+% circles as enumeration
+\newcommand*\circledblue[1]{\tikz[baseline=(char.base)]{%
+            \node[shape=circle,fill=ees_blue!40,draw,inner sep=2pt] (char) {#1};}}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{%
+            \node[shape=circle,fill=white,draw,inner sep=2pt] (char) {#1};}}

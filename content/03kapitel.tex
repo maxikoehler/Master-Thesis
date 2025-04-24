@@ -29,7 +29,7 @@ One very popular and thus powerful electrical network for the verification of po
 It is a compact and simplified model of a power system, allowing easy analytical calculation, verification and development. 
 Mutual influences are comparably simple to understand and calculate, as the infinite bus bus is acting as a fixed grid connection point with a large adjoining grid. 
 The generator is connected to the bus bar via a transmission line and a transformer. 
-The model was largely discussed by \textcite{kundur_2022}, and is shown in Figure \ref{fig:smib-model}. 
+The model was largely discussed by \textcite{kundur_2022}, and is shown in \autoref{fig:smib-model}. 
 The generator and the \acs{IBB} are represented by synchronous machines, developed and discussed by \textcite{kordowich_2023}. 
 The specific model details are included in \autoref{app:smib-model}, additionally the simulation setup for verification is described in \autoref{tab:smib-model}.
 
@@ -38,7 +38,7 @@ The specific model details are included in \autoref{app:smib-model}, additionall
     \vspace{12pt}
     \includegraphics{tikz_graphics/images/smib_model.pdf}
     \vspace{12pt}
-    \caption[]{\acf{SMIB} model for verification and validation of the Python framework; own figure after \autocite{machowski_2020,kundur_2022}}
+    \caption[Single line respresentation of the \acs{SMIB} model]{\acf{SMIB} model for verification and validation of the Python framework; own figure after \autocite{machowski_2020,kundur_2022}}
     \label{fig:smib-model}
 \end{figure}
 
@@ -72,7 +72,7 @@ A load is added at the secondary bus of the transformer, the rest of the system 
     \vspace{12pt}
     \includegraphics{tikz_graphics/images/smib_model_with_load.pdf}
     \vspace{12pt}
-    \caption[]{Modified \acf{SMIB} model with additional load}
+    \caption{Modified \acf{SMIB} model with additional load}
     \label{fig:smib-model-mod}
 \end{figure}
 
@@ -392,6 +392,9 @@ Therefore the tap changing transformer is not doing anything, and acting sort of
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Voltage Stability Rating Plausibility}
 
+This subsection is looking at the implemented tools, helping to evaluate voltage stability.
+Some parts ca be validates through external sources, others can just be tried to plausibilize with the obtainable and expected behavior. 
+
 \subsubsection{Nose Curve Validation}
 
 As previously illustrated in \autoref{sec:nose-curves}, the Nose Curve calculation for simple cases is congruent with the analytical calculation.
@@ -412,6 +415,7 @@ Apart from that, the curves are congruent as well.
 
 \subsubsection{Extension of Nose Curves: Plausibility}
 
+\sidenote{OLTC ratio dependent curves}
 The next extensions in the interest are the intersection points with the different load models at the bus, the include of \acs{TDS}, and the insertion of tap position dependent characteristics.
 \autoref{fig:oltc-nose-curve} is targeting the last mentioned point and illustrating in dashed red lines the different tap dependent nose curves of a simple load machin network from \autoref{sec:networks}.
 The discrete possible tap ratios are defined as following set:
@@ -439,7 +443,9 @@ The maximum transferable power shall thus not be different, as the transformer a
     \label{fig:nc-tds-load}
 \end{figure}
 
+\sidenote{TDS in a static plot}
 When concerning the first two visualization extensions, the includation of a \acs{TDS} and the load behavior in the static plot, one can obtain the results from \autoref{fig:nc-tds-load}.
+The more pale the scatter points get, the further the point is in time of the simulation.
 The basis sceario for this figure is the simple grid model, with an continous linear load increase over time statrting at the ase load of $P=400\text{ MW}$ and $Q=0\text{ Mvar}$.
 The load could then be described in dependence of the time $t$ as 
 \begin{align}
@@ -450,15 +456,6 @@ One important thing to note on this figure is the usage of machine controllers, 
 The parameterization of these models is included in \autoref{tab:machine-controllers}.
 The size of the machine is set to $2200$ MVA, while its power delivery is at $P=1998$ MW.
 
-\commenting{
-    Things to consider:
-    \begin{itemize}[nosep]
-        \item Time Series with transient event and without machine controls: no following of static solutions
-        \item If machine cannot deliver sufficient power, because it's too small: Transmission limit is cannot be reached
-        \item With machine Controls and continuous load increase: following of the static solution set -> The bigger the machine, the stiffer the result
-        \item With OLTC included: Jumps between the different curves visible...  
-    \end{itemize}
-}
 
 \begin{figure}[htbp!]
     \centering
@@ -476,6 +473,12 @@ The size of the machine is set to $2200$ MVA, while its power delivery is at $P=
     \label{fig:tds-nose-curve-machine-sizes}
 \end{figure}
 
+Now looking into the \acs{TDS} for a machine without controllers, and the grid with a simple, non-tapping transformer, \autoref{fig:tds-nose-curve-machine-sizes} is showing a comparison on machine sizes.
+The voltage is noch not following the static solutions of the grid, because the mechanical torque at the machine is constant, the exciter voltage is not adapted either.
+Hence, the voltage is breaking in, and falling faster, than the network is limiting.
+The voltage dipping is slower or with a lower gradient on the power, if the machine is bigger.
+If a tap changer would have been added to the network, the curve would follow the same course, with parallel shifted points, similar to the illustration in \autoref{fig:oltc-nose-curve}.
+But here the limitations or maximum loading points of the network cannot be reached as well.
 
 \subsubsection{Envelope Violation Index}
 
@@ -508,25 +511,58 @@ Bus one itself is supplied and strongly connected with the \acs{IBB}, thus makin
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Model Limitations and Improvements}
 
-\commenting{
-    Points to address from the transformer and the control modeling:
-    \begin{itemize}[nosep]
-        \item Error chain and multiplication could be possible -> For the OLTC: Reducing the error of the load model is possible as well, because the voltage is longer held near the reference value, where the error of the load model is the smallest
-        \item Correct switching of the Control Schemes -> Bus Voltages look okay, althought they are not always identical -> too many small influences on that 
-        \item Already a small difference in the FSM control scheme makes a lot of difference in the behavior -> Control schemes will not satisfy every possible control target, unless they are not overall complicated or else
-    \end{itemize}
-}
+\sidenote{Transformer modeling}
+Concluding either the model of the transformer and its control schemes, they both can be classified as valid in comparison to the commercial software \textit{DIgSILENT PowerFactory}.
+For the given and illustrated parameters, this can be stated.
+With the exception of a complex transformer ratio, meaning a phase shifting part, the results are in the expected range of error.
+The control schemes show similar switching logic and times.
+Although the connecting error chain must not be neglected, and depending on the application already a few percent alteration can make a huge difference.
+For example a difference of one percent can become an error of ten percent, if the objected voltage band is $0.1$ p.u.
 
-\commenting{
-    Points to address from the voltage stability monitoring:
-    \begin{itemize}[nosep]
-        \item Stiffness of the models via apparent power: Comparison of static solutions and Dynamic Behavior
-        \item Limitation from the machine level on voltage solution is seems plausible
-        \item Visible jumps in the tap positions seems in the same range as predicted by the nose curves
-        \item Time series computations illustrate the correct power, but not necessary the network only solution -> Dependent on machines etc. and their dynamics as well
-        \item Envelope violations make the stability of the voltage comparable as in a dynamic aspect
-    \end{itemize}
-}
+The reduction of the error in the \acs{TDS} from only assessing the load model to the addition of the \acs{OLTC} control schemes seems plausible.
+The control scheme is holding the voltage closer to the reference value. 
+The load model has the lowest error near the reference value.
+The further apart, the bigger the error, so that the accumulation of errors over the simulation time gets limited with the addition of an \acs{OLTC} control scheme.
+
+Regarding the slightly different switching behavior, especially with the more sensitive \acs{FSM} control can be argued with the dependence on a hand full of factors and errors.
+As the system converges into a congruent steady state after the dynamics, it seems thus comparable.
+Although it has to be kept in mind, that real switching times can differ, so that coincidences of switching at the right time have to be ruled out through slight variations for example.
+Further from the two small differing \acs{FSM} control schemes can be deviated, that a significant differing behavior can result already from small tweaks.
+Not every possible scenario can be catched or stabilized with a globalized control scheme, as every one is more likely to have its own very specific application.
+
+% \commenting{
+%     Points to address from the transformer and the control modeling:
+%     \begin{itemize}[nosep]
+%         \item Error chain and multiplication could be possible -> For the OLTC: Reducing the error of the load model is possible as well, because the voltage is longer held near the reference value, where the error of the load model is the smallest
+%         \item Correct switching of the Control Schemes -> Bus Voltages look okay, althought they are not always identical -> too many small influences on that 
+%         \item Already a small difference in the FSM control scheme makes a lot of difference in the behavior -> Control schemes will not satisfy every possible control target, unless they are not overall complicated or else
+%     \end{itemize}
+% }
+
+\sidenote{Voltage evaluations}
+Switching the perspective to the assessment of voltage stability, there are other conclusions.
+On the one hand it becomes also visually clear, that static stable solutions considering the voltage of a power system are decoupled from the possible dynamics.
+If the system has no perspective on finding a static stable convergent, the dynamics solely will not be stable as well, except supportive operating units can be activated in time.
+The other way round, meaning having a stable possible convergent, does not mean that with neglecting the dynamics a stable convergent must be found.
+Even for the network limitations compared to limitations on voltage stability from machines a similar scenario can be watched.
+If the network can transmit the load at the necessary stable voltages, the machine could possibly run out of power reserves, so that unstability occurs.
+The same way that a grid can limit the transmission of sufficient power, when the generation units are provide capabilities.
+Thus the critical points can often lie beyond or above the voltage bands for certain power points, \acsp{OLTC} can help stabilizing this as a convergent, if they shift the power voltage curves in the right direction.
+Looking at the size of the machines, a similar perspective can be drawn. 
+Bigger machines help staying closer to the static solution set with the same rate of load change.
+When now dynamics are starting to occur as well, the \acs{TVI} can help with the static solution set, and the evaluation of the machines, if the system is more or less likely to become stable compared to other scenarios.
+The impact of \acsp{OLTC} on the static solutions can be estimated, even the dynamics can be compared to the static behavior.
+
+% \commenting{
+%     Points to address from the voltage stability monitoring:
+%     \begin{itemize}[nosep]
+%         \item Stiffness of the models via apparent power: Comparison of static solutions and Dynamic Behavior
+%         \item Limitation from the machine level on voltage solution is seems plausible -> One can evaluate the contributions of machines on the voltage stability; if grid max can be surpassed it is a grid limitation
+%         \item Visible jumps in the tap positions seems in the same range as predicted by the nose curves
+%         \item Time series computations illustrate the correct power, but not necessary the network only solution -> Dependent on machines etc. and their dynamics as well
+%         \item Envelope violations make the stability of the voltage comparable as in a dynamic aspect
+%     \end{itemize}
+% }
 
 \section{Summary in Short and Simple Terms}
 
