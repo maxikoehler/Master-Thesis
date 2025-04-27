@@ -99,37 +99,37 @@ In this appendix section, the general process of power system simulation is desc
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Jacobian based voltage stability criterions}
-\label{app:jacobian-voltage-indices}
+% \section{Jacobian based voltage stability criterions}
+% \label{app:jacobian-voltage-indices}
 
-\textcite{danish_2015} is showing, describing, and referencing some voltage stability indices based on the Jacobian matrix. The following table is a collection of these indices.
+% \textcite{danish_2015} is showing, describing, and referencing some voltage stability indices based on the Jacobian matrix. The following table is a collection of these indices.
 
-\begin{sidewaystable}[H]
-    \centering
-    \small
-    \caption{Jacobian based voltage stability criterions; after \textcite{danish_2015}}
-    \vspace*{12pt}
-    \renewcommand{\arraystretch}{2}
-    \begin{tabularx}{23cm}{llXXl}
-        % \toprule
-        \textbf{Index} & \textbf{Abbreviation} & \textbf{Calculation} & \textbf{Stability Threshold} & \textbf{Reference} \\
-        \toprule
-        Tangent Vector Index & \acs{TVI} & $\mathrm{TVI}_i=\left\lvert \frac{\dd{V_i}}{\dd{\lambda}}\right\rvert^{-1}$ & depending on load increase & \\ \midrule
-        Test Function & & $t_{cc}=\left\lvert e^T_c \cdot \mab{J} \times \mab{J}_{cc}^{-1} \cdot e_c\right\rvert$ & details are given in reference & \\ \midrule
-        Second Order Index & $i$ & $i=\frac{1}{i_0} \cdot \sigma_\mathrm{max} \cdot \big( \dv{\sigma_\mathrm{max}}{\lambda_\mathrm{total}} \big)^{-1}$ & $i > 0$ & \\ \midrule
-        Minimum Eigenvalue & & $\Delta V=\sum_{i} \frac{\xi_i\eta_i}{\lambda_i} \Delta Q$ & all eigenvalues should be positive & \\ \midrule
-        Minimum Singular Value & & $\begin{bmatrix} \Delta \vartheta \\ \Delta V \end{bmatrix}=\mab{V} \sum^-1 \mab{U}^T \begin{bmatrix} \Delta F \\ \Delta G \end{bmatrix}$ & details are given in reference & \\ \midrule
-        Predicting Voltage Collapse & & $\frac{V}{V_0}$ & the smallest index value & \\ \midrule
-        Impedance Ratio & & $\frac{Z_ii}{Z_i}$ & $\frac{Z_ii}{Z_i} \leq 1$ & \\
-        \bottomrule
-    \end{tabularx}
-\end{sidewaystable}
+% \begin{sidewaystable}[H]
+%     \centering
+%     \small
+%     \caption{Jacobian based voltage stability criterions; after \textcite{danish_2015}}
+%     \vspace*{12pt}
+%     \renewcommand{\arraystretch}{2}
+%     \begin{tabularx}{23cm}{llXXl}
+%         % \toprule
+%         \textbf{Index} & \textbf{Abbreviation} & \textbf{Calculation} & \textbf{Stability Threshold} & \textbf{Reference} \\
+%         \toprule
+%         Tangent Vector Index & \acs{TVI} & $\mathrm{TVI}_i=\left\lvert \frac{\dd{V_i}}{\dd{\lambda}}\right\rvert^{-1}$ & depending on load increase & \\ \midrule
+%         Test Function & & $t_{cc}=\left\lvert e^T_c \cdot \mab{J} \times \mab{J}_{cc}^{-1} \cdot e_c\right\rvert$ & details are given in reference & \\ \midrule
+%         Second Order Index & $i$ & $i=\frac{1}{i_0} \cdot \sigma_\mathrm{max} \cdot \big( \dv{\sigma_\mathrm{max}}{\lambda_\mathrm{total}} \big)^{-1}$ & $i > 0$ & \\ \midrule
+%         Minimum Eigenvalue & & $\Delta V=\sum_{i} \frac{\xi_i\eta_i}{\lambda_i} \Delta Q$ & all eigenvalues should be positive & \\ \midrule
+%         Minimum Singular Value & & $\begin{bmatrix} \Delta \vartheta \\ \Delta V \end{bmatrix}=\mab{V} \sum^-1 \mab{U}^T \begin{bmatrix} \Delta F \\ \Delta G \end{bmatrix}$ & details are given in reference & \\ \midrule
+%         Predicting Voltage Collapse & & $\frac{V}{V_0}$ & the smallest index value & \\ \midrule
+%         Impedance Ratio & & $\frac{Z_ii}{Z_i}$ & $\frac{Z_ii}{Z_i} \leq 1$ & \\
+%         \bottomrule
+%     \end{tabularx}
+% \end{sidewaystable}
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Comparison of System based and Jacobian based indices}
-\label{app:jacobian-vs-system-indices}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Comparison of System based and Jacobian based indices}
+% \label{app:jacobian-vs-system-indices}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -141,17 +141,6 @@ In this appendix section, the general process of power system simulation is desc
 
 Follwing part shall just give a short, but complete and clear overview, how the admittance matrix of a two-port system is calculated.
 Therefore the main focus of this thesis, a two-port with variable translation ratio, is kept.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Class Diagram of the Class Nose Curves}
-\label{app:nose-curve}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=12cm]{tikz_graphics/images/class_diagram_nosecurve_complete.pdf}
-    \caption{Complete class diagram of the class Nose Curves; including all attributes and methods with data types, returns, and inputs}
-    \label{fig:class-diagram-nose-curves}
-\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Analytical Calculation of Simple Nose Curves}
@@ -207,6 +196,30 @@ This can be mathematically expressed by following set of equations:
         -(\underline{\vartheta}^*+1)\underline{Y}_\mathrm{T} & (\underline{\vartheta}^*\underline{\vartheta}+1)\underline{Y}_\mathrm{T}
     \end{bmatrix} \notag % \label{eq:admittance-oltc-2}
 \end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Class Diagrams}
+
+\subsection{Extended Class Diagram of the Transformer Architecture}
+
+\subsection{Extended Class Diagram of the OLTC Transformer}
+
+\subsection{Extended Class Diagram of the Discrete OLTC Control}
+\subsection{Extended Class Diagram of the Discrete FSM Control}
+
+\subsection{Class Diagram of the Class Nose Curves}
+\label{app:nose-curve}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{tikz_graphics/images/class_diagram_nosecurve_complete.pdf}
+    \caption{Complete class diagram of the class Nose Curves; including all attributes and methods with data types, returns, and inputs}
+    \label{fig:class-diagram-nose-curves}
+\end{figure}
+
+
+\subsection{Extended Class Diagram of the Class ViolationIntegral}
+\subsection{Extended Class Diagram of the Class CriticalTimes}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \section{OLTC control}
@@ -320,6 +333,6 @@ For SMIB with load:
     \label{fig:tds-fsm-preferred}
 \end{figure}
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \chapter{Case study}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Case study}

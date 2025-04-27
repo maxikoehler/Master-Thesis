@@ -1,6 +1,6 @@
 %!TEX root = ../main.tex
 \begingroup
-\RedeclareSectionCommand[beforeskip=4.5cm]{chapter}
+\RedeclareSectionCommand[beforeskip=\chapteroneoffset]{chapter}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Revitalization of the OLTC} % for Modern Grid Requirements}
@@ -277,10 +277,10 @@ This also leads to the dependency of $\tan \phi$ in the plotting of the so calle
         \subcaption{P-V \glqq Nose Curve\grqq}
     \end{subfigure}
     \begin{subfigure}[b]{.49\linewidth}
-        \includegraphics[width=\linewidth]{fundamentals/v_q_curve.png}
+        \includegraphics[width=\linewidth]{development_files/theoretical/plots/v_q_analytical.pdf}
         \subcaption{V-Q Curve}
     \end{subfigure}
-    \caption[Nose Curves resulting from maximum power transfer equations]{Nose Curves resulting from maximum power transfer equations; own illustration after \autocite{machowski_2020,kundur_2022,cutsem_1998}}
+    \caption[Power Voltage Curves resulting from maximum power transfer equations]{Power Voltage Curves resulting from maximum power transfer equations; Considering a Network impedance of $\underline{Z}=jX$ with $X=0.15\text{ p.u.}$ and a system base power of $S_\mathrm{sys;base}=2200\text{ MVA}$; own illustration after \autocite{machowski_2020,kundur_2022,cutsem_1998}}
     \label{fig:v-stability-system}
 \end{figure}
 
@@ -645,6 +645,10 @@ If one wants to compare, investigate or look out for other funcitonalities, mode
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{On-Load Tap Changer Controls}
 
+Regarding the planned specific evaluation of \acs{OLTC} controls, this part of the Fundamentals section aims to clarify the status on current used control methods.
+Further, it describes the done advancements regarding the addition of a \acf{FSM}.
+For readers, that are not familiar with this module, it is quickly introduced, and the currently available control scheme is briefly described.
+
 \subsection{Commonly Used On-Load Tap Changer Control}
 
 A few basics are in the interest, understanding differences between real world beahavior, or possible ways of building up a \acs{OLTC} transformer control. 
@@ -665,11 +669,10 @@ The control is set up with a dead band, to avoid unnecessary tap changes.
 It is necessecary to note here, that this control and its mathematical caracteristics contains logical elements, blocks, and delays, which cannot be translated in a typical control theory transmission function. 
 This leads to the missing possibility to easily obtain mathematical stability for the control of the overall considered power system. \quelle
 
-\newpage
 \subsection{Advancement: Fast Switching Module and its Control}
 \label{sec:fsm-description}
 
-\begin{wrapfigure}[21]{l}{0.6\linewidth} 
+\begin{wrapfigure}[18]{L}{0.5\linewidth} 
     \centering
     \includegraphics[width=.77\linewidth]{fundamentals/scheme_fsm.png}
     \caption[Schematic illustration of the \acs{FSM}]{Schematic illustration of the \acs{FSM}; from \autocite{burlakin_2024a}}
@@ -696,7 +699,7 @@ A scheme of the structure is added in \autoref{fig:phys-scheme-fsm}, where follo
     \item \textbf{\acs{FSM}} in a seperate container
 \end{enumerate}
 
-\sidenote{FSM control circuit}
+\sidenote{FSM control scheme}
 Going further into the grid relevant aspects, the operational control of this extended transformer, \textcite{burlakin_2024} gives a first approach for a control scheme.
 This is based on the conventional understanding and control of \acsp{OLTC} so far.
 The control loop can be observed in \autoref{fig:fsm-control-loop}.
@@ -712,6 +715,36 @@ The \acs{FSM} is only getting activated, when the function for tap skipping is n
     \label{fig:fsm-control-loop}
 \end{figure}
 
+\sidenote{Details of the control circuit}
+Generally speaking, the control scheme is devided into two paths, the \acs{FSM} and the \acs{OLTC} part.
+The control scheme input $v_\mathrm{f}$ is the measurement delayed or filtered voltage at the decided bus.
+Filtering is represented by a PT1 block with the filtering time constant $T_\mathrm{f}$.
+Subtracted from the reference voltage $v^*$ this is the voltage deviation, which is in the interest of the tap changer. 
+If the absolute voltage difference $\Delta v$ is bigger than the the deadband of the control, the function $e(t)$ is enabling the cascaded memory function $c_\mathrm{m}(t)$, and for the \acs{OLTC} path $e_\mathrm{k}(t)$.
+In the depicted scheme in \autoref{fig:fsm-control-loop} from \autocite{burlakin_2024} the \acs{OLTC} is only activated, if the \acs{FSM} is in one of its end positions.
+Subsequently, the function $c_\mathrm{k}(t)$ is the memory function for the \acs{OLTC}, both with their specific time constants $\tau_\mathrm{m}$ resp. $\tau_\mathrm{k}$.
+The functions $f(t)$ are determing the tap change, which is applied to the respective tap position functions $m(t)$ and $k(t)$, with other words they are the derivatives.
+For the \acs{OLTC}, this tap change function $f_\mathrm{k}(t)$ can have values $\in [-1,1]$ as output, while for the \acs{FSM} function $f_\mathrm{m}(t) \in [\gamma_\mathrm{min},\gamma_\mathrm{max}]$ can be formulated.
+The amount of tap changes for the \acs{FSM} is calculated through the function $\gamma(t)$, which embeddes the tap skipping function $\eta(t)$.
+Together they define the tap change input as described in \autoref{eq:tap-skip} and \autoref{eq:gamma}
+\begin{align}
+    \eta(t) &= \text{floor}\bigg( \frac{\vert \Delta v(t) \vert}{db_\mathrm{v} \cdot \Delta m} \bigg) \label{eq:tap-skip}\\[12pt]
+    \gamma(t) &= \begin{cases}
+        \gamma_\mathrm{max} & \text{if } \eta(t) > \gamma_\mathrm{max} \\
+        \gamma_\mathrm{min} & \text{if } \eta(t) < \gamma_\mathrm{min} \\
+        \eta(t) & \text{otherwise}
+    \end{cases} \label{eq:gamma} \\[6pt]
+    \text{for}\quad&\eta(t),\gamma(t) \in \mathbb{Z} \notag
+\end{align}
+Lastly, the transformer ratio dependent on the time step is formulated as 
+\begin{align}
+    \vartheta(t) = \begin{cases}
+        \vartheta_\mathrm{max} & \text{if }\vartheta > \vartheta_\mathrm{max} \\
+        \vartheta_\mathrm{min} & \text{if }\vartheta < \vartheta_\mathrm{min} \\
+        \vartheta_0 + \Delta v (k(t)-k_0+m(t) \cdot \Delta m) & \text{otherwise.}
+    \end{cases}\label{eq:fsm-control-transformer-ratio}
+\end{align}
+A more detailed description is given by \textcite{burlakin_2024}, where standard values and their impact for the variables are described as well.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Summary in Short and Simple Terms}

@@ -55,7 +55,7 @@ Within this thesis implemented are a discrete and a continuous \acs{OLTC} contro
 These reference to the standardized control blocks as well, e.g. PT1 or Integrating elements.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Implementing a $\Pi$-Representative Circuit with Variable Ratio}
+\subsection{Implementing a \texorpdfstring{$\Pi{}$}{}-Representative Circuit with Variable Ratio}
 
 Before detailing in the software side of the implemetation, some mathematical differences are explained.
 This results on the one hand from the major differences in the standard literature, especially between \textcite{machowski_2020} and \textcite{kundur_2022}, resp. \textcite{milano_2010}.
@@ -78,7 +78,7 @@ The \acs{OLTC} ratio $\underline{\vartheta}$ in this thesis is always placed on 
 \sidenote{Definition OLTC ratio}
 This thesis focusses on an ideal tap changer model at first, other possible considerations from \autoref{sec:further-considerations} are neglected.
 As vector groups are as well not considered, the tap ratio stays solely a rational number.
-Like previously mentioned, and consequently described, the ratio $\vartheta$ is then pülaced on the \acs{HV} side of the transformer.
+Like previously mentioned, and consequently described, the ratio $\vartheta$ is then placed on the \acs{HV} side of the transformer.
 The \acs{OLTC} ratio $\vartheta$ is then defined as:
 \begin{align}
         \vartheta_\mathrm{HV} &= 1 + k \cdot \Delta v \label{eq:tap-ratio-hv} \\[6pt]
@@ -97,7 +97,8 @@ The variable $\Delta v$ defines the change of the ratio in percent for alterning
 % \end{align}
 
 \subsubsection{Mathematical Different Representations}
-\sidenote{Relation to the LV side}
+
+\sidenote{Relation to the LV side}\mycomment[MK]{Rewrite this section to just Machowski style and its difference -> less confusion}
 When one either wants to relate the transformer admittance, or the tap ratio to the \acs{LV} side, a different admittance matrix definition has to be used.
 The admittance matrix is then defined as:
 \begin{align}
@@ -120,100 +121,164 @@ Another thought or way of representing a transformer with off-nominal ratio is d
         \vartheta_\mathrm{LV} &= \frac{1}{1 + k \cdot \Delta v} \label{eq:tap-ratio-lv}
 \end{align}
 
-\subsubsection{Thoughts, Design, and Implemetation of Algorithmics}
+\subsubsection{Design and Implementation of Algorithmics}
 
-\commenting{OLTC Transformer Class (needed interface / logable data, interface methods, and the abstract design)}
+\sidenote{Necessary methods}
+As afore described in the general architecture of the extension, interfacial methods and attributes are implemented.
+Starting with the necessary methods, which can be devided into expectations from the framework itself, the operational unit type transformer, and the novel consideration as dynamic model.
+From the framework itself, mainly the three methods \textit{initialize()}, \textit{enable$\_$parallel$\_$simulation()}, and \textit{get$\_$value()} are included.
+All submodels have to be initialized with the preset of the measurement voltage at the to be measured bus. 
+This accounts only for the \acs{OLTC} related transformers, all others pass this functionality.
+To enable parallel simulations, all attributes have to be set as tensors in the expected format of the simualtions.
+This is achieved trough multiplying the value with a tensor of the shape $(1, {parallel\_sims})$.
+For accessing additional, or partly calculated values of interest in the model, the last method is computed.
+Although this is currently also an empty function, it can be extended and called by the recorder function of the simulation framework.
 
-\commenting{
-        Additionally interesting extensions:
-        \begin{itemize}[nosep]
-                \item In which direction the matrix has to be inserted?
-                \item Transformer types
-                \item Measurement side detection for interface towards Tap changer control
-        \end{itemize}
-}
+Necessary methods from the transformer unit type are the calculation of the static and the dynamic admittance matrix.
+As for the transformer, and the current goal of implementation, both methods are identical.
+If one would want to implement also an automatic tap position configuration for load flow solving, this would provide the sufficient interface.
+In the method \textit{calc$\_$admittance()}, the afore described transformer admittance matrix is calculated and inserted into the system admittance matrix at each time step.
+In the begining of the \acs{OLTC} transformer, the current measurement bus voltage is aquired and handed to the output function of the connected voltage controller.
+This output function is giving back the transformer ratio dependent on the current bus voltage. 
+The transformer ratio is the set as an attribute and the admittance then can be calculated and updated.
+As an initial value for performing load flow analysis, this ratio is set to $1$ p.u.
+
+In order to consider this model as dynamic, three methods have to be implemented in the transformer itself: \textit{differential()}, \textit{get$\_$state$\_$vector()}, and \textit{set$\_$state$\_$vector()}.
+As the transformer itself is containing no dynamics, buit its connected controllers are, these methods solely call the methods in the controllers accordingly.
+
+\sidenote{Necessary attributes}
+The necessary attributes of the transformers alowing the functions to work properly are implemented as following.
+The admittance matrix is always also set as attribute.
+This allows for evaluation and mapping through the recorder function.
+Every transformer has a name, a resistance, a reactance and a susceptance attribute, as well as the transformer ratio $u$, resp. $u_\mathrm{l}$ for the solely longitudinal part.
+For the vector group angle rotation, the attribute theta is added.
+Additionally, the mandatory system related variables for the system base apparent power, the transformer apparent power, the voltages at both busses, and the parallel simulations are necessary.
+Considering the direction of the transformer in the system, the set of variables declaring the bus name, id, and voltage of the \glqq from\grqq~bus is partly defining the installation.
+On top of these, tap side and the measurement bus are completing the clear identification.
+
+\sidenote{Comments on the installation}
+Focussing more on the installation direction, following procedure is applied in the calculation of the admittance matrix, as it is handed over to the simulation just as tensor.
+A dictionary would be possible as well, as it would possible to namely declare the tap side and non tap side index resp. impedance.
+As used attributes, the attribute \textit{from$\_$bus} and \textit{tap$\_$side} receive either the flag \textit{hv} or \textit{lv}.
+For the later attribute the allocation is in the responsibiliity of the user, the first one is allocated through checking the voltages of the busses.
+If the \textit{from$\_$bus} is the lower value of the voltages, the value \textit{lv} is assigned, and other way round.
+The admittance is then calculated for the base scenario, if the tap side of the transformer is not the from bus.
+For this scenario \autoref{eq:admittance-matrix-pi} is used.
+If the values match, then the admittance matrix indices are switched, and the admittance matric is set as
+\begin{align}
+        \underline{\mab{Y}}_\mathrm{\Pi,T}&=\underline{Y}_\mathrm{T} \cdot
+        \begin{bmatrix}
+                \frac{1}{\underline{\vartheta}\underline{\vartheta}^*} & -\frac{1}{\underline{\vartheta}^*} \\
+                -\frac{1}{\underline{\vartheta}} & 1
+        \end{bmatrix}. \notag
+\end{align}
+
+% \sidenote{Aditional considerations}
+% \commenting{
+%         Additionally interesting extensions:
+%         \begin{itemize}[nosep]
+%                 \item In which direction the matrix has to be inserted?
+%                 \item Transformer types
+%                 \item Measurement side detection for interface towards Tap changer control
+%         \end{itemize}
+% }
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Tap Changer Control Modeling}
 \label{sec:modeling-tap-changer-control}
 
-\commenting{This is the description of the ideas, development, and implementation of a OLTC control scheme.}
+\sidenote{General interface structure}
+As the tap changers, or voltage controllers for the longitudinal ratio of an \acs{OLTC}, are solely controllers, and therefore can also be dissembled in just control blocks, the necessary methods for integration in the module \textit{diffpssi} are limited.
+Therefore the abstract base class, used as an interface class here, is containing the funtions \textit{differential()}, \textit{get$\_$state$\_$vector()}, \textit{set$\_$state$\_$vector()}, and \textit{get$\_$output()} for the control purposes.
+Adiitionally, as every other dynamic class, both methods \textit{initialize()} and \textit{enable$\_$parallel$\_$simulation()} are included in the same way as described before as well.
+In case it is needed, every controller is specifying the function \textit{update$\_$vref()}, to update the reference voltage of the control. 
+The only varied standard method is \textit{get$\_$output()}, but additional needed ones are necessary dependent on the controller.
+These methods are detailed in the subsequent parts of this subsection.
 
+\sidenote{Deadband block}
+Before going deeper into the control loops, two basic control blocks are implemented into the framework.
+The first one is the realization of a deadband block.
+This means that if the input value is smaller than a defined threshold, the output will be zero, otherwise it is returning the input value.
+The differential function for this block is not necessary, as it is just reacting on the imput and not building up any dynamics or relations towards previous inputs.
+The only necessary concern is the enabling of parallel simulations as well, to stay consistent with data types in the calcualtion.
+
+\sidenote{Integrator block}
+The second implementated basic block is an integrator, commonly knwon as I-block in control engineering.
+This block has got relations to previous inputs and therefore a differential function, as well as methods for setting and reading the state vector.
+This attribute is a storage for the state in the previous timestep, with the differential the next state can be calucated.
+As the method \textit{get$\_$output()} is only called by the models, this is the connection to input variables.
+An attribute input is set to the handed over value from that function, enabling the differential to be calculated.
+Additionally, the output is set to the current state of the control block times a constant multiplication factor $k_\mathrm{i}$ of the integrator.
+This integrator is extended by the possibility to set an limiter, as well to externally reset the state and the input variables of the object.
+The differential function for an integrator is the input variable times the time step.
+As this multiplication is done in the solver function of \textit{diffpssi}, the return of te differential is solely the input value.
+The last part is the initialization process, where the first output of this block has to be set, meaning setting the current initial state as the wished or needed output devided through the mulatiplication factor $k_\mathrm{i}$.
+This first output is then also returned.
 
 \subsubsection{Discrete Control Loop}
-\commenting{
-        \begin{itemize}[nosep]
-                \item Describe implementation
-                \item Describe benefits / drawbacks
-                \item Control scheme
-                \item Switching logic and behavior (voltage tracking)
-        \end{itemize}
-        Additionally interesting extensions:
-        \begin{itemize}[nosep]
-                \item How to automatically determine switching direction?\\
-                -> switchin direction dependent on what? (load-flow direction?)
-                \item Controller set points: also dependent on load flow?
-                \item How can I change the transformer control setpoints to be load flow dependent?
-        \end{itemize}
-}
 
 \sidenote{General aspects\\and references}
 This control method represents the currently most used and thus representative control scheme for \acsp{OLTC}. 
-With the mechanic nature of the switching mechanism, the control look can only access discrete ratios within time frames of around a few seconds. 
+With the mechanic nature of the switching mechanism, the control loop can only access discrete ratios within time frames of around a few seconds. 
 Such a discrete control loop is described by \textcite{milano_2011,milano_2010}. 
 A scheme of this control loop is shown in \autoref{fig:discrete-control-loop}.
+This control loop type is beneficial due to its accurate representability of current \acs{OLTC} abilities. 
 
-\begin{figure}[htb!]
+\begin{figure}[htbp!]
         \centering
-        \missingfigure{Discrete control loop}
-        \caption{Discrete control loop of an \acs{OLTC}; scheme based on \textcite{milano_2011}}
+        \includegraphics[width=\linewidth]{modeling/oltc_control_scheme.png}
+        \caption{Discrete control loop of an \acs{OLTC}; from \textcite{milano_2011}}
         \label{fig:discrete-control-loop}
 \end{figure}
 
-This control loop type is beneficial due to its accurate representability of current \acs{OLTC} abilities. 
-It gains access to assess stability within simulation environments, as analytical methods are not suited.
+\sidenote{get$\_$output()}
+\commenting{
+        The controller is actively changing the algebraic funtions of the simulation environment, therefore it is quasi dynamic. 
+        The controller output logic is called, when updating the admittance matrix of the transformer. 
+        Additionally, the differential functions of the connected simple controllers, like integrators, PT1-blocks, etc., are called by the solver and are thus part of the differential equations. 
+        The logic determines the physical interpretation of the \acs{OLTC}, and therefore
+        \begin{enumerate}
+                \item If the OLTC has to switch,
+                \item When the switching operation is finished, and
+                \item What the current, or in case after a switching the new, tap ratio is.
+        \end{enumerate}
+        It is important to note, that this structure relies on the calculation of the dynamic admittance matrix on each time step.
+}
 
-A negative aspect of a discrete control loop is the missing opportunity of generating a transfer function. 
-This blocks the stability assessment with standard control engineering methods. 
-Further, popular analysis methods like eigenvalue analysis is not possible, due to the lack of possibility to form derivatives.
+\sidenote{switching()}
+The only additional method for the discrete standard \acs{OLTC} scheme is called \textit{switching()}.
 
-% \lstinputlisting[caption={Output Function of the discrete OLTC controller},captionpos=b,style=style-python,label=lst:oltc-discrete]{images/code/oltc-discrete.py}
 
-\sidenote{Implementation\\Structure}
-\commenting{The structure of the implementation is illustrated in the block diagram of \autoref{fig:discrete-oltc-implementation}. 
-The controller is actively chainging the algebraic funtions of the simulation environment, therefore it is quasi dynamic. 
-The controller output logic is called, when updating the admittance matrix of the transformer. 
-Additionally, the differential functions of the connected simple controllers, like integrators, PT1-blocks, etc., are called by the solver and are thus part of the differential equations. 
-The logic determines the physical interpretation of the \acs{OLTC}, and therefore
-\begin{enumerate}
-        \item If the OLTC has to switch,
-        \item When the switching operation is finished, and
-        \item What the current, or in case after a switching the new, tap ratio is.
-\end{enumerate}
-It is important to note, that this structure relies on the calculation of the dynamic admittance matrix on each time step.}
-
-\begin{figure}[htb!]
-        \centering
-        \missingfigure{Implementation structure of the discrete OLTC controller}
-        \caption[Implementation structure of the discrete OLTC controller]{Implementation structure of the discrete OLTC controller}
-        \label{fig:discrete-oltc-implementation}
-\end{figure}
-
-\sidenote{Output logic}
-The output of the controller is based on the following logic.
-
-\sidenote{Characterization plot and validation}
+\commenting{
+        \begin{itemize}[nosep]
+                \item Control scheme
+                \item Switching logic and behavior (voltage tracking)
+                \item 
+                % \item How to automatically determine switching direction?\\
+                % -> switching direction dependent on what? (load-flow direction?)
+                % \item Controller set points: also dependent on load flow?
+                % \item How can I change the transformer control setpoints to be load flow dependent?
+        \end{itemize}
+}
 
 % \lstinputlisting[caption={Output Function of the discrete OLTC controller 2},captionpos=b,style=style-python,label=lst:oltc-discrete2]{images/code/oltc-discrete.py}
 
-\subsubsection{Continous Control Loop}
+% \subsubsection{Continous Control Loop}
 
-\begin{figure}[htb!]
-        \centering
-        \includegraphics[width=.7\linewidth]{development_files/validation/data/oltc_control_characterization.pdf}
-        \caption[Characterization of the OLTC control loops]{Characterization of the OLTC control loop; the input function simulates the to be regulated voltage, the output functions are characterized by $o(t)=i(t) \cdot \underline{\vartheta}_\mathrm{trafo}$}
-        \label{fig:oltc-control-characterization}
-\end{figure}
+% \commenting{Just describe the difference to the discrete \acs{OLTC}. Probably just the function get output is different, as all supplementary and attributes stay identical.}
+
+% The implementation of an continous control scheme ia fairly straight forward.
+% The desired continous block is a PT1 element with a limiter, which is already implemeted in the python module \textit{diffpssi}.
+% All function say as they are descibed in the previous discrete \acs{OLTC} controller, altough the method \textit{switching()} is not needed and thus removed.
+% The PT1 element is initialized with a user specified time constant, and the \acs{OLTC} tap ratio boundaries as limits.
+% Additionally an error bandwith is defined for eliminating numerical noises.
+% This is set to $0.01$.
+% The voltage difference is then calculated, but not directly handed over to the PT1 function.
+% The input to control with the PT1 is calculated by the reference voltage added to a impact factor times the voltage difference \autocite{milano_2010}.
+% Typically this is three times the error, or difference.
+% This cannot be realized through the gain of the PT1 block, as it would account for the complete sum.
+
 
 \subsubsection{Control Schemes for the Fast Switching module}
 
@@ -226,6 +291,8 @@ The output of the controller is based on the following logic.
                 \item Control scheme
                 \item Switching logic and behavior (voltage tracking)
         \end{itemize}
+
+        No restrictions implemented for theta max or min! Solely limited through the max positions.
 }
 
 \sidenote{Functional basics\\of a FSM}
@@ -238,10 +305,31 @@ A control logic for a so called \acs{FSM} has been presented from \textcite{burl
 However, the implementation logic in Python is slightly differing from the presented scheme in \autocite{burlakin_2024}, simply for not overcomplication of the code and therefeore debugging. 
 The implementation is similar to the afore discussed one of a standard \acs{OLTC} controller. 
 
-\sidenote{Characterization\\and validation}
+\sidenote{Differences of variations}
+
+\subsubsection{Characterization of the Implemented Control Schemes}
+% \sidenote{Characterization\\and validation}
+
+For characterization of the control output, two different approaches are selected.
+First, a step or jump function is applied, for a maximum gradient inspection.
+Further, a continous function is selected, incrementing the voltage difference on the control loop.
+This could be exponential, exponential decaying, or something like linear increasing as scenario in the middle.
+As the tap changer has maximum positions, and therefore also a operational band, the exponential decaying function is selected as second characterizing input.
+
+\begin{figure}[htbp!]
+        \centering
+        \includegraphics[width=.7\linewidth]{development_files/validation/data/oltc_control_characterization.pdf}
+        \caption[Characterization of the OLTC control loops]{Characterization of the OLTC control loop; the input function simulates the to be regulated voltage, the output functions are characterized by $o(t)=i(t) \cdot \underline{\vartheta}_\mathrm{trafo}$}
+        \label{fig:oltc-control-characterization}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experimental: Extended Ideas and Improvements}
+\label{sec:experimental-modeling}
+
+This subsection introduces a few ideas for improvements of the \acs{FSM} voltage controller.
+As this is based on observations during the development, validation or analyzing case studies, one might consider going through this after understanding the thoughts of the other remaining parts.
+Doing a re-read at the end would be beneficial either way.   
 
 \subsubsection{Operational Oriented FSM Control}
 
@@ -313,9 +401,6 @@ The implementation is similar to the afore discussed one of a standard \acs{OLTC
 \section{Application of Voltage Stability}
 \label{sec:application-voltage-stability}
 
-% Combined with the nose curves, critical points shall be identified, highlighted, and characterized.
-% Additionally to help this highlighting and characterization, one index based of the nose curves for linearization of remaining distance to the critical point is added. 
-
 As previously discussed in the fundamentals of voltage stability, \autoref{sec:voltage-stability}, ensuring power quality is a secondary goal.
 Concerning that voltage stability, regardless of short- or long-time evaluation, is a topic of power quality, it is hard to determine stability or instability.
 In terms of static possible solutions, there are a lot of tools determing the critical points, as well as the current distance to it.
@@ -329,8 +414,6 @@ Lastly, a more dynamic rating of a sceario shall be computed, enabling also the 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Generation of Nose Curves}
 \label{sec:nose-curves}
-
-\commenting{NOTE: Please reconsider and remake this section after completation of the Rating Tool / Assessment Method.}
 
 This section describes the implementation of a prevoiusly discussed static voltage analysis tool.
 The generation of nose curves helps in finding the critical loading of the system at the bus of interest, although it is static nature. 
@@ -385,6 +468,13 @@ Further, the method {\itshape get$\_$max$\_$loadings()} can provide details abou
 Giving back a dict with keys as bus names, the values itself are dicts with key of the power angle parameter $\tan \phi$ and the values as {\itshape pandas DataFrame}.
 The contained details are maximum active power $P_\mathrm{max}$, the reactive power $Q$ at this point, and the voltage magnitude $\vert \underline{V} \vert$ at the bus.
 
+\sidenote{Parameter variation Nose Curves}
+Additionally, the method set \textit{run$\_$variation$\_$calculation()} and its connected automated plotting method \textit{plot$\_$nose$\_$curve$\_$variation()} aims to calculate a nose curve parameter set uder variation of a system parameter variation.
+This is realized through a callable function, enabling access to the desired object attribute.
+Additionally a list of variation values as to be handed over, for iteration over it and saving the result to a dictionary.
+This dictionary then can be plotted or accessed over the object as attribute.
+The \acs{OLTC} tap dependent Nose Curves from \autoref{fig:oltc-nose-curve} are generated by this functionality
+
 \subsubsection{Results of the Nose Curve Generation}
 
 The following figure \autoref{fig:nose-curve-simple-grid} shows the generated nose curve for a simple grid as illustrated in \autoref{fig:single-line-voltage-stability}.
@@ -418,45 +508,77 @@ The solution is reaching exactly until the critical point of power transfer.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Combination of Static Methods with Time Domain Solutions}
-\label{sec:comb-rating-tool}
+\label{sec:comb-time-dimension}
 
-\commenting{
-        Idea here: Show the dynamic RMS simulation results in the quasi-staionary assessment techniques.
-        These are static solutions to the network, the electromechanic equalization processes should on a long-term watch result in these states.
-        With controls of the machines etc. one can obtain more or less a following of the static solutions until a certain point.
-        If the grid, or the machine, or its control units are stronger, a certain (heavy) level of load increase can be better and faster compensated.
-        
-        Combining here:
-        \begin{itemize}[nosep]
-                \item Nose Curve plots
-                \item Curves for different positions of the OLTC control
-                \item Time Domain projection in the Nose Curves
-                \item Static load solutions of a Transient increase
-                \item Time Indices: Transfer Maximum, Voltage Band, FRT cut
-                \item Integration of Voltage difference over time: Difference between voltage and voltage envelope 
-        \end{itemize}
-        
-        Procedure:
-        \begin{enumerate}
-                \item Static solutions available for this scenario: The Load scenario can be stable, but dynamically maye not.
-                \item OLTC can support, and really longer the time, the closer the solution is to the static grid solution
-                \item Critical times for envelope violations
-                \item Comparison of stability scenarios with envelopes
-                \item Weak bus identification
-        \end{enumerate}
-        }
+Adding a \acs{TDS} to the static Nose Curve plot is fairly simple and straight forward.
+The basic idea is gathering the demanded power by the load as additional recorder function, to overlap the diomensions voltage and power in the static plot.
+Adiitionally using color alteration for the time dimension is keeping the evolvement information as well.
+This data is then just added to the plot of Nose Curves.
+The backgorund on why this could give a valuable inside, is simply looking into how close to the static solutions of the grid can the system stay under dymanic equalization and control processes.
+The static solutions should theoretically the long-term solutions or states after the equalization processes.
+As this dynamic solution is also conditional to the machine and machine controls for example, it could give explanations about missing capabilities from this point, as the nose curves just express the network limits.
+
+Necessary for gathering the missing power information, the method \textit{get$\_$value()} has to be added to the static model \textit{Bus} as well.
+There, specifically the apparent power $S$ is calculated through the sum of the models current injections.
+With the basic relations
+\begin{align}
+        S&=\underline{V} \cdot \underline{I}^* \notag, \\
+        P&=\mathfrak{Re} \{S\}\text{, and} \notag \\
+        Q&=\mathfrak{Im} \{S\} \notag
+\end{align}
+one can then acces the active power as recorder attribute. 
+Important to note here is, that the curret injection of a simple load cannot be calculated by default, as this model is solely adding a contribution to the admittance matrix of the system.
+Therefore this model does not consider curretn injections.
+As proposed work around, a load attribute \textit{i$\_$inj} is calculated in each iteration of the method \textit{get$\_$admittance()} in the static model \textit{Load} with the relation
+\begin{align}
+        \underline{I}_\mathrm{inj}=S_\mathrm{load}(t) \cdot \frac{S_\mathrm{n,sys}}{\underline{V}(t)^*}. \notag
+\end{align}
+
+% \commenting{
+%         Idea here: Show the dynamic RMS simulation results in the quasi-staionary assessment techniques.
+%         These are static solutions to the network, the electromechanic equalization processes should on a long-term watch result in these states.
+%         With controls of the machines etc. one can obtain more or less a following of the static solutions until a certain point.
+%         If the grid, or the machine, or its control units are stronger, a certain (heavy) level of load increase can be better and faster compensated.
+
+%         Maybe interesting: Can the faster FSM not only increase the time until Voltage envelope is violated, but extend the transferred power as well?        
+% }
         
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Using Voltage Envelopes for Criticality Evaluation}
 \label{sec:comb-rating-tool}
 
-\commenting{
-        Using the methods of \autocite{scheiner_2022, wildenhues_2015}: Trajectory Violation Index.
-        Not only for this classifyied envelope, bus as well for FRT envelopes (MV, HV; Type 2 generation units)
-}
+\sidenote{Class\\ViolationIntegral}
+The afore described method from \autoref{sec:stability-indices}, the \acs{TVI} is implemented as seperate class \textit{ViolationIntegral} in the package \textit{diffpssi}.
+Automated simulations are not considered, as they do not add significant practicability.
+Therefore, simply the results vector is just handed over.
+The class diagram is displayed in \autoref{fig:class-violation-integral}.
 
-Adding the envelopes described in \textcite{scheiner_2022}, and \textcite{wildenhues_2015}, but as well the \acs{FRT} curves from the the regulations for technical connections to the medium- and high-voltage networks \autocite{vde-tar_2018,vde-tar_2023}.
+\begin{figure}[htbp!]
+        \centering
+        \missingfigure{Class diagram VioolationIntegral}
+        \caption[Class diagram for the class ViolationIntegral]{Class diagram for the class ViolationIntegral}
+        \label{fig:class-violation-integral}
+\end{figure}
 
+As afore described, not only the mathematical describable envelopes are added, but the Machine Type II \acs{FRT} curves when connecting to the medium voltage grids from \autocite{vde-tar_2018,vde-tar_2023} are added as well.
+Both envelopes are implemented as a function dependent on the time, giving back a vector in the length of the time vector and being comparable to the bus voltage solution from the power system simulation object.
+Envelope parameters can be set with the function \textit{set$\_$env$\_$paramms()}, but can as well be read out through the function \textit{get$\_$env()}.
+Here the same logic applies as with the envelope functions before, as a vector with the length of the time vector is given back.
+
+\begin{figure}[htbp!]
+        \centering
+        \missingfigure{Class diagram CriticalTimes}
+        \caption[Class diagram for the class CriticalTimes]{Class diagram for the class CriticalTimes}
+        \label{fig:class-critical-times}
+\end{figure}
+
+\sidenote{Class CriticalTimes}
+The class \textit{CriticalTimes} is added as well as displayed in \autoref{fig:class-critical-times}.
+It is used to enable a calculation of all time steps, where the envelope(s) are violated.
+The method accounts just the time stamp, where the envelope is cut from inside to outside, instead of returning all time steps outside of the envelope(s).
+The envelopes can be added and results can be calculated through handing over a bus voltage result with time vector.
+Results are stored as an attribute as well.
+The enevelope functions are re-used from the class \textit{ViolationIntegral}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

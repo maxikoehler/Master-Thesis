@@ -14,7 +14,15 @@
     \end{fquote}
 \end{textblock*}
 
-\section{Transformer Model and Validation}
+This chapter is discussing all chapters combined, with found aspects, expected or unexpected behaviors, comparisons and so on.
+Singular discussions in each chapter are avoided, to maintain a high level view on the \acf{FSM}.
+Nevertheless, details do matter here and are included in the summarized evaluation.
+The structure of this chapter is not holding up with the afore used structure.
+This shall make use of the combined discussion, more orientating on the found aspects, than the done work. 
+
+% \section{Transformer Model and Validation}
+
+\ai{Better to structure with the desired statements, instead of afore used structure -> Make use of the combined discussion chapter.}
 
 \commenting{
     One key missing model / aspect, especially for short term voltage stability in combination with stability support of the FSM: \textbf{INDUCTION MOTORS}.
@@ -24,11 +32,44 @@
     For recent developments, \textcite{sarimuthu_2016} is presenting a review paper considering a few of these topics.
 }
 
-\section{Voltage Stability Rating and Assessment}
+\commenting{
+    Different types: Machine / Power Plant connecting transformer; Grid coupler; RONT; \dots: Applicability, what to consider, possible restricctions, \dots
 
-\section{Case Studies and Practical Applications}
+    Back propagation of fast switches to machines.
 
-\section{Summary in Short and Simple Terms}
+    Do I have longer time to act on this based on the enhanced functionality or just because of the bigger band?
+
+    Illustration: Just holding the Voltage band longer in the area, where units stay connected -> no reactive power support and therefore stabilization from the \acs{OLTC} alone possible.
+
+    Damping element?
+
+    Deaf band?
+
+    Interactions with other controllers? E.g. Machine controllers.
+
+    Standard: What happens with different parameterization of the FSM, e.g. when deadband conventional (big) used, \dots
+}
+
+% \section{Voltage Stability Rating and Assessment}
+
+% \section{Case Studies and Practical Applications}
+
+\section{Comparison FSM vs. OLTC}
+
+\section{Diffpssi Integration}
+
+\commenting{Main point of diffpssi: \textbf{DIFFERENTIABLE}: Then making use of it? Why not optimize the FSM control aspects with it?}
+
+\section{Development Potential of the FSM and its Control}
+
+\commenting{
+    Why not apply it on a phase shifter?
+
+    With the so small time constants, nearly no limitations in switching speed: The control is the limiting factor.
+    This means for so many Use Cases this technology can be used, as long as there is a sufficient control: Improved Machine integration; Damping effects on power oscillations; Fast Load Flow optimizations; Virtual power plants (Imporved operating points, assistance of inverter controllers via harmonics damping, power oscillation damping, more flexibility, \dots)
+
+    Why not substitute the complete mechanical OLTC with multiple FSM modules, maybe even with more range than $m \in [-4,4]$, if the application could use it / coud be improved with that: Improved operational range (faster, bigger) of the grid connection of a rotating phase shifter? 
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

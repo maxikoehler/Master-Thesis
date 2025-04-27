@@ -4,43 +4,19 @@ stage:
 date: 2025-02-18
 ---
 ### Programming
-- [ ] Voltage Stability Illustration / Rating Tool
-	- [x] Nose Curves mit OLTC Stufen
-	- [x] Nose Curves mit Time Domain Verlauf
-	- [x] Theoretische Lastschnittpunkte mit Nose Curves
-	- [x] Diffpssi TDS: Last in Abhängigkeit von Zeit setzen 
-	- [ ] Kritische Zeiten:
-		- [ ] Prüfen / Rechnen der Zeit, bis kritischer Lastpunkt am Knoten Überschritten
-			- Interpolation über der Verlauf der kritischen Punkte
-			- 3D Visualisierung wie in Van Cutsem?
-			- Je nach $\tan \phi$ max. Lastpunkt bekommen -> Schauen wann das Überschritten wird
-		- [x] Schneiden von Envelopes
-	- [x] FRT Kurven in TDS plotten
 - [ ] General diffpssi
 	- [x] Zeitabhängige Lasten
 	- [x] Verhalten Synchronmaschine: konst. PV liefern auf konst. PQ (?)
 	- [x] Second FSM Control (FSM dependent on tap skips / Voltage difference)
 	- [ ] Third FSM Control (Dynamic dependent switching)
-	- [ ] _(Plotting Lib)_ 
-	     - Basic TDS Plots von Spannungen an Bussen
-	     - FRT Kurven adden, 
-	     - Leistungen / Ströme an Bussen?
-	- [ ] _(Networks Lib)_
-	      Sammlung von Basic (parametrierbaren) Networks: SMIB, IEEE 9-bus, Simple Gen -Load mit auswahl line oder Trafo
+	- [ ] Fourth FSM Control: Alternative Tap Switching
+	- [ ] Fifth FSM Control ...?
 	- [ ] Doku?
-	- [ ] Test Cases?
-### Validation
-1. ✅ Pi Model Notebook
-2. ✅ Control Schemes Notebook
-3. Voltage Stability RATING tool: Plausibilities
-	- [ ] Validation of Nose Curve Calculation in PF
-	- [ ] OLTC Taps as Nose curves
-	- [ ] Time Series Calculation and Load Intersections
 ### Writing
 - [ ] Methodical Modeling:
 	- [ ] Tap Changer Controls
 	- [ ] Extended Ideas Controls
-	- [ ] Voltage Stability Calculations
+	- [x] Voltage Stability Calculations
 	- [ ] Klassendiagramme / Flow Charts / etc.
 - [ ] Verification
 	- [x] Grids / Networks
@@ -48,7 +24,6 @@ date: 2025-02-18
 	- [x] Control Circuit Validation
 	- [x] Voltage Tools
 	- [ ] Describe all parameters of the grids; All scenarios, all everything in detail
-	- [ ] Describe differences between model Machowski and Ilya
 - [ ] Case Studies:
 	- [ ] Objectives
 	- [ ] Setups
@@ -56,8 +31,8 @@ date: 2025-02-18
 - [ ] Discussion
 - [ ] Fundamentals:
 	- [ ] Voltage Stability
-	- [ ] Power System Modeling
-	- [ ] Tap Changer Control Description
+	- [x] Power System Modeling
+	- [x] Tap Changer Control Description
 - [ ] Others (Intro, Summaries, Outlook / Research Questions)
 - [ ] Appendix
 ### Case Studies
@@ -76,6 +51,17 @@ Idea here maybe for better comparison: If one has a critical scenario, all busse
 	- Analyze and discuss the SMIB example with load
 	- Observation: Load flow direction is changing, therefore control algorithm of OLTC is not sufficient enough. -> PF same result...
 	- OR: Automatic Detection of the Switching direction
+### For Handing In
+- [ ] Basic commenting
+- [ ] Clean up Repositories
+- [ ] Make Releases (Better time stamps and accountable compared to a single commit)
+- [ ] Send email, teams message
+
+### Work after Hand In
+- [ ] Presentation
+- [ ] Making the Version print ready (if necessary?)
+- [ ] Cover Design
+- [ ] Code Commenting?
 # Literature
 - [[Machowski, Bialek, Bumby - Power System Dynamics, Stability and Control]]
 - [[IEEE Guide for Load modeling]]

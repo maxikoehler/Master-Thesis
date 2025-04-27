@@ -67,7 +67,7 @@
 			%\setcounter{tocdepth}{1}
 			%für die Anzeige von Unterkapiteln im Inhaltsverzeichnis
 			\setcounter{tocdepth}{2}
-
+			\pdfbookmark[1]{Contents}{toc}	
 			\tableofcontents
 			% \maintoc
 			\cleardoublepage
@@ -104,7 +104,7 @@
 	% \newpage
 
 	\pagenumbering{Roman}
-    \setcounter{page}{9}
+    \setcounter{page}{11}
 	\RedeclareSectionCommand[beforeskip=\kapitelabstand         ]{chapter}
 
 	% Abkürzungsverzeichnis
