@@ -13,6 +13,11 @@
     \end{fquote}
 \end{textblock*}
 
+The validation step of the implemetations is important, for being able to estimate errors or sources for that in more complex system studies.
+As no real world data is present, the model cannot be verified.
+But with use of the commercially used software \textit{DIgSILENT PowerFactory}, the results can be compared and checked for discreptances.
+In combination with to be estimated behaviors from simple examples, e.g. also derived in literature, the implementations are plausibilized.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Representative Electrical Networks}
 \label{sec:networks}
@@ -20,7 +25,7 @@
 The following section shall introduce the used power systems in the simulation with the Python framework, considering verification, and also extension meaning the performed case studies in \autoref{chap:case-study}. 
 The models are chosen to represent different network sizes and complexities, thus allowing the objective of graded interaction levels of the developed (transformer) model. 
 The models are based on the work of \textcite{machowski_2020}, \textcite{kundur_2022}, \textcite{IEEELoadModeling_2022}, and \textcite{vancutsem_2020}.
-On important note to take for all the presented networks in the following, is the consequent absence of machine control units. 
+One important note to take for all the presented networks in the following, is the consequent absence of machine control units. 
 Only where mentioned explicitly, they are used.
 
 \subsubsection{Single Machine Infinite Bus (SMIB) Model}
@@ -79,11 +84,12 @@ A load is added at the secondary bus of the transformer, the rest of the system 
 \subsubsection{Simple Single Machine Load Model}
 
 Following model is often recommended \quelle for easy voltage control studies, in explicit for \acsp{OLTC}. 
-Similar to the \acs{SMIB} model, it consists from one synchronous generator, busses, and lines in a single branch. 
-The \acs{IBB} is thus removed and changed to a load. 
-This two element type o configuration allows for an easy analytical calculation of voltage stability and control. 
-Although this thesis is focussing on \acs{OLTC} transformers, the model is extended with one in between. 
+Similar to the \ac{SMIB} model, it consists of one synchronous generator, busses, and lines in a single branch. 
+The \ac{IBB} is thus removed and changed to a load. 
+% This configuration of two loads,  allows an easy analytical calculation of voltage stability and control. 
+Becaue this thesis is focussing on \acs{OLTC} transformers, the model is extended with one in between. 
 A single line representation is depicted in \autoref{fig:single-line-voltage-stability}.
+Further details about its configuration and simulation setup are included in \autoref{app:single-line-model}. 
 
 \begin{figure}[htb!]
     \centering
@@ -94,9 +100,8 @@ A single line representation is depicted in \autoref{fig:single-line-voltage-sta
     \label{fig:single-line-voltage-stability}
 \end{figure}
 
-Further details about its configuration and simulation setup are included in \autoref{app:single-line-model}. 
-It should be noted, that simple load models are not useful for simulation of this example network. 
-Usually constant Z models are used as loads, therefore simulation results can be misleading and not showing desired effects or voltage instability mechanisms \quelle. 
+% It should be noted, that simple load models are not useful for simulation of this example network. 
+% Usually constant Z models are used as loads, therefore simulation results can be misleading and not showing desired effects or voltage instability mechanisms \quelle. 
 % \commenting{The simulation framework is extended with XX types of load models, to satisfy the requirements of the single machine load model, and a connected stability assessment.}
 
 % \subsubsection{IEEE Nine-Bus System}
@@ -108,8 +113,8 @@ Usually constant Z models are used as loads, therefore simulation results can be
 \section{Validation Steps}
 
 Following section shall guide through the validation process.
-Beginning with the new transformer $\Pi$-model, therefore lokking deeper into characteritic behavior dependent on the rated apparent power and the longitudinal ratio.
-Proceeding with the three modeled control circuit and their behavior.
+Beginning with the new transformer $\Pi$-model, therefore looking deeper into characteristic behavior dependent on the rated apparent power and the longitudinal ratio.
+Proceeding with the three modeled control circuits and their behavior.
 Lastly, some applied plausibilisations shall be done with the implemented voltage stability rating tools.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -126,20 +131,20 @@ The reason for excluding the vector angle $\phi$ relies in the not congruent res
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/s_n_comp_errors.pdf}
-    \caption[Model error comparison concerning the variation of the rated apparent power]{Absolute errors while comparing the tool \textit{diffpssi} with the software \textit{DIgSILENT PowerFactory}; One plot each for every parameter variation, concerning the errors for each bus}
+    \caption[Model error comparison concerning the variation of the rated apparent power]{Absolute errors comparing the tool \textit{diffpssi} with the software \textit{DIgSILENT PowerFactory}; One plot each for every parameter variation, concerning the errors for each bus}
     \label{fig:valid-s-errors}
 \end{figure}
 
-The rated apparent power $S_\mathrm{n}$ shall be varied in three steps acoording as described in \autoref{eq:variation-s-n}. 
+The rated apparent power $S_\mathrm{n}$ shall be varied in three steps as described in \autoref{eq:variation-s-n}. 
 The used grid model is the afore described \acs{SMIB} model. 
 This is showing some predictable dynamics, but enabling a relative uncomplicated and easy to overview troubleshooting, if necessary.
 The used grid parameters staying as described before, only the transformer apparent power is varied.
 \begin{align}
-    S_\mathrm{n} \in \{ 1100; 2200; 4400 \}~\mathrm{MVA} \label{eq:variation-s-n}
+    S_\mathrm{n} \in \{ 1\,100; 2\,200; 4\,400 \}~\mathrm{MVA} \label{eq:variation-s-n}
 \end{align}
 The used model for the comparative tool \textit{DIgSILENT PowerFactory} is as well included in the \textit{diffpssi} repository.
 A plot of both results is depicted in \autoref{fig:valid-s-compl}
-Looking deeper into one parameter, but plotting both tools in one diagram, \autoref{fig:valid-s-1100} in \autoref{app:add-validation-plots} is showing the results.
+Comparing similar parameters of both tools in one diagram, is possible by evaluating \autoref{fig:valid-s-1100} in \autoref{app:add-validation-plots}.
 The three split diagrams account for each bus, where nearly no difference is obtainable.
 
 Supporting this observation is the comparison of errors as illustrated in \autoref{fig:valid-s-errors}.
@@ -153,21 +158,21 @@ Following this argumentation, the maximum relative error shall be around $0.05$ 
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/theta_comp_errors.pdf}
-    \caption{Comparison of different varied parameters between \textit{diffpssi} and \textit{DIgSILENT PowerFactory}}
+    \caption{Error comparison of varying the longitudinal ratio as parameter between \textit{diffpssi} and \textit{DIgSILENT PowerFactory}}
     \label{fig:valid-ratio-errors}
 \end{figure}
 
 In similar way as the validation approach for the rated apparent power, the longitudinal ratio shall be varied. 
-Therefore the same network, with identical parameters is used, only that at this time the rated apparet power is fixed as well and the longitudinal ratio of the transformer is fixed during the simuatlion time according to following variation:
+Therefore the same network, with identical parameters is used, only that at this time the rated apparent power is fixed as well and the longitudinal ratio of the transformer is fixed during the simuatlion time according to following variation:
 \begin{align}
     \vartheta \in \{ 0.9; 1.0; 1.1 \}~\mathrm{p.u} \label{eq:variation-ratio}
 \end{align}
 Looking into the results, in the same form as previously.
-On the left side of \autoref{fig:valid-ratio-comp} is the result from the Python module \textit{diffpssi}, the right side is accounting for the validation tool \textit{DIgSILENT PowerFactory}.
+On the left side of \autoref{fig:valid-ratio-comp} the result from the Python module \textit{diffpssi} is shown, the right side is accounting for the validation tool \textit{DIgSILENT PowerFactory}.
 The focussed comparison for the fixed ratio of $0.9$ p.u. is included in \autoref{app:add-validation-plots}.
-As well \autoref{fig:valid-ratio-errors} is showing absoulte errors in the same manner.
+\autoref{fig:valid-ratio-errors} is showing absoulte errors in the same manner as well.
 The obtainable error for this case is comparably high, excluding for the reductive ratio of $0.9$ p.u.
-This increasing with simulation time, to around a factor of 10 of the other errors. 
+This increasing with simulation time, to around a factor of $10$ of the other errors. 
 But still, this error is in a margin of lower than $1$ \%. 
 
 
@@ -184,8 +189,8 @@ But still, this error is in a margin of lower than $1$ \%.
 
 A static load model with quadratic dependency on the voltage had been implemented in the Python module before.
 The load model can thus be classified as constant impedance model, or often referred as constant $\underline{Z}$ model \autocite{IEEELoadModeling_2022}. 
-As this is playing a role in the chain of accumulating errors, following parenthesis shall give a feeling what contibution is generated through this load model.
-For this evaluation the Single Line with Load model from \autoref{sec:networks} is used, with a load jump from $P=400\text{ MW}$ to $P=800\text{ MW}$ at the time stamp $1$ s.
+As this is playing a role in the chain of accumulating errors, following parenthesis shall give a feeling what contribution is generated through this load model.
+For this evaluation the Single Line with Load model from \autoref{sec:networks} is used, with a load jump from $P=400\text{ MW}$ to $P=800\text{ MW}$ at the time stamp $1$ s, while $Q=0\text{ Mvar}$ at every time step.
 The overall simulation time is set to $20$ s.
 Other parameters are set as described in \autoref{sec:networks}.
 
@@ -196,25 +201,25 @@ Other parameters are set as described in \autoref{sec:networks}.
     \label{fig:z-load-error}
 \end{figure}
 
-\autoref{fig:z-comp} is showing the time series computation for each bus compared between both tools \textit{diffpssi} and \textit{DIgSILENT PowerFactory}.
-Visible is the more extreme pronounciation of the overshoot and the convergence value over time of the Python package.
-Looking at the absolute error comparison for each bus in \autoref{fig:z-load-error} showing a increase over time, and peak offsets of around $0.006$ p.u.
+\autoref{fig:z-comp} shows the time series computation for each bus compared between both tools \textit{diffpssi} and \textit{DIgSILENT PowerFactory}.
+Visible is the more extreme of the overshoot and the convergence value over time of the Python package.
+Looking at the absolute error comparison for each bus in \autoref{fig:z-load-error}, an increase over time is shown with peak offsets of around $0.006$ p.u..
 This accounts for an error lower than $1$ \% in this scenario.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Validation of the OLTC Control Schemes}
 \label{sec:validation-oltc-schemes}
 
-To begin with this section of control scheme validation, the basic strategy accounted for all the considered models and verification setups.
-The characterizations of the control loop feedbacks has already been carried out in the modeling chapter \autoref{sec:modeling-tap-changer-control}.
+To begin with the validation of the considered control schemes, a basic strategy is accounted for all the considered models and verification setups.
+The characterization of the control loop feedbacks has already been carried out in the modeling chapter \autoref{sec:modeling-tap-changer-control}.
 To validate the in-simulation behavior of the control loops, two different scenarios are accounted for the \acs{OLTC} and the \acs{FSM}.
 First, the Simple Load against Machine grid is used with the declared parameters as in \autoref{sec:networks}.
-To bring the system in a dynamic state, a load increase is added at the simulation time point $1$ s.
+To bring the system in a dynamic state, a load jump is added at the simulation time point $1$ s.
 All differing values are pointed out in the validation result presentation later on.
-Secondly, the more complex version of a \acs{SMIB} model with a connected load at the middle bus is used to account for a different scenario including a load flow direction change.
-It would be expected, that neither \textit{DIgSILENT PowerFactory} or \textit{diffpssi} would be able to react on this supposed load flow direction change.
+Secondly, the more complex version of a \acs{SMIB} model with a connected load at bus one is used to account for a different scenario including a load flow direction change.
+It is expected, that neither \textit{DIgSILENT PowerFactory} or \textit{diffpssi} would be able to react on this supposed load flow direction change.
 
-\subsubsection{Application of the Afore Described Logic}
+\subsubsection{Application of the afore Described Logic}
 
 The first consideration for validation of the \acs{OLTC} control is the simple load model against a machine.
 The applied load change is shifting the real power of the load from $P=400\text{ MW}$ to $P=800\text{ MW}$ at the simulation time $1$ s.
@@ -227,11 +232,11 @@ The applied load change is shifting the real power of the load from $P=400\text{
 \end{figure}
 
 When comparing the time series solution from \autoref{fig:comp-oltc-simple} for both bus voltages, one can obtain a similar course of the curves. 
-Nearly no deviation is visible, the tap changes of the \acs{OLTC} clearly visible and at the same times.
-A similar picture is drawn, when loooking at the absolute error of this scenario in \autoref{fig:comp-oltc-error-simple}.
+Nearly no deviation is visible, the tap changes of the \acs{OLTC} are clearly visible and at the same times.
+A similar picture is drawn, when looking at the absolute error of this scenario in \autoref{fig:comp-oltc-error-simple}.
 In the areas of time, where the switching occurs, peaks of errors are visible, showing just the numerical issues at the switching times.
 After the half of the simulation time, a new (quasi-) stationary state is showing nearly no error.
-This error is close to $0$ p.u., showing a even less error than previouly illustrated \autoref{sec:validation-load-model}.
+This error is close to $0$ p.u., showing a even less error than previously illustrated \autoref{sec:validation-load-model}.
 
 \begin{figure}[htbp!]
     \centering
@@ -241,8 +246,8 @@ This error is close to $0$ p.u., showing a even less error than previouly illust
 \end{figure}
 
 Taking in consideration the second verification scenario, applying the discrete \acs{OLTC} control scheme to the extended \acs{SMIB} model with added load, one can obtain the \acs{TDS} visible in \autoref{fig:tds-oltc-ex-smib}.
-For reasons of volume, this plot is just added to the appendix.
-The added event at time step $1$ s is a load jump at bus 1 from $P=100\text{ MW}$ to $P=1100\text{ MW}$.
+For reasons of not adding further information, this plot is just added to the appendix.
+The added event at time step $1$ s is a load jump at bus 1 from $P=100\text{ MW}$ to $P=1100\text{ MW}$, while $Q=0\text{ Mvar}$ at each time step.
 Comparing the results for each bus between the two tools \textit{diffpssi} and \textit{DIgSILENT PowerFactory} \autoref{fig:comp-oltc-control-ex-smib} is giving an overview.
 
 \begin{figure}[htbp!]
@@ -268,8 +273,8 @@ All following ones are as well time shifted between the two tools, ending up wit
 \end{figure}
 
 When looking deeper in the model and its signals, one can obtain, that the \acs{OLTC} control is thus switching correctly.
-As displayed in \autoref{fig:int-signals-ext-smib-oltc}, the deadband flter is correctly surpassing just values greater than the deadband, otherwise zero.
-As well as the longitudinal ratio on the other side, where distances of $5$ s are visible, consodering the time constant and the constant overshoot of the voltage difference of greater than the deadband, the control mechanisms seem to operate fine and plausible.
+As displayed in \autoref{fig:int-signals-ext-smib-oltc}, the deadband filter is correctly surpassing just values greater than the deadband, otherwise zero.
+As well as the longitudinal ratio on the other side, where distances of $5$ s are visible, considering the time constant and the constant overshoot of the voltage difference of greater than the deadband, the control mechanisms seem to operate fine and plausible.
 
 % \subsubsection{Found Discreptancies or Unexpected Behavior}
 
@@ -295,14 +300,14 @@ As well as the longitudinal ratio on the other side, where distances of $5$ s ar
 \subsection{Validation of the FSM Control Scheme}
 \label{sec:validation-fsm-schemes}
 
-The idea and proceeding of the validation of the \acs{FSM} is carryied out similar to the subsection before.
-First, a simple load against machine model is used, with the same \mycomment[MK]{Sure the same?} parameters as described in \autoref{sec:networks}.
+The idea and proceeding of the validation of the \acs{FSM} is carried out similar to the subsection before.
+First, a simple load with machine model is used, with the same \mycomment[MK]{Sure the same?} parameters as described in \autoref{sec:networks}.
 Extending this model, a second look into the extended \acs{SMIB} model is done.
 Here the parameterization stays the same as well.
 
-As described in the modeling chapter, specically \autoref{sec:modeling-tap-changer-control}, of the \acs{FSM} module control, two control methods are implemented.
+As described in the modeling chapter, specifically \autoref{sec:modeling-tap-changer-control}, of the \acs{FSM} module control, two control methods are implemented.
 First, as described in the paper of \textcite{burlakin_2024} with preferring the switching of the \acs{FSM}, and secondly the dependence on the function of tap skipping.
-As only the last model is available in the comparative tool \textit{DIgSILENT PowerFactory}, only this can be compared and validated. 
+As only the last model is available in the tool \textit{DIgSILENT PowerFactory}, only this can be compared and validated. 
 The other control scheme is implemented similarly and used as well for futher studies.
 
 \subsubsection{Voltage Difference Dependent Activation}
@@ -336,7 +341,7 @@ After all possible switching operations took place, the statc error is settling 
 
 Continuing with the extended \acs{SMIB} model and a load increase event from $P=100\text{ MW}$ to $P=700\text{ MW}$ at $1$ s, \autoref{fig:error-fsm-vdiff-simple} is showing the \acs{TDS} including the error comparison.
 The switching events are clearly visible and around a similar time, although due to the more complex behavior not congruent.
-The static offsets after a simulation time of $120$ s are converging to $0$ p.u. absolute error, while the peak errors are arond $0.1$ p.u.
+The static offsets after a simulation time of $120$ s are converging to $0$ p.u. absolute error, while peaks occure to around $0.1$ p.u..
 These peak errors occur just for a short time and can be connected to the time shifted switching operations.
 
 \begin{figure}[htbp!]
@@ -348,7 +353,7 @@ These peak errors occur just for a short time and can be connected to the time s
 
 Looking deeper into the signal processing of the control scheme, one can obtain a beginning with the \acs{OLTC} as first acting part in \autoref{fig:signals-fsm-vdiff-ext-smib}.
 The voltage difference is exceeding the deadband, but not large enough to activate the \acs{FSM} module yet.
-Later on in the evolution the \acs{FSM} is gettinmg activated, but not dependent on the \acs{OLTC} switching or tap position.
+Later on in the evolution the \acs{FSM} is getting activated, but not dependent on the \acs{OLTC} switching or tap position.
 
 \subsubsection{Preferring the FSM over the Normal OLTC}
 
@@ -360,7 +365,7 @@ Later on in the evolution the \acs{FSM} is gettinmg activated, but not dependent
 \end{figure}
 
 For the simple load against machine model no different result to the afore presented could be found.
-The less drastic increase in voltage magitude difference is reuslting in the same switching behavior and module activation as with the voltage dependent \acs{FSM} control.
+The less drastic increase in voltage magitude difference is resulting in the same switching behavior and module activation as with the voltage dependent \acs{FSM} control.
 Therefore the \acs{FSM} is acting just as an increase in switchable tap positions, resp. transformer ratio spread.
 
 Accounting for the second validation set up, the same network is chosen as for the validation of the first \acs{FSM} control scheme.
@@ -379,11 +384,11 @@ The switching behavior is thus not only differing in the preference of the tap c
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/fsm_deaf_band.pdf}
-    \caption[Illustration of the deaf band with the FSM preferring FSM control scheme]{Illustration of the deaf band with the FSM preferring FSM control scheme}
+    \caption[Illustration of the \glqq deaf band\grqq~with the FSM preferring FSM control scheme]{Illustration of the deaf band with the FSM preferring FSM control scheme}
     \label{fig:deaf-band}
 \end{figure}
 
-One quite interesting error in this switching logic is the problem of a deaf area between the deadband and $\Delta m \cdot v_\mathrm{db}$.
+One quite interesting error in this switching logic is the problem of a \glqq deaf area\grqq~between the deadband and $\Delta m \cdot v_\mathrm{db}$.
 If the occuring event is causing a rise in voltage deviation between these two values, but not exceeding the limit, the \acs{FSM} control is not being activated.
 Therefore no tap changing is occuring, and because the \acs{FSM} can not getting into any extreme position, the normal \acs{OLTC} control is not getting activated as well.
 Therefore the tap changing transformer is not doing anything, and acting sort of \glqq deaf\grqq~to the voltage deviation in that band.
@@ -399,10 +404,10 @@ Some parts ca be validates through external sources, others can just be tried to
 
 As previously illustrated in \autoref{sec:nose-curves}, the Nose Curve calculation for simple cases is congruent with the analytical calculation.
 When looking at more complex cases, \textit{DIgSILENT PowerFactory} is providing such a voltage curve calculation tool as well.
-When only scaling one load at a desired bus, with variation of the loads on considering a constant power relation $\tan \phi$, one can compare it to the proposed and impolemented algorithm in this thesis.
-The desired network is the IEEE 9-bus network from \quelle.
+When only scaling one load at a desired bus, with variation of the loads on considering a constant power angle $\tan \phi$, one can compare it to the proposed and implemented algorithm in this thesis.
+The desired network is the IEEE 9-bus network from \autocite{anderson_2003}.
 Considering a variation of the load at bus five, with its constant power angle $\tan \phi = 0.4$, one can compare the solutions in \autoref{fig:comp-9bus-nose-curve}.
-All other load stay consistent, so that the maximum power transfer is reached in both simulation environments at around $405$ MW.
+All other loads stay constant, so that the maximum power transfer is reached in both simulation environments at around $405$ MW.
 An interesting observation can be drawn in the beginning of the curve, where \textit{DIgSILENT PowerFactory} is naturally starting at the initial load operational power.
 Apart from that, the curves are congruent as well.
 
@@ -416,8 +421,8 @@ Apart from that, the curves are congruent as well.
 \subsubsection{Extension of Nose Curves: Plausibility}
 
 \sidenote{OLTC ratio dependent curves}
-The next extensions in the interest are the intersection points with the different load models at the bus, the include of \acs{TDS}, and the insertion of tap position dependent characteristics.
-\autoref{fig:oltc-nose-curve} is targeting the last mentioned point and illustrating in dashed red lines the different tap dependent nose curves of a simple load machin network from \autoref{sec:networks}.
+The next extensions of interest are the intersection points with the different load models at the bus, the include of \acs{TDS}, and the insertion of tap position dependent characteristics.
+\autoref{fig:oltc-nose-curve} is targeting the last mentioned point and illustrating in dashed red lines the different tap dependent nose curves of a simple load machine network from \autoref{sec:networks}.
 The discrete possible tap ratios are defined as following set:
 \begin{align}
     \boldsymbol{R} := \{0.9 + n \cdot 0.02\} \quad \forall~\{ n \in \mathbb{N}~\vert~0 \leq n \leq 10 \} \notag
@@ -433,8 +438,8 @@ The discrete possible tap ratios are defined as following set:
 Clearly visible are these transformer ratios for an unloaded grid.
 The evolution of all tap positions deviating from the initial, or normal tap position illustrated as blue line, can be described as equidistant.
 Resulting in the same critical maximum loading of the grid, but at different voltages.
-This could be expected, as this \acs{OLTC} is solely a longitudinal tap changes, with no phase shifting capabilities at all.
-The maximum transferable power shall thus not be different, as the transformer alone cannont support any reactive power
+This could be expected, as this \acs{OLTC} is solely a longitudinal tap changer, with no phase shifting capabilities at all.
+The maximum transferable power shall thus not be different, as the transformer alone cannot support any reactive power.
 
 \begin{figure}[htbp!]
     \centering
@@ -446,7 +451,7 @@ The maximum transferable power shall thus not be different, as the transformer a
 \sidenote{TDS in a static plot}
 When concerning the first two visualization extensions, the includation of a \acs{TDS} and the load behavior in the static plot, one can obtain the results from \autoref{fig:nc-tds-load}.
 The more pale the scatter points get, the further the point is in time of the simulation.
-The basis sceario for this figure is the simple grid model, with an continous linear load increase over time statrting at the ase load of $P=400\text{ MW}$ and $Q=0\text{ Mvar}$.
+The basis scenario for this figure is the simple grid model, with an continuous linear load increase over time starting at the base load of $P=400\text{ MW}$ and $Q=0\text{ Mvar}$.
 The load could then be described in dependence of the time $t$ as 
 \begin{align}
     s(t) = s_0 + 80\text{ MVA} \cdot t \notag,
@@ -482,11 +487,11 @@ But here the limitations or maximum loading points of the network cannot be reac
 
 \subsubsection{Envelope Violation Index}
 
-The following shall demontrate the usage of the \acf{TVI}, when a scenario is either stable or unstable.
-Using a standard \acs{SMIB} from \autoref{sec:networks}, and a added short circuit event from the time step $1$ s untill either $1.1$ s for the stable scenario, and $1.17$ s for the unstable scenario.
+The following shall demonstrate the usage of the \acf{TVI}, when a scenario is either stable or unstable.
+Using a standard \acs{SMIB} from \autoref{sec:networks}, and a added short circuit event from the time step $1$ s until either $1.1$ s for the stable scenario, and $1.17$ s for the unstable scenario.
 Now one can calculate the \acs{TVI} of each bus, the \acs{CSI} of the overall system, and relate all busses to the average of the system.
 Further, the time stamps, where the voltage envelope is cut, can be returned as well. 
-The shwon envelope in \autoref{fig:env-stable} can be replaced by a set of \acs{FRT}-curves as well.
+The shown envelope in \autoref{fig:env-stable} can be replaced by a set of \acs{FRT}-curves as well.
 
 \begin{figure}[htbp!]
     \centering
@@ -497,7 +502,7 @@ The shwon envelope in \autoref{fig:env-stable} can be replaced by a set of \acs{
 
 The \acs{TVI} for bus one in the shown stable scenario is approx. $0.06$, regarding the instable scenario $5.2$.
 The voltage envelope violation time could be calculated for the instable scenario for each exit of the envelope, if the voltage has been inside it the timestep before.
-Regarding the \acs{CSI} for this system, it can be calculated to approx. $5.8$, where bus one is rougly as critical as the system, bus zero is less critical with a \acs{TVI} of around $3.9$, and bus two is the most critical with a value of $8.5$.
+Regarding the \acs{CSI} for this system, it can be calculated to approx. $5.8$, where bus one is roughly as critical as the system, bus zero is less critical with a \acs{TVI} of around $3.9$, and bus two is the most critical with a value of $8.5$.
 The \acs{IBB} in this scenario is connected to bus zero, the short circuit event on bus one is harmin the stability of the connected machine at bus two. 
 Bus one itself is supplied and strongly connected with the \acs{IBB}, thus making the bus two, which is isolated during the fault, the most critical one.
 

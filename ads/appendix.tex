@@ -25,6 +25,46 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Fundamentals}
 
+\section{Voltage Stability Basics: Definitions}
+\label{app:voltage-stability-definitions}
+
+All of the follwong definitions are direct citations, and therefore the same wording as in the paper of \textcite{shoup_2004}. 
+The definitions are short, precise and summarized resp. sythesized from papers and report from \ac{CIGRE}\footnote{french for International Council on Large Electric Systems} and \ac{IEEE}.
+
+\textbf{Voltage dip:}
+\begin{quote}\itshape
+    A temporary reduction of the voltage at a point in the electrical system below a threshold. 
+    If during a voltage dip the voltage falls below an interruption threshold, the event is sometimes considered to be both a dip and an interruption.
+\end{quote}
+
+\textbf{Voltage sag:}
+\begin{quote}\itshape
+    An rms variation with a magnitude between 10 \% and 90 \% of nominal and a short duration between 0.5 cycles and one minute.
+\end{quote}
+
+\textbf{Power system stability:}
+\begin{quote}\itshape
+    Power system stability is the ability of an electric power system, for a given initial operating condition, to regain a state of operating equilibrium after being subjected to a physical disturbance, with most system variables bounded so that practically the entire system remains intact.
+\end{quote}
+
+\textbf{Voltage stability:}
+\begin{quote}\itshape
+    Voltage stability refers to the ability of a power system to maintain steady voltages at all buses in the system after being subjected to a disturbance from a given initial operating condition. 
+    It depends on the ability to maintain/restore equilibrium between load demand and load supply from the power system. 
+    Instability that may result occurs in the form of a progressive fall or rise of voltages of some buses. 
+    A possible outcome of voltage instability is a loss of load in an area, or tripping of transmission lines and other elements by their protective systems leading to cascading outages. 
+    Loss of synchronism of some generators may result from these outages or from operation under field current limit.
+\end{quote}
+
+\textbf{Short-term voltage stability:}
+\begin{quote}\itshape
+    Short-term voltage stability involves dynamics of fast acting load components such as induction motors, electronically controlled loads and HVDC converters. 
+    The study period of interest is in the order of several seconds, and analysis requires solutions of appropriate system differential equations; that is similar to analysis of rotor angle stability. 
+    Dynamic modeling of loads is often essential. 
+    In contrast to angle stability, short-circuits near loads are important. 
+    The term transient voltage stability is deprecated.
+\end{quote}
+
 \section{Comparison of Trigonometric Functions}
 \label{app:trogonometric-func-comp}
 
@@ -196,6 +236,26 @@ This can be mathematically expressed by following set of equations:
         -(\underline{\vartheta}^*+1)\underline{Y}_\mathrm{T} & (\underline{\vartheta}^*\underline{\vartheta}+1)\underline{Y}_\mathrm{T}
     \end{bmatrix} \notag % \label{eq:admittance-oltc-2}
 \end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Program Structure for the discrete OLTC Control}
+
+\begin{figure}[H]
+    \centering
+    \missingfigure{Program Plan OLTC}
+    \caption[Program or algorithmic structure for the control scheme of the OLTC control]{Program or algorithmic structure for the control scheme of the OLTC control}
+    \label{fig:oltc-program-plan}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Program Structure for the discrete FSM Control}
+
+\begin{figure}[H]
+    \centering
+    \missingfigure{Program Plan FSM}
+    \caption[Program or algorithmic structure for the control scheme of the FSM control]{Program or algorithmic structure for the control scheme of the FSM control}
+    \label{fig:fsm-program-plan}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Class Diagrams}

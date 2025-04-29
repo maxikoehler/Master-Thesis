@@ -14,8 +14,8 @@ date: 2025-02-18
 	- [ ] Doku?
 ### Writing
 - [ ] Methodical Modeling:
-	- [ ] Tap Changer Controls
-	- [ ] Extended Ideas Controls
+	- [x] Tap Changer Controls
+	- [x] Extended Ideas Controls
 	- [x] Voltage Stability Calculations
 	- [ ] Klassendiagramme / Flow Charts / etc.
 - [ ] Verification
@@ -51,7 +51,7 @@ Idea here maybe for better comparison: If one has a critical scenario, all busse
 	- Analyze and discuss the SMIB example with load
 	- Observation: Load flow direction is changing, therefore control algorithm of OLTC is not sufficient enough. -> PF same result...
 	- OR: Automatic Detection of the Switching direction
-### For Handing In
+### For Handing In (Freitag)
 - [ ] Basic commenting
 - [ ] Clean up Repositories
 - [ ] Make Releases (Better time stamps and accountable compared to a single commit)
