@@ -36,7 +36,7 @@ It is representing only necessary packages, classes, and and attributes for the 
 \begin{figure}[htbp!]
         \centering
         \includegraphics[angle=90, height=18cm]{./tikz_graphics/images/software_structure.pdf}%{modeling/diffpssi_trafo_architecture.png}
-        \caption[Architecture of the implemented models in \textit{diffpssi}]{Architecture of the implemented models in \textit{diffpssi}; Using abstract classes for correct interfaces and improved reusability; only necessary packages, modules and classes are depicted}
+        \caption[Architecture of the implemented models in \textit{diffpssi}]{Architecture of the implemented models in \textit{diffpssi}; Using abstract classes for correct interfaces and improved reusability; only necessary packages, modules and classes are depicted.}
         \label{fig:transformer-architecture}
 \end{figure}
 
@@ -230,7 +230,7 @@ This control loop type is beneficial due to its accurate representability of cur
 \begin{figure}[htbp!]
         \centering
         \includegraphics[width=\linewidth]{modeling/oltc_control_scheme.png}
-        \caption{Discrete control loop of an \acs{OLTC}; from \textcite{milano_2011}}
+        \caption{Discrete control loop of an \acs{OLTC}; from \textcite{milano_2011}.}
         \label{fig:discrete-control-loop}
 \end{figure}
 
@@ -339,7 +339,7 @@ As the tap changer has maximum positions, and therefore also a operational band,
 \begin{figure}[htbp!]
         \centering
         \includegraphics[width=.7\linewidth]{development_files/validation/data/oltc_control_characterization.pdf}
-        \caption[Characterization of the OLTC control loops for a continous input]{Characterization of the OLTC control loop for a continous input; the input function simulates the to be regulated voltage, the output functions are characterized by $o(t)=i(t) \cdot \underline{\vartheta}_\mathrm{trafo}$}
+        \caption[Characterization of the OLTC control loops for a continous input]{Characterization of the OLTC control loop for a continous input; the input function simulates the to be regulated voltage, the output functions are characterized by $o(t)=i(t) \cdot \underline{\vartheta}_\mathrm{trafo}$.}
         \label{fig:oltc-control-characterization}
 \end{figure}
 
@@ -352,7 +352,7 @@ This procedure is similar as one would calculate a simple control engineering fe
 \begin{figure}[htbp!]
         \centering
         \includegraphics[width=.7\linewidth]{development_files/validation/data/oltc_control_characterization_jump.pdf}
-        \caption[Characterization of the OLTC control loops for a jump input]{Characterization of the OLTC control loop for a jump input; the input function simulates the to be regulated voltage, the output functions are characterized by $o(t)=i(t) \cdot \underline{\vartheta}_\mathrm{trafo}$}
+        \caption[Characterization of the OLTC control loops for a jump input]{Characterization of the OLTC control loop for a jump input; the input function simulates the to be regulated voltage, the output functions are characterized by $o(t)=i(t) \cdot \underline{\vartheta}_\mathrm{trafo}$.}
         \label{fig:oltc-control-characterization-jump}
 \end{figure}
 
@@ -366,108 +366,108 @@ As the tap skiping function is returning a non-zero value later as the time cons
 Very clearly visible is also the magnitude of one \acs{FSM} switch compared to the \acs{OLTC}, as is is expected to be roughly twice as big.
 These behaviors were expected in that ways and intended with the different control models.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Experimental: Extended Ideas and Improvements}
-\label{sec:experimental-modeling}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsection{Experimental: Extended Ideas and Improvements}
+% \label{sec:experimental-modeling}
 
-This subsection introduces a few ideas for improvements of the \acs{FSM} voltage controller.
-They fall under the aspect modeling, although just approaches are realized and tested.
-As this is based on observations during the development, validation or analyzing case studies, one might consider going through this after understanding the thoughts of the other remaining parts.
-Doing a re-read at the end would be beneficial either way.   
+% This subsection introduces a few ideas for improvements of the \acs{FSM} voltage controller.
+% They fall under the aspect modeling, although just approaches are realized and tested.
+% As this is based on observations during the development, validation or analyzing case studies, one might consider going through this after understanding the thoughts of the other remaining parts.
+% Doing a re-read at the end would be beneficial either way.   
 
-\subsubsection{Alternative Tap Skipping Logic}
-\label{sec:modeling-alt-tap-skip}
+% \subsubsection{Alternative Tap Skipping Logic}
+% \label{sec:modeling-alt-tap-skip}
 
-The first idea is concerning the function \textit{tap$\_$skip()} in the voltage controller of the \acsp{FSM}.
-Especially as the in \autoref{sec:validation-fsm-schemes} illustrated results show either a kind \glqq deaf\grqq~band for the \acs{FSM} preferred control loop, this logic is to be questioned for the voltage deviation dependent switching.
-In the latter logic, this function \textit{tap$\_$skip()} is making a big influence on the dynamic behavior.
-If one would try to formulate the current tap skipping function from \autoref{eq:tap-skip} in words, something in the following form could describe it: 
-\begin{quote} \itshape
-        How many times does the deadband fit into the voltage deviation? The tap skips are then considered under the amplifying factor of the \acs{FSM} applied on the tap addition of the \acs{OLTC} $\Delta m$.
-\end{quote}
-As the deadband has less to do with the impact of a \acs{FSM} switch, and it is already respected within the controller activation of both \acs{OLTC} and \acs{FSM} contribution, this relation to the dynamics seems obsolete.
-An alternative and seemingly more targeted approach would be sound like: 
-\begin{quote} \itshape
-        How many switches of the FSM would the current offset voltage bring back to the reference value?
-        In translated terms meaning: How many times does one FSM switch fit into the voltage deviation?
-\end{quote}
-This being translated in mathematical terms, according to \autoref{eq:tap-skip} and the respect of $\eta(t) \in \mathbb{Z}$, the new function for calculating the ideal tap skips by the \acs{FSM} is formulated in \autoref{eq:new-tap-skips}.
-\begin{align}
-        \eta(t)=\text{floor}\bigg(\frac{\vert \Delta v(t)\vert}{\Delta k \cdot \Delta m}\bigg) \label{eq:new-tap-skips}
-\end{align}
-This approach should be more accurate for different pairs of preset values, meaning the size of the deadband, the added voltage per tap, the amplifying factor of the \acs{FSM}, etc.
-It is expected, that the current logic is resulting in a plausible way, as the ratio addition per tap of the \acs{OLTC} is near the size of the deadband.
-This means, that the proposed function is very similar for the present and in this thesis mainly used parameterization of the \acs{FSM} control loop.
-However, it is expected that the proposal is thus more robust and better working for the applied cases and more variatons in the configuration.
+% The first idea is concerning the function \textit{tap$\_$skip()} in the voltage controller of the \acsp{FSM}.
+% Especially as the in \autoref{sec:validation-fsm-schemes} illustrated results show either a kind \glqq deaf\grqq~band for the \acs{FSM} preferred control loop, this logic is to be questioned for the voltage deviation dependent switching.
+% In the latter logic, this function \textit{tap$\_$skip()} is making a big influence on the dynamic behavior.
+% If one would try to formulate the current tap skipping function from \autoref{eq:tap-skip} in words, something in the following form could describe it: 
+% \begin{quote} \itshape
+%         How many times does the deadband fit into the voltage deviation? The tap skips are then considered under the amplifying factor of the \acs{FSM} applied on the tap addition of the \acs{OLTC} $\Delta m$.
+% \end{quote}
+% As the deadband has less to do with the impact of a \acs{FSM} switch, and it is already respected within the controller activation of both \acs{OLTC} and \acs{FSM} contribution, this relation to the dynamics seems obsolete.
+% An alternative and seemingly more targeted approach would be sound like: 
+% \begin{quote} \itshape
+%         How many switches of the FSM would the current offset voltage bring back to the reference value?
+%         In translated terms meaning: How many times does one FSM switch fit into the voltage deviation?
+% \end{quote}
+% This being translated in mathematical terms, according to \autoref{eq:tap-skip} and the respect of $\eta(t) \in \mathbb{Z}$, the new function for calculating the ideal tap skips by the \acs{FSM} is formulated in \autoref{eq:new-tap-skips}.
+% \begin{align}
+%         \eta(t)=\text{floor}\bigg(\frac{\vert \Delta v(t)\vert}{\Delta k \cdot \Delta m}\bigg) \label{eq:new-tap-skips}
+% \end{align}
+% This approach should be more accurate for different pairs of preset values, meaning the size of the deadband, the added voltage per tap, the amplifying factor of the \acs{FSM}, etc.
+% It is expected, that the current logic is resulting in a plausible way, as the ratio addition per tap of the \acs{OLTC} is near the size of the deadband.
+% This means, that the proposed function is very similar for the present and in this thesis mainly used parameterization of the \acs{FSM} control loop.
+% However, it is expected that the proposal is thus more robust and better working for the applied cases and more variatons in the configuration.
 
-\ai{
-        \textit{Or this following green part in the discussion?}
+% \ai{
+%         \textit{Or this following green part in the discussion?}
 
-        One comment on this proposal and the original function idea has to made anyway.
-        Either logic is solely considering the influence of the tap changer, but no load or grid dynamics at all.
-        Even the time constants do not have a influence on the switching behavior.
-        As this could also be beneficial for fast responses, the large impact of the novel \acs{FSM} equipped tap changers in a very short time can also irritate other control units or counteract to processes and destabilize a grid area unnecessarily.
-        Thus a true voltage dfference or voltage difference gradient based control scheme, under consideration of the individual minimum possible time constants would appear to be logically the best solution.
-}
+%         One comment on this proposal and the original function idea has to made anyway.
+%         Either logic is solely considering the influence of the tap changer, but no load or grid dynamics at all.
+%         Even the time constants do not have a influence on the switching behavior.
+%         As this could also be beneficial for fast responses, the large impact of the novel \acs{FSM} equipped tap changers in a very short time can also irritate other control units or counteract to processes and destabilize a grid area unnecessarily.
+%         Thus a true voltage dfference or voltage difference gradient based control scheme, under consideration of the individual minimum possible time constants would appear to be logically the best solution.
+% }
 
-\subsubsection{Operational Oriented FSM Control}
-\mycomment[MK]{Oder sollte das in die Diskussion? -> Abhängig davon, ob ich dazu noch eine Case Study hinbekomme?}
-\label{sec:modeling-op-control}
+% \subsubsection{Operational Oriented FSM Control}
+% \mycomment[MK]{Oder sollte das in die Diskussion? -> Abhängig davon, ob ich dazu noch eine Case Study hinbekomme?}
+% \label{sec:modeling-op-control}
 
 
-\sidenote{Comment on the representation of time constants}
-The time constants of both parts, the \acs{OLTC} and the \acs{FSM}, are relevant as they model the minimal needed duration of the switching.
-This minimal time is based on mechanical or electric limitations, such as the mechanical movement of the \acs{OLTC} tap changer.
-In the current schemes they are not represented as a limitation, but more just as a delay.
-For example, if the voltage difference falls below the deadband, the integrators or time delays are resetted to their initial state. 
-The falling below was just an errot or a short swing, so the deadband is suddenly exceeded again after a very short time.
-As the switch of the \acs{OLTC} would mechanically move, this sudden exceed would then let the time delay start from the beginning.
-While in reality the physical switch has not been given enough time to reach its starting position, the next switch could be achieved faster. 
+% \sidenote{Comment on the representation of time constants}
+% The time constants of both parts, the \acs{OLTC} and the \acs{FSM}, are relevant as they model the minimal needed duration of the switching.
+% This minimal time is based on mechanical or electric limitations, such as the mechanical movement of the \acs{OLTC} tap changer.
+% In the current schemes they are not represented as a limitation, but more just as a delay.
+% For example, if the voltage difference falls below the deadband, the integrators or time delays are resetted to their initial state. 
+% The falling below was just an errot or a short swing, so the deadband is suddenly exceeded again after a very short time.
+% As the switch of the \acs{OLTC} would mechanically move, this sudden exceed would then let the time delay start from the beginning.
+% While in reality the physical switch has not been given enough time to reach its starting position, the next switch could be achieved faster. 
 
-\sidenote{Corrective supervision}
-As afore described, the longer time constants of the \acs{OLTC} come from the mechanical switch movement, which are not the case for the \acs{FSM}.
-Therefore the maximum dynamic ability to react on voltage deviations is a lot higher for the \acs{FSM}.
-With the move from the preffered \acs{FSM} switching to the voltage dependent activation, a significant step was made towards dynamic influences instead of just a \glqq range extender\grqq.
-One could think of even improving this behavior, as keeping the dynamic capabilites through rearranging the positions of $k$ and $m$.
-In more static cases a preset of one of the tap changers postion, e.g. the more dynamik $m$, can be restored with keeping the overall ratio constant.
-This could be possible through coordinated counter switching of the \acs{OLTC} and the \acs{FSM}.
-When considering, that the range of an \acs{OLTC} is typically aroung $k \in [-10,10]$, the FSM seems very limited with $m \in [-4,4]$.
-This would utilize the \acs{OLTC} better on a long-term perspective, as not only the FSM would be used for small dynamic deviations.
-The described behavior could be named as corrective supervision or monitoring. 
+% \sidenote{Corrective supervision}
+% As afore described, the longer time constants of the \acs{OLTC} come from the mechanical switch movement, which are not the case for the \acs{FSM}.
+% Therefore the maximum dynamic ability to react on voltage deviations is a lot higher for the \acs{FSM}.
+% With the move from the preffered \acs{FSM} switching to the voltage dependent activation, a significant step was made towards dynamic influences instead of just a \glqq range extender\grqq.
+% One could think of even improving this behavior, as keeping the dynamic capabilites through rearranging the positions of $k$ and $m$.
+% In more static cases a preset of one of the tap changers postion, e.g. the more dynamik $m$, can be restored with keeping the overall ratio constant.
+% This could be possible through coordinated counter switching of the \acs{OLTC} and the \acs{FSM}.
+% When considering, that the range of an \acs{OLTC} is typically aroung $k \in [-10,10]$, the FSM seems very limited with $m \in [-4,4]$.
+% This would utilize the \acs{OLTC} better on a long-term perspective, as not only the FSM would be used for small dynamic deviations.
+% The described behavior could be named as corrective supervision or monitoring. 
 
-\sidenote{Using voltage gradients}
-In order to select or deselect the \acs{FSM} or \acs{OLTC}, the current approach through the tap skipping function seems hand-on and sufficient.
-As afore described, it does not account for different time constants and thus durations until the voltage deviation can be corrected.
-This calculation is a retrospective procedure, as only the current value is referenced to the voltage setpoint.
-If this deviation became too big, the \acs{FSM} switching is initiated.
+% \sidenote{Using voltage gradients}
+% In order to select or deselect the \acs{FSM} or \acs{OLTC}, the current approach through the tap skipping function seems hand-on and sufficient.
+% As afore described, it does not account for different time constants and thus durations until the voltage deviation can be corrected.
+% This calculation is a retrospective procedure, as only the current value is referenced to the voltage setpoint.
+% If this deviation became too big, the \acs{FSM} switching is initiated.
 
-In contrast to that, if one would account for the current voltage gradient in addition to the current deviation, a prediction over the time constant modeled switching limitation can be estimated.
-This would bring the controller in a mode, where the switching activation would be anticipated.
-Further a gradient could easily help to determine which part, the \acs{FSM} for more dynamic action or the \acs{OLTC} for more static actions, should be used.
-With this idea one could even imagine neglecting a voltage deadband, as a time deadband would be more applicable towards swing characteristics. 
-As swings, or then damping of swings in a system, would symptomatically end in the same characteristics as tap hunting, this in between mode could be realized.
+% In contrast to that, if one would account for the current voltage gradient in addition to the current deviation, a prediction over the time constant modeled switching limitation can be estimated.
+% This would bring the controller in a mode, where the switching activation would be anticipated.
+% Further a gradient could easily help to determine which part, the \acs{FSM} for more dynamic action or the \acs{OLTC} for more static actions, should be used.
+% With this idea one could even imagine neglecting a voltage deadband, as a time deadband would be more applicable towards swing characteristics. 
+% As swings, or then damping of swings in a system, would symptomatically end in the same characteristics as tap hunting, this in between mode could be realized.
 
-The proposed changes can be realized with a split control path, devided into a preset calculation and a physical switching representation.
-A provisional scheme or sketch is illustrated in \autoref{fig:sketch-control-improvement}. 
-These two compartments are then forked with a corrective supervision to realize off-nominal transformer ratios with optimal dynamic capabilities as pre setted by the operator.
+% The proposed changes can be realized with a split control path, devided into a preset calculation and a physical switching representation.
+% A provisional scheme or sketch is illustrated in \autoref{fig:sketch-control-improvement}. 
+% These two compartments are then forked with a corrective supervision to realize off-nominal transformer ratios with optimal dynamic capabilities as pre setted by the operator.
 
-\begin{figure}
-        \centering
-        \missingfigure{Sketch control improvement}
-        \caption[Sketch of an dynamics improved operational oriented control scheme for the \acs{FSM}]{Sketch of an dynamics improved operational oriented control scheme for the \acs{FSM}}
-        \label{fig:sketch-control-improvement}
-\end{figure}
+% \begin{figure}
+%         \centering
+%         \missingfigure{Sketch control improvement}
+%         \caption[Sketch of an dynamics improved operational oriented control scheme for the \acs{FSM}]{Sketch of an dynamics improved operational oriented control scheme for the \acs{FSM}.}
+%         \label{fig:sketch-control-improvement}
+% \end{figure}
 
-\subsubsection{Dynamic Measurement and Reference Voltage Setpoints}
+% \subsubsection{Dynamic Measurement and Reference Voltage Setpoints}
 
-The last, least expected approach to be profitable, is the area of measurement and reference setting.
-On the one hand, it could be imagined, tracking the voltages at both busses and thus getting insights on the load flow direction.
-The load flow in combination of positioning slack busses are expected to define the switching direction of the tap changer transformers.
-Additionally dynamic setpoints are imagined to be calculated as references.
-This means, that a new load flow calculation is done every time the load in the network or at least network area changes.
-With considering a direct supply of only a load, or at least a construct summarizeable as one load, an additonal block in the control scheme representing Nose Curves can be imagined as suitable approach.
-This representation static possible solutions could allow for an automated reference voltage and initial tap changer position.
-Especially when considering the afore described operational oriented control.
+% The last, least expected approach to be profitable, is the area of measurement and reference setting.
+% On the one hand, it could be imagined, tracking the voltages at both busses and thus getting insights on the load flow direction.
+% The load flow in combination of positioning slack busses are expected to define the switching direction of the tap changer transformers.
+% Additionally dynamic setpoints are imagined to be calculated as references.
+% This means, that a new load flow calculation is done every time the load in the network or at least network area changes.
+% With considering a direct supply of only a load, or at least a construct summarizeable as one load, an additonal block in the control scheme representing Nose Curves can be imagined as suitable approach.
+% This representation static possible solutions could allow for an automated reference voltage and initial tap changer position.
+% Especially when considering the afore described operational oriented control.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -520,7 +520,7 @@ Mathematically this is expressable as \autoref{eq:vq-mathematical}.
         % \vspace{-20pt}
         \centering
         \includegraphics[width=.9\linewidth]{tikz_graphics/images/class_diagram_nosecurve_red.pdf}
-        \caption{Class diagram of the NoseCurve class in the package diffpssi}
+        \caption[Class diagram of the NoseCurve class in the package diffpssi]{Class diagram of the NoseCurve class in the package diffpssi.}
         \label{fig:nose-curve-characterization}
 \end{wrapfigure}
 The implementation of the nose curve generation is realized as a class in the package {\itshape diffpssi.stability$\_$lib.voltage}.
@@ -550,7 +550,7 @@ The \acs{OLTC} tap dependent Nose Curves from \autoref{fig:oltc-nose-curve} are 
 
 \subsubsection{Results of the Nose Curve Generation}
 
-The following figure \autoref{fig:nose-curve-simple-grid} shows the generated nose curve for a simple grid as illustrated in \autoref{fig:single-line-voltage-stability}.
+The following \autoref{fig:nose-curve-simple-grid} shows the generated nose curve for a simple grid as illustrated in \autoref{fig:single-line-voltage-stability}.
 The grid is characterized at Bus 1, with a varying power angle as parameter $\tan \phi$.
 The power angle $\tan \phi$ is used to vary the power factor of the load, thus representing different load characteristics, as
 \begin{align}
@@ -567,14 +567,14 @@ The solution is reaching exactly until the critical point of power transfer.
 \begin{figure}[htbp!]
         \centering
         \includegraphics[width=\linewidth]{development_files/theoretical/plots/simple_load_B1_nose_curve.pdf}
-        \caption[Examplary generated nose curve for a simple generator - load grid]{Examplary generated nose curves for a simple generator load grid for various power angle level parameters $\tan \phi$; Applied on the grid of \autoref{fig:single-line-voltage-stability} with a characterization at Bus 1}
+        \caption[Examplary generated nose curve for a simple generator - load grid]{Examplary generated nose curves for a simple generator load grid for various power angle level parameters $\tan \phi$; Applied on the grid of \autoref{fig:single-line-voltage-stability} with a characterization at Bus 1.}
         \label{fig:nose-curve-simple-grid}
 \end{figure}
 
 \begin{figure}[htbp!]
         \centering
         \includegraphics[width=\linewidth]{development_files/theoretical/plots/simple_load_B1_nose_curve_w-theoretical.pdf}
-        \caption[Comparison between the analytical calculation and the implemented solution]{Comparison between the analytical calculation and the implemented solution}
+        \caption[Comparison between the analytical calculation and the implemented solution]{Comparison between the analytical calculation and the implemented solution.}
         \label{fig:nose-curve-simple-comp}
 \end{figure}
 
@@ -629,7 +629,7 @@ The class diagram is displayed in \autoref{fig:class-violation-integral}.
 \begin{figure}[htbp!]
         \centering
         \missingfigure{Class diagram VioolationIntegral}
-        \caption[Class diagram for the class ViolationIntegral]{Class diagram for the class ViolationIntegral}
+        \caption[Class diagram for the class ViolationIntegral]{Class diagram for the class ViolationIntegral.}
         \label{fig:class-violation-integral}
 \end{figure}
 
@@ -641,7 +641,7 @@ Here the same logic applies as with the envelope functions before, as a vector w
 \begin{figure}[htbp!]
         \centering
         \missingfigure{Class diagram CriticalTimes}
-        \caption[Class diagram for the class CriticalTimes]{Class diagram for the class CriticalTimes}
+        \caption[Class diagram for the class CriticalTimes]{Class diagram for the class CriticalTimes.}
         \label{fig:class-critical-times}
 \end{figure}
 

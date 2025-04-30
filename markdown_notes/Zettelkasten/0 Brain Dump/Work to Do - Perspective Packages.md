@@ -29,10 +29,6 @@ date: 2025-02-18
 	- [ ] Setups
 	- [ ] Results
 - [ ] Discussion
-- [ ] Fundamentals:
-	- [ ] Voltage Stability
-	- [x] Power System Modeling
-	- [x] Tap Changer Control Description
 - [ ] Others (Intro, Summaries, Outlook / Research Questions)
 - [ ] Appendix
 ### Case Studies

@@ -43,28 +43,28 @@ The specific model details are included in \autoref{app:smib-model}, additionall
     \vspace{12pt}
     \includegraphics{tikz_graphics/images/smib_model.pdf}
     \vspace{12pt}
-    \caption[Single line respresentation of the \acs{SMIB} model]{\acf{SMIB} model for verification and validation of the Python framework; own figure after \autocite{machowski_2020,kundur_2022}}
+    \caption[Single line respresentation of the \acs{SMIB} model]{\acf{SMIB} model for verification and validation of the Python framework; own figure after \autocite{machowski_2020,kundur_2022}.}
     \label{fig:smib-model}
 \end{figure}
 
 \begin{table}[htb]
-    \caption[Simulation Setup for validation of the $\Pi$-modeled transformer]{Simulation Setup for validation of the $\Pi$-modeled transformer; considering a transforming ratio $\underline{\vartheta} \neq 1$ and $\underline{\vartheta} \in \mathbb{C}$}
+    \caption[Simulation Setup for validation of the $\Pi$-modeled transformer]{Simulation Setup for validation of the $\Pi$-modeled transformer; considering a transforming ratio $\underline{\vartheta} \neq 1$ and $\underline{\vartheta} \in \mathbb{C}$.}
     \label{tab:smib-model}
     \vspace*{12pt}
     \centering
     \small
-    \begin{tabularx}{\textwidth}{Xr}
+    \begin{tabularx}{\textwidth}{Xrl}
         % \toprule
-        \textbf{Parameter} & \textbf{Value} \\ \hline
+        \textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\ \hline
         \toprule
-        Generator inertia $H$ & 3.5 s \\
-        Generator damping $D$ & 0.1 p.u. \\
-        Generator resistance $R$ & 0.01 p.u. \\
-        Generator reactance $X$ & 0.1 p.u. \\
-        Transformer resistance $R$ & 0.01 p.u. \\
-        Transformer reactance $X$ & 0.1 p.u. \\
-        Transmission line resistance $R$ & 0.01 p.u. \\
-        Transmission line reactance $X$ & 0.1 p.u. \\
+        Generator inertia $H$ & 3.5 & s \\
+        Generator damping $D$ & 0.1 & p.u. \\
+        Generator resistance $R$ & 0.01 & p.u. \\
+        Generator reactance $X$ & 0.1 & p.u. \\
+        Transformer resistance $R$ & 0.01 & p.u. \\
+        Transformer reactance $X$ & 0.1 & p.u. \\
+        Transmission line resistance $R$ & 0.01 & p.u. \\
+        Transmission line reactance $X$ & 0.1 & p.u. \\
         \bottomrule
     \end{tabularx}
 \end{table}
@@ -77,7 +77,7 @@ A load is added at the secondary bus of the transformer, the rest of the system 
     \vspace{12pt}
     \includegraphics{tikz_graphics/images/smib_model_with_load.pdf}
     \vspace{12pt}
-    \caption{Modified \acf{SMIB} model with additional load}
+    \caption[Modified \acf{SMIB} model with additional load]{Modified \acf{SMIB} model with additional load.}
     \label{fig:smib-model-mod}
 \end{figure}
 
@@ -96,7 +96,7 @@ Further details about its configuration and simulation setup are included in \au
     \vspace{12pt}
     \includegraphics{tikz_graphics/images/sm_load_model.pdf}
     \vspace{12pt}
-    \caption[Single line representation of a simple single machine load model]{Single line representation of a simple single machine load model; own illustration with characterstics from \quelle}
+    \caption[Single line representation of a simple single machine load model]{Single line representation of a simple single machine load model; own illustration with characterstics from \autocite{kundur_2022}.}
     \label{fig:single-line-voltage-stability}
 \end{figure}
 
@@ -131,7 +131,7 @@ The reason for excluding the vector angle $\phi$ relies in the not congruent res
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/s_n_comp_errors.pdf}
-    \caption[Model error comparison concerning the variation of the rated apparent power]{Absolute errors comparing the tool \textit{diffpssi} with the software \textit{DIgSILENT PowerFactory}; One plot each for every parameter variation, concerning the errors for each bus}
+    \caption[Model error comparison concerning the variation of the rated apparent power]{Absolute errors comparing the tool \textit{diffpssi} with the software \textit{DIgSILENT PowerFactory}; One plot each for every parameter variation, concerning the errors for each bus.}
     \label{fig:valid-s-errors}
 \end{figure}
 
@@ -158,7 +158,7 @@ Following this argumentation, the maximum relative error shall be around $0.05$ 
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/theta_comp_errors.pdf}
-    \caption{Error comparison of varying the longitudinal ratio as parameter between \textit{diffpssi} and \textit{DIgSILENT PowerFactory}}
+    \caption{Error comparison of varying the longitudinal ratio as parameter between \textit{diffpssi} and \textit{DIgSILENT PowerFactory}.}
     \label{fig:valid-ratio-errors}
 \end{figure}
 
@@ -183,7 +183,7 @@ But still, this error is in a margin of lower than $1$ \%.
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/comparison_z_load.pdf}
-    \caption[Comparison of the constant impedance model for each bus]{Comparison of the constant impedance model for each bus between the Python module \textit{diffpssi} and \textit{DIgSILENT PowerFactory}}
+    \caption[Comparison of the constant impedance model for each bus]{Comparison of the constant impedance model for each bus between the Python module \textit{diffpssi} and \textit{DIgSILENT PowerFactory}.}
     \label{fig:z-comp}
 \end{figure}
 
@@ -197,7 +197,7 @@ Other parameters are set as described in \autoref{sec:networks}.
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/z_load_error.pdf}
-    \caption[Absolute error comparison of the constant impedance model]{Absolute error of the already implemented constant impedance model over time; Accounted for both busses zero and one}
+    \caption[Absolute error comparison of the constant impedance model]{Absolute error of the already implemented constant impedance model over time; Accounted for both busses zero and one.}
     \label{fig:z-load-error}
 \end{figure}
 
@@ -227,7 +227,7 @@ The applied load change is shifting the real power of the load from $P=400\text{
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/comp_oltc_simple-load.pdf}
-    \caption[Time Domain Result of the OLTC control scheme applied on the extended \acs{SMIB} network]{\acf{TDS} of the standard discrete \acs{OLTC} control scheme; Result of the extended or modified \acs{SMIB} model with additional load}
+    \caption[Time Domain Result of the OLTC control scheme applied on the extended \acs{SMIB} network]{\acf{TDS} of the standard discrete \acs{OLTC} control scheme; Result of the extended or modified \acs{SMIB} model with additional load.}
     \label{fig:comp-oltc-simple}
 \end{figure}
 
@@ -241,7 +241,7 @@ This error is close to $0$ p.u., showing a even less error than previously illus
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/error_oltc_simple-load.pdf}
-    \caption[Bus and Error Comparison for the standard discrete \acs{OLTC} scheme applied on the extended \acs{SMIB} model with load]{Comparison of the standard discrete \acs{OLTC} control scheme applied on the extended \acs{SMIB} model with additional load; One plot for each bus with data from \textit{diffpssi} and \textit{DIgSILENT PowerFactory}; Additional plot for showing the absolute error for each bus}
+    \caption[Bus and Error Comparison for the standard discrete \acs{OLTC} scheme applied on the extended \acs{SMIB} model with load]{Comparison of the standard discrete \acs{OLTC} control scheme applied on the extended \acs{SMIB} model with additional load; One plot for each bus with data from \textit{diffpssi} and \textit{DIgSILENT PowerFactory}; Additional plot for showing the absolute error for each bus.}
     \label{fig:comp-oltc-error-simple}
 \end{figure}
 
@@ -253,7 +253,7 @@ Comparing the results for each bus between the two tools \textit{diffpssi} and \
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/comp_oltc_ext-smib.pdf}
-    \caption[Bus and Error Comparison for the standard discrete \acs{OLTC} scheme applied on the extended \acs{SMIB} model with load]{Comparison of the standard discrete \acs{OLTC} control scheme applied on the extended \acs{SMIB} model with additional load; One plot for each bus with data from \textit{diffpssi} and \textit{DIgSILENT PowerFactory}; Additional plot for showing the absolute error for each bus}
+    \caption[Bus and Error Comparison for the standard discrete \acs{OLTC} scheme applied on the extended \acs{SMIB} model with load]{Comparison of the standard discrete \acs{OLTC} control scheme applied on the extended \acs{SMIB} model with additional load; One plot for each bus with data from \textit{diffpssi} and \textit{DIgSILENT PowerFactory}; Additional plot for showing the absolute error for each bus.}
     \label{fig:comp-oltc-control-ex-smib}
 \end{figure}
 
@@ -268,7 +268,7 @@ All following ones are as well time shifted between the two tools, ending up wit
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/oltc_ex-smib_signals.pdf}
-    \caption[Internal signals of the \acs{OLTC} control in the extended \acs{SMIB} model]{Internal signals of the \acs{OLTC} control in the extended \acs{SMIB} model; a) the longitudinal transformer ratio $u_\mathrm{l}$ or mathematically referred as $\vartheta$, b) the deadband filtered voltage difference signal $v_\mathrm{dead}$}
+    \caption[Internal signals of the \acs{OLTC} control in the extended \acs{SMIB} model]{Internal signals of the \acs{OLTC} control in the extended \acs{SMIB} model; a) the longitudinal transformer ratio $u_\mathrm{l}$ or mathematically referred as $\vartheta$, b) the deadband filtered voltage difference signal $v_\mathrm{dead}$.}
     \label{fig:int-signals-ext-smib-oltc}
 \end{figure}
 
@@ -315,14 +315,14 @@ The other control scheme is implemented similarly and used as well for futher st
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/tds_comp_fsm_simple.pdf}
-    \caption[\acs{TDS} and error comparison for a \acs{FSM} control scheme based on the voltage difference applied on the extended \acs{SMIB} model]{\acs{TDS} and error comparison for a \acs{FSM} control scheme based on the voltage difference applied on the extended \acs{SMIB} model}
+    \caption[\acs{TDS} and error comparison for a \acs{FSM} control scheme based on the voltage difference applied on the extended \acs{SMIB} model]{\acs{TDS} and error comparison for a \acs{FSM} control scheme based on the voltage difference applied on the extended \acs{SMIB} model.}
     \label{fig:tds-comp-fsm-vdiff-simple}
 \end{figure}
 
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/error_fsm_simple.pdf}
-    \caption[\acs{TDS} and error comparison for a \acs{FSM} control scheme based on the voltage difference applied on the extended \acs{SMIB} model]{\acs{TDS} and error comparison for a \acs{FSM} control scheme based on the voltage difference applied on the extended \acs{SMIB} model}
+    \caption[\acs{TDS} and error comparison for a \acs{FSM} control scheme based on the voltage difference applied on the extended \acs{SMIB} model]{\acs{TDS} and error comparison for a \acs{FSM} control scheme based on the voltage difference applied on the extended \acs{SMIB} model.}
     \label{fig:error-fsm-vdiff-simple}
 \end{figure}
 
@@ -335,7 +335,7 @@ After all possible switching operations took place, the statc error is settling 
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/signals_ratio-k-m_fsm_vdiff.pdf}
-    \caption[Internal signals for a \acs{FSM} control scheme switching dependent on the voltage deviation]{Internal signals for a \acs{FSM} control scheme switching dependent on the voltage deviation}
+    \caption[Internal signals for a \acs{FSM} control scheme switching dependent on the voltage deviation]{Internal signals for a \acs{FSM} control scheme switching dependent on the voltage deviation.}
     \label{fig:signals-fsm-vdiff-ext-smib}
 \end{figure}
 
@@ -347,7 +347,7 @@ These peak errors occur just for a short time and can be connected to the time s
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/error_comp_fsm_vdiff.pdf}
-    \caption[\acs{TDS} and error comparison for a \acs{FSM} control scheme based on the voltage difference applied on the simple scenario]{\acs{TDS} and error comparison for a \acs{FSM} control scheme based on the voltage difference applied on the simple scenario}
+    \caption[\acs{TDS} and error comparison for a \acs{FSM} control scheme based on the voltage difference applied on the simple scenario]{\acs{TDS} and error comparison for a \acs{FSM} control scheme based on the voltage difference applied on the simple scenario.}
     \label{fig:error-fsm-vdiff-simple}
 \end{figure}
 
@@ -360,7 +360,7 @@ Later on in the evolution the \acs{FSM} is getting activated, but not dependent 
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/signals_ratio-k-m_fsm_pref.pdf}
-    \caption[Internal signals for a \acs{FSM} control scheme preferring the \acs{FSM}]{Internal signals  for a \acs{FSM} control scheme preferring the \acs{FSM}}
+    \caption[Internal signals for a \acs{FSM} control scheme preferring the \acs{FSM}]{Internal signals  for a \acs{FSM} control scheme preferring the \acs{FSM}.}
     \label{fig:signals-fsm-preferred}
 \end{figure}
 
@@ -384,7 +384,7 @@ The switching behavior is thus not only differing in the preference of the tap c
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/fsm_deaf_band.pdf}
-    \caption[Illustration of the \glqq deaf band\grqq~with the FSM preferring FSM control scheme]{Illustration of the deaf band with the FSM preferring FSM control scheme}
+    \caption[Illustration of the \glqq deaf band\grqq~with the FSM preferring FSM control scheme]{Illustration of the deaf band with the FSM preferring FSM control scheme.}
     \label{fig:deaf-band}
 \end{figure}
 
@@ -414,7 +414,7 @@ Apart from that, the curves are congruent as well.
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/theoretical/plots/9bus_comp_b5.pdf}
-    \caption[Comparison of Nose Curve generation between \textit{diffpssi} and \textit{DIgSILENT PowerFactory} for the IEEE 9-bus system]{Comparison of Nose Curve generation between \textit{diffpssi} and \textit{DIgSILENT PowerFactory} for the IEEE 9-bus system at bus 5; Load only scaled at bus 5 and with constant $\tan \phi = 0.4$}
+    \caption[Comparison of Nose Curve generation between \textit{diffpssi} and \textit{DIgSILENT PowerFactory} for the IEEE 9-bus system]{Comparison of Nose Curve generation between \textit{diffpssi} and \textit{DIgSILENT PowerFactory} for the IEEE 9-bus system at bus 5; Load only scaled at bus 5 and with constant $\tan \phi = 0.4$.}
     \label{fig:comp-9bus-nose-curve}
 \end{figure}
 
@@ -431,7 +431,7 @@ The discrete possible tap ratios are defined as following set:
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/voltage_stability/plots/nose_curves_with-oltc.pdf}
-    \caption[Nose curves dependent on the tap changer ratio for a simple load network]{Nose curves dependent on the tap canger ratio for a simple load network}
+    \caption[Nose curves dependent on the tap changer ratio for a simple load network]{Nose curves dependent on the tap canger ratio for a simple load network.}
     \label{fig:oltc-nose-curve}
 \end{figure}
 
@@ -444,7 +444,7 @@ The maximum transferable power shall thus not be different, as the transformer a
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/voltage_stability/plots/nose_curve_tds_load.pdf}
-    \caption{Nose Curve with added \acs{TDS} and the power of a constant impedance load dependent on the voltage as intersection point}
+    \caption{Nose Curve with added \acs{TDS} and the power of a constant impedance load dependent on the voltage as intersection point.}
     \label{fig:nc-tds-load}
 \end{figure}
 
@@ -474,7 +474,7 @@ The size of the machine is set to $2200$ MVA, while its power delivery is at $P=
         \includegraphics[width=\linewidth]{development_files/voltage_stability/plots/nose_cuve_big-machine.pdf}
         \subcaption{$5 \cdot 2200$ MVA}
     \end{subfigure}
-    \caption[Nose Curve and \acs{TDS} for a simple load system without machine controllers]{Nose Curve and \acs{TDS} for a simple load system; Considering a machine without controllers and continous load increase; Left side showing a machine with $2200$ MVA size, on the right five times the size}
+    \caption[Nose Curve and \acs{TDS} for a simple load system without machine controllers]{Nose Curve and \acs{TDS} for a simple load system; Considering a machine without controllers and continous load increase; Left side showing a machine with $2200$ MVA size, on the right five times the size.}
     \label{fig:tds-nose-curve-machine-sizes}
 \end{figure}
 
@@ -496,7 +496,7 @@ The shown envelope in \autoref{fig:env-stable} can be replaced by a set of \acs{
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/voltage_stability/plots/env_stable_example.pdf}
-    \caption[Voltage envelope for a stable scenario]{Voltage envelope for a stable scenario}
+    \caption[Voltage envelope for a stable scenario]{Voltage envelope for a stable scenario.}
     \label{fig:env-stable}
 \end{figure}
 
@@ -509,7 +509,7 @@ Bus one itself is supplied and strongly connected with the \acs{IBB}, thus makin
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\linewidth]{development_files/voltage_stability/plots/env_instable_example.pdf}
-    \caption[Voltage envelope for an instable scenario]{Voltage envelope for an instable scenario}
+    \caption[Voltage envelope for an instable scenario]{Voltage envelope for an instable scenario.}
     \label{fig:env-instable}
 \end{figure}
 
