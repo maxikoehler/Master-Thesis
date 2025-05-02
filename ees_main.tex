@@ -1,5 +1,5 @@
 \documentclass[
-    % final,
+    final,
     12pt,               										% Schriftgr��e
     a4paper,            										% Layout f�r DINA4
     german,             										% deutsche Sprache, global
@@ -113,12 +113,12 @@ skip=4pt
     \include{ads/acronyms}									% Symbol- und Abk�rzungsverzeichnis
     \listoffigures   											% Abbildungsverzeichnis
     \listoftables   											% Tabellenverzeichnis
-    \lstlistoflistings
+    % \lstlistoflistings
     \printbibliography
 \end{spacing}
 
 \cleardoublepage
-\pagenumbering{alph}
+\renewcommand{\thepage}{A-\arabic{page}}
 \setcounter{page}{1}
 \phantomsection\addcontentsline{toc}{chapter}{Appendix}
 \appendix

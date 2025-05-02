@@ -14,156 +14,199 @@
     \end{fquote}
 \end{textblock*}
 
-This chapter is discussing all chapters combined, with found aspects, expected or unexpected behaviors, comparisons and so on.
-Singular discussions in each chapter are avoided, to maintain a high level view on the \acf{FSM}.
+This chapter discusses all chapters combined, with found aspects, expected or unexpected behaviors, or comparisons.
+Singular discussions in each chapter are avoided, to maintain a high level view on the \acs{FSM}.
 Nevertheless, details do matter here and are included in the summarized evaluation.
-The structure of this chapter is not holding up with the afore used structure.
+The structure of this chapter does not hold up with the afore used structure.
 This shall make use of the combined discussion, more orientating on the found aspects, than the done work. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Integration in diffpssi}
+
+First, the done implemetation in the tool of choice, \textit{diffpssi} is discussed.
+Conspicuities, current existing restrictions of the assessments, as well as missing ones are elaborated.
+At last, a further idea of utilizing the benefits of \textit{diffpssi} more is illustrated.
+
+\subsubsection{Implementation of the Models}
+
+\sidenote{Transformer equipment}
+As the results for the model validation are already described in \author{chap:verification}, there is a relatively short discussion on the accounted errors.
+The errors show overall low values in comparison to the commercial software \textit{DIgSILENT PowerFactory}.
+The variable ratio transformer itself has errors of maximum in the one digit percent range.
+As this can also account for solver or time step issues, the Python framework is giving competitive results.
+Considering the injected errors of the already implemented load model, the results of the control schemes are even less error prone.
+It is assumed, that because of the longer time period of holding the voltages closer to the reference value, the error can even be dropped. 
+Peaks only occur during the switching of tap positions of the \acs{OLTC} or \acs{FSM}, where not only solver issues, but the time filtering or else can accumulate for a very short time.
+The logic of the \acs{FSM} controls only shows correct results, as also confirmed by \autoref{chap:case-study}.
+
+\sidenote{Voltage stability tools}
+As the only comparison for the voltage stability tools can be drawn with respect to the Nose Curves, these deliver very good results as well.
+The curves are congruent, making it hard to visually spread them apart, both compared analytically and with \textit{DIgSILENT PowerFactory}.
+The other tools show a logic beahavior, as the visual inspections allow for the same claims as the algorithmics.
+Only one results seems somehow suspect, as the \acs{TVI} calculation shows even a violation area for the stable cases of one bus in \autoref{chap:case-study}, specifically \autoref{tab:case1-tvi}.
+It was not possible to investigate on the cause of this unexpected behavior so far.
+
+\subsubsection{Currently Existing Restrictions}
+
+\sidenote{General}
+However there are some restrictions to the Python framework, considering the applicability on voltage stability studies.
+As only static load models, and considering these only constant impedance models, or synchronous machines can be representative as loads, the characteristics of a realistic grid is very limited.
+Often pointed out by \textcite{cutsem_1998}, \textcite{kundur_2022}, or \textcite{danish_2015}, the bottleneck for remaining stable voltage levels are induction machines.
+These are currently not available in \textit{diffpssi}, so a lot of studies will not show the same characteristics as one would be able to conduct with comparative (commercial) software.
+If this model would be available in the future, even combinations with inverters as supporting reactive power source, or connected controllers could be tested very easily.
+Nevertheless this package is suited well for basic developments of single components, such as a tap changer controller.
+The logic and algorithmics are implemented fast and allow for a transparent debugging.
+The easy and close connection with Python does make the package especially great for direct evaluation of results.
+Either in plotting and visualization, for statistic assessments, or even batch calculations, but as well for futher processing and calculations with the results. 
+
+\sidenote{Transformer related}
+Additionally, the variety of available transformer types is also very limited.
+There are a lot of different technologies possible to consider, from line drop compensations over phase shifting transformers or \ac{WAMPAC} approaches.
+Even simpler things, like parallel transformers, and the related complications with circular currents cannot be adressed with \textit{diffpssi} or this thesis.
+Regarding transformers, \textcite{sarimuthu_2016} is presenting a review paper considering a few of these topics as an overview.
+When looking at the possible damping factor from the \acs{FSM} control, one could also think of something like a \glqq machine drop compensation\grqq~for futher development.
+
+\subsubsection{Missing Assessments in this Thesis}
+
+Looking at the integrity of the implemented models, there are a few edge cases or considerations, which are excluded.
+These however could be beneficial, depending on the application of the technologies.
+A parameter variation for the \acs{FSM} characteristics has not been carried out.
+The standard values presented by \textcite{burlakin_2024} have continuously been used, as they are comparable and show conclusive results so far.
+However for different use cases, voltage and power levels or dynamic loads, also other parameters have to be considered.
+On top of that and regarding the different basic use cases for transformers, only a transformer connecting a machine was used in this thesis.
+As transformers for complete power plants, virtual power plants, connecting \acp{BESS}, grid coupling, etc. \autocite{schwab_2022} is usually also covered, these application could also be of interest.
+The later on discussed control improvements could be not implemented and evaluated as well.
+
+\subsubsection{Increasing the Benefits of diffpssi}
+
+One further interesting application of the Python package \textit{diffpssi} is the possibility for parameter differentiation based on \textit{PyTorch}.
+\textcite{kordowich_2023} uses this for an optimization approach, allowing to optimize certain defined simulation parameters to acquire a defined system behavior.
+For example, the dampening of the synchronous machine swinging after a short-circuit event can be increased.
+The idea is, to apply this method also on the \acs{FSM} control scheme, thus optimizing its behavior, e.g. number of switch operations, power oscillation damping or other things.
+As the tap changer model and its control is already implemented, one could make use of this functionality.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Evaluation Current FSM Control}
 
-\commenting{
-    -> Basically discussion of the Application Study:
-    \begin{itemize}[nosep]
-        \item Achieved stabilization in the applied case with OLTC and FSM
-        \item Do I have longer time to act on this based on the enhanced functionality or just because of the bigger band?
-        \item Back propagation of fast switches to machines.
-        \item Interactions with other controllers? E.g. Machine controllers.
-        \item Deaf band?
-    \end{itemize}
-}
+% After the toolchain, the content of interest is more central.
+The \acs{FSM} control schemes are analyzed in the following, which characteristics, benefits, and current drawbacks exist.
+Lastly, further investigations on the control schemes are named, as they are not included in this thesis any more.
 
-% \subsubsection{Comparison FSM vs. OLTC}
+\subsubsection{Characteristics of the FSM controls}
 
-% \subsubsection{Conspicuities of the FSM Control}
+The results as differences are mainly illustrated in the \autoref{chap:case-study}, but in some terms visible in \autoref{chap:verification} as well.
+The increased stabilization through the \acs{FSM} control can be confirmed, for both only switching with the \acs{FSM} part, but as well with both dependent on the voltage deviation.
+The envelopes are not cut after the fault at all, while the \acs{OLTC} scheme can only postbone the rapid fall a few seconds.
+Even if one would want to argue, that with the accounted \acs{FSM} schemes, the control has a wider range of operation.
+One can clearly see in the \acs{TDS}, that thae rapid intervention of the \acs{FSM} is holding the voltage closer to the reference value a lot earlier.
+On top of that, considering the \acs{FSM} preferring control, no single switch of the \acs{OLTC} has occured, and yet the system is stable for a longer period of time.
 
+One main finding in this thesis is the back propagation of the \acs{FSM} control on the oscillation behavior of synchronous machines after the fault.
+Clearly, an influence through the ratio is visible, if not even the crucial part to stabilizing the whole system after the fault.
+Thus the \acs{FSM} as well help stabilize a system with more and faster dynamics compared to the \acs{OLTC}.
+Another finding is the accounted deaf band in \autoref{sec:validation-fsm-schemes}, which has especially be considered for different combinations of deadband size and switching magnitude of the \acs{FSM}.
+As one can also see in \autoref{fig:case1-trans-ratio}, the \acs{FSM} ratios are not vastly different from the \acs{OLTC}, but just are coarser per tap change.
+As this is leading to a lot less switches of the \acs{OLTC} and therefore less use of the mechanical switching contacts, both \acs{FSM} controls seem to have an optimal behavior somewhere in between them.
+Utilizing the \acs{FSM} where possible and only short- or mid-term fluctuations occur.
+And using the \acs{OLTC} where the load flow and voltage has to be influenced long-term, enabling the most dyanmic capabilities.   
+
+\subsubsection{Further Investigations}
+
+Regarding the further investigations of the \acs{FSM} control schemes, one aspect has to mentioned.
+The next step would be an assessment with machine controllers, as gaining insights on how these controllers would interact.
+If one would want to use a \acs{FSM} equipped controller as a machine or power plant connector to the grid, this is a crucial part.
+As the short control times already have an influence on the machine dynamics, they could also interfer with the short term considering machine controllers, like exciters \autocite{machowski_2020}.
+This expectation holds true for inverter controllers as well.
+
+Regarding the topic increasing voltage stability through a \acs{FSM}, an even bigger potential is the application on to a phase shifting transformer in particular.
+As these transformers are also able to support locally with reactive power, this could have an even bigger impact as the standard longitudinal tap changer.
+When the time until destabilization of the system can be further increased by that, the system cannot only be designed with more risk, but as well withstand larger disturbances.
     
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Diffpssi Integration}
-
-\commenting{
-    Possible uses of diffpssi:
-    \begin{itemize}[nosep]
-        \item Main point of diffpssi: \textbf{DIFFERENTIABLE}: Then making use of it? Why not optimize the FSM control aspects with it?
-    \end{itemize}
-    Restrictions of the models:
-    \begin{itemize}[nosep]
-        \item 
-        \item One key missing model / aspect, especially for short term voltage stability in combination with stability support of the FSM: \textbf{INDUCTION MOTORS}.\\
-        \item This thesis is only presenting a control circuit for standard OLTCs, and their extensional FSM. 
-        \item Line Drop Compensations are not included, WAMPAC methods are excluded, parallel transformer realizations (N-1 criteria; redundancies), are not considered.
-        \item For recent developments, \textcite{sarimuthu_2016} is presenting a review paper considering a few of these topics.
-    \end{itemize}
-    Missing assessments:
-    \begin{itemize}
-        \item Parameter variation
-        \item Different types: Machine / Power Plant connecting transformer; Grid coupler; RONT; \dots: Applicability, what to consider, possible restricctions, \dots
-        \item Implementation and Testing of new control proposal
-    \end{itemize}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Development Potential of the FSM and its Control}
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \subsection{Experimental: Extended Ideas and Improvements}
 \label{sec:experimental-modeling}
 
-This subsection introduces a few ideas for improvements of the \acs{FSM} voltage controller.
-Based on the conducted application studies from \autoref{chap:case-study}, these ideas are not implemented and tested.
-% They fall under the aspect modeling, although just approaches are realized and tested.
-% As this is based on observations during the development, validation or analyzing case studies, one might consider going through this after understanding the thoughts of the other remaining parts.
-% Doing a re-read at the end would be beneficial either way.   
+This section introduces a few ideas for improvements of the \acs{FSM} voltage controller.
+Based on the conducted application studies from \autoref{chap:case-study} and the afore deducted discussions, these ideas are not implemented and tested.
 
 \subsubsection{Alternative Tap Skipping Logic}
 \label{sec:modeling-alt-tap-skip}
 
 The first idea is concerning the function \textit{tap$\_$skip()} in the voltage controller of the \acsp{FSM}.
-Especially as the in \autoref{sec:validation-fsm-schemes} illustrated results show either a kind \glqq deaf\grqq~band for the \acs{FSM} preferred control loop, this logic is to be questioned for the voltage deviation dependent switching.
+Especially as the in \autoref{sec:validation-fsm-schemes} illustrated results show a deaf band for the \acs{FSM} preferred control loop, this logic is to be questioned for the voltage deviation dependent switching.
 In the latter logic, this function \textit{tap$\_$skip()} is making a big influence on the dynamic behavior.
 If one would try to formulate the current tap skipping function from \autoref{eq:tap-skip} in words, something in the following form could describe it: 
 \begin{quote} \itshape
         How many times does the deadband fit into the voltage deviation? The tap skips are then considered under the amplifying factor of the \acs{FSM} applied on the tap addition of the \acs{OLTC} $\Delta m$.
 \end{quote}
 As the deadband has less to do with the impact of a \acs{FSM} switch, and it is already respected within the controller activation of both \acs{OLTC} and \acs{FSM} contribution, this relation to the dynamics seems obsolete.
-An alternative and seemingly more targeted approach would be sound like: 
+An alternative and seemingly more targeted approach would be: 
 \begin{quote} \itshape
-        How many switches of the FSM would the current offset voltage bring back to the reference value?
-        In translated terms meaning: How many times does one FSM switch fit into the voltage deviation?
+        How many switches of the \acs{FSM} would the current offset voltage bring back to the reference value?
+        In translated terms meaning: How many times does one \acs{FSM} switch fit into the voltage deviation?
 \end{quote}
 This being translated in mathematical terms, according to \autoref{eq:tap-skip} and the respect of $\eta(t) \in \mathbb{Z}$, the new function for calculating the ideal tap skips by the \acs{FSM} is formulated in \autoref{eq:new-tap-skips}.
 \begin{align}
         \eta(t)=\text{floor}\bigg(\frac{\vert \Delta v(t)\vert}{\Delta k \cdot \Delta m}\bigg) \label{eq:new-tap-skips}
 \end{align}
 This approach should be more accurate for different pairs of preset values, meaning the size of the deadband, the added voltage per tap, the amplifying factor of the \acs{FSM}, etc.
-It is expected, that the current logic is resulting in a plausible way, as the ratio addition per tap of the \acs{OLTC} is near the size of the deadband.
+It is expected, that the current logic results in a plausible way, as the ratio addition per tap of the \acs{OLTC} is near the size of the deadband.
 This means, that the proposed function is very similar for the present and in this thesis mainly used parameterization of the \acs{FSM} control loop.
 However, it is expected that the proposal is thus more robust and better working for the applied cases and more variatons in the configuration.
 
-% \ai{
-%         \textit{Or this following green part in the discussion?}
-
-        One comment on this proposal and the original function idea has to made anyway.
-        Either logic is solely considering the influence of the tap changer, but no load or grid dynamics at all.
-        Even the time constants do not have a influence on the switching behavior.
-        As this could also be beneficial for fast responses, the large impact of the novel \acs{FSM} equipped tap changers in a very short time can also irritate other control units or counteract to processes and destabilize a grid area unnecessarily.
-        Thus a true voltage dfference or voltage difference gradient based control scheme, under consideration of the individual minimum possible time constants would appear to be logically the best solution.
-% }
+One comment on this proposal and the original function idea has to made anyway.
+Either logic solely considers the influence of the tap changer, but no load or grid dynamics at all.
+Even the time constants do not have a influence on the switching behavior.
+As this could also be beneficial for fast responses, the large impact of the novel \acs{FSM} equipped tap changers in a very short time can also irritate other control units or counteract to processes and destabilize a grid area unnecessarily.
+Thus a true voltage dfference or voltage difference gradient based control scheme, under consideration of the individual minimum possible time constants would appear to be logically the best solution.
+Such an appraoch is decribed in the following.
 
 \subsubsection{Operational Oriented FSM Control}
-\mycomment[MK]{Noch ergänzen: Dämpfung als Dynamische Komponente bei Operation Control}
+% \mycomment[MK]{Noch ergänzen: Dämpfung als Dynamische Komponente bei Operation Control}
 \label{sec:modeling-op-control}
-
 
 \sidenote{Comment on the representation of time constants}
 The time constants of both parts, the \acs{OLTC} and the \acs{FSM}, are relevant as they model the minimal needed duration of the switching.
 This minimal time is based on mechanical or electric limitations, such as the mechanical movement of the \acs{OLTC} tap changer.
 In the current schemes they are not represented as a limitation, but more just as a delay.
 For example, if the voltage difference falls below the deadband, the integrators or time delays are resetted to their initial state. 
-The falling below was just an errot or a short swing, so the deadband is suddenly exceeded again after a very short time.
+The falling below was just an error or a short swing, so the deadband is suddenly exceeded again after a very short time.
 As the switch of the \acs{OLTC} would mechanically move, this sudden exceed would then let the time delay start from the beginning.
 While in reality the physical switch has not been given enough time to reach its starting position, the next switch could be achieved faster. 
 
 \sidenote{Corrective supervision}
 As afore described, the longer time constants of the \acs{OLTC} come from the mechanical switch movement, which are not the case for the \acs{FSM}.
 Therefore the maximum dynamic ability to react on voltage deviations is a lot higher for the \acs{FSM}.
+Keeping this dynamic capability means according to the findings of \autoref{sec:case-2}, that damping reserves for e.g. short-circuit events is held in reserve.  
 With the move from the preffered \acs{FSM} switching to the voltage dependent activation, a significant step was made towards dynamic influences instead of just a \glqq range extender\grqq.
-One could think of even improving this behavior, as keeping the dynamic capabilites through rearranging the positions of $k$ and $m$.
-In more static cases a preset of one of the tap changers postion, e.g. the more dynamik $m$, can be restored with keeping the overall ratio constant.
+One could think of even improving this behavior, as keeping the dynamic capabilites through re-arranging the positions of $k$ and $m$.
+In more static cases a preset of one of the tap changers postion, e.g. the more dynamic $m$, can be restored with keeping the overall ratio constant.
 This could be possible through coordinated counter switching of the \acs{OLTC} and the \acs{FSM}.
 When considering, that the range of an \acs{OLTC} is typically aroung $k \in [-10,10]$, the FSM seems very limited with $m \in [-4,4]$.
-This would utilize the \acs{OLTC} better on a long-term perspective, as not only the FSM would be used for small dynamic deviations.
+One impoortant influence at this point, is the amplification of the \acs{FSM}, meaning the factor multiplied with the \acs{OLTC} tap skip change as \acs{FSM} voltage deviation per skip. 
+Therefore not all overall tap ratios are representable dependent on the restricted part of the logic and the factor relationships.
+This would utilize the \acs{OLTC} better on a long-term perspective, as not only the \acs{FSM} would be used for small dynamic deviations.
 The described behavior could be named as corrective supervision or monitoring. 
 
 \sidenote{Using voltage gradients}
-In order to select or deselect the \acs{FSM} or \acs{OLTC}, the current approach through the tap skipping function seems hand-on and sufficient.
+In order to select or deselect the \acs{FSM} or \acs{OLTC}, the current approach through the tap skipping function seems hands-on and sufficient.
 As afore described, it does not account for different time constants and thus durations until the voltage deviation can be corrected.
 This calculation is a retrospective procedure, as only the current value is referenced to the voltage setpoint.
 If this deviation became too big, the \acs{FSM} switching is initiated.
 
-In contrast to that, if one would account for the current voltage gradient in addition to the current deviation, a prediction over the time constant modeled switching limitation can be estimated.
+In contrast to that, if one would account for the current voltage gradient in addition to the current deviation, a prediction over the time constant modeled switching limitation can be given.
 This would bring the controller in a mode, where the switching activation would be anticipated.
 Further a gradient could easily help to determine which part, the \acs{FSM} for more dynamic action or the \acs{OLTC} for more static actions, should be used.
 With this idea one could even imagine neglecting a voltage deadband, as a time deadband would be more applicable towards swing characteristics. 
 As swings, or then damping of swings in a system, would symptomatically end in the same characteristics as tap hunting, this in between mode could be realized.
-
-The proposed changes can be realized with a split control path, devided into a preset calculation and a physical switching representation.
-A provisional scheme or sketch is illustrated in \autoref{fig:sketch-control-improvement}. 
-These two compartments are then forked with a corrective supervision to realize off-nominal transformer ratios with optimal dynamic capabilities as pre setted by the operator.
-
-\begin{figure}
-        \centering
-        \missingfigure{Sketch control improvement}
-        \caption[Sketch of an dynamics improved operational oriented control scheme for the \acs{FSM}]{Sketch of an dynamics improved operational oriented control scheme for the \acs{FSM}.}
-        \label{fig:sketch-control-improvement}
-\end{figure}
+The proposed changes can be realized with a split control path, devided into a preset calculation and a physical switching representation transacting this on to the transformer. 
+These two compartments are then forked with a corrective supervision to realize off-nominal transformer ratios with optimal dynamic capabilities as presetted by the operator.
 
 \subsubsection{Dynamic Measurement and Reference Voltage Setpoints}
 
 The last, least expected approach to be profitable, is the area of measurement and reference setting.
 On the one hand, it could be imagined, tracking the voltages at both busses and thus getting insights on the load flow direction.
-The load flow in combination of positioning slack busses are expected to define the switching direction of the tap changer transformers.
+The load flow direction, in combination with the relative positioning of slack busses to the transformer, are expected to define the switching direction of the tap changer transformers.
 Additionally dynamic setpoints are imagined to be calculated as references.
 This means, that a new load flow calculation is done every time the load in the network or at least network area changes.
 With considering a direct supply of only a load, or at least a construct summarizeable as one load, an additonal block in the control scheme representing Nose Curves can be imagined as suitable approach.
@@ -181,34 +224,41 @@ Especially when considering the afore described operational oriented control.
     \end{fquote}
 \end{textblock*}
 
-Some conclusion.
+Concluding this master thesis, an variable ratio transformer model is implemented in a power system simulation framework, based on Python.
+On top of that, the transformer is equipped with different tap changer control circuits, also satisfying the logic of a novel tap changing technology, the \acf{FSM}, with an increased dynamic capability.
+Methods and tools for the evaluation of voltage stability are implemented, the calculation of different nose curves, and an index accounting for the violation integral of a voltage band.
 
-\sidenote{Research Questions}
-\textbf{1. How do different control types and characteristics of Tap Changing transformers influence the voltage stability of the given system?}
+These implementations are compared and validated against the commercial software \textit{DIgSILENT PowerFactory}.
+An application study is looking into the funcitonalities and the back propagation on machine dynamics in a simple \acf{SMIB} model.
 
-Some summary about Research Question 1. \lipsum[1]
+\sidenote{Main Research Questions}
+\textbf{1. How do different control types and characteristics of tap changing transformers influence the voltage stability of the given system?}
 
-\sidenote{Additional Questions}
-\textbf{2. Can the already existing Tap Changer Control of the \acf{FSM} be improved towards a more operation oriented control?}
+Considering the first, and main research question, it can be stated, that an increased dynamic capability of a transformer does help stabilizing the bus voltages in a network.
+Due to the interaction of the fast tapping control with the connected machines, the power and speed oscillations can be slightly damped.
+Faster reaction on voltage runaways is possible.
+This increased system stability can be quantifyied by the \acf{TVI}, considering a voltage bandwith as an envelope.
+Additionally, the critical time of leaving this operational voltage bandwith can be postponed, enabling other facilities to react with sufficient reactive power supply.
 
-Some summary about Research Question 2. \lipsum[2]
+\sidenote{Secondary Questions}
+\textbf{2. Can the already existing tap changer control of the \acf{FSM} be improved towards a more operation oriented control?}
+
+Answering this questions is highly dependent on the interest of the operational use.
+As every tap change of the mechanical \acs{OLTC} is wearing the switch mechanism, while the \acs{FSM} does not, a grid node with high dynamics will demand other strategies as an either static one.
+The higher dynamic capability allows more dynamic use cases, than for example just managing the load flow in a network.
+Especially considering a possible damping moment, the use as a supplementary power oscillation damping is conceivable.
+Nevertheless, some improvements targeting also the operational use, are discussed within this thesis.
+This takes a different voltage dependent enabling into account, which could allow for more variability in the controller parameterization.
+Further, a new control proposal is illustrated, ensuring more flexibilities and generic use for different applications.
+An additional integration into the control of synchronous generator is possible, when considering the tap changing transformer as connection to the network.
 
 \sidenote{Further Investigations}
-Some outlook and nice blibla. \lipsum[3]
+Some further investigation has to be done either way. 
+The inteaction between power plant controllers and the \acs{FSM} can become a crucial part. 
+Additionally, one might consider implementing also induction machines to the Python module, allowing to look at more voltage threatening scenarios.
+Additionally, an optimization of the control parameters to different grids or application scenarios would contribute to the understanding and the capabilities as well. 
 
-\sidenote{Future outlook on the Fast Switching Module}
-Some outlook and nice blibla. \lipsum[3]
-
-\commenting{
-    Damping element?\\
-    Why not apply it on a phase shifter?\\
-    With the so small time constants, nearly no limitations in switching speed: The control is the limiting factor.
-    This means for so many Use Cases this technology can be used, as long as there is a sufficient control: Improved Machine integration; Damping effects on power oscillations; Fast Load Flow optimizations; Virtual power plants (Imporved operating points, assistance of inverter controllers via harmonics damping, power oscillation damping, more flexibility, \dots)\\
-    Why not substitute the complete mechanical OLTC with multiple FSM modules, maybe even with more range than $m \in [-4,4]$, if the application could use it / coud be improved with that: Improved operational range (faster, bigger) of the grid connection of a rotating phase shifter? 
-}
-\ai{
-    Maybe interesting assessment: Can one prevent the forming of one weak bus? 
-    -> If the grid is weak, all busses are getting weaker / problematic during a fault. 
-    -> But does ONE get weaker than the others? 
-    Or can the FSM prevent that and utilize all busses similar?
-}
+\sidenote{Outlook on the Fast Switching Module}
+Looking into the future of the \acs{FSM}, a big topic is the application on phase shifting transformers.
+Connecting virtual power plants or \acf{BESS} can become an application for the \acs{FSM} equipped transformers as well.
+As the heavy use of inverters in this topic, the advanced transformer could account for side uses as power oscillation damping, enabling more flexibilities in the use of differing operational points for example.

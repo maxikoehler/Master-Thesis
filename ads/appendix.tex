@@ -72,7 +72,7 @@ The definitions are short, precise and summarized resp. sythesized from papers a
     \centering
     % \missingfigure{Comparison Tan, Cos, and Sin}
     \includegraphics[width=\linewidth]{plots/trigonometric_functions.pdf}
-    \caption[Plot comparison of trigonometric functions]{Plot comparison of trigonometric functions}
+    \caption[Plot comparison of trigonometric functions]{Plot comparison of trigonometric functions.}
     \label{fig:trigonometric-func}
 \end{figure}
 
@@ -107,36 +107,36 @@ This shall increase the feeling and evaluation of this thesis readers.
     \end{tabularx}
 \end{table}
 
-\section{Description of the Power System Simulation process}
-\label{app:power-system-modeling}
+% \section{Description of the Power System Simulation process}
+% \label{app:power-system-modeling}
 
-In this appendix section, the general process of power system simulation is described. As this thesis is aiming to understand voltage stability and processes in longer periods of time, these explanations apply to pointer-based simulations, called RMS simulations. Meaning that the considered effects are slower electromechanical nature instead of faster electromagnetic ones. The in this thesis used Python framework \glqq \textit{diffpssi}\grqq~is based on this type of simulation, and due to its open-source based nature traceable.
+% In this appendix section, the general process of power system simulation is described. As this thesis is aiming to understand voltage stability and processes in longer periods of time, these explanations apply to pointer-based simulations, called RMS simulations. Meaning that the considered effects are slower electromechanical nature instead of faster electromagnetic ones. The in this thesis used Python framework \glqq \textit{diffpssi}\grqq~is based on this type of simulation, and due to its open-source based nature traceable.
 
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=\textwidth]{fundamentals/power-system-simulation-process.pdf}
-    \missingfigure{Power system simulation process}
-    \caption{Power system simulation process; own illustration}
-    \label{fig:power-system-simulation-process}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     % \includegraphics[width=\textwidth]{fundamentals/power-system-simulation-process.pdf}
+%     \missingfigure{Power system simulation process}
+%     \caption{Power system simulation process; own illustration}
+%     \label{fig:power-system-simulation-process}
+% \end{figure}
 
-\commenting{
-    Really basic: (?)
-    \begin{itemize}
-        \item RMS vs EMT simulation (-> meaning one cannot simulate other faults than 3ph w/o ground)
-        \item Phasor description
-        \item Basic formulation: Static (algebraic) and dynamic (differential) equations
-        \item Using of solvers (Integrators) for time domain simulation
-        \item Using of different optimizatinon algorithms for steady state (load flow) simulation -> initial values
-    \end{itemize}
-    Less basic and more advanced:
-    \begin{itemize}
-        \item rountines in the framework
-        \item two types: Algebraic and Differential equations have to be solved at each time step -> What is which? Which operational equipment is typically described with which type of equation?
-        \item per unit system applying for easier simulation (different voltage levels)
-        \item ...
-    \end{itemize}
-}
+% \commenting{
+%     Really basic: (?)
+%     \begin{itemize}
+%         \item RMS vs EMT simulation (-> meaning one cannot simulate other faults than 3ph w/o ground)
+%         \item Phasor description
+%         \item Basic formulation: Static (algebraic) and dynamic (differential) equations
+%         \item Using of solvers (Integrators) for time domain simulation
+%         \item Using of different optimizatinon algorithms for steady state (load flow) simulation -> initial values
+%     \end{itemize}
+%     Less basic and more advanced:
+%     \begin{itemize}
+%         \item rountines in the framework
+%         \item two types: Algebraic and Differential equations have to be solved at each time step -> What is which? Which operational equipment is typically described with which type of equation?
+%         \item per unit system applying for easier simulation (different voltage levels)
+%         \item ...
+%     \end{itemize}
+% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \section{Jacobian based voltage stability criterions}
@@ -175,18 +175,18 @@ In this appendix section, the general process of power system simulation is desc
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Modeling}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Admittance Calculation of a Two-Port}
-\label{app:admittance-deduction}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Admittance Calculation of a Two-Port}
+% \label{app:admittance-deduction}
 
-Follwing part shall just give a short, but complete and clear overview, how the admittance matrix of a two-port system is calculated.
-Therefore the main focus of this thesis, a two-port with variable translation ratio, is kept.
+% Follwing part shall just give a short, but complete and clear overview, how the admittance matrix of a two-port system is calculated.
+% Therefore the main focus of this thesis, a two-port with variable translation ratio, is kept.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Analytical Calculation of Simple Nose Curves}
-\label{app:analytical-nose-curve}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Analytical Calculation of Simple Nose Curves}
+% \label{app:analytical-nose-curve}
 
-Some blibla and equations about the analytical calculation of simple nose curves.
+% Some blibla and equations about the analytical calculation of simple nose curves.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -242,8 +242,8 @@ This can be mathematically expressed by following set of equations:
 
 \begin{figure}[H]
     \centering
-    \missingfigure{Program Plan OLTC}
-    \caption[Program or algorithmic structure for the control scheme of the OLTC control]{Program or algorithmic structure for the control scheme of the OLTC control}
+    \includegraphics[scale=.8]{tikz_graphics/images/oltc_algorithmics.pdf}
+    \caption[Program or algorithmic structure for the control scheme of the \acs{OLTC} control]{Program or algorithmic structure for the control scheme of the \acs{OLTC} control.}
     \label{fig:oltc-program-plan}
 \end{figure}
 
@@ -252,20 +252,37 @@ This can be mathematically expressed by following set of equations:
 
 \begin{figure}[H]
     \centering
-    \missingfigure{Program Plan FSM}
-    \caption[Program or algorithmic structure for the control scheme of the FSM control]{Program or algorithmic structure for the control scheme of the FSM control}
+    \includegraphics[scale=.8]{tikz_graphics/images/fsm_algorithmics.pdf}
+    \caption[Program or algorithmic structure for the control scheme of the \acs{FSM} control]{Program or algorithmic structure for the control scheme of the \ac{FSM} control; the sketched red substitution accounts for the difference between the \acs{FSM} preferring (black) and the voltage dependent enabling (red).}
     \label{fig:fsm-program-plan}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Class Diagrams}
 
-\subsection{Extended Class Diagram of the Transformer Architecture}
-
 \subsection{Extended Class Diagram of the OLTC Transformer}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics{tikz_graphics/images/class_diagram_oltc_transformer_complete.pdf}
+    \caption{Class Diagram of the \acs{OLTC} transformer model; requires connetion to a voltage controller.}
+\end{figure}
+
 \subsection{Extended Class Diagram of the Discrete OLTC Control}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{tikz_graphics/images/class_diagram_oltc_control.pdf}
+    \caption{Class Diagram of the \acs{OLTC} voltage controller.}
+\end{figure}
+
 \subsection{Extended Class Diagram of the Discrete FSM Control}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{tikz_graphics/images/class_diagram_fsm_control.pdf}
+    \caption{Class Diagram of the \acs{FSM} voltage controller.}
+\end{figure}
 
 \subsection{Class Diagram of the Class Nose Curves}
 \label{app:nose-curve}
@@ -273,17 +290,9 @@ This can be mathematically expressed by following set of equations:
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm]{tikz_graphics/images/class_diagram_nosecurve_complete.pdf}
-    \caption{Complete class diagram of the class Nose Curves; including all attributes and methods with data types, returns, and inputs}
+    \caption{Complete class diagram of the class Nose Curves; including all attributes and methods with data types, returns, and inputs.}
     \label{fig:class-diagram-nose-curves}
 \end{figure}
-
-
-\subsection{Extended Class Diagram of the Class ViolationIntegral}
-\subsection{Extended Class Diagram of the Class CriticalTimes}
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \section{OLTC control}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -291,49 +300,301 @@ This can be mathematically expressed by following set of equations:
 \label{app:validation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Datails About Used Networks}
+\section{Details About Used Networks}
 \label{app:networks}
+
+For all simulation networks and accounted grids, the following presets are used.
+
+\begin{tabularx}{\textwidth}{Xrl}
+    % \toprule
+    \textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\ \hline
+    \toprule
+    Simulation base apparent power $S_\mathrm{base}$ & 2\,200 & s \\
+    Simulation base frequency $f$ & 60 & Hz \\
+    Simulation base voltage $\underline{V}$ & 100 & kV \\
+    \bottomrule
+\end{tabularx}
+
+\vspace*{1cm}
 
 \subsection{Single-Machine Infinite Bus-Bar Model}
 \label{app:smib-model}
 
-\commenting{Table with parameter details}
+The simulation set-up for the \acs{SMIB} model is detailed in the following.
+Starting with the Busses, the voltages are set to
+\begin{align}
+    \underline{V}_\mathrm{B0} &= 100\text{ kV} \notag \\
+    \underline{V}_\mathrm{B1} &= 100\text{ kV} \notag \\
+    \underline{V}_\mathrm{B2} &= 10\text{ kV} \notag
+\end{align}
+The line reactance is set to $X=0.0484\text{ p.u.}$.
+It connects bus zero with bus one.
+The possible added load connects to bus one.
+The applied transformer parameters are as follows.
+The transformer connects bus one with bus two.
 
-\subsection{SMIB Model with Additional Load}
+\begin{tabularx}{\textwidth}{Xrl}
+    % \toprule
+    \textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\ \hline
+    \toprule
+    Apparent Power $S_\mathrm{n}$ & 4\,400 & MVA \\
+    Resistance $R$ & 0 & p.u. \\
+    Reactance $X$ & 0.15 & p.u. \\
+    Power angle difference $\phi$ & 0 & p.u. \\
+    \bottomrule
+\end{tabularx}
+
+\vspace*{1cm}
+
+For the generator at bus zero the values are set to:
+
+\begin{tabularx}{\textwidth}{Xrl}
+    % \toprule
+    \textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\ \hline
+    \toprule
+    Apparent Power $S_\mathrm{n}$ & 11\,000 & p.u. \\
+    Nominal voltage $\underline{V}_\mathrm{n}$ & 100 & kV \\
+    Active power output $P$ & -1998 & MW \\
+    Voltage setpoint $\underline{V}$ & 0.995 & p.u. \\
+    Inertia $H$ & 3.5e7 & s \\
+    Damping $D$ & 0 & p.u. \\
+    Reactance $X_\mathrm{d}$ & 1.81 & p.u. \\
+    Reactance $X_\mathrm{q}$ & 1.76 & p.u. \\
+    Reactance $X_\mathrm{d,t}$ & 0.3 & p.u. \\
+    Reactance $X_\mathrm{q,t}$ & 0.65 & p.u. \\
+    Reactance $X_\mathrm{d,st}$ & 0.23 & p.u. \\
+    Reactance $X_\mathrm{q,st}$ & 0.23 & p.u. \\
+    Time constant $T_\mathrm{d0,t}$ & 8 & s \\
+    Time constant $T_\mathrm{q0,t}$ & 1 & s \\
+    Time constant $T_\mathrm{d0,st}$ & 0.03 & s \\
+    Time constant $T_\mathrm{q0,st}$ & 0.07 & s \\
+    \bottomrule
+\end{tabularx}
+
+\vspace*{1cm}
+
+For the generator at bus two the values are set to:
+
+\begin{tabularx}{\textwidth}{Xrl}
+    % \toprule
+    \textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\ \hline
+    \toprule
+    Apparent Power $S_\mathrm{n}$ & 2\,200 & p.u. \\
+    Nominal voltage $\underline{V}_\mathrm{n}$ & 10 & kV \\
+    Active power output $P$ & 1998 & MW \\
+    Voltage setpoint $\underline{V}$ & 1 & p.u. \\
+    Inertia $H$ & 3.5 & s \\
+    Damping $D$ & 0 & p.u. \\
+    Reactance $X_\mathrm{d}$ & 1.81 & p.u. \\
+    Reactance $X_\mathrm{q}$ & 1.76 & p.u. \\
+    Reactance $X_\mathrm{d,t}$ & 0.3 & p.u. \\
+    Reactance $X_\mathrm{q,t}$ & 0.65 & p.u. \\
+    Reactance $X_\mathrm{d,st}$ & 0.23 & p.u. \\
+    Reactance $X_\mathrm{q,st}$ & 0.23 & p.u. \\
+    Time constant $T_\mathrm{d0,t}$ & 8 & s \\
+    Time constant $T_\mathrm{q0,t}$ & 1 & s \\
+    Time constant $T_\mathrm{d0,st}$ & 0.03 & s \\
+    Time constant $T_\mathrm{q0,st}$ & 0.07 & s \\
+    \bottomrule
+\end{tabularx}
+
+\vspace*{1cm}
+
+\subsection{Simple Load Model}
 \label{app:smib-w-load}
 
-\commenting{Table with parameter details}
+The simulation set-up for the \acs{SMIB} model is detailed in the following.
+Starting with the Busses, the voltages are set to
+\begin{align}
+    \underline{V}_\mathrm{B0} &= 10\text{ kV} \notag \\
+    \underline{V}_\mathrm{B1} &= 100\text{ kV} \notag 
+\end{align}
+The applied transformer parameters are as follows.
+The transformer connects bus zero with bus one.
 
+\begin{tabularx}{\textwidth}{Xrl}
+    % \toprule
+    \textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\ \hline
+    \toprule
+    Apparent Power $S_\mathrm{n}$ & 2\,200 & MVA \\
+    Resistance $R$ & 0 & p.u. \\
+    Reactance $X$ & 0.15 & p.u. \\
+    Power angle difference $\phi$ & 0 & p.u. \\
+    \bottomrule
+\end{tabularx}
+
+\vspace*{1cm}
+
+For the generator at bus zero the values are set to:
+
+\begin{tabularx}{\textwidth}{Xrl}
+    % \toprule
+    \textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\ \hline
+    \toprule
+    Apparent Power $S_\mathrm{n}$ & 2\,200 & p.u. \\
+    Nominal voltage $\underline{V}_\mathrm{n}$ & 10 & kV \\
+    Active power output $P$ & -1998 & MW \\
+    Voltage setpoint $\underline{V}$ & 1 & p.u. \\
+    Inertia $H$ & 3.5 & s \\
+    Damping $D$ & 0 & p.u. \\
+    Reactance $X_\mathrm{d}$ & 1.81 & p.u. \\
+    Reactance $X_\mathrm{q}$ & 1.76 & p.u. \\
+    Reactance $X_\mathrm{d,t}$ & 0.3 & p.u. \\
+    Reactance $X_\mathrm{q,t}$ & 0.65 & p.u. \\
+    Reactance $X_\mathrm{d,st}$ & 0.23 & p.u. \\
+    Reactance $X_\mathrm{q,st}$ & 0.23 & p.u. \\
+    Time constant $T_\mathrm{d0,t}$ & 8 & s \\
+    Time constant $T_\mathrm{q0,t}$ & 1 & s \\
+    Time constant $T_\mathrm{d0,st}$ & 0.03 & s \\
+    Time constant $T_\mathrm{q0,st}$ & 0.07 & s \\
+    \bottomrule
+\end{tabularx}
+
+\vspace*{1cm}
+
+\subsection{Machine Controller Parameters}
+\label{app:machine-controllers}
+
+\begin{table}[H]
+    \caption{Machine controller parameters for the \acf{GOV}.}
+    % \label{tab:smib-model}
+    \vspace*{12pt}
+    \centering
+    \small
+    \begin{tabularx}{\textwidth}{Xrl}
+        % \toprule
+        \textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\ \hline
+        \toprule
+        $R$ & 0.05 & p.u. \\
+        $D_\mathrm{t}$ & 0.02 & p.u. \\
+        $V_\mathrm{min}$ & 0 & p.u. \\
+        $V_\mathrm{max}$ & 1 & p.u. \\
+        $T_1$ & 0.5 & s \\
+        $T_2$ & 2 & s \\
+        $T_3$ & 2 & s \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}[H]
+    \caption{Machine controller parameters for the \acf{SEXS}.}
+    % \label{tab:smib-model}
+    \vspace*{12pt}
+    \centering
+    \small
+    \begin{tabularx}{\textwidth}{Xrl}
+        % \toprule
+        \textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\ \hline
+        \toprule
+        $K$ & 100 & - \\
+        $T_\mathrm{a}$ & 4 & s \\
+        $T_\mathrm{b}$ & 10 & s \\
+        $T_\mathrm{e}$ & 0.1 & s \\
+        $E_\mathrm{min}$ & -10 & - \\
+        $E_\mathrm{max}$ & 10 & - \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}[H]
+    \caption{Machine controller parameters for the \acf{PSS}.}
+    % \label{tab:smib-model}
+    \vspace*{12pt}
+    \centering
+    \small
+    \begin{tabularx}{\textwidth}{Xrl}
+        % \toprule
+        \textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\ \hline
+        \toprule
+        $K$ & 50 & - \\
+        $T_1$ & 10 & s \\
+        $T_1$ & 0.5 & s \\
+        $T_2$ & 0.5 & s \\
+        $T_3$ & 0.5 & s \\
+        $T_4$ & 0.5 & s \\
+        $H_\mathrm{lim}$ & 0.03 & p.u. \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\subsection{Tap Changer Controller Parameters}
+\label{app:voltage-controllers}
+
+\begin{table}[H]
+    \caption[Values for the standard parameters of an \acs{OLTC} control]{Values for the standard parameters of an \acs{OLTC} control.}
+    % \label{tab:control-params-oltc}
+    \vspace*{12pt}
+    \centering
+    \small
+    \begin{tabularx}{\textwidth}{Xrl}
+        % \toprule
+        \textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\ \hline
+        \toprule
+        Time constant $T_1$ & 5 & s \\
+        Size of deadband $db$ & 0.05 & p.u. \\
+        Tap ratio change per switch $\Delta m$ & 0.02 & p.u. \\
+        Minimum transformer ratio $m_\mathrm{min}$ & 0.9 & p.u. \\
+        Maximum transformer ratio $m_\mathrm{max}$ & 1.1 & p.u. \\
+        Initial reference voltage $v_\mathrm{ref}$ & 1.0 & p.u. \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}[H]
+    \caption[Values for the standard parameters of an \acs{FSM} control]{Values for the standard parameters of an \acs{FSM} control.}
+    % \label{tab:control-params-fsm}
+    \vspace*{12pt}
+    \centering
+    \small
+    \begin{tabularx}{\textwidth}{Xrl}
+        % \toprule
+        \textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\ \hline
+        \toprule
+        Time constant \acs{FSM}  $t_\mathrm{m}$ & 0.02 & p.u. \\
+        Time constant \acs{OLTC} $t_\mathrm{k}$ & 5 & p.u. \\
+        Size of deadband $db$ & 0.025 & p.u. \\
+        Tap ratio change per switch \acs{FSM} $\Delta m$      & 2 & p.u. \\
+        Tap ratio change per switch \acs{OLTC} $\Delta k$      & 0.02 & p.u. \\
+        Maximimum tap position \acs{FSM} $m_\mathrm{max}$        & 4 & p.u. \\
+        Minimum tap position \acs{FSM} $m_\mathrm{min}$        & -4 & p.u. \\
+        Maximimum tap position \acs{OLTC} $k_\mathrm{max}$        & 10 & p.u. \\
+        Minimum tap position \acs{OLTC} $k_\mathrm{min}$        & -10 & p.u. \\
+        Initial reference voltage $v_\mathrm{ref}$        & 1 & p.u. \\
+        Maximum tap skips $gamma_\mathrm{max}$    & 8 & p.u. \\
+        Filtering time constant $pt_1$         & 0.01 & p.u. \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Additional Plots from the  Pi Model Validation}
+\section{Additional Plots from the  $\Pi$-Model Validation}
 \label{app:add-validation-plots}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/s_n_comp_complete.pdf}
-    \caption[Model results concerning the variation of the rated apparent power]{Voltage results of the $\Pi$-modeled transformer in the \acs{SMIB} model between PowerFactory and the Python framework; Variation of the rated apparent power $S_\mathrm{n}$; Left column is showing the data for the Pathon module \textit{diffpssi}, on the right the comparative tool \textit{DIgSILENT PowerFactory}}
+    \caption[Model results concerning the variation of the rated apparent power]{Voltage results of the $\Pi$-modeled transformer in the \acs{SMIB} model between PowerFactory and the Python framework; Variation of the rated apparent power $S_\mathrm{n}$; Left column is showing the data for the Pathon module \textit{diffpssi}, on the right the comparative tool \textit{DIgSILENT PowerFactory}.}
     \label{fig:valid-s-compl}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/s_n_comp_1100mva.pdf}
-    \caption{Comparison of one variation parameter between \textit{diffpssi} and \textit{DIgSILENT PowerFactory}; each plot focussing on one bus in the variation of the rated apparent power $S_\mathrm{n}$}
+    \caption{Comparison of one variation parameter between \textit{diffpssi} and \textit{DIgSILENT PowerFactory}; each plot focussing on one bus in the variation of the rated apparent power $S_\mathrm{n}$.}
     \label{fig:valid-s-1100}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/theta_comp_complete.pdf}
-    \caption{Comparison of the $\Pi$-modeled transformer in the \acs{SMIB} model between PowerFactory and the Python framework}
+    \caption{Comparison of the $\Pi$-modeled transformer in the \acs{SMIB} model between PowerFactory and the Python framework.}
     \label{fig:valid-ratio-comp}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/theta_comp_ratio09.pdf}
-    \caption{Comparison of one variation parameter between \textit{diffpssi} and \textit{DIgSILENT PowerFactory}; each plot focussing on one bus in the variation of the longitudinal transformer ratio $\vartheta$}
+    \caption{Comparison of one variation parameter between \textit{diffpssi} and \textit{DIgSILENT PowerFactory}; each plot focussing on one bus in the variation of the longitudinal transformer ratio $\vartheta$.}
     \label{fig:valid-ratio-09}
 \end{figure}
 
@@ -343,56 +604,54 @@ This can be mathematically expressed by following set of equations:
 
 \subsection{OLTC validation}
 
-For simple load:
+The plots and results for the simple single machine load model.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/tds_oltc_simple-load.pdf}
-    \caption{\acf{TDS} for standard discrete \acs{OLTC} control scheme applied to the simple load network}
+    \caption{\acf{TDS} for standard discrete \acs{OLTC} control scheme applied to the simple load network.}
     \label{fig:valid-ratio-09}
 \end{figure}
 
-For SMIB with load:
+The plots and results for the extended \acs{SMIB} model with load.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/tds_oltc_ex-smib.pdf}
-    \caption[Time Domain Result of the OLTC control scheme applied on the extended \acs{SMIB} network]{\acf{TDS} of the standard discrete \acs{OLTC} control scheme; Result of the extended or modified \acs{SMIB} model with additional load}
+    \caption[Time Domain Result of the OLTC control scheme applied on the extended \acs{SMIB} network]{\acf{TDS} of the standard discrete \acs{OLTC} control scheme; Result of the extended or modified \acs{SMIB} model with additional load.}
     \label{fig:tds-oltc-ex-smib}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/oltc_ex-smib_integrator.pdf}
-    \caption{Internal signal of the standard discrete \acs{OLTC} control: The integrator signal, representing the time constant for enabling the switching operation}
+    \caption{Internal signal of the standard discrete \acs{OLTC} control: The integrator signal, representing the time constant for enabling the switching operation.}
     \label{fig:int-signal-oltc-ext-smib-integrator}
 \end{figure}
 
 \subsection{FSM validation}
 
-For simple load:
+The plots and results for the simple single machine load model.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/signal_vdead_fsm_simple.pdf}
-    \caption{Signal evolution for the voltage difference dependent \acs{FSM} control scheme; Plot of the deadband filtered voltage difference $v_\mathrm{dead}$ for the simple load validation case}
+    \caption{Signal evolution for the voltage difference dependent \acs{FSM} control scheme; Plot of the deadband filtered voltage difference $v_\mathrm{dead}$ for the simple load validation case.}
     \label{fig:signal-vdead-fsm-simple}
 \end{figure}
 
-For SMIB with load:
+The plots and results for the extended \acs{SMIB} model with load.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/tds_fsm_vdiff.pdf}
-    \caption[\acs{TDS} for a \acs{FSM} control scheme switching based on the voltage difference]{\acs{TDS} for a \acs{FSM} control scheme switching based on the voltage difference}
+    \caption[\acs{TDS} for a \acs{FSM} control scheme switching based on the voltage difference]{\acs{TDS} for a \acs{FSM} control scheme switching based on the voltage difference.}
     \label{fig:tds-fsm-vdiff-ext-smib}
 \end{figure}
-
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{development_files/validation/data/tds_fsm_preferred.pdf}
-    \caption[Differing \acs{TDS} for a \acs{FSM} control scheme preferring the \acs{FSM}]{Differing \acs{TDS} for a \acs{FSM} control scheme preferring the \acs{FSM}}
+    \caption[Differing \acs{TDS} for a \acs{FSM} control scheme preferring the \acs{FSM}]{Differing \acs{TDS} for a \acs{FSM} control scheme preferring the \acs{FSM}.}
     \label{fig:tds-fsm-preferred}
 \end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Case study}

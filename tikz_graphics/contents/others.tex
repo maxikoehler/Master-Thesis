@@ -5,6 +5,52 @@
 \vspace{1cm}
 
 
+\tikzsetnextfilename{class_diagram_violationintegral}
+\begin{figure}[htb]
+    \centering
+    \begin{tikzpicture}
+        % \footnotesize
+        % \begin{package}{voltage}
+            \begin{class}[text width=12cm]{ViolationIntegral}{0,0}
+                \attribute{env : str}
+                \attribute{env$\_$params : dict}
+                \attribute{result : complex}
+
+                \operation{get$\_$env(time : list) : list}
+                \operation{get$\_$result(time : list, v$\_$bb : list) : complex}
+                \operation{set$\_$env$\_$parameters(env$\_$params : dict) : None}
+                \operation{t$\_$low(time : list) : list}
+                \operation{t$\_$upp(time : list) : list}
+                \operation{hvrt(time : list) : list}
+                \operation{lvrt(time : list) : list}
+            \end{class}       
+        % \end{package}
+    \end{tikzpicture}
+    \caption{Class ViolationIntegral Diagram}
+\end{figure}
+
+\tikzsetnextfilename{class_diagram_criticaltimes}
+\begin{figure}[htb]
+    \centering
+    \begin{tikzpicture}
+        % \footnotesize
+        % \begin{package}{voltage}
+            \begin{class}[text width=12cm]{CriticalTimes}{0,0}
+                \attribute{frt$\_$env : str}
+                \attribute{frt$\_$time : list}
+                \attribute{tvi$\_$env : str}
+                \attribute{tvi$\_$time : list}
+                \attribute{calculation$\_$dict : list}
+                \attribute{result : dict}
+
+                \operation{add$\_$env$\_$parameters(time : list) : None}
+                \operation{get$\_$result(time : list, voltages : list) : dict}
+            \end{class}       
+        % \end{package}
+    \end{tikzpicture}
+    \caption{Class CriticalTimes Diagram}
+\end{figure}
+
 \tikzsetnextfilename{class_diagram_nosecurve_red}
 \begin{figure}[htb]
     \centering
@@ -12,15 +58,16 @@
         % \footnotesize
         % \begin{package}{voltage}
             \begin{class}[text width=5cm]{NoseCurve}{0,0}
-                \attribute{+ results}
-                \attribute{+ ps$\_$sim}
-                \attribute{- p$\_$vector}
-                \attribute{- phi$\_$vector}
-                \attribute{- loadmodel}
-                \operation{+ run$\_$calculation()}
-                \operation{+ reset$\_$sim$\_$parameters()}
-                \operation{+ plot$\_$nose$\_$curve()}
-                \operation{+ get$\_$max$\_$loadings()}
+                \attribute{res$\_$variation}
+                \attribute{results}
+                \attribute{ps$\_$sim}
+
+                \operation{run$\_$calculation}
+                \operation{run$\_$variation$\_$calculation}
+                \operation{plot$\_$nose$\_$curve}
+                \operation{plot$\_$nose$\_$curve$\_$variation}
+                \operation{get$\_$max$\_$loadings}
+                \operation{add$\_$load$\_$to$\_$plot}
             \end{class}       
         % \end{package}
     \end{tikzpicture}
@@ -34,15 +81,16 @@
         % \footnotesize
         % \begin{package}{voltage}
             \begin{class}[text width=12cm]{NoseCurve}{0,0}
-                \attribute{+ results: \hfill dict[DataFrame]}
-                \attribute{+ ps$\_$sim: \hfill diffpssi.PowerSystemSimulation}
-                \attribute{- p$\_$vector: \hfill list}
-                \attribute{- phi$\_$vector: \hfill list}
-                \attribute{- loadmodel: \hfill callable}
-                \operation{+ run$\_$calculation(bus: list[str]): \hfill dict[pd.DataFrame]}
-                \operation{+ reset$\_$sim$\_$parameters(): \hfill None}
-                \operation{+ plot$\_$nose$\_$curve(busses: list[str],\\\quad\quad size: tuple $=$ (12, 6),\\\quad\quad title: bool $=$ True,\\\quad\quad save$\_$path: str $=$ None): \hfill None}
-                \operation{+ get$\_$max$\_$loadings(busses: list[str]): \hfill dict[dict[DataFrame]]}
+                \attribute{res$\_$variation : dict}
+                \attribute{results : dict}
+                \attribute{ps$\_$sim : object}
+
+                \operation{run$\_$calculation(bus : list) : dict}
+                \operation{run$\_$variation$\_$calculation(bus : list) : dict}
+                \operation{plot$\_$nose$\_$curve(busses : list) : object}
+                \operation{plot$\_$nose$\_$curve$\_$variation(busses : list) : object}
+                \operation{get$\_$max$\_$loadings(busses : list) : dict}
+                \operation{add$\_$load$\_$to$\_$plot(load : list, bus : str, current$\_$plot : object) : object}
             \end{class}       
         % \end{package}
     \end{tikzpicture}
@@ -56,19 +104,78 @@
         % \footnotesize
         % \begin{package}{voltage}
             \begin{class}[text width=12cm]{OLTC Transformer}{0,0}
-                \attribute{+ from$\_$bus: \hfill dict[DataFrame]}
-                \attribute{+ from$\_$bus$\_$id: \hfill dict[DataFrame]}
-                \attribute{+ from$\_$bus$\_$name: \hfill dict[DataFrame]}
-                \attribute{+ from$\_$voltage: \hfill dict[DataFrame]}
-                \attribute{+ measure$\_$bus: \hfill dict[DataFrame]}
-                \attribute{+ name: \hfill diffpssi.PowerSystemSimulation}
+                \attribute{from$\_$bus : str}
+                \attribute{from$\_$bus$\_$id : int}
+                \attribute{from$\_$bus$\_$name : str} 
+                \attribute{from$\_$voltage : str}
+                \attribute{measure$\_$bus : str}
+                \attribute{name : str}
+                \attribute{s$\_$n : float}
+                \attribute{s$\_$n$\_$sys : float}
+                \attribute{r : float}
+                \attribute{x : float}
+                \attribute{b : float}
+                \attribute{u : float}
+                \attribute{u$\_$l : float}
+                \attribute{oltc : object}
+                \attribute{sim : object}
+                \attribute{tap$\_$side : str}
+                \attribute{\\\dots}
 
-                \operation{+ run$\_$calculation(bus: list[str]): \hfill dict[pd.DataFrame]}
+                \operation{calc$\_$admittance : tensor}
+                \operation{calc$\_$admittance$\_$static : tensor}
+                \operation{differential : tensor}
+                \operation{get$\_$state$\_$vector : tensor}
+                \operation{set$\_$state$\_$vector(x : tensor) : None}
+                \operation{set$\_$oltc$\_$controller(oltc$\_$model : object)}
             \end{class}       
         % \end{package}
     \end{tikzpicture}
     \caption{Class OLTC Transformer Diagram Complete}
 \end{figure}
+
+\tikzsetnextfilename{class_diagram_fsm_control}
+\begin{figure}[htb]
+    \centering
+    \begin{tikzpicture}
+        % \footnotesize
+        % \begin{package}{voltage}
+            \begin{class}[text width=12cm]{FSM1}{0,0}
+                \attribute{\\\dots}
+
+                \operation{differential : tensor}
+                \operation{get$\_$output : float}
+                \operation{get$\_$state$\_$vector : tensor}
+                \operation{set$\_$state$\_$vector(x : tensor) : None}
+                \operation{switching$\_$k(voltage : float) : None}
+                \operation{switching$\_$m(voltage : float, tap$\_$skips : int) : None}
+                \operation{tap$\_$skips(voltage : float) : int}
+            \end{class}       
+        % \end{package}
+    \end{tikzpicture}
+    \caption{Class FSM discrete control}
+\end{figure}
+
+\tikzsetnextfilename{class_diagram_oltc_control}
+\begin{figure}[htb]
+    \centering
+    \begin{tikzpicture}
+        % \footnotesize
+        % \begin{package}{voltage}
+            \begin{class}[text width=12cm]{OLTCdiscrete}{0,0}
+                \attribute{\\\dots}
+
+                \operation{differential : tensor}
+                \operation{get$\_$output : float}
+                \operation{get$\_$state$\_$vector : tensor}
+                \operation{set$\_$state$\_$vector(x : tensor) : None}
+                \operation{switching(voltage : float) : None}
+            \end{class}          
+        % \end{package}
+    \end{tikzpicture}
+    \caption{Class OLTC discrete control}
+\end{figure}
+
 
 \begin{landscape}
     \tikzsetnextfilename{software_structure}
@@ -77,30 +184,48 @@
         \begin{tikzpicture}% [show background grid]
             \footnotesize
             \begin{package}{simulator}
-                \begin{class}{PowerSystemSimulator}{0,0}
+                \begin{class}{PowerSystemSimulator}{0,+1}
+                    \attribute{trafos}
+
+                    \operation{inverse$\_$dyn$\_$admittance$\_$matrix}
+                    \operation{lf$\_$admittance$\_$matrix}
                 \end{class}       
             \end{package}
             \begin{package}{transformer}
                 \begin{abstractclass}{Transformer}{-8,-3}
+                    \attribute{param$\_$dict}
+                    
+                    \operation{differential}
+                    \operation{get$\_$output}
+                    \operation{get$\_$state$\_$vector}
+                    \operation{set$\_$state$\_$vector}
+                    \operation{calc$\_$admittance}
+                    \operation{calc$\_$admittance$\_$static}
                 \end{abstractclass}
 
-                \begin{class}{SimpleTransformer}{-8,-5}
+                \begin{class}{SimpleTransformer}{-8,-8}
                     \inherit{Transformer}
                 \end{class}
-                \begin{class}{OLTC Transformer}{-5,-7}
+                \begin{class}{OLTC Transformer}{-5,-10}
                     \inherit{Transformer}
                 \end{class}
             \end{package}
             \begin{package}{voltage controller}
                 \begin{abstractclass}{VoltageController}{2,-3}
+                    \attribute{param$\_$dict}
+                    
+                    \operation{differential}
+                    \operation{get$\_$output}
+                    \operation{get$\_$state$\_$vector}
+                    \operation{set$\_$state$\_$vector}
                 \end{abstractclass}
-                \begin{class}{OLTCdiscrete}{2,-5}
+                \begin{class}{OLTCdiscrete}{2,-7}
                     \inherit{VoltageController}
                 \end{class}
-                \begin{class}{FSM1}{8,-5}
+                \begin{class}{FSM1}{8,-7}
                     \inherit{VoltageController}
                 \end{class}
-                \begin{class}{FSM2}{5,-7}
+                \begin{class}{FSM2}{5,-10}
                     \inherit{VoltageController}
                 \end{class}
             \end{package}
@@ -112,25 +237,48 @@
     \end{figure}
 \end{landscape}
 
-% \begin{tikzpicture}[node distance = 1.5cm, auto]
-%     % Place nodes
-%     \node [papStart] (Start1){Start};
-%     \node [papProcess, below of = Start1,label={[shift={(2.7,-0.6)}]\footnotesize\textit{label 1}}] (pro1){Prozess};
-%     \node [papProcess, below of = pro1,label={[shift={(3,-0.6)}]\footnotesize\textit{label 2}}](pro2){Prozess};
-%     \node [papDecision, below of = pro2, yshift= -9mm](dec1){Entscheidung};
-%     \node [papPredProc,  right of = dec1, xshift=25mm](predproc1){\nodepart{two}\shortstack{vordefinierter\\Prozess}};
-%     \node [papProcess, below of = predproc1,label={[shift={(2.3,-0.6)}]\footnotesize\textit{label 3}}](pro3){Prozess};
-%     \node [papEnd, below of = dec1, yshift= -20mm] (End) {Ende};
-    
-%     % Place joins
-%     \coordinate [below of = dec1, yshift= -10mm] (join1);
-    
-%     % Draw edges
-%     \path [papLine] (Start1) -- (pro1);
-%     \path [papLine] (pro1) -- (pro2);
-%     \path [papLine] (pro2) -- (dec1);
-%     \path [papLine] (dec1) -- node [right] {\papYes} (End);
-%     \path [papLine] (dec1) -- node [above] {\papNo} (predproc1);
-%     \path [papLine] (predproc1) -- (pro3);
-%     \path [papLine] (pro3) |- (join1);
-% \end{tikzpicture}
+\tikzsetnextfilename{vectors_normal}
+\begin{figure}[htb]
+    \centering
+    \begin{tikzpicture}%[show background grid]
+        % \footnotesize
+        \draw [-{Latex[length=2mm]}, very thick, color=ees_black] (0.2,0) -- ++(0,2) node (u2)[right]{$\underline{V}_2$} -- ++(0,2);
+        \draw [-{Latex[length=2mm]}, very thick, color=ees_black] (0,0) -- ++(0,2) node (u1)[left]{$\underline{V}_1$} -- (0,3);
+        \draw [-{Latex[length=2mm]}, very thick, color=ees_red] (0,3) -- ++(0,0.5) node (d_u)[left]{$\Delta\underline{V}_\mathrm{l}$} -- (0,4);
+    \end{tikzpicture}
+    \caption{Normal vector longitudinal ratio}
+\end{figure}
+
+\tikzsetnextfilename{vectors_phase_shifter}
+\begin{figure}[htb]
+    \centering
+    \begin{tikzpicture}%[show background grid]
+        % \footnotesize
+        \draw [-{Latex[length=2mm]}, very thick, color=ees_black] (0,0) -- (0,3) node (u1)[right]{$\underline{V}_1$} -- (0,4);
+        \draw [-{Latex[length=2mm]}, very thick, color=ees_black] (0,0) -- (0.8,2) node (u2)[right]{$\underline{V}_2$} -- (1.6,4);
+        \draw [-{Latex[length=2mm]}, very thick, color=ees_black] (0,0) -- (-1.6,4);
+        \draw [-{Latex[length=2mm]}, very thick, color=ees_red] (0,4) -- ++(0.8,0) node (d_u)[above]{$\Delta\underline{V}_\mathrm{q}$} -- (1.6,4);
+        \draw [-{Latex[length=2mm]}, very thick, color=ees_red] (0,4) -- ++(-0.8,0) node (d_u2)[above]{$\Delta\underline{V}_\mathrm{q}$} -- (-1.6,4);
+        \node at (0.3,1.5){$\phi$};
+        \node at (-0.3,1.5){$\phi$};
+    \end{tikzpicture}
+    \caption{Vectors Phase Shifter}
+\end{figure}
+
+\tikzsetnextfilename{vectors_cross_regulator}
+\begin{figure}[htb]
+    \centering
+    \begin{tikzpicture}%[show background grid]
+        % \footnotesize
+        \draw [-{Latex[length=2mm]}, very thick, color=ees_black] (0,0) -- (0,3) node (u1)[right]{$\underline{V}_1$} -- (0,3.95);
+        \draw [-{Latex[length=2mm]}, very thick, color=ees_black] (0,0) -- ++(0.8,2) node (u2)[right]{$\underline{V}_2$} -- ++(1,2.5);
+        \draw [-{Latex[length=2mm]}, very thick, color=ees_black] (0,0) -- ++(-1.4,3.5);
+        \draw [-{Latex[length=2mm]}, very thick, color=ees_red] (0,3.95) -- (1.8,4.5);
+        \draw [-{Latex[length=2mm]}, very thick, color=ees_red] (0,3.95) -- (-1.4,3.5);
+        \node at (0.3,1.5){$\phi '$};
+        \node at (-0.3,1.5){$\phi '$};
+        \node at (0.7,4.2)[above, color=ees_red]{$\Delta\underline{V}_\mathrm{q}$};
+        \node at (-0.7,3.8) [above, color=ees_red]{$\Delta\underline{V}_\mathrm{q}$};
+    \end{tikzpicture}
+    \caption{Vectors Cross regulator}
+\end{figure}

@@ -23,103 +23,95 @@
 \endgroup
 
 As first inventions regarding induction and induction coils were published in the early 19th century, nobody knew the impact these ideas could have.
-The first developments and rivalry between power grid systems, \ac{DC} vs. \ac{AC}, was tending towards the latter side.
-The use and spread of an \acs{AC} power system was enlarged by the transformer, making switching between different voltage levels seemless.
-Long transmission lines were now facilitated through reducing losses under higher voltages. \quelle
+The first developments and rivalry between power system grids, \acf{DC} vs. \acf{AC}, was tending towards the latter side.
+The use and spread of an \acs{AC} power system was enlarged by the transformer, making the utilization of multiple different voltage levels seemless.
+Long transmission lines were now facilitated through reducing losses under higher voltages. \autocite{hughes_1993,hurley_2014}
 
 This operational unit is still in heavy use today.
-Later developments like the \ac{OLTC} enabled a variation in the transformer ratio under load, and therefore controlling load flows, compensate variations in voltage levels, or compensate currents in meshed grids. \autocite{schwab_2022}
-Now, with the restructurization from centralized, machine dominated towards decentralized, small, and inverted-based electrical power generation, the transformer could be labelled outdated.
+Later developments like the \acf{OLTC} enabled a variation in the transformer ratio under load, and therefore controlling load flows, compensate variations in voltage levels, or compensate currents in meshed grids. \autocite{schwab_2022}
+Now, with the restructurization from centralized power grids with large shares of synachronous machines, towards decentralized, smaller, and inverted-based electrical power generation, the transformer could be labelled outdated.
 But the developments and ideas are ongoing like the invention of \textcite{maschinenfabrikreinhausengmbh_2023}.
 
-Considering a combination of reliable and proven mechanical \acs{OLTC} transformers, with the dynamic capabilities of power electronics, their invention is targeting the faster dynamics of wind and solar generators, as well as flexible prosumers\footnote{often referred neologism coming from \glqq \textit{pro}active con\textit{sumers}\grqq}.
-The added \ac{FSM} could help these units staying resilient to disturbances for a longer time, and therefore the grid to remain in a stable operational window. 
+Considering a combination of reliable and proven mechanical \acs{OLTC} transformers, with the dynamic capabilities of power electronics, their invention targets the supportive handling of the faster dynamics of wind and solar generators, as well as flexible prosumers.
+% \footnote{often referred neologism coming from \glqq \textit{pro}active con\textit{sumers}\grqq}.
+The added \acf{FSM} could help these units staying resilient to disturbances for a longer time, and therefore the grid to remain in a stable operational window. 
 
 \newpage
 
 \section{Research Interests}
 \label{sec:research-interests}
 
-A novel control method for this \acs{FSM} was developed by \cite{burlakin_2024}.
+A novel control method for this \acs{FSM} was developed by \textcite{burlakin_2024}.
 The transformer is connecting an off-shore wind farm with a sea cable to a \ac{PCC}.
-Additionally, a \ac{VSC} is connected via a \acs{FSM} equipped transformer for compensation of the cable \autocite{burlakin_2024a}.
-These control schemes are in the interest of this thesis, next to a developed power system simulation tool from the chair of electrical energy systems at the Friedrich-Alexander University Erlangen-Nuremberg \autocite{kordowich_2023}.
+Additionally, a \acf{VSC} is connected via a \acs{FSM} equipped transformer for compensation of the cable \autocite{burlakin_2024a}.
+These control schemes are in the interest of this thesis, next to a developed power system simulation tool from the institute of electrical energy systems at the Friedrich-Alexander-Universität Erlangen-Nuremberg \autocite{kordowich_2023}.
 The tool is called \textit{diffpssi}, based on Python and the package \textit{PyTorch}, and with that allowing for model parameter optimizations.
 
 The main idea is the extension of this power system simulation model with a capable variable ratio transformer.
 Additionally, a standard discrete \acs{OLTC} controller is implemented, supplemented by the control scheme for the \acs{FSM}.
 The capabilities of this improved \acs{FSM} module and its new control shall be investigated and compared to the standard \acs{OLTC} control.
 As the central application of tap changing transformers is voltage support and indirect voltage stability enhancement \autocite{kundur_2022,milano_2010}, the comparisons are taken from this side.
-With this background, folling main research question can be formulated for this thesis.
-
-% \commenting{
-%     \begin{itemize}[nosep]
-%         \item Influence of OLTC control on possible operational uses: Short-term voltage stability, long-term voltage stability; 
-%         \item Can a increased dynamic regulation help machine recovery?
-%         \item Does the increased tap ratio gradient harm transient stability of machines?
-%         Does it help or harm CCT of machines or machine groups?
-%         \item Transformers act as big low-pass filters: Can this behavior be beneficial as well for the interactions of inverters in the grid on AC side (in the sense of Harmonic Stability)? \quelle
-%     \end{itemize}
-% }
+With this background, following main research question can be formulated for this thesis.
 
 \begin{tcolorbox}[float, colback=ees_blue!5!white,colframe=ees_blue, toptitle=1mm, bottomtitle=1mm, left=2mm, right=2.5mm, top=2mm, bottom=2mm, title={\textbf{Research Question of this Thesis}}]
-    How do different control types and characteristics of Tap Changing transformers influence the voltage stability of the given system?
+    How do different control types and characteristics of \acf{OLTC} transformers influence the voltage stability of the given system?
 \end{tcolorbox}
 
 \sidenote{Influence of FSM on Voltage Stability}
-Therefore following questions/steps can be imagined as supportive:
+Therefore following questions or steps can be imagined as supportive:
 \begin{enumerate}
-    \item How can Voltage stability of a system be classified and be looked at? Which indices, measurements, etc.
+    \item How can voltage stability of a system be classified and be looked at? Which indices, measurements, etc.?
     \item Which transformer model has to be considered to show influences?
     \item Which systems are useful to consider in showing effects? Which circumstances lead to a stability support, which to a decrease? Where can limits be drawn?
 \end{enumerate}
 
-Additionally during the process of the thesis, the following question came up as an extension.
-Is is the second interest of this thesis, and shall be more focused in the later part.
-Therefore some assessments in the \autoref{chap:case-study} are conducted.
+% Additionally during the process of the thesis, the following question came up as an extension.
+As secondary question regarding the evaluation of the already presented \acs{FSM} control scheme by \textcite{burlakin_2024}, an improvement is seeked.
+It shall be more focused in the later part.
+Therefore the assessments in the \autoref{chap:case-study} are valuable as well.
 
 \begin{tcolorbox}[float, colback=ees_green!5!white,colframe=ees_green, toptitle=1mm, bottomtitle=1mm, left=2mm, right=2.5mm, top=2mm, bottom=2mm, title={\textbf{Additional Question of this Thesis}}]
-    Can the already existing Tap Changer Control of the \acf{FSM} be improved towards a more operation oriented control?
+    Can the already existing tap changer control of the \acf{FSM} be improved towards a more operation oriented control?
 \end{tcolorbox}
 
 \sidenote{FSM Control Advancement? Operational Oriantation}
-This question has following thoughs, concerning the different characteristics and dynamics of the \acs{FSM}:
+This question has following thoughts, concerning the different characteristics and dynamics of the \acs{FSM}:
 \begin{enumerate}
     % \item How do the different time constants of \acs{OLTC} and \acs{FSM} influence different stybility aspects in the system?
     \item Can the \acs{FSM} be used as a \glqq damping element\grqq~in the system?
-    \item Does this possible different behavior of the \acs{FSM} lead to different operating strategy?
+    \item Does this possible different behavior of the \acs{FSM} lead to different operating strategies?
     \item What are thoughts on realizing such a strategy with different approaches on the \acs{FSM} controller?
 \end{enumerate}
 
 \section{Readers Guide}
 
-The afore stated research interests in combination with the yet not sufficient framework to use make demands on the structure of this work. 
+The afore stated research interests, in combination with the yet not sufficient framework to use, make demands on the structure of this work. 
 Therefore it seems not sufficient trying to apply a completely standard sequence of chapter like \glqq Introduction - Fundamentals - Methods - Results - Discussion\grqq.
 Instead, the following structure is chosen to fulfill the research interests and to give a clear and understandable overview of the work.
 \begin{itemize}
     \item \textbf{\hyperref[chap:fundamentals]{Chapter 2: Fundamentals},}\\
-    is illustrating and recalling fundamentals for modeling, stability assessments, and discussions;
+    is illustrating and recalling fundamentals for stability assessments, modeling, and discussions;
     \item \textbf{\hyperref[chap:methodical-modeling]{Chapter 3: Methodical Modeling},}\\
-    describes the process of modeling in the tool \textit{diffpssi}, and the implementation of voltage stability indices;
-    \item \textbf{\hyperref[chap:verification]{Chapter 4: Verification Setup and Result},}\\
-    is showing the verification of the implemented models and tools with the help of common and simple test systems;
-    \item \textbf{\hyperref[chap:case-study]{Chapter 5: Case Study},}\\
-    is looking at the novel control methods from different perspectives and applications; 
+    describes the process of modeling in the tool \textit{diffpssi}, and the implementation of voltage stability tools;
+    \item \textbf{\hyperref[chap:verification]{Chapter 4: Validation Setup and Result},}\\
+    shows the validation of the implemented models and tools with the help of common and simple test systems;
+    \item \textbf{\hyperref[chap:case-study]{Chapter 5: Application Study},}\\
+    looks at the novel control methods from different perspectives and evaluates with an exemplary simulation set-up; 
     \item \textbf{\hyperref[chap:discussion]{Chapter 6: Discussion},}\\
     discusses the FSM control strategies, considering the fundamentals, verification, and case study results;
     \item \textbf{\hyperref[chap:summary]{Chapter 7: Summary},}\\
-    is summarizing with regards to the research questions, and looking towards research potential and future developments. 
+    summarizes with regards to the research questions, and looking towards research potential and future developments. 
 \end{itemize}
 
 When reading this thesis, one might consider its motivation and its prior knowledge for allocating attention to the different chapters.
-For someone interested in the strategic development of the \acs{FSM} or \acsp{OLTC} in general, the introduction with its research interests (\autoref{sec:research-interests}) are most important. 
-Combined with the Summary and Outlook (\autoref{chap:summary}), the containts of the thesis, answers to the research questions and some perspectives are included.
+For someone interested in the strategic development of the \acs{FSM} or \acsp{OLTC} in general, the introduction with its research interests in \autoref{sec:research-interests} is most important. 
+Combined with the Summary and Outlook in \autoref{chap:summary}, the containts of the thesis, answer the research questions and some perspectives are included.
 For this level basic knowledge in power system stability and the electrical energy grid is sufficient.
 When one is also interested in the explanations and thoughts why the answers to the research questions are as they are, the  \autoref{chap:discussion} is additionally recommended. 
-Eventually, the \autoref{chap:fundamentals} is giving a few basics for an eased understanding of the discussion itself.
+Eventually, \autoref{chap:fundamentals} is giving a few basics for an eased understanding of the discussion itself.
 The third level would be a demonstration of practical applications in the case studies (\autoref{chap:case-study}).
-Lastly, if one wants to further improve or develop the tool {\itshape diffpssi} or the control strategies in particular, the \autoref{chap:methodical-modeling} and \autoref{chap:verification} are recommended.
-Additionally the referenced literature and the \autoref{app:power-system-modeling} are giving valuable insights and information.
+Lastly, if one wants to further improve or develop the tool {\itshape diffpssi} or the control strategies in particular, \autoref{chap:methodical-modeling} and \autoref{chap:verification} are recommended.
+Additionally the referenced literature is giving valuable insights and information.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -132,9 +124,9 @@ Additionally the referenced literature and the \autoref{app:power-system-modelin
     \end{fquote}
 \end{textblock*}
 
-Following chapter shall introduce the basics for implementing an \acs{OLTC} equipped transformer into a existing power system simulation framework.
+Following chapter shall introduce the basics for implementing an \acs{OLTC} equipped transformer into an existing power system simulation framework.
 This is considering the already existing surrounding, more detailed the electric behavior of the transformer itself and some control engineering theory for the corresponding \acs{OLTC}. 
-Thus its main goal is increasing voltage stability \autocite{machowski_2020}, main indices and assessment methods are considered as well.
+Because its main goal is increasing voltage stability \autocite{machowski_2020}, an index and assessment methods are considered as well.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Voltage Stability Basics}
@@ -143,7 +135,7 @@ Thus its main goal is increasing voltage stability \autocite{machowski_2020}, ma
 A practical introduction to voltage stability assessment, methods and indices is given in the standard and extending literature of \textcite{danish_2015,cutsem_1998}. Further, some useful definitions about voltage sagging and practices are mentioned by \textcite{shoup_2004}, some other best practices, current standards, and development potential is presented by \textcite{rueda-torres_2024}.
 
 \textcite{shoup_2004} is citing and summarizing short and precise definitions of \textit{voltage dips}, \textit{voltage sags}, \textit{power system stability}, \textit{voltage stability} and \textit{short-term voltage stability}.
-For voltage stability following summary is given by \textcite{shoup_2004}:
+For voltage stability following summary is given \autocite{shoup_2004}:
 \begin{quote}\itshape
     \glqq Voltage stability refers to the ability of a power system to maintain steady voltages at all buses in the system after being subjected to a disturbance from a given initial operating condition. 
     It depends on the ability to maintain/restore equilibrium between load demand and load supply from the power system. 
@@ -153,15 +145,15 @@ For voltage stability following summary is given by \textcite{shoup_2004}:
 \end{quote}
 The other definitions are added to \autoref{app:voltage-stability-definitions} of this thesis, as they are quickly summarizing and narrowing down this complex topic.
 
-As illustrated, is the general cause for voltage instability the missing support or compensation due to a lack of reactive power reserves.
-These can either be driven by not enough generation capacities, no sufficient transmission capabilities through the grid, or a reactive power demand build up at the load side, e.g. through a stalling of an induction motor.
+As illustrated, the general cause for voltage instability is the missing support or compensation due to a lack of reactive power reserves.
+These can either be driven by insufficient generation capacities, transmission capabilities through the grid, or a reactive power demand build up at the load side, e.g. through a stalling of an induction motor.
 Triggers for these mechanisms can be various.
-As an example, the study network called \textit{Nordic Test System} and its collapse \autocite{vancutsem_2020} illustrate a big bandwith of possible actions and reactions.
+As an example, the study network called \textit{Nordic Test System} and its collapse \autocite{vancutsem_2020} illustrates a big bandwith of possible actions and reactions.
 Different other, smaller examples are described in \autoref{tab:voltage-instability-scenarios}.
 
 \begin{table}[htbp!]
     \centering
-    \caption[Voltage instability types and different time frames]{Voltage instability types and different time frames with examples \autocite{danish_2015}}
+    \caption[Voltage instability types and different time frames]{Voltage instability types and different time frames with examples \autocite{danish_2015}.}
     \small
     \label{tab:voltage-instability-scenarios}
     \renewcommand\tabularxcolumn[1]{m{#1}}
@@ -178,20 +170,20 @@ Different other, smaller examples are described in \autoref{tab:voltage-instabil
 \end{table}
 
 As mentioned in the introduction, \acsp{OLTC} are used for controlling or manipulating the load flow, counteracting currents in meshed grids or restoring loads after dynamic events.
-The first mentioned are static optimization processes, as only the last is dynamic nature.
-This thesis is investigating a dynamic controller, therefore the dynamic use cases and mechanisms are relevant.
-Restoring a load is meaning the slow re build of a voltage level to the previous or as reference set voltage.
-As most loads power is dependent on the voltage, this is not only crucial for staying in the operating voltage limits, bus also being able to suffiiently supply the customer.
+The first mentioned are static optimization processes, as only the last is of dynamic nature.
+This thesis investigates a dynamic controller, therefore the dynamic use cases and mechanisms are relevant.
+Restoring a load is meaning the slow re-build of a voltage level to the previous or as reference set voltage.
+As most loads power is dependent on the voltage, this is not only crucial for staying in the operating voltage limits, but also being able to sufficiently supply the customer.
 The process is described by \textcite{cutsem_1998}, chapter 4.4.3.
 However, a normal longitudinal tapping \acs{OLTC} is not capable of actively supporting voltage instabilities with reactive power supply.
-It can only manipulate or vary operating points for alternating the active power.
-But it can contribute secondarly as it is keeping the voltage in the operational band, and prohibit units from deconnecting.
-The gained time could be suffiecient, until other units can provide supplementary reactive power, e.g. inverters.       
+It can only manipulate or vary operating points by alternating the active power.
+But it can contribute secondarly as it is keeping the voltage in the operational band, and thereby prohibit units from disconnecting.
+The gained time could be sufficient, until other units can provide supplementary reactive power, e.g. inverters.       
 
 \sidenote{Appraoach for dynamic analysis}
 An important comment has to be added towards the dynamic behaviors and the connected analysis strategy towards this.
-This thesis aims to partly enlighten the dynamic influence of \acs{OLTC} control strategies on the dynamic beahavior of the, or resp. one power system.
-According to many standard literatures, is is quite complicated to simplified state or predict stable or unstable operation potins of a power system in terms of voltage behavior \autocite{machowski_2020}.
+This thesis aims to partly enlighten the dynamic influence of \acs{OLTC} control strategies on the dynamic behavior of the, or resp. one power system.
+According to many standard literature, it is quite complicate to simplify states or predict stable or unstable operation potins of a power system in terms of voltage behavior \autocite{machowski_2020}.
 Simply the complex interaction between different units, their control schemes and characteristics, and at least the characteristics of protectional devices, are too many influences.
 As this thesis is only considering a few aspects of the previous mentioned, only a relative comparison can be targeted.
 The use of one stability index for this analysis or predictions is highly unlikely.
@@ -204,7 +196,7 @@ Therefore mixtures of possible illustrations, analysis techniques or similar are
 When looking at a simple power system, consistent of a load and a source, analytically deriving the behavior of voltage over power is in its simplest form.
 The resulting curves show how the system behaves in (quasi-) stationary scenarios.
 Following a system like \autoref{fig:v-stability-system} is used. 
-All equations and analysis methods can be re-read in standard literatur like \textcite{machowski_2020}, \textcite{kundur_2022}, or \textcite{cutsem_1998}. 
+All equations and analysis methods can be re-read in standard literature like \textcite{machowski_2020}, \textcite{kundur_2022}, or \textcite{cutsem_1998}. 
 
 \begin{figure}[htbp!]
     \centering
@@ -214,18 +206,18 @@ All equations and analysis methods can be re-read in standard literatur like \te
     \label{fig:v-stability-system}
 \end{figure}
 
-When looking at the load flow equations, the transferable power over the system from bus one to bus two can be represented by
+When looking at the load flow equations, the transferable power over the system from the reference to the load bus can be represented by
 \begin{align}
     S&=P + jQ = \underline{V} \cdot \underline{I}^* \notag \\[12pt]
     &=\underline{V} \cdot \frac{\underline{E}^* - \underline{V}^*}{-jX} \notag \\[6pt]
     &=\frac{j}{X} (EV \cos \phi + jEV \sin \phi -V^2). \notag
 \end{align}
-These equations can be split up into the transferable real power in \autoref{eq:func-p-transfer} and the transferable reactive power in \autoref{eq:func-q-transfer}, which might be more common in knowledge and use.
+These equations can be split up into the transferable active power in \autoref{eq:func-p-transfer} and the transferable reactive power in \autoref{eq:func-q-transfer}, which might be more common in knowledge and use.
 \begin{align}
     P&=-\frac{EV}{X} \cdot \sin \phi \label{eq:func-p-transfer} \\[6pt]
     Q&=-\frac{V^2}{X} + \frac{EV}{X} \cdot \cos \phi \label{eq:func-q-transfer}
 \end{align}
-After elimination of $\phi$\footnote{due to the setpoint of the reference voltage}, a second order equation dependent on $V^2$ can be obtained.
+After elimination of phase angle\footnote{due to the setpoint of the reference voltage.}, a second order equation dependent on $V^2$ can be obtained.
 Simplifying the terms and rearanging is giving the following \autoref{eq:transfer-func}.
 \begin{align}
     &-P^2 - \frac{E^2}{X}Q + \bigg(\frac{E^2}{2X}\bigg)^2 \geq 0 \label{eq:transfer-func} \\[12pt]
@@ -234,9 +226,8 @@ Simplifying the terms and rearanging is giving the following \autoref{eq:transfe
 \end{align}
 \sidenote{Power angle $\phi$ and its usage}
 The easy intuitively accessed functions, which can be kept in mind are \autoref{eq:simplified-transfer-p} and \autoref{eq:simplified-transfer-q}.
-These represent the functions of the voltage dependence on the real power, when setting the reacitve power to zero, and vice versa. 
-This accounts for power factors of $\cos \phi = 0$ or respectively $\sin \phi = 0$, or translated to the angle itself $\phi = \{0^\circ; 90^\circ\}$.
-\footnote{for all angles in the interval of $\phi = [0^\circ, 180^\circ]$}
+These represent the functions of the voltage dependence on the active power, when setting the reacitve power to zero, and vice versa. 
+This accounts for power factors of $\cos \phi = 0$ or respectively $\sin \phi = 0$, or translated to the angle itself $\phi = \{0^\circ; 90^\circ\}$\footnote{for all angles in the interval of $\phi = [0^\circ, 180^\circ]$.}.
 One note to take here, is that the power factor is not consistently used.
 For load flow calculations mostly the sine and cosine representation of the angle between current and voltage is used, for stability analysis, often the tangent function is preferred.
 A table and plot comparison of relations between the functions $\cos$, $\sin$, and $\tan$ are included in the appendix \autoref{app:trogonometric-func-comp}. 
@@ -253,16 +244,16 @@ This also leads to the dependency of $\tan \phi$ in the plotting of the so calle
         \includegraphics[width=\linewidth]{development_files/theoretical/plots/v_q_analytical.pdf}
         \subcaption{V-Q Curve}
     \end{subfigure}
-    \caption[Power Voltage Curves resulting from maximum power transfer equations]{Power Voltage Curves resulting from maximum power transfer equations; Considering a Network impedance of $\underline{Z}=jX$ with $X=0.15\text{ p.u.}$ and a system base power of $S_\mathrm{sys;base}=2200\text{ MVA}$; Note, that $\arctan(0) = \arccos(1)$; own illustration after \autocite{machowski_2020,kundur_2022,cutsem_1998}.}
+    \caption[Power Voltage Curves resulting from maximum power transfer equations]{Power Voltage Curves resulting from maximum power transfer equations; Considering a Network impedance of $\underline{Z}=jX$ with $X=0.15\text{ p.u.}$ and a system base power of $S_\mathrm{sys;base}=2\,200\text{ MVA}$; Note, that $\arctan(0) = \arccos(1)$; own illustration after \autocite{machowski_2020,kundur_2022,cutsem_1998}.}
     \label{fig:v-stability-system}
 \end{figure}
 
 \sidenote{What can one see and read from the curves?}
 The typical nose shape is visible for a simple network, with only considering reactances $X$ as attributes of the line or transmission grid and a reference value at the reference bus set to $\underline{E}=1\angle0$ p.u.
-Directly visible, that no static solution can be found, when surpassing a certain level of real power. 
+Directly visible, that no static solution can be found, when surpassing a certain level of active power. 
 This maximum often is referred to as the power transfer limit of the grid or network.
 Aside from that there are two solutions possible for all the other values of the power smaller than the maximum power transfer limit.
-On the other sidem when looking at the V-Q curve from \autoref{fig:v-stability-system} b), the first thing to notice is the inverted axis compared to the P-V curves.
+On the other side when looking at the V-Q curve from \autoref{fig:v-stability-system} b), the first thing to notice is the inverted axis compared to the P-V curves.
 This is a common practice, as the voltage is the more independent variable here \autocite{kundur_2022}.
 Secondly the shape and the resulting values are different.
 The Q-V curve can be understood as the reactive power support at the load bus.
@@ -271,7 +262,7 @@ The part in the negative region is related to an inductive support, due to the i
 But what one can easily see is the continously increasing voltage in order to equalize the missing compensatiom \autocite{kundur_2022}.
 When looking at the voltage of the maximum active power transfer, and reading the reactive power for that, one would see a positive, meaning capacitive reactive power support at the load bus.
 This would be described as the natural power of the line, when fully compensating the reactances and operating the line with a solely ohmic resistance.
-These curves can be also transfered in the three dimensional space, with the axis P-Q-V giving a full observation of static power voltage relations.
+These curves can be transfered in the three dimensional space, with the axis P-Q-V giving a full observation of static power voltage relations.
 
 \subsection{Evaluation of Time Series Calculation}
 \label{sec:stability-indices}
@@ -288,7 +279,7 @@ Voltage stability can be mathematically formulated, if the Jacobian Matrix is no
 % These indices are often referred to as a linearization of the static assessment with nose curves, as these simple power voltage illustrations have higly nonlinear behavior esp. around the critical point. 
 
 \sidenote{Indices adressing numerical problems}
-Using solely the signularity of the Jacobian Matrix for determination of a stable system is numerical hard to solve and usually very error-prone.
+Using solely the singularity of the Jacobian Matrix for determination of a stable system is numerically hard to solve and usually very error-prone.
 This problem leads to the necessity of applying other methods or indices for stability assessment. 
 Further, the relation of the system state to the critical voltage collapse point is highly nonlinear in the Jacobian Matrix. 
 This problem is adressed by the indices in various ways, leading to a more or less linearized relation \autocite{machowski_2020,danish_2015}. 
@@ -302,9 +293,9 @@ Considering the nose curve from \autoref{fig:v-stability-system}, one can see a 
 And when taking into account grid codes and their connection rules for generation units, also outside any \ac{FRT} behavior neither a static reasonable operation point.
 Therefore, not only to comply with grid codes, but to avoid operational unit failures due to high currents or high voltages, this \acs{FRT} behavior shall be used as a sort of envelope.
 This allows or easy comparison, either if the scenario is exceeding this grid code envelopes seen as critical, but also to calculate the significance of this violation.
-\textcite{scheiner_2022} and \textcite{wildenhues_2015} propose an index called \ac{TVI}
-The index is, simplified summarized, integrating the envelope violation over the simulation time.
-Although they are using not \acs{FRT} curves, but a more scientific representation of such an envelope, this idea shall be implemented and used in this thesis.
+\textcite{scheiner_2022} and \textcite{wildenhues_2015} propose an index called \acf{TVI}.
+The index integrates the envelope violation over the simulation time.
+Although they are not using \acs{FRT} curves, but a more scientific representation of such an envelope, this idea shall be implemented and used in this thesis.
 
 \sidenote{Description of the Index}
 The mathematical background shall be introduced in the following.
@@ -335,37 +326,29 @@ It can be understood as the envelope violation magnitude multiplied by the time.
     \text{CSI} &= \frac{1}{N_\mathrm{busses}} \sum_{i=1}^{N_\mathrm{busses}} \text{TVI}_i \label{eq:csi-system}
 \end{align}
 On the other hand one can calculate the \ac{CSI} with help of the \acs{TVI} as displayed in \autoref{eq:csi-system}.
-This index is not only giving an approach to normalization the \acs{TVI} regarding to grid sizes through the total number of busses $N_\mathrm{busses}$.
-With this index, short circuit scenarios and their dynamic affecct on various grids can be compared.
+This index is not only giving an approach to normalize the \acs{TVI} regarding to grid sizes through the total number of busses $N_\mathrm{busses}$.
+With this index, short circuit scenarios and their dynamic affect on various grids can be compared.
 On the other hand it could be used as an average and related to the bus individual \acsp{TVI}.
 This allows for evaluation of the most affected bus(ses) in the system.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Power System Modeling}
 
-The simulation of power systems is a crucial tool, not only for stability studies, but for evaluating extensions or modifications in the planning process, the development of assistance systems for operational management, and many other applications. \quelle 
+The simulation of power systems is a crucial tool, not only for stability studies, but for evaluating extensions or modifications in the planning process, the development of assistance systems for operational management, and many other applications.
 Due to the complexity of the systems, simulations are often simplified. 
 Not only with model constraints, but as well in the way of calculations. 
 Mainly seperating between \acf{EMT} and \acf{RMS} simulations, the latter is used in this thesis. 
-The \autoref{app:power-system-modeling} is giving more details, literature, and summarizing the processes behind the used tool \textit{diffpssi}, if the reader is further interested in the topic.
+% The \autoref{app:power-system-modeling} is giving more details, literature, and summarizing the processes behind the used tool \textit{diffpssi}, if the reader is further interested in the topic.
 
 \subsection{Transformer Electric Model and Behavior}
 \label{sec:trafo-model}
 
-% \begin{figure}[htb!]
-%     \centering
-%     \includegraphics[width=.8\textwidth]{fundamentals/trafo_model_deviation.png}
-%     \caption[Two-Winding Transformer Circuit in the Positive Sequence]{Two-Winding Transformer Circuit in the Positive Sequence; a) ideal representation with impedances on each \acs{HV} and \acs{LV} side and b) related impedances on the XX side; own figure after \autocite{machowski_2020}}
-%     \label{fig:trafo-model-deviation}
-% \end{figure}
-
-% \sidenote{Basics}
-Typical for \acs{RMS}-modeling is the usage of sequence components, especially the positive sequence for symmetrical grid operation and test cases. \quelle 
+Typical for \acs{RMS}-modeling is the usage of sequence components, especially the positive sequence for symmetrical grid operation and test cases.
 An equivalent circuit for the positive sequence is shown in \autoref{fig:trafo-model} part a), respectively reduced to the transformer ratio, the series impedances of the windings on the \acs{LV} and \acs{HV} side, and the shunt branch affected by iron and magnetization losses. \autocite{machowski_2020,kundur_2022,milano_2010}
 
 The transformer ratio is typically noted as $\underline{\vartheta}$. 
 Generally speaking it is the ratio between the number of windings of the secondary side to the primary side, as noted in \autoref{eq:trafo-ratio-easy}. 
-With the typically used calculation unit \glqq per unit\grqq\footnote{means standardization to a reference value; further information on page \pageref{chap:symbols} and \textcite{machowski_2020}, Appendix A}, the ratio becomes one in the standard case. 
+With the typically used calculation unit per unit\footnote{means standardization to a reference value; further information on page \pageref{chap:symbols} and \textcite{machowski_2020}, Appendix A.}, the ratio becomes one in the standard case. 
 A transformer ratio, which is only shifting current angles with the shifting angle $\phi$, is represented through a complex number using the Euler Identity, as shown in \autoref{eq:trafo-ratio}.
 \begin{align}
     \vartheta&=\frac{N_2}{N_1} \label{eq:trafo-ratio-easy} \\[6pt]
@@ -383,22 +366,22 @@ A transformer ratio, which is only shifting current angles with the shifting ang
     \begin{subfigure}[c]{.46\textwidth}
         \centering
         \includegraphics[width=\linewidth]{tikz_graphics/images/transformer_reduced.pdf}
-        \subcaption{Simplifyied Representation}
+        \subcaption{Simplified Representation}
     \end{subfigure}
     % \includegraphics[width=.8\textwidth]{fundamentals/trafo_model_deviation.png}
-    \caption[Two-Winding Transformer Circuit in the Positive Sequence]{Two-Winding Transformer Circuit in the Positive Sequence; a) ideal representation with impedances on the \acs{HV} side and b) simplifyied circuit with only the series impedance related on the \acs{HV} side; own figure after \autocite{machowski_2020,kundur_2022,milano_2010}.}
+    \caption[Two-Winding Transformer Circuit in the Positive Sequence]{Two-Winding Transformer Circuit in the Positive Sequence; a) ideal representation with impedances on the \acs{HV} side and b) simplified circuit with only the series impedance related on the \acs{HV} side; own figure after \autocite{machowski_2020,kundur_2022,milano_2010}.}
     \label{fig:trafo-model}
 \end{figure}
 
 \sidenote{Simplifications}
-The first simplification is step is considering two assumptions. 
+The first simplification step is considering two assumptions. 
 First, the iron and magnetization losses are neglectable. 
 This can be illustrated with a short-circuit test of the transformer on the secondary side. 
 During this test, one can obtain with the concept of a voltage devider, that
 \begin{align}
     \underline{U}_\mathrm{Fe, \mu} \ll \underline{U}_\mathrm{T,rated}, \notag
 \end{align}
-meaning that the shunt branch impedance is much greater that the series impedance of the transformer. 
+meaning that the shunt branch impedance is much greater than the series impedance of the transformer. 
 Secondly, it is assumed, that the on the primary side related impedance of the secondary side, is equal to the impedance on the primary side. 
 This leads to a symmetrical circuit of the transformer and the positive sequence equivalent circuit simplifies to \autoref{fig:trafo-model} part b). 
 Mathematically this is shortly expressable as \autoref{eq:related-impedances}, \autoref{eq:trafo-symmetrical}, and \autoref{eq:series-impedance}. \autocite{machowski_2020,kundur_2022,milano_2010}
@@ -422,8 +405,8 @@ Using shunt branches, the variable ratio behavior can be represented in a $\Pi$-
 \end{figure}
 
 Looking at the transformer as a black box two-port, with the index one being the \ac{LV} side, the index two being the \ac{HV} side, the admittance matrix for the variable ratio behavior can be expressed as in \autoref{eq:admittance-behavior}. 
-The voltages and current are defined as in \autoref{fig:trafo-model} part b). 
-With rearranging the equation, one can obtain the admittance matrix of the $\Pi$-model with to the \acs{HV} side related values as in \autoref{eq:admittance-matrix-pi}. \autocite{milano_2010,burlakin_2024}
+The voltages and currents are defined as in \autoref{fig:trafo-model} part b). 
+With re-arranging the equation, one can obtain the admittance matrix of the $\Pi$-model with to the \acs{HV} side related values as in \autoref{eq:admittance-matrix-pi}. \autocite{milano_2010,burlakin_2024}
 
 \begin{align}
     \begin{bmatrix}
@@ -456,7 +439,7 @@ For calculation of the individual shunt branches, one can apply the standard rep
         \underline{U}_1 \\ \underline{U}_2
     \end{bmatrix} \notag % \label{eq:shunt-calc}
 \end{align}
-When equating this with \autoref{eq:admittance-matrix-pi}, the shunt branches can be calculated respectivly giving the admittances written down as \autoref{eq:y-12}, \autoref{eq:y-10}, and \autoref{eq:y-20}, as they are noted in \autoref{fig:pi-transformer} as well. \autocite{milano_2010,burlakin_2024}
+When equating this with \autoref{eq:admittance-matrix-pi}, the shunt branches can be calculated respectively giving the admittances written down as \autoref{eq:y-12}, \autoref{eq:y-10}, and \autoref{eq:y-20}, as they are noted in \autoref{fig:pi-transformer} as well. \autocite{milano_2010,burlakin_2024}
 \begin{align}
     \underline{Y}_{12}&=\frac{1}{\underline{\vartheta} \cdot \underline{a}_\mathrm{T}} \cdot \underline{Y}_\mathrm{T} \notag \\[6pt]
     \underline{Y}_{21}&=\frac{1}{\underline{\vartheta} \cdot \underline{a}_\mathrm{T}^*} \cdot \underline{Y}_\mathrm{T}\text{, and} \label{eq:y-12} \\[12pt]
@@ -468,9 +451,9 @@ When equating this with \autoref{eq:admittance-matrix-pi}, the shunt branches ca
 Reactances and resistances are referred to the base voltage and apparent power of the operational unit, such as the transformer. 
 The power system simulation uses its own base voltage and base apparent power, enabling the use of one single calculation domain. 
 This is done to simplify the calculation and to make the results easily comparable to each other. 
-Hence, the reffered values have to be transformed from the equipment based values to the simulation based values. 
+Hence, the referred values have to be transformed from the equipment based values to the simulation based values. 
 The relation for the transformer admittance is defined as follows. 
-Generally speaking, this thesis is using and reffering to the per unit based values, although it is not denoted in the index of the values.
+Generally speaking, this thesis is using and referring to the per unit based values, although it is not denoted in the index of the values.
 \begin{align}
     \underline{Y}_\mathrm{T,~based}&=\underline{Y}_\mathrm{T} \cdot \frac{S_\mathrm{n}}{S_\mathrm{n,~sim}} \label{eq:y-t-based} \\[6pt]
     \underline{Z}_\mathrm{line,~based}&=\underline{Z}_\mathrm{line} \cdot \frac{S_\mathrm{n,~sim}}{V_\mathrm{n,~sim}^2} \label{eq:y-line-based}
@@ -483,7 +466,7 @@ Additionally, \textcite{glover_2017a} are giving some transformer specific calcu
 
 \subsection{Further Considerations of a Transformer Model}
 \label{sec:further-considerations}
-\mycomment[MK]{Ist die section überhaupt relevant? Eigentlich könnte man ja auch denken, dass die etwas überflüssig ist...}
+% \mycomment[MK]{Ist die section überhaupt relevant? Eigentlich könnte man ja auch denken, dass die etwas überflüssig ist...}
 
 The following described (possible) characteristics of transformers shall not be considered in this thesis.
 They are mentioned in case differences towards other simulation tools occur, which might consider these.
@@ -494,30 +477,44 @@ All of the following is a synthesis of different standard literature, but esp. \
 \sidenote{Vector Groups}
 The first consideration are so called vector groups.
 These represent a different internal interconnection scheme and are thus resulting in a different magnetic coupling of the single phase windings.
-Under the consideration of different treatment as star, delta or mixtures of them, the ratio is not only phase shifted, but can as well be differing by the factor $\sqrt{3}$. 
-Relevant for the modeling is only the resulting phase rotation, as length, star or delta consideration or else is not changing the overall ratio of the transformer.
+Under the consideration of different treatments as star, delta or mixtures of them, the ratio is not only phase shifted, but can as well be differing by the factor $\sqrt{3}$. 
+Relevant for the modeling is only the resulting phase rotation, as length, or circuits of magnetic coupling are not changing the overall ratio of the transformer.
 The relevant ratio is dependent on the grid, the suitable transformer is then chosen after that.
 
 \begin{figure}[htb!]
         \centering
-        \includegraphics[width=.9\linewidth]{modeling/transformer_controls.png}
+        \begin{subfigure}[b]{0.29\linewidth}
+            \centering
+            \includegraphics{tikz_graphics/images/vectors_normal.pdf}
+            \subcaption{Longitudinal}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.29\linewidth}
+            \centering
+            \includegraphics{tikz_graphics/images/vectors_phase_shifter.pdf}
+            \subcaption{Phase-Shifter}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.29\linewidth}
+            \centering
+            \includegraphics{tikz_graphics/images/vectors_cross_regulator.pdf}
+            \subcaption{Angled Regulator}
+        \end{subfigure}
         \caption[Illustration of the voltage vectors for different regulating transformers]{Illustration of the voltage vectors for different regulating transformers; after \autocite{schwab_2022}.}
         \label{fig:regulating-transformer-types}
 \end{figure}
 
 \sidenote{Regulating transformers}
 When looking at regulatable transformers, there are three main types, as depicted in \autoref{fig:regulating-transformer-types}.
-In this thesis only the simplest case, the longitudinal controlled transformer type is relevant and modeled. 
+In this thesis only the longitudinal controlled transformer type is relevant and modeled. 
 It is only capable of varying the voltage magnitude.
 The remaining two are either just regulating and changing the phase angle, and therefore the imaginary part of the voltage, or a mixture of the both first described.
 Important to note on the behalf of voltage stability is, that the longitudinal controller cannot actively control the reactive power, and thus act directly on the voltage stability.
-It can only influence the voltage and thus hold the bus or brach longer in a certain defined voltage band.
+It can only influence the voltage and thus hold the bus or branch longer in a certain defined voltage band.
 
 \subsection{Use of Power System Simulation Tools}
 \label{sec:simulation-tools}
 
 \sidenote{diffpssi}
-For this thesis relevant are mainly two Power System Simulation tools.
+For this thesis are mainly two Power System Simulation tools are relevant.
 The first and main objective, \textit{diffpssi} is an open source project from Georg Kordowich, member of the chair hosting this thesis.
 This open source tool provides a \acs{RMS} domain simulation of Power Systems, considering passive grid elements like lines, shunts, loads etc., but dynamic and controlled models like Synchronous Machines, Inverters or similar as well.
 The project and the integration of a full Synchronous Machine model is presented in the published paper of \textcite{kordowich_2023}.
@@ -533,7 +530,7 @@ In this thesis it is used as comparative tool, as it is also widely used in comp
 The accounted version is \textit{DIgSILENT PowerFactory 2023 SP1}.
 
 \sidenote{Other open source tools}
-To give an overview of other open source power system simulation projects, one can have a look at \href{https://github.com/ps-wiki/best-of-ps}{this GitHub repository}.
+To give an overview of other open-source power system simulation projects, one can have a look at \href{https://github.com/ps-wiki/best-of-ps}{this GitHub repository}.
 At the submission date of this thesis, this repository is getting updated on a regular basis.
 \textcite{jinningwang_2025} ranks around 140 open-source projects for power system analysis, grouped into 15 categories.
 If one wants to compare, investigate or look out for other funcitonalities, modeling techniques or software structures, this can be used as a starting point.
@@ -541,7 +538,7 @@ If one wants to compare, investigate or look out for other funcitonalities, mode
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{On-Load Tap Changer Controls}
 
-Regarding the planned specific evaluation of \acs{OLTC} controls, this part of the Fundamentals section aims to clarify the status on current used control methods.
+Regarding the planned specific evaluation of \acs{OLTC} controls, this part of the Fundamentals section aims to clarify the status on currently used control methods.
 Further, it describes the done advancements regarding the addition of a \acf{FSM}.
 For readers, that are not familiar with this module, it is quickly introduced, and the currently available control scheme is briefly described.
 
@@ -553,9 +550,9 @@ This control theory difference can be limiting as well for the results and objec
 % \subsubsection{Typical presets are manually set}
 \sidenote{Typical presets are manually set}
 The target voltage is typically set from the control room of the grid operator, coming from pre-calculated load flow analysis. 
-This can be set hours before, or even day-ahead with the estimated loads of the grid. 
+This can be set hours before, day-ahead or even seasonal with the estimated loads of the grid. 
 This value is set locally for each operating unit subsequently. 
-The control is then operating locally and without further involvement of the grid operator. \quelle
+The control is then operating locally and without further involvement of the grid operator. \autocite{machowski_2020}
 
 % \subsubsection{Discrete controllers are used in the field}
 \sidenote{Discrete controllers are used in the field}
@@ -568,6 +565,13 @@ This leads to the missing possibility to easily obtain mathematical stability fo
 \subsection{Advancement: Fast Switching Module and its Control}
 \label{sec:fsm-description}
 
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=\textwidth]{modeling/fsm_control_scheme.png}
+    \caption[Control loop of a \acf{FSM}]{Control loop of a \acs{FSM}; scheme based on \textcite{burlakin_2024}.}
+    \label{fig:fsm-control-loop}
+\end{figure}
+
 \begin{wrapfigure}[18]{L}{0.5\linewidth} 
     \centering
     \includegraphics[width=.77\linewidth]{fundamentals/scheme_fsm.png}
@@ -575,17 +579,17 @@ This leads to the missing possibility to easily obtain mathematical stability fo
     \label{fig:phys-scheme-fsm}
 \end{wrapfigure}
 \sidenote{Physical funcitonalities}
-The basic idea of the \acf{FSM} is using a conventional \acs{OLTC}, but connecting it with a power electronics based additional switching unit.
+The basic idea of the \acs{FSM} is using a conventional \acs{OLTC}, but connecting it with a power electronics based additional switching unit.
 The complete module and a detailed description can be found in \autocite{burlakin_2024a} and \autocite{maschinenfabrikreinhausengmbh_2023}.
 This module is serial to the normal tap changer, and can connect resp. make use of additional windings, either as addition or subtraction.
 This module can be used in any tap position of the \acs{OLTC}.
 The \acs{FSM} windings have to be located on the same core as the main and \acs{OLTC} regulating windings.
 In contrast to the conventional \acs{OLTC} not only the next lower or higher tap position can be accessed.
-Instead each \acs{FSM} tap position is reachable from every other, inroducing much bigger possible switching steps at one time.
+Instead each \acs{FSM} tap position is reachable from every other, introducing much bigger possible switching steps at one time.
 The tap increment $\Delta m$ of the \acs{FSM} is understood as factor of the conventional tap increment.
 Typically used values for $\Delta m$ are $1$ or $2$, the number of tap positions is limited in the interval $[-4,4]$.
 Considering a \acs{OLTC} voltage change of $0.02$ p.u. per tap, this is resulting in a maximum change magnitude of $32$ \%.
-With a minimum time constant of $0.02$ s\footnote{limited by the filtering of a $50$ Hz signal}, this results in possibly large dynamic actions.
+With a minimum time constant of $0.02$ s\footnote{limited by the filtering of a $50$ Hz signal.}, this results in possibly large dynamic actions.
 A scheme of the structure is added in \autoref{fig:phys-scheme-fsm}, where following items are numbered:
 \begin{enumerate}[label=\protect\circled{\arabic*}]
     \item \textbf{Main winding} with coarse change-over selector
@@ -604,18 +608,11 @@ The \acs{OLTC} is not only activated after the \acs{FSM} reached an extreme posi
 The control enables the \acs{OLTC} first when exceeding the deadband.
 The \acs{FSM} is only getting activated, when the function for tap skipping is not zero anymore.
 
-\begin{figure}[htb!]
-    \centering
-    \includegraphics[width=\textwidth]{modeling/fsm_control_scheme.png}
-    \caption[Control loop of a \acf{FSM}]{Control loop of a \acs{FSM}; scheme based on \textcite{burlakin_2024}.}
-    \label{fig:fsm-control-loop}
-\end{figure}
-
 \sidenote{Details of the control circuit}
 Generally speaking, the control scheme is devided into two paths, the \acs{FSM} and the \acs{OLTC} part.
 The control scheme input $v_\mathrm{f}$ is the measurement delayed or filtered voltage at the decided bus.
 Filtering is represented by a PT1 block with the filtering time constant $T_\mathrm{f}$.
-Subtracted from the reference voltage $v^*$ this is the voltage deviation, which is in the interest of the tap changer. 
+Subtracted from the reference voltage $v^*$ this is the voltage deviation, which is of interest for the tap changer. 
 If the absolute voltage difference $\Delta v$ is bigger than the the deadband of the control, the function $e(t)$ is enabling the cascaded memory function $c_\mathrm{m}(t)$, and for the \acs{OLTC} path $e_\mathrm{k}(t)$.
 In the depicted scheme in \autoref{fig:fsm-control-loop} from \autocite{burlakin_2024} the \acs{OLTC} is only activated, if the \acs{FSM} is in one of its end positions.
 Subsequently, the function $c_\mathrm{k}(t)$ is the memory function for the \acs{OLTC}, both with their specific time constants $\tau_\mathrm{m}$ resp. $\tau_\mathrm{k}$.
@@ -645,19 +642,10 @@ A more detailed description is given by \textcite{burlakin_2024}, where standard
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Summary in Short and Simple Terms}
 
-The fundamentals chapter introduced resp. showed resources for understanding the basics of voltage satbility, espacially considering the \acs{OLTC}.
-An analytical derivation of power voltage characteristics in grid calculations has been introduced with the Nose Curve examplary for a simple system.
+The fundamentals chapter introduced resp. showed resources for understanding the basics of voltage satbility, especially considering the \acs{OLTC}.
+An analytical derivation of power voltage characteristics in grid calculations has been introduced with the Nose Curve exemplary for a simple system.
 A suitable index is proposed for comparing \ac{TDS} dynamics of different scenarios with the \acf{TVI}.
 
-The mathematical description of a variable ratio transformer is derived, further possible applications and imrpvements illustrated.
+The mathematical description of a variable ratio transformer is derived, further possible applications and improvements illustrated.
 The in this thesis used power system simulation tools were introduced and a reference given, where a few open-source tools are compared.
-Lastly, the new advancement regarding the \acs{FSM} and its control proposal is described.``
-
-% \commenting{
-%     Shortly summarize the bullet points / key takeaways from the topics
-%     \begin{itemize}
-%         \item Voltage Stability - Static and dynamic
-%         \item Power System Modeling - especially Transformer Modeling
-%         \item New Advancement from Ilya
-%     \end{itemize}
-% }
+Lastly, the new advancement regarding the \acs{FSM} and its control proposal is described.

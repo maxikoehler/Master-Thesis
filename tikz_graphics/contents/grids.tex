@@ -52,12 +52,12 @@
         % \draw [help lines] (-1,-5) grid (15,5);
         \small
         \draw (0,0) node[oscillator, anchor=east, name=gen]{} --(.5,0)
-        to ++(.5,0) \bushere{1}{}{Bus 2}
+        to ++(.5,0) \bushere{1}{}{Bus 0}
         to[oosourcetrans] ++(2,0) 
-        \bushere{1}{}{Bus 1} -- ++(1.5,0) coordinate(line) -- ++(1.5,0)
-        \bushere{2}{}{Bus 0} coordinate(b0);
-        \draw (b0) ++(0,1) -- ++(1,0) \loadside{Load 1}{1}{0};
-        \draw (b0) ++(0,-1) -- ++(1,0) \loadside{Load 2}{1}{0} ++(1,0);
+        \bushere{1}{}{Bus 1} -- ++(1,0) \loadside{Load 1}{1}{0};%-- ++(1.5,0) coordinate(line) -- ++(1.5,0)
+        % \bushere{2}{}{Bus 0} coordinate(b0);
+        % \draw (b0) ++(0,1) -- ++(1,0) \loadside{Load 1}{1}{0};
+        % \draw (b0) ++(0,-1) -- ++(1,0) \loadside{Load 2}{1}{0} ++(1,0);
     \end{tikzpicture}
     \caption{Single line network with two loads}
 \end{figure}

@@ -33,3 +33,130 @@
     \end{tikzpicture}
     \caption{Example: Control block diagram}
 \end{figure}
+
+\tikzsetnextfilename{oltc_algorithmics}
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[node distance = 1.1cm, auto]
+        \small
+        % Place nodes
+        \node [papStart] (Start){start};
+        \node [papData, below of=Start] (vbb){get bus bar voltage};
+        \node [papPredProc, below of=vbb] (vfilter){\nodepart{two}\shortstack{PT1 filter}};
+        \node [papProcess, below of=vfilter] (vdiff){calculate $\Delta \underline{V}$};
+        \node [papData, below of=vdiff, yshift=-3mm] (vdeadprev){store v$\_$dead as v$\_$dead$\_$prev};
+        \node [papPredProc, below of=vdeadprev, yshift=-3mm] (newvdb){\nodepart{two}\shortstack{v$\_$dead = Deadband($\Delta \underline{V}$)}};
+        \node [papDecision, below of = newvdb, yshift= -12mm](dec1){v$\_$dead: identical or signs differ};
+        \node [papPredProc, below of=dec1, yshift= -17mm] (intstep){\nodepart{two}\shortstack{integrator.get$\_$output(v$\_$dead)}};
+        \node [papDecision, below of = intstep, yshift= -10mm](dec2){if integrator > t$\_$1};
+        \node [papPredProc, below of=dec2, yshift= -15mm] (switch){\nodepart{two}\shortstack{switching(dir * v$\_$dead)}};
+        \node [papPredProc, below of=switch] (integreset){\nodepart{two}\shortstack{integrator.reset}};
+        \node [papProcess, below of=integreset] (calcul){calculate ratio};
+        \node [papData, below of=calcul] (return){return ratio};
+        \node [papEnd, below of = return] (End) {end};
+
+        \node [papPredProc, right of=dec1, xshift=25mm, yshift = -10mm] (integresetif){\nodepart{two}\shortstack{integrator.reset}};
+
+        % Place joins
+        \coordinate [below of = dec1, yshift= -7mm] (join1);
+        \coordinate [below of = calcul, yshift= 6mm] (join2);
+
+        % Draw edges
+        \path [papLine] (Start) -- (vbb);
+        \path [papLine] (vbb) -- (vfilter);
+        \path [papLine] (vfilter) -- (vdiff);
+        \path [papLine] (vdiff) -- (vdeadprev);
+        \path [papLine] (vdeadprev) -- (newvdb);
+        \path [papLine] (newvdb) -- (dec1);
+        \path [papLine] (dec1) node [below, yshift=-20mm, xshift=5mm]{no} -- (intstep);
+        \path [papLine] (intstep) -- (dec2);
+        \path [papLine] (dec2) -- (switch);
+        \path [papLine] (switch) -- (integreset);
+        \path [papLine] (integreset) -- (calcul);
+        \path [papLine] (calcul) -- (return);
+        \path [papLine] (return) -- (End);
+
+        \path [papLine] (dec1) -- ++(2,0) node [above]{yes} -| (integresetif);
+        \path [papLine] (dec2) -- ++(3,0) node[above, xshift=-10mm] {no}|- (join2);
+        \path [papLine] (integresetif) |- (join1);
+    \end{tikzpicture}
+    \caption{Algorithmics OLTC}
+\end{figure}
+
+\tikzsetnextfilename{fsm_algorithmics}
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[node distance = 1.1cm, auto]
+        \small
+        % Place nodes
+        \node [papStart] (Start){start};
+        \node [papData, below of=Start] (vbb){get bus bar voltage};
+        \node [papPredProc, below of=vbb] (vfilter){\nodepart{two}\shortstack{PT1 filter}};
+        \node [papProcess, below of=vfilter] (vdiff){calculate $\Delta \underline{V}$};
+        \node [papPredProc, below of=vdiff, yshift=-3mm] (newvdb){\nodepart{two}\shortstack{v$\_$dead = Deadband($\Delta \underline{V}$)}};
+        \node [papProcess, below of=newvdb] (enable){e = sign(v$\_$dead)};
+        \node [papDecision, below of = enable, yshift= -12mm](dec1){$m$ in end position?};
+
+        \node [papPredProc, below of=dec1, yshift= -17mm] (intstep){\nodepart{two}\shortstack{integrator$\_$m(e)\\integrator$\_$k(e$\_$k)}};
+        \node [papPredProc, below of=intstep] (tapskip){\nodepart{two}\shortstack{tap$\_$skips(v$\_$dead)}};
+
+        \node [papDecision, below of = tapskip, yshift= -15mm](dec2){if integ$\_$m > t$\_$m};
+        \node [papDecision, below of = dec2, yshift= -25mm](dec3){if integ$\_$k > t$\_$k};
+
+        \node [papPredProc, right of=dec2, xshift=25mm] (switchm){\nodepart{two}\shortstack{switching m}};
+        \node [papPredProc, below of=switchm] (integmreset){\nodepart{two}\shortstack{integrator m reset}};
+        
+        \node [papProcess, below of=dec3, yshift= -15mm] (calcul){calculate ratio};
+
+        \node [papPredProc, right of=dec3, xshift=25mm] (switchk){\nodepart{two}\shortstack{switching k}};
+        \node [papPredProc, below of=switchk] (integkreset){\nodepart{two}\shortstack{integrator k reset}};
+
+        \node [papData, below of=calcul] (return){return ratio};
+        \node [papEnd, below of = return] (End) {end};
+        \node [papProcess, right of=dec1, xshift=25mm, yshift = -10mm] (enableif){e$\_$k = e};
+
+
+        % Place joins
+        \coordinate [below of = dec1, yshift= -7mm] (join1);
+        \coordinate [below of = dec2, yshift= -7mm] (join2);
+        \coordinate [below of = dec3, yshift= -7mm] (join3);
+
+        % Draw edges
+        \path [papLine] (Start) -- (vbb);
+        \path [papLine] (vbb) -- (vfilter);
+        \path [papLine] (vfilter) -- (vdiff);
+        \path [papLine] (vdiff) -- (newvdb);
+        \path [papLine] (newvdb) -- (enable);
+        \path [papLine] (enable) -- (dec1);
+        \path [papLine] (dec1) node[below, xshift=5mm, yshift=-12mm]{no} -- (intstep);
+        \path [papLine] (intstep) -- (tapskip);
+        \path [papLine] (tapskip) -- (dec2);
+        \path [papLine] (dec2) node[below, xshift=5mm, yshift=-12mm]{no} -- (dec3);
+        \path [papLine] (dec3) node[below, xshift=5mm, yshift=-12mm]{no} -- (calcul);
+        \path [papLine] (calcul) -- (return);
+        \path [papLine] (return) -- (End);
+
+        \path [papLine] (dec1) -- ++(2,0) node[above]{yes} -| (enableif);
+        \path [papLine] (enableif) |- (join1);
+        \path [papLine] (dec2) -- ++(2,0) node[above]{yes} -- (switchm);
+        \path [papLine] (switchm) -- (integmreset);
+        \path [papLine] (integmreset) |- (join2);
+        \path [papLine] (dec3) -- ++(2,0) node[above]{yes} -- (switchk);
+        \path [papLine] (switchk) -- (integkreset);
+        \path [papLine] (integkreset) |- (join3);
+
+        % \path [papLine] (dec1) -- ++(2,0) node [above]{yes} -| (integresetif);
+        % \path [papLine] (dec2) -- ++(3,0) node[above, xshift=-10mm] {no}|- (join2);
+        % \path [papLine] (integresetif) |- (join1);
+
+
+        % Unterschiedlicher process zu FSMpref
+        \node (rect) at (2,-8.25) [draw, very thick, dashed, minimum width=8cm, minimum height=3.75cm, color=ees_red] {};
+        \path [papLine, very thick, color=ees_red] (6.5,-8) -- (7,-8);
+        \node (enableif2) at (9,-8) [papProcess, color=ees_red] {e$\_$k = e};
+        \path [papLine, color=ees_red, very thick] (enableif2) ++(0,2) -- (enableif2);
+        \path [papLine, color=ees_red, very thick] (enableif2) -- ++(0,-2);
+
+    \end{tikzpicture}
+    \caption{Algorithmics FSM}
+\end{figure}

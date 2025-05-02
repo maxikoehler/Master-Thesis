@@ -67,6 +67,7 @@
 			%\setcounter{tocdepth}{1}
 			%für die Anzeige von Unterkapiteln im Inhaltsverzeichnis
 			\setcounter{tocdepth}{2}
+			\cleardoublepage
 			\pdfbookmark[1]{Contents}{toc}	
 			\tableofcontents
 			% \maintoc
@@ -139,7 +140,8 @@
 
 	% sonstiger Anhang
 	\cleardoublepage
-	\pagenumbering{alph}
+	% \pagenumbering{alph}
+	\renewcommand{\thepage}{A-\arabic{page}}
 	\setcounter{page}{1}
 	\phantomsection\addcontentsline{toc}{chapter}{Appendix}
 	\appendix
