@@ -17,15 +17,15 @@
     \end{fquote}
 \end{textblock*}
 
-This part of the thesis aims to apply the developed and implemented model to a scenario in possible interest.
-Ideas, hat have come up during the implementation and validation of the models, shall be picked up here and used as a demonstration for \textit{diffpssi}
-On the other hand they can give more hints and discussion potential for the research questions targeting the \acs{FSM}.
+This part of the thesis aims to apply the developed and implemented model to a scenario of possible interest.
+Ideas, that have come up during the implementation and validation of the models, shall be picked up here and used as a demonstration for \textit{diffpssi}.
+On the other hand, they can give more hints and discussion potential for the research questions targeting the \acs{FSM}.
 The constitutuion of the following sections is differing compared to the rest of the thesis.
 Each section will look at a specific idea or area, where a hypothesis or expectation is presented, before it gives a look into the results.
 % This deviation targets not to mix the cases or ideas up and to strive for a more consistent argumentation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Voltage Stability after a Short-Cicuit}
+\section{Voltage Stability after a Short-Circuit Fault}
 \label{sec:case-1}
 
 \sidenote{Used setup}
@@ -68,7 +68,7 @@ Following control schemes are part of the comparisons:
 \end{table}
 
 \sidenote{Added event}
-The considered event for this setup and scenario is a three phase short-circuit, placed at bus one for the time steps between $1$ s and $1.07$ s.
+The considered event for this setup and scenario is a three phase short-circuit fault, located at bus one for the time steps between $1$ s and $1.07$ s.
 As the stability of the bus voltages can also be harmed after a longer period of time, a simulation time for $120$ s is applied.
 Also, this time period should indicate tap hunting, if it occurs.
 
@@ -81,7 +81,7 @@ Also, this time period should indicate tap hunting, if it occurs.
 
 \sidenote{Postulation}
 First, looking at the bus voltages alone and neglecting other factors is central.
-The hypothesis, that the \acs{FSM} can support the voltage stability of the system for longer is tested.
+The hypothesis, that the \acs{FSM} can support the voltage stability of the system for a longer time period is tested.
 As the \acs{OLTC} control can vary and thus support, an improved \acs{TDS} should be visible. 
 The \acsp{FSM} have a bigger ratio range, and can switch faster.
 Dependent on the used scheme also with a smaller deadband as the \acs{OLTC}, why these should increase the time voltage can be held in the relevant band even more.  
@@ -89,7 +89,7 @@ Dependent on the used scheme also with a smaller deadband as the \acs{OLTC}, why
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=14cm]{development_files/case_studies/plots/case1_tds_bus_voltages.pdf}
-    \caption[\acs{TDS} for case study one split into busses for comparing the control schemes]{\acs{TDS} for case study one split into busses for comparing the control schemes; The black dashed lines account for an \acs{TVI} envelope with the parameters $\beta=0.1$,  $v_\mathrm{st}=0.9\text{ p.u.}$, and $t_\mathrm{f}=1.06\text{ s}$.}
+    \caption[\acs{TDS} for case study one split into busbars for comparing the control schemes]{\acs{TDS} for case study one split into busbars for comparing the control schemes; The black dashed lines account for an \acs{TVI} envelope with the parameters $\beta=0.1$,  $v_\mathrm{st}=0.9\text{ p.u.}$, and $t_\mathrm{f}=1.06\text{ s}$.}
     \label{fig:case1-voltages}
 \end{figure}
 
@@ -102,8 +102,12 @@ Both \acs{FSM} modules jump to the end position just a few milliseconds in the f
 After that, depending on the enabling functions and tap skipping, the voltage dependent control switches also with the \acs{OLTC} part back to higher ratios.
 The \acs{FSM} preferring control uses the only the \acs{FSM}, as the module is not long enough in one of its end postions.
 Interestingly, both result in a stable state at least until the end of the simulation time, but with different ratios.
-While the voltage dependent control stays static after around $50\text{ s}$ with a ratio of $u_\mathrm{l}=1.04\text{ p.u.}$, the \acs{FSM} preferring control seems to enter a mode called tap hunting.
+While the voltage dependent control stays static after around $50\text{ s}$ with a ratio of $u_\mathrm{l}=1.04\text{ p.u.}$, the \acs{FSM} preferring control overshoots and switches back.
 This means the control switches back and forth, and is kind of oscillating around a middle transformer ratio.
+The conventional \acs{OLTC} on the other hand switches in the opposite direction as both \acs{FSM} modules.
+This behavior comes from the missing voltage overshoot due to the switch of the \acs{FSM} controls during the fault, especially visible in \autoref{fig:case2-voltages}.
+The values higher than the reference voltage have then be compromised.
+For the \acs{OLTC} the voltage begins to go down as result from the fault, so it tries to compensate by lowering the ratio.
 
 \begin{table}[htbp!]
     \caption[Time stamps for the first envelope cuts of each bus and controller in case study one]{Time stamps for the first envelope cuts of each bus and controller in case study one; values in the unit s.}
@@ -124,10 +128,10 @@ This means the control switches back and forth, and is kind of oscillating aroun
 \end{table}
 
 \sidenote{Bus voltages}
-The afore obtained switches of the tap changers are visible in the \acs{TDS} plots of the bus voltages as well.
+The before obtained switches of the tap changers are visible in the \acs{TDS} plots of the bus voltages as well.
 \autoref{fig:case1-voltages} shows the control schemes compared through the bus voltages in the subplots.
 A voltage envelope is inserted with a dashed black line, considered for the parameters of $\beta=0.1$,  $v_\mathrm{st}=0.9\text{ p.u.}$, and $t_\mathrm{f}=1.06\text{ s}$.
-Here, the afore described characteristics of tap hunting of the \acs{FSM} preferring control can be observed.
+Here, the before described characteristics of switching back and forth of the \acs{FSM} preferring control can be observed.
 Further, all tap changer controls indicate an improvement in stability.
 While the base scenario without any tap changer control exceeds the envelope at around $29\text{ s}$, the discrete \acs{OLTC} already increases the time to around $45\text{ s}$. 
 The \acs{FSM} controlled tap changers result in stable bus voltages over the complete simulation, while none of the voltages violates the envelope.
@@ -155,8 +159,8 @@ The exact results are included in \autoref{tab:case1-critical-times}.
 Accounting for the \acs{TVI}\footnote{in the text no unit is used, in order to avoid confusion with time values.} values in \autoref{tab:case1-tvi}, this visual based statement is supported as well.
 The most critical scenario is represented with us of the simple transformer, with a \acs{CSI} of over $70\text{ s}$.
 Both \acs{FSM} controls result in the most stable with a \acs{CSI} of around $30\text{ s}$, while the discrete \acs{OLTC} is in the middle with around $50\text{ s}$.
-Since this is the evaluation of the whole system, the values for the single busses are also calculated before.
-Here, in every of the four scenarios or control types, bus three is the most critical, with always being the only one above the \acs{CSI}.
+Since this is the evaluation of the whole system, the values for the single busbars are also calculated before.
+Here, in every of the four scenarios or control types, bus two is the most critical, with always being the only one above the \acs{CSI}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Interaction with Machines without Control}
@@ -164,12 +168,12 @@ Here, in every of the four scenarios or control types, bus three is the most cri
 
 \sidenote{Set-up, scenario and general}
 For the second investigation, looking into the interaction with synchronous machines, the same simulation setup as in case study one is chosen.
-Including two machines and all four control possiblilities, this scenario including the short-circuit event shall indicates a power and therefore machine rotor swinging.
+Including two machines and all four \acs{OLTC} and \acs{FSM} control possiblilities, this scenario including the short-circuit event shall indicates a power and therefore machine rotor swinging.
 % The small differences in the presented \acs{FSM} controls, and the \acs{OLTC} control are expected to have different impacts on this topic.
 The same parameterization and set-up of the controllers is chosen as in the previous section.
 
 \sidenote{Postulation}
-Considering the different time constants and enabling functionalities of the \acs{FSM} controllers resp. the standard \acs{OLTC} controller applied to the grid, are expected to trigger different reponses.
+Considering the different time constants and enabling functionalities of the \acs{FSM} controllers resp. the standard \acs{OLTC} controller applied to the grid, are expected to trigger different responses.
 Especially because these shorter time constants protrude into the typical voltage swings of machines after a short circuit event.
 Short circuit events demand a quick response, thus small changes or shifts in timing of switches or different enabling functions can have a significant influence.
 As the active power transfer from a bus to another can be expressed as denoted in \autoref{eq:func-p-transfer}, the variable ratio transformer is expected to manipulate this power transfer.
@@ -178,7 +182,7 @@ The electrical power is one input parameter in the differential equations of a s
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=\linewidth]{development_files/case_studies/plots/case2_tds_voltages_zoomed.pdf}
-    \caption[\acs{TDS} for case study two split into busses for comparing the control schemes]{\acs{TDS} for case study two split into busses for comparing the control schemes; The result has been zoomed to the limits $x \in [0,8]\text{ s}$ and $y \in [0.7,1.2]\text{ p.u.}$.}
+    \caption[\acs{TDS} for case study two split into busbars for comparing the control schemes]{\acs{TDS} for case study two split into busbars for comparing the control schemes; The result has been zoomed to the limits $x \in [0,8]\text{ s}$ and $y \in [0.7,1.2]\text{ p.u.}$.}
     \label{fig:case2-voltages}
 \end{figure}
 
@@ -189,7 +193,7 @@ These two are identical over the shown time period, as no switches of the \acs{O
 Bus two is inverted, as the \acs{FSM} controllers result in a faster ramp-up.
 The first few milliseconds after the fault clearing, the \acs{FSM} related curves are congruent, until the first switch of the \acs{FSM} preferred scheme takes place and the voltages split up.
 One can see the ongoing switching in this zoom very well, as well as the spread of the voltages.
-Even after just $8$ s, the voltages at the critical bus two spread in a band, which is apprix. $0.1$ p.u. wide.
+Even after just $8\text{ s}$, the voltages at the critical bus two spread in a band, which is approx. $0.1\text{ p.u.}$ wide.
 
 \sidenote{Electrical power of the machine}
 Focussing on the electrical power output of the synchronous machine at bus two, one can see the difference in \autoref{fig:case2-voltages}.
@@ -204,7 +208,7 @@ A second observation is the shorter swinging frequency of the \acs{FSM} cases.
 Looking into the machine speeds in \autoref{fig:case2-speed}, one can see a nearly identical picture.
 One difference has to be mentioned, as the peaks of machine speed do not vary as big as the electrical power compared over the four scenarios.
 But again, the \acs{OLTC} and simple transformer scenarios are congruent, the \acs{FSM} ones oscillate faster.
-The swinging is gone after around $6$ s.
+The oscillation is eliminated after around $6\text{ s}$.
 
 \begin{figure}[htbp!]
     \centering
@@ -223,7 +227,7 @@ The swinging is gone after around $6$ s.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Summary in Short and Simple Terms}
 
-The small excursion on applicaton studies shows an exemplary investigation on the different behaviors of a standalone transformer, versus different tap changer control schemes.
+The small excursion on application studies shows an exemplary investigation on the different behaviors of a standalone transformer, versus different tap changer control schemes.
 The increased stability of faster switching tap changers is illustrated and numerically quantified by an index, ranking how long and how much a bandwith of accepted voltages is violated.
 The cut of this bandwiths is labelled with a timestamp.
 Additionally, the electrial active power injected in the system by the generator can be quantified and alternated through the variable ratio of the dast switching transformer.

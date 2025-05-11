@@ -50,7 +50,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       },
       {
         "id": "dc92e26822a317b8",
@@ -63,7 +63,7 @@
               "type": "markdown",
               "state": {
                 "file": "Zettelkasten/0 Brain Dump/Work to Do - Perspective Packages.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
@@ -218,11 +218,11 @@
       "command-palette:Befehlspalette öffnen": false
     }
   },
-  "active": "3c41776c06bb8214",
+  "active": "dae2441f59320845",
   "lastOpenFiles": [
-    "Zettelkasten/0 Brain Dump/Work to Do - Perspective Packages.md",
     "Zettelkasten/0 Brain Dump/Case Studies.md",
     "Zettelkasten/Y Meeting Notes/2025-04-23 Bi-Weekly 15.md",
+    "Zettelkasten/0 Brain Dump/Work to Do - Perspective Packages.md",
     "2025-04-07 Bi-Weekly 14.md",
     "Zettelkasten/Y Meeting Notes/2025-03-31 Bi-Weekly 13.md",
     "Validation Test Cases.md",

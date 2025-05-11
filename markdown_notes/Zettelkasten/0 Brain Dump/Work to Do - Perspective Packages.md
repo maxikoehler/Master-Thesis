@@ -58,6 +58,13 @@ Idea here maybe for better comparison: If one has a critical scenario, all busse
 - [ ] Making the Version print ready (if necessary?)
 - [ ] Cover Design
 - [ ] Code Commenting?
+
+Ausstehende Korrekturen:
+- [x] S. 8: Spannungswinkel vs. Power Factor
+- [x] S. 64: Fig 5.1 Blauer Verlauf
+- [x] S. 16: Winkel Halbkreise
+- [ ] S. 19: Unterschied zwischen den verschiedenen FSM Regelungen -> Ilya fragen was ich da machen und begründen soll, wenn er die Änderung gemacht hat lol
+- [ ] S. 28: Gleichung Integrator einfügen?
 # Literature
 - [[Machowski, Bialek, Bumby - Power System Dynamics, Stability and Control]]
 - [[IEEE Guide for Load modeling]]
